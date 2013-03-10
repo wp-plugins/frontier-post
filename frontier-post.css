@@ -1,0 +1,38 @@
+/* ------------------
+ styling for front-end posts
+   ------------------   */
+
+#user_post_title {
+	width: 75%;
+	vertical-align: middle !important;
+}
+   
+td.frontier-form  {   
+	vertical-align: middle;
+	width: 90%;
+}
+
+.frontier-list {
+	background-image: none !important;
+	list-style: none !important;
+}
+
+ul.frontier-form  {
+	list-style: none;
+}
+
+table.frontier-list {
+	width: 90%;
+	border: 0;
+}
+
+.frontier-menu {
+	text-align: center;
+	border: 0;
+}
+table.frontier-menu {
+	width: 90%;
+}
+th.frontier-menu {
+	width: 33%;
+}
