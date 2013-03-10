@@ -16,11 +16,16 @@ WordPress Frontier Post Plugin enables adding, deleting and editing standard pos
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
 
 Frontier Post is intentionally made simple: 
+
+= Usage = 
+Add short-code [frontier-post] in a page content after install and activate the plugin
+
+= Main Features =
 * Stripped from advanced styling and js scripting.
 * Is intended to work with themes out-of-the-box
 * Users can create posts with media, and categorize posts
-* Users can delete their own posts 3 days after creation #1
-* Users can edit their own posts 7 days after creation #1
+* Users can delete their own posts 3 days after creation
+* Users can edit their own posts 7 days after creation
 * Tags not enabled (yet)
 * Excerpts not editable
 * Post thumbnail will take first image added.
@@ -28,15 +33,11 @@ Frontier Post is intentionally made simple:
 * No Custom Fields
 * Supports only published state - New posts are published immediately!.
 * Users must be logged in to post
-#1: Can be changed under settings
 
-Known Issues
+
+= Known Issues =
 * Only English, might add translation capability if plugin will be popular.
 * Only handles single category.
-
-= Usage = 
-Add short-code [frontier-post] in a page content after install and activate the plugin
-
 
 == Installation ==
 
@@ -58,7 +59,6 @@ None
 
 = 1.0.0 =
 * Initial release
-
 
 
 == Upgrade Notice ==
