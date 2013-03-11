@@ -36,21 +36,15 @@ $frontpost_permalink = get_permalink();
 		</tr>
 	</thead> 
 	<tbody>
-		<?php foreach( $user_posts as $post ) : setup_postdata($post);?>
+	<?php 
+	while ($user_posts->have_posts()) 
+		{
+			$user_posts->the_post();
+	?>
 			<tr>
-				<?php
-				
-				?>
 				<td><?php echo mysql2date('Y-m-d', $post->post_date); ?></td>
-				<td>
-					<a href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a>
-				</td>
-				
-				<td>
-					<?php  $category=get_the_category( $post->ID ); echo $category[0]->cat_name;?>
-				</td>
-				
-					
+				<td><a href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a></td>
+				<td><?php  $category=get_the_category( $post->ID ); echo $category[0]->cat_name;?></td>
 				<td>
 					<?php
 						if (frontier_can_edit($post->post_date) == true)
@@ -69,8 +63,9 @@ $frontpost_permalink = get_permalink();
 					?>
 					&nbsp;
 				</td>
-				
 			</tr>
-		<?php endforeach; ?>
+		<?php 
+		} 
+		?>
 	</tbody>
 </table>

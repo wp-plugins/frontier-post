@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: Frontier Post
-Plugin URI: http://nowhere.nowhere
+Plugin URI: http://http://wordpress.org/extend/plugins/frontier-post/
 Description: WordPress Frontier Post Plugin enables adding, deleting and editing standard posts from frontend. Add the shortcode [frontier-post] in a page, and you are ready to go.
 Author: finnj
 Version: 1.0.0
-Author URI: http://nowhere.nowhere
+Author URI: http://http://wordpress.org/extend/plugins/frontier-post/
 */
 
-//require (ABSPATH . WPINC . '/pluggable.php');
+
 
 session_start();
 
@@ -18,23 +18,48 @@ include("include/frontier_post_validation.php");
 function  wpfrtp_user_post_list()
 	{
 	
-	global $post;
-	global $current_user;
-	get_currentuserinfo();
+		global $post;
+		global $current_user;
+		get_currentuserinfo();
+		$pagenum	= isset( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
+		$ppp		= get_option('frontier_ppp') ? get_option('frontier_ppp') : 5;
 	
-	
-	$sqlargs = 	array(
-				'post_type' 	=> 'post',
-				'post_status' 	=> 'publish',
-				'author'		=>	$current_user->ID,
-				'order'			=> 'DESC',
-				'orderby' 		=> 'post_date', 
-				'numberposts	=>	25'
+		$args = array(
+				'post_type' 		=> 'post',
+				'post_status' 		=> 'publish',
+				'author'			=>	$current_user->ID,
+				'order'				=> 'DESC',
+				'orderby' 			=> 'post_date', 
+				'posts_per_page'    => $ppp,
+				'paged'				=> $pagenum,
 				);
 		
-	$user_posts=get_posts($sqlargs);
+		$user_posts 	= new WP_Query( $args );
+		if ( $user_posts->have_posts() ) 
+			{ 
 	
-    include_once("forms/frontier_list.php");
+				include("forms/frontier_list.php");
+			
+				$pagination = paginate_links( array(
+                    'base' => add_query_arg( 'pagenum', '%#%' ),
+                    'format' => '',
+                    'prev_text' => __( '&laquo;', 'frontier-post' ),
+                    'next_text' => __( '&raquo;', 'frontier-post' ),
+                    'total' => $user_posts->max_num_pages,
+                    'current' => $pagenum
+                        ) );
+
+				if ( $pagination ) 
+					{
+						echo $pagination;
+					}
+			else 
+				{
+				echo "/br>";
+				_e('Sorry, you do not have any posts.', 'frontier-post');
+				echo "/br>";
+				}
+			}
 	}  
 
 
@@ -238,11 +263,22 @@ function wpfrtp_delete_post()
 
 function frontier_post_set_defaults()
 	{
+	if(!is_numeric(get_option("frontier_post_edit_max_age")))
+		{
 		update_option("frontier_post_edit_max_age", 7 );
+		}
+	if(!is_numeric(get_option("frontier_post_delete_max_age")))
+		{
 		update_option("frontier_post_delete_max_age", 3 );
+		}
 	}
 	
 include('settings-menu.php');
+
+//$tmp_include_file = WP_PLUGIN_DIR .'/frontier-post/include/frontier-pagination-test.php';
+//error_log("include file: ".$tmp_include_file);
+//include($tmp_include_file);
+include('include/frontier_pagination_test.php');
 
 function wpfrtp_enqueue_scripts()
 	{
@@ -257,5 +293,6 @@ add_action('admin_menu', 'frontier_post_settings_menu');
 register_activation_hook( __FILE__ , 'frontier_post_set_defaults');
 
 add_shortcode("frontier-post","wpfrtp_user_posts");
+add_shortcode("frontier-test-pagination","wpfrtp_pagination_test");
  
 ?>
