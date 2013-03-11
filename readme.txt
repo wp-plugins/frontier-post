@@ -38,6 +38,7 @@ Add short-code [frontier-post] in a page content after install and activate the 
 = Known Issues =
 * Only English, might add translation capability if plugin will be popular.
 * Only handles single category.
+* Problem with image upload on wp 3.5, works on wp 3.5.1
 
 == Installation ==
 
@@ -48,7 +49,7 @@ Add short-code [frontier-post] in a page content after install and activate the 
 
 == Frequently Asked Questions ==
 
-None
+None at the moment
 
 == Screenshots ==
 
@@ -56,6 +57,9 @@ None
 2. Add new post form 
 
 == Changelog ==
+
+= 1.0.1 =
+* Added pagination to list of authors posts.
 
 = 1.0.0 =
 * Initial release

@@ -22,7 +22,7 @@ function  wpfrtp_user_post_list()
 		global $current_user;
 		get_currentuserinfo();
 		$pagenum	= isset( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
-		$ppp		= get_option('frontier_ppp') ? get_option('frontier_ppp') : 5;
+		$ppp		= get_option('frontier_ppp') ? get_option('frontier_ppp') : 10;
 	
 		$args = array(
 				'post_type' 		=> 'post',
