@@ -6,6 +6,11 @@
 	width: 75%;
 	vertical-align: middle !important;
 }
+
+#user_post_excerpt {
+	width: 98%;
+}
+
    
 td.frontier-form  {   
 	vertical-align: middle;
