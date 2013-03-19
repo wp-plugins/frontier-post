@@ -16,9 +16,12 @@
 			$thispost->post_content = '';
 		}
 
+	if(!isset($thispost->post_type))
+		{
+			$thispost->post_type = 'post';
+		}
+	
 ?>
-
-    
 <script type="text/javascript">
 	var filenames="";
 </script>
@@ -57,6 +60,14 @@
 				?>
 				</td>
 			</tr><tr>
+			<?php if ( current_user_can( 'frontier_post_exerpt_edit' ) )
+					{ ?>
+					<td class="frontier-form">
+						<?php _e("Excerpt", "frontier-post")?>:</br>
+							<textarea name="user_post_excerpt" id="user_post_excerpt"  cols="8" rows="2"><?php if(!empty($thispost->post_excerpt))echo $thispost->post_excerpt;?></textarea>
+						</td>
+					</tr><tr>
+			<?php 	} ?>
 				<td class="frontier-form">
 					<input type="submit"   name="user_post_submit" id="user_post_submit" value=<?php _e("Submit", "frontier-post"); ?>>
 					<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
@@ -72,3 +83,6 @@
 	</table>
 
  </div> <!-- ending div for wrapper-->  
+<?php
+	// end form file
+?>
