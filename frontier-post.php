@@ -4,7 +4,7 @@ Plugin Name: Frontier Post
 Plugin URI: http://http://wordpress.org/extend/plugins/frontier-post/
 Description: Effective and secure plugin that enables adding, deleting and editing standard posts from frontend. Add the shortcode [frontier-post] in a page, and you are ready to go.
 Author: finnj
-Version: 1.1.1
+Version: 1.1.2
 Author URI: http://http://wordpress.org/extend/plugins/frontier-post/
 */
 
@@ -370,7 +370,7 @@ function frontier_edit_post_link( $url, $post_id )
 		return $url;
     }
 
-include("include/frontier_my_posts_widget.php");
+//include("include/frontier_my_posts_widget.php");
 /*
 function frontier_my_posts_widget_init() 
 	{

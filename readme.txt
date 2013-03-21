@@ -4,7 +4,7 @@ Donate link:
 Tags: post from frontend, frontend posting, frontend editing, Frontier
 Requires at least: 3.4.0
 Tested up to: 3.5.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPL v3 or later
  
 Front end management of posts. Add, edit & delete posts from frontend - Fast, Easy, Secure and Effective :)
@@ -78,6 +78,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 3. Frontier Post settings
 
 == Changelog ==
+
+= 1.1.2 =
+* Fixed upgrade problem
 
 = 1.1.1 =
 * Danish translation added
