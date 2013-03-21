@@ -4,7 +4,7 @@ Donate link:
 Tags: post from frontend, frontend posting, frontend editing, Frontier
 Requires at least: 3.4.0
 Tested up to: 3.5.1
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: GPL v3 or later
  
 Front end management of posts. Add, edit & delete posts from frontend - Fast, Easy, Secure and Effective :)
@@ -25,14 +25,16 @@ Add short-code [frontier-post] in a page content after install and activate the 
 * Stripped from advanced styling and js scripting.
 * Is intended to work with themes out-of-the-box
 * Users can create posts with media, and categorize posts
-* Users can delete their own posts #1
-* Users can edit their own posts #1
-* Post can be edited in frontend directly from post (edit link) #1
+* Users can delete their own posts (Setting) 
+* Users can edit their own posts (Setting)
+* Post can be edited in frontend directly from post (edit link) (Setting)
 * Capabilities are aligned with Wordpress standard.
-* Excerpts editable #1
+* Excerpts editable (Setting)
 * Post thumbnail will take first image added.
 * Users must be logged in to post
-#1: Based on Frontier Post settings
+
+= Translation =
+* Danish
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
 
@@ -76,6 +78,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 3. Frontier Post settings
 
 == Changelog ==
+
+= 1.1.1 =
+* Danish translation added
 
 = 1.1 =
 * Added check for comments on edit and delete based on settings
