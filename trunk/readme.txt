@@ -1,39 +1,45 @@
 === Frontier Post ===
 Contributors: finnj
 Donate link: 
-Tags: post from frontend, frontend posting, frontend editing, Frontier
+Tags: post from frontend, frontend posting, frontend editing, Frontier, my post widget
 Requires at least: 3.4.0
 Tested up to: 3.5.1
-Stable tag: 1.1.2
+Stable tag: 1.2
 License: GPL v3 or later
  
-Front end management of posts. Add, edit & delete posts from frontend - Fast, Easy, Secure and Effective :)
+Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
   
 == Description ==
 
 WordPress Frontier Post Plugin enables adding, deleting and editing standard posts from frontend.
 
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
-Editors and Administrators can 
+Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.
 
 Frontier Post is intentionally made simple :)
 
 = Usage = 
-Add short-code [frontier-post] in a page content after install and activate the plugin
+Add short-code [frontier-post] in a page content after install and activativation of the plugin
 
 = Main Features =
-* Stripped from advanced styling and js scripting.
-* Is intended to work with themes out-of-the-box
-* Users can create posts with media, and categorize posts
+* Create posts with media directly from frontend
 * Users can delete their own posts (Setting) 
 * Users can edit their own posts (Setting)
-* Post can be edited in frontend directly from post (edit link) (Setting)
+* Post can be edited in frontend directly from post - standard edit link (Can be enabled/disabled in settings)
+* My Posts Widget 
 * Capabilities are aligned with Wordpress standard.
-* Excerpts editable (Setting)
-* Post thumbnail will take first image added.
+* Excerpts editable (Can be enabled/disabled in settings)
+* Multi select of Categories
+* Tags (Can be enabled/disabled in settings)
 * Users must be logged in to post
 
-= Translation =
+= My Posts Widget =
+* Show logged-in users posts (Author)
+ * Comments to users posts
+ * Experpts of comments
+* Create New Post link
+
+= Translations =
 * Danish
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
@@ -42,17 +48,13 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 1. Upload `frontier-post` to the `/wp-content/plugins/`  directory or search for Frontier Post from add plugin.
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Add a page with the shortcode: [frontier-post] in the content
+3. Add a page with the shortcode: [frontier-post] in the content (will be added during activation)
 4. Add the page to your menu
 5: Update Frontier Post settings (settings menu)
 
 == Frequently Asked Questions ==
 
 = Known Issues and limitations =
-* Only English, might add translation capability if plugin will be popular.
-* Only handles single category.
-* Issues with media upload on wp 3.5 (wp bug)
-* Tags not enabled (yet)
 * No Custom Fields
 * Supports only published state - New posts are published immediately!.
 * Only for standard posts, not custom post types
@@ -63,12 +65,16 @@ Let me know what you think, and if you have enhancement requests or problems let
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
  * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)
  * and sometimes with twenty twelve theme...
+* Windows: IE9, Firefox & Chrome, iPad & iPhone: Safari & Chrome
+
+
 
  = Clenup =
  * On deactivation: no cleanup.
  * On deletion options are deleted, and role capabilities are removed.
- * If you accidently delete the frontier-post plugin folder, you should
-  * Delete all options starting with 
+ * If you accidently delete the frontier-post plugin folder, you should:
+  * Delete all options starting with frontier_post
+  * Remove all capabilities starting with frontier
 
 
 == Screenshots ==
@@ -76,8 +82,16 @@ Let me know what you think, and if you have enhancement requests or problems let
 1. Frontier post list
 2. Add/Edit post form 
 3. Frontier Post settings
+4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 1.2 =
+* New My Posts Widget
+* Added multi select for Categories
+* Added support for Excerpts (Can be enabled/disabled in settings)
+* Added support for Tags (Can be enabled/disabled in settings)
+* Improved media upload
 
 = 1.1.2 =
 * Fixed upgrade problem
@@ -87,7 +101,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 = 1.1 =
 * Added check for comments on edit and delete based on settings
-* Added support for excerpts
+* Added support for excerpts (Can be enabled/disabled in settings)
 * Added role-based capabilities
 * Added ability to use Frontier Post edit directly from post using standard edit link
 * Added link to page containing page in shortcode
