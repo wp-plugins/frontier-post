@@ -17,7 +17,7 @@ if (frontier_can_add() )
 	<table class="frontier-menu" >
 		<tr class="frontier-menu">
 			<th class="frontier-menu" >&nbsp;</th>
-			<th class="frontier-menu" ><a href='<?php the_permalink();?><?php echo $concat;?>task=new'><?php _e("Add new post", "frontier-post"); ?></a></th>
+			<th class="frontier-menu" ><a href='<?php echo frontier_post_add_link() ?>'><?php _e("Create New Post", "frontier-post"); ?></a></th>
 			<th class="frontier-menu" >&nbsp;</th>
 		</tr>
 	</table>
@@ -52,7 +52,19 @@ if( $user_posts->found_posts > 0 )
 			<tr>
 				<td><?php echo mysql2date('Y-m-d', $post->post_date); ?></td>
 				<td><a href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a></td>
-				<td><?php  $category=get_the_category( $post->ID ); echo $category[0]->cat_name;?></td>
+				
+				<td><?php  
+					// List categories
+					$categories=get_the_category( $post->ID );
+					$cnt = 0;
+					foreach ($categories as $category) :
+						$cnt = $cnt+1;
+						if ($cnt > 1)
+							echo "</br>".$category->cat_name; 
+						else
+							echo $category->cat_name; 
+					endforeach;
+				?></td>
 				<td><?php  echo $post->comment_count;?></td>
 				<td>
 					<?php
