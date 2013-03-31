@@ -51,10 +51,10 @@ function frontier_post_settings_page()
 				// Read their posted value, and save it
 				update_option("frontier_post_edit_max_age", ( (int) $_POST[ "frontier_post_edit_max_age" ] ) );
 				update_option("frontier_post_delete_max_age", ( (int) $_POST[ "frontier_post_delete_max_age" ] ) );
-				update_option("frontier_ppp", ( (int) $_POST[ "frontier_ppp"] ) );
+				update_option("frontier_post_ppp", ( (int) $_POST[ "frontier_post_ppp"] ) );
 				update_option("frontier_post_page_id", ( (int) $_POST[ "frontier_post_page_id"] ) );
-				update_option("frontier_del_w_comments", ( isset($_POST[ "frontier_del_w_comments"]) ? $_POST[ "frontier_del_w_comments"] : "false" ) );
-				update_option("frontier_edit_w_comments", ( isset($_POST[ "frontier_edit_w_comments"]) ? $_POST[ "frontier_edit_w_comments"] : "false" ) );
+				update_option("frontier_post_del_w_comments", ( isset($_POST[ "frontier_post_del_w_comments"]) ? $_POST[ "frontier_post_del_w_comments"] : "false" ) );
+				update_option("frontier_post_edit_w_comments", ( isset($_POST[ "frontier_post_edit_w_comments"]) ? $_POST[ "frontier_post_edit_w_comments"] : "false" ) );
 				
 				//save capability settings
 		
@@ -103,10 +103,10 @@ function frontier_post_settings_page()
 		// get values from db
 		$frontier_post_edit_max_age 		= get_option('frontier_post_edit_max_age');
 		$frontier_post_delete_max_age 		= get_option('frontier_post_delete_max_age');
-		$frontier_ppp						= get_option('frontier_ppp');
+		$frontier_post_ppp						= get_option('frontier_post_ppp');
 		$frontier_post_page_id				= get_option('frontier_post_page_id');
-		$frontier_del_w_comments			= (get_option("frontier_del_w_comments")) ? get_option("frontier_del_w_comments") : "false";
-		$frontier_edit_w_comments			= (get_option("frontier_edit_w_comments")) ? get_option("frontier_edit_w_comments") : "false";
+		$frontier_post_del_w_comments			= (get_option("frontier_post_del_w_comments")) ? get_option("frontier_post_del_w_comments") : "false";
+		$frontier_post_edit_w_comments			= (get_option("frontier_post_edit_w_comments")) ? get_option("frontier_post_edit_w_comments") : "false";
 		
 		
 	?>
@@ -123,16 +123,16 @@ function frontier_post_settings_page()
 					<td><input type="text" name="frontier_post_edit_max_age" value="<?php echo $frontier_post_edit_max_age; ?>" /></td>
 				</tr><tr>
 					<td><?php _e("Allow edit of posts with comments:", "frontier-post"); ?>:</td>
-					<td><input type="checkbox" name="frontier_edit_w_comments" value="true" <?php echo ($frontier_edit_w_comments == "true") ? 'checked':''; ?>></td>
+					<td><input type="checkbox" name="frontier_post_edit_w_comments" value="true" <?php echo ($frontier_post_edit_w_comments == "true") ? 'checked':''; ?>></td>
 				</tr><tr>
 					<td><?php _e("Max age in days to allow delete of post:", "frontier-post"); ?>:</td>
 					<td><input type="text" name="frontier_post_delete_max_age" value="<?php echo $frontier_post_delete_max_age; ?>" /></td>
 				</tr><tr>
 					<td><?php _e("Allow deletion of posts with comments:", "frontier-post"); ?>:</td>
-					<td><input type="checkbox" name="frontier_del_w_comments" value="true" <?php echo ($frontier_del_w_comments == "true") ? 'checked':''; ?>></td>
+					<td><input type="checkbox" name="frontier_post_del_w_comments" value="true" <?php echo ($frontier_post_del_w_comments == "true") ? 'checked':''; ?>></td>
 				</tr><tr>
 					<td><?php _e("Number of post per page:", "frontier-post"); ?>:</td>
-					<td><input type="text" name="frontier_ppp" value="<?php echo $frontier_ppp; ?>" /></td>
+					<td><input type="text" name="frontier_post_ppp" value="<?php echo $frontier_post_ppp; ?>" /></td>
 				</tr><tr>
 					<td><?php _e("Page containing [frontier-post] shortcode:", "frontier-post"); ?></td>
 					<td>
@@ -218,8 +218,7 @@ function frontier_post_settings_page()
 				</tr><tr>
 					<td colspan="2"><b>Notice:</b></br><i>
 					<?php _e("- Media upload is not available to Contributors and Subscribers by Wordpress capabilities", "frontier-post");?></br>
-					<?php _e("- In wp 3.5.0 media upload fails due to a bug, existing media can be selected", "frontier-post");?></br>
-					<?php _e("- Wordpress standard rolemode does not allow Contributors and Subscribers to add/edit/delete posts, but you can bypass this above", "frontier-post");?></br>
+					<?php _e("- Wordpress standard rolemodel does not allow Contributors and Subscribers to add/edit/delete posts, but you can bypass this above", "frontier-post");?></br>
 					<?php _e("- Frontier Edit means that if a user selects the dit link on a post, Frontier will be used to edit instead of backend", "frontier-post");?></br>
 					<?php _e("-    - This is only if selected from frontend, if edit from backend, backend interface will be used", "frontier-post");?></br>
 					</i></td>

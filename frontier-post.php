@@ -2,27 +2,30 @@
 /*
 Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
-Description: Effective and secure plugin that enables adding, deleting and editing standard posts from frontend. Add the shortcode [frontier-post] in a page, and you are ready to go.
+Description: Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.1.2
+Version: 1.2
 Author URI: http://http://wordpress.org/extend/plugins/frontier-post/
 */
 
+// define constants
+define('FRONTIER_POST_VERSION', "1.2"); 
+define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
-session_start();
+//session_start();
 
 include("include/frontier_post_defaults.php");
 include("include/frontier_post_validation.php");
 
-function  wpfrtp_user_post_list()
+function  frontier_user_post_list()
 	{
 	
 		global $post;
 		global $current_user;
 		get_currentuserinfo();
 		$pagenum	= isset( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
-		$ppp		= get_option('frontier_ppp') ? get_option('frontier_ppp') : 5;
+		$ppp		= get_option('frontier_post_ppp') ? get_option('frontier_post_ppp') : 5;
 	
 		$args = array(
 				'post_type' 		=> 'post',
@@ -41,7 +44,7 @@ function  wpfrtp_user_post_list()
 	}  
 
 
-function wpfrtp_posting_form_submit()
+function frontier_posting_form_submit()
 	{
     global $current_user;
 	//get_currentuserinfo();	
@@ -143,7 +146,7 @@ function wpfrtp_posting_form_submit()
 	}
 
 
-function wpfrtp_user_post_form()
+function frontier_user_post_form()
 	{
 	
 	require_once(ABSPATH . '/wp-admin/includes/post.php');    
@@ -171,7 +174,7 @@ function get_file_extension($file_name)
   
 
 
-function wpfrtp_user_posts()
+function frontier_user_posts()
 	{    
 		global $wp_roles;
 		global $current_user;
@@ -197,15 +200,15 @@ function wpfrtp_user_posts()
 				{
                 case 'new':
                 case 'edit':
-                    wpfrtp_user_post_form();
+                    frontier_user_post_form();
                     break;
                 case 'delete':
-                    wpfrtp_delete_post();
-                    wpfrtp_user_post_list();
+                    frontier_delete_post();
+                    frontier_user_post_list();
                     break;    
                 case '':
                 default:
-                    wpfrtp_user_post_list();
+                    frontier_user_post_list();
                     break;
 				} 
 			}
@@ -221,7 +224,7 @@ function wpfrtp_user_posts()
         return $data;
     }
 
-function wpfrtp_delete_post()
+function frontier_delete_post()
 	{
 	if(isset($_REQUEST['task']))
 		{
@@ -264,9 +267,9 @@ function frontier_post_set_defaults()
 	//print_r('building default WP options');
 	add_option("frontier_post_edit_max_age", 10 );
 	add_option("frontier_post_delete_max_age", 3 );
-	add_option("frontier_ppp", 15 );
-	add_option("frontier_del_w_comments", "false"  );
-	add_option("frontier_edit_w_comments", "false"  );
+	add_option("frontier_post_ppp", 15 );
+	add_option("frontier_post_del_w_comments", "false"  );
+	add_option("frontier_post_edit_w_comments", "false"  );
 	
 	
 	foreach( $role_list as $role_name )
@@ -315,13 +318,14 @@ function frontier_post_set_defaults()
 	// Add capability edit_published_pages to allow authors to upload media if not present already
 	$xrole = get_role("author");
 	$xrole_caps = $xrole->capabilities;
+	/* Not neccessary 
 	if (!array_key_exists("edit_published_pages", $xrole_caps))
 		{
 			$xrole->add_cap( 'edit_published_pages');
 			//Set option to use on unistall to remove capability again
 			add_option("frontier_post_author_cap_set", "true");
 		}
-		
+	*/	
 	// Check if page containing [frontier-post] exists already, else create it
 	$tmp_id = $wpdb->get_var(
 		"SELECT id 
@@ -335,10 +339,11 @@ function frontier_post_set_defaults()
 		{
 		// Add new page
 		$my_page = array(
-                 'post_title' => 'My Posts',
-                 'post_content' => '[frontier-post]',				 
-                 'post_status' => 'publish',
-                 'post_type' => 'page',
+                 'post_title' 		=> 'My Posts',
+                 'post_content' 	=> '[frontier-post]',				 
+                 'post_status' 		=> 'publish',
+				 'comment_status' 	=> 'closed',
+                 'post_type' 		=> 'page',
 				);
 				
 		// Insert the page into the database
@@ -347,6 +352,9 @@ function frontier_post_set_defaults()
 		}
 	
 	add_option("frontier_post_page_id", $tmp_id );
+	
+	// Set version
+	update_option("frontier_post_version", FRONTIER_POST_VERSION);
 	
 	}
 
@@ -386,15 +394,15 @@ function frontier_post_add_link()
 	} 	
 
 
-function wpfrtp_enqueue_scripts()
+function frontier_enqueue_scripts()
 	{
 	wp_enqueue_style('frontierpost',plugins_url('frontier-post/frontier-post.css'));
 	} 
 
-add_action("wp_enqueue_scripts","wpfrtp_enqueue_scripts");  
+add_action("wp_enqueue_scripts","frontier_enqueue_scripts");  
 add_action("init","frontier_get_user_role"); 
-add_action("init","wpfrtp_posting_form_submit"); 
-add_action("init","wpfrtp_delete_post");  
+add_action("init","frontier_posting_form_submit"); 
+add_action("init","frontier_delete_post");  
 
 //error_log("Log message : ");
 
@@ -454,6 +462,8 @@ function frontier_my_posts_widget_init()
 	}
 add_action('widgets_init', 'frontier_my_posts_widget_init');
 */
+
+//add translation files
 function frontier_post_init() 
 	{
 	load_plugin_textdomain('frontier-post', false, dirname( plugin_basename( __FILE__ ) ).'/language');
@@ -462,5 +472,5 @@ add_action('plugins_loaded', 'frontier_post_init');
 
 add_filter( 'get_edit_post_link', 'frontier_edit_post_link', 10, 2 );
 add_action('admin_menu', 'frontier_post_settings_menu');
-add_shortcode("frontier-post","wpfrtp_user_posts");
+add_shortcode("frontier-post","frontier_user_posts");
 ?>

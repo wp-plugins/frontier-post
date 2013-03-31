@@ -28,7 +28,7 @@ function frontier_can_edit($tmp_post_date, $tmp_comments_cnt)
 	if ( frontier_post_age($tmp_post_date) > get_option('frontier_post_edit_max_age') )
 		$tmp_can_do = false;
 	
-	if ( (( (int) $tmp_comments_cnt) > 0) && ( (get_option("frontier_edit_w_comments") != "true") ))
+	if ( (( (int) $tmp_comments_cnt) > 0) && ( (get_option("frontier_post_edit_w_comments") != "true") ))
 		$tmp_can_do = false;
 	
 	return $tmp_can_do;
@@ -45,7 +45,7 @@ function frontier_can_delete($tmp_post_date, $tmp_comments_cnt)
 	if ( frontier_post_age($tmp_post_date) > get_option('frontier_post_delete_max_age') )
 		$tmp_can_do = false;
 	
-	if ( ( (int) $tmp_comments_cnt) > 0 && ( (get_option("frontier_del_w_comments") != "true") ))
+	if ( ( (int) $tmp_comments_cnt) > 0 && ( (get_option("frontier_post_del_w_comments") != "true") ))
 		$tmp_can_do = false;
 	
 	
