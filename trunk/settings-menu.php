@@ -39,7 +39,7 @@ function frontier_post_settings_page()
 			$wp_roles = new WP_Roles();
 				
 		$roles 			= $wp_roles->get_names();
-		$tmp_cap_list	= Array('can_add', 'can_edit', 'can_delete', 'exerpt_edit', 'redir_edit');
+		$tmp_cap_list	= Array('can_add', 'can_edit', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
 		// check for edit_published posts, for the edit_redir option
 		$cap2check = "edit_published_posts";
 		
@@ -53,8 +53,8 @@ function frontier_post_settings_page()
 				update_option("frontier_post_delete_max_age", ( (int) $_POST[ "frontier_post_delete_max_age" ] ) );
 				update_option("frontier_ppp", ( (int) $_POST[ "frontier_ppp"] ) );
 				update_option("frontier_post_page_id", ( (int) $_POST[ "frontier_post_page_id"] ) );
-				update_option("frontier_del_w_comments", ( $_POST[ "frontier_del_w_comments"] ? $_POST[ "frontier_del_w_comments"] : "false" ) );
-				update_option("frontier_edit_w_comments", ( $_POST[ "frontier_edit_w_comments"] ? $_POST[ "frontier_edit_w_comments"] : "false" ) );
+				update_option("frontier_del_w_comments", ( isset($_POST[ "frontier_del_w_comments"]) ? $_POST[ "frontier_del_w_comments"] : "false" ) );
+				update_option("frontier_edit_w_comments", ( isset($_POST[ "frontier_edit_w_comments"]) ? $_POST[ "frontier_edit_w_comments"] : "false" ) );
 				
 				//save capability settings
 		
@@ -146,15 +146,16 @@ function frontier_post_settings_page()
 			
 			<table border="1">
 					<tr>
-					<th colspan="6"></center><?php _e("Capabilities by user role", "frontier-post"); ?></center></th>
+					<th colspan="7"></center><?php _e("Capabilities by user role", "frontier-post"); ?></center></th>
 					<tr></tr>
 					<tr></tr>
-						<th width="25%"><?php _e("Role", "frontier-post")?></th>
-						<th width="15%"><?php _e("Can Add", "frontier-post"); ?></th>
-						<th width="15%"><?php _e("Can Edit", "frontier-post"); ?></th>
-						<th width="15%"><?php _e("Can Delete", "frontier-post"); ?></th>
-						<th width="15%"><?php _e("Edit Excerpt", "frontier-post"); ?></th>
-						<th width="15%"><?php _e("Frontier Edit", "frontier-post"); ?></th>
+						<th width="40%"><?php _e("Role", "frontier-post")?></th>
+						<th width="10%"><?php _e("Can Add", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Can Edit", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Can Delete", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Edit Excerpt", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Edit Tags", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Frontier Edit", "frontier-post"); ?></th>
 					
 					</tr><tr>
 					

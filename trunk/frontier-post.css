@@ -7,14 +7,43 @@
 	vertical-align: middle !important;
 }
 
+#frontier_post_title {
+	border: 0 !important;
+}
+
 #user_post_excerpt {
 	width: 98%;
 }
 
-   
-td.frontier-form  {   
-	vertical-align: middle;
-	width: 90%;
+#frontier_categorymulti {
+	width: 100% !important;
+}
+
+.frontier_helptext {
+	color: DarkGrey !important;
+}
+
+
+td.frontier_post_form   {  
+	border: 0 !important;
+}
+
+td.frontier_no_border  {  
+	border: 0 !important;
+}
+
+td.frontier_border  {  
+	border: 1px solid #ccc !important;
+	vertical-align: top !important;
+}
+
+
+th.frontier_heading  {  
+	padding: 5px !important;
+	margin: 5px !important;
+	border: 0 !important;
+	border-bottom : 0 !important;
+	/* background-color: #ccc; */
 }
 
 .frontier-list {
@@ -22,9 +51,6 @@ td.frontier-form  {
 	list-style: none !important;
 }
 
-ul.frontier-form  {
-	list-style: none;
-}
 
 table.frontier-list {
 	width: 90%;

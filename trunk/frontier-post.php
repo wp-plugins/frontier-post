@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Frontier Post
-Plugin URI: http://http://wordpress.org/extend/plugins/frontier-post/
+Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Effective and secure plugin that enables adding, deleting and editing standard posts from frontend. Add the shortcode [frontier-post] in a page, and you are ready to go.
 Author: finnj
 Version: 1.1.2
@@ -27,7 +27,7 @@ function  wpfrtp_user_post_list()
 		$args = array(
 				'post_type' 		=> 'post',
 				'post_status' 		=> 'publish',
-				'author'			=>	$current_user->ID,
+				'post_author'		=>	$current_user->ID,
 				'order'				=> 'DESC',
 				'orderby' 			=> 'post_date', 
 				'posts_per_page'    => $ppp,
@@ -43,7 +43,9 @@ function  wpfrtp_user_post_list()
 
 function wpfrtp_posting_form_submit()
 	{
-    
+    global $current_user;
+	//get_currentuserinfo();	
+			
     if(isset($_POST['action'])&&$_POST['action']=="wpfrtp_save_post")
 		{
         if($_POST['user_post_title'])
@@ -51,12 +53,12 @@ function wpfrtp_posting_form_submit()
 			// Only handle published posts, rest must be done from admin panel
             $post_status = 'publish';
 			
-			if(isset($_POST['cat']))
-				$tmp_category = $_POST['cat'];
+			//if(isset($_POST['cat']))
+			//	$tmp_category = $_POST['cat'];
 				
 			
-			if(!is_numeric($tmp_category) || $tmp_category <= 0)
-				$tmp_category = get_option("default_category");
+			//if(!is_numeric($tmp_category) || $tmp_category <= 0)
+			//	$tmp_category = get_option("default_category");
 				
 			$tmp_title 	= trim( $_POST['user_post_title'] );
 			if ( empty( $tmp_title ) ) 
@@ -65,22 +67,31 @@ function wpfrtp_posting_form_submit()
 			$tmp_title = trim( strip_tags( $tmp_title ));
         
 			$tmp_content = trim( $_POST['user_post_desc'] );
-			
-			$tmp_excerpt = trim($_POST['user_post_excerpt'] );
-			
 			if ( empty( $tmp_content ) ) 
 				$tmp_content = "No content";
 			
-			global $current_user;
-			get_currentuserinfo();	
+			$tmp_excerpt = trim($_POST['user_post_excerpt'] );
+
+			$tmp_categorymulti = $_POST['categorymulti'];
+			if ((!isset($tmp_categorymulti)) || (count($tmp_categorymulti)==0))
+				$tmp_categorymulti = Array(get_option("default_category"));
+				
+			$taglist = array();
+			if (isset( $_POST['user_post_tag1']))
+				array_push($taglist, $_POST['user_post_tag1']);
+			if (isset( $_POST['user_post_tag2']))
+				array_push($taglist, $_POST['user_post_tag2']);
+			if (isset( $_POST['user_post_tag3']))
+				array_push($taglist, $_POST['user_post_tag3']);
+			
 			
             $my_post = array(
-                 'post_title' => $tmp_title,
-                 'post_content' => $tmp_content,				 
-                 'post_status' => $post_status,
-                 'post_author' => $current_user->ID,				 
-                 'post_category' => array( $tmp_category ),
-				 'post_excerpt' => $tmp_excerpt,
+                 'post_title' 		=> $tmp_title,
+                 'post_content' 	=> $tmp_content,				 
+                 'post_status' 		=> $post_status,
+                 'post_author' 		=> $current_user->ID,				 
+                 'post_category' 	=> $tmp_categorymulti,
+				 'post_excerpt' 	=> $tmp_excerpt,
 				);
 				
             if($_REQUEST['task']=="new")
@@ -96,7 +107,11 @@ function wpfrtp_posting_form_submit()
 				wp_update_post( $my_post );
 				$postid= $_REQUEST['postid']; 
 				}
-			
+	
+			// Set tags
+			if ( current_user_can( 'frontier_post_tags_edit' ) )
+				wp_set_post_tags($postid, $taglist);
+	
 			$upload_dir = wp_upload_dir();
 			
 			if(isset( $_POST['filename'] ))
@@ -130,6 +145,9 @@ function wpfrtp_posting_form_submit()
 
 function wpfrtp_user_post_form()
 	{
+	
+	require_once(ABSPATH . '/wp-admin/includes/post.php');    
+	
     $concat= get_option("permalink_structure")?"?":"&";  
         
     if($_REQUEST['task']=="edit")
@@ -139,6 +157,7 @@ function wpfrtp_user_post_form()
         }
     else
 		{
+		$thispost = get_default_post_to_edit( "post", true );	
 		$_REQUEST['task']="new";
 		}
      
@@ -240,7 +259,7 @@ function frontier_post_set_defaults()
 	
 	
 	$role_list		= Array('administrator', 'editor', 'author', 'contributor', 'subscriber');
-	$tmp_cap_list	= Array('can_add', 'can_edit', 'can_delete', 'exerpt_edit', 'redir_edit');
+	$tmp_cap_list	= Array('can_add', 'can_edit', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
 	
 	//print_r('building default WP options');
 	add_option("frontier_post_edit_max_age", 10 );
@@ -258,17 +277,36 @@ function frontier_post_set_defaults()
 					
 		foreach($tmp_cap_list as $tmp_cap)
 			{
-				if ( ($tmp_cap == 'exerpt_edit') || ($tmp_cap == 'can_delete') || ($role_name == 'subscriber') ) 
-					$tmp_option = "false";
-				else
+				// Only enable all defaults for Administrator, Editor & Author
+				if ( ($role_name == 'administrator') || ($role_name == 'editor') )
+					{
 					$tmp_option  = "true";
+					}
+				else
+					{
+					// all options false for other profiles
+					$tmp_option = "false";
+					// except author who can add, edit and use the edit redir functionality
+					if ( ($role_name == 'author') && (($tmp_cap == 'add_edit') || ($tmp_cap == 'can_edit') || ($tmp_cap == 'redir_edit') ) )
+						{
+						$tmp_option  = "true";
+						}
+					}
 				
+				$tmp_option_id = 'frontier_post_'.$role_name.'_'.$tmp_cap;
+				
+				// add option (will not overwrite value if allready defined
 				add_option('frontier_post_'.$role_name.'_'.$tmp_cap, $tmp_option);
 				
-				// set capability
-				if ( $tmp_option == "true" )
+				// set capability (Based on option, so previous settings are respected is set)
+				$tmp_value		= ( get_option($tmp_option_id) ? get_option($tmp_option_id) : "false" );
+				if ( $tmp_value == "true" )
 					{
 						$xrole->add_cap( 'frontier_post_'.$tmp_cap );
+					}
+				else
+					{
+						$xrole->remove_cap( 'frontier_post_'.$tmp_cap );
 					}
 				
 			} // End capabilities
@@ -336,6 +374,17 @@ function frontier_get_user_role()
 	
 include('settings-menu.php');
 
+//Link for Frontier add post	
+function frontier_post_add_link() 
+	{
+	$url = '';
+	$concat= get_option("permalink_structure")?"?":"&";    
+	//set the permalink for the page itself
+	$frontier_permalink = get_permalink(get_option('frontier_post_page_id'));
+	$url = $frontier_permalink.$concat."task=new";
+	return $url;
+	} 	
+
 
 function wpfrtp_enqueue_scripts()
 	{
@@ -370,7 +419,34 @@ function frontier_edit_post_link( $url, $post_id )
 		return $url;
     }
 
-//include("include/frontier_my_posts_widget.php");
+function frontier_media_fix( $post_id ) 
+	{
+	global $frontier_post_id;
+	global $post_ID; 
+	
+	/* WordPress 3.4.2 fix */
+	$post_ID = $post_id; 
+	
+	// WordPress 3.5.1 fix
+	$frontier_post_id = $post_id;	
+    add_filter( 'media_view_settings', 'frontier_media_fix_filter', 10, 2 ); 
+	} 
+
+
+	
+//Fix insert media editor button filter
+ 
+function frontier_media_fix_filter( $settings, $post ) 
+	{
+	global $frontier_post_id;
+	
+    $settings['post']['id'] = $frontier_post_id;
+    //$settings['post']['nonce'] = wp_create_nonce( 'update-post_' . $frontier_post_id );
+	
+	return $settings;
+	} 	
+	
+include("include/frontier_my_posts_widget.php");
 /*
 function frontier_my_posts_widget_init() 
 	{
