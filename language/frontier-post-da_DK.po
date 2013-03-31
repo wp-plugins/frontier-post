@@ -1,0 +1,284 @@
+# Copyright (C) 2013 Frontier Post
+# This file is distributed under the same license as the Frontier Post package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Frontier Post 1.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
+"POT-Creation-Date: 2013-03-31 11:59:59+00:00\n"
+"PO-Revision-Date: 2013-03-31 19:08+0100\n"
+"Last-Translator: finnj\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#: forms/frontier_form.php:71 forms/frontier_list.php:40
+#: include/frontier_my_posts_widget.php:215
+msgid "Title"
+msgstr "Titel"
+
+#: forms/frontier_form.php:83 forms/frontier_list.php:41
+msgid "Category"
+msgstr "Kategori"
+
+#: forms/frontier_form.php:86
+msgid "Tags"
+msgstr "Tags"
+
+#: forms/frontier_form.php:103
+msgid "Select category, multible can be selected using ctrl key"
+msgstr "Vælg kategori, flere can vælges med ctrl"
+
+#: forms/frontier_form.php:108 forms/frontier_form.php:109
+#: forms/frontier_form.php:110
+msgid "Enter tag here"
+msgstr "Indsæt tag her"
+
+#: forms/frontier_form.php:127
+msgid "Excerpt"
+msgstr "Uddrag"
+
+#: forms/frontier_form.php:133
+msgid "Publish"
+msgstr "Udgiv"
+
+#: forms/frontier_form.php:134
+msgid "Cancel"
+msgstr "Annuller"
+
+#: forms/frontier_list.php:20 include/frontier_my_posts_widget.php:189
+msgid "Create New Post"
+msgstr "Opret Nyt Indlæg"
+
+#: forms/frontier_list.php:39
+msgid "Date"
+msgstr "Dato"
+
+#: forms/frontier_list.php:42
+msgid "Cmt"
+msgstr "Kmt"
+
+#: forms/frontier_list.php:43
+msgid "Action"
+msgstr "Aktion"
+
+#: forms/frontier_list.php:99
+msgid "&laquo;"
+msgstr ""
+
+#: forms/frontier_list.php:100
+msgid "&raquo;"
+msgstr ""
+
+#: forms/frontier_list.php:114
+msgid "Sorry, you do not have any posts (yet)"
+msgstr "Desværre, du har ingen indlæg (endnu)"
+
+#: frontier-post.php:215
+msgid "Please log in !"
+msgstr "Log venligst ind !"
+
+#: include/frontier_my_posts_widget.php:17
+msgid "My posts"
+msgstr "Mine Indlæg"
+
+#: include/frontier_my_posts_widget.php:28
+msgid "You have no posts"
+msgstr "Du har ingen indlæg"
+
+#: include/frontier_my_posts_widget.php:40
+msgid "Dont show date"
+msgstr "Vis ikke dato"
+
+#: include/frontier_my_posts_widget.php:44
+msgid "Only posts"
+msgstr "Kun indlæg"
+
+#: include/frontier_my_posts_widget.php:45
+msgid "Posts & comments "
+msgstr "Indlæg & kommentarer"
+
+#: include/frontier_my_posts_widget.php:46
+msgid "Posts and comments excerpt"
+msgstr "Indlæg og kommentar uddrag"
+
+#: include/frontier_my_posts_widget.php:50
+msgid "List posts of current user (author)"
+msgstr "Vis indlæg for nuværende bruger (forfatter)"
+
+#: include/frontier_my_posts_widget.php:219
+msgid "Post date format"
+msgstr "Datoformat for indlæg"
+
+#: include/frontier_my_posts_widget.php:229
+msgid "Show comments"
+msgstr "Vis kommentarer"
+
+#: include/frontier_my_posts_widget.php:240
+msgid "Comment date format"
+msgstr "Datoformat for kommentarer"
+
+#: include/frontier_my_posts_widget.php:250
+msgid "Number of posts & comments"
+msgstr "Antal indlæg og kommentarer"
+
+#: include/frontier_my_posts_widget.php:254
+msgid "Length of comment excerpt"
+msgstr "Længde af kommentar uddrag"
+
+#: include/frontier_my_posts_widget.php:258
+msgid "Show Add Post link ?"
+msgstr "Vis Opret Indlæg link ?"
+
+#: include/frontier_my_posts_widget.php:263
+msgid "No post text"
+msgstr "Ingen indlæg text"
+
+#: include/frontier_my_posts_widget.php:264
+msgid "No posts"
+msgstr "Ingen Indlæg"
+
+#: settings-menu.php:33
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Du har ikke tilstrækkelige rettigheder til at se denne side"
+
+#: settings-menu.php:99
+msgid "Settings saved."
+msgstr "Indstillinger gemt"
+
+#: settings-menu.php:122
+msgid "Max age in days to allow edit of post:"
+msgstr "Maks alder i dage for at tillade at rette indlæg:"
+
+#: settings-menu.php:125
+msgid "Allow edit of posts with comments:"
+msgstr "Tillad at redigere indlæg med kommentarer:"
+
+#: settings-menu.php:128
+msgid "Max age in days to allow delete of post:"
+msgstr "Maks alder i dage for at tillade sletning indlæg:"
+
+#: settings-menu.php:131
+msgid "Allow deletion of posts with comments:"
+msgstr "Tillad sletning indlæg med kommentarer:"
+
+#: settings-menu.php:134
+msgid "Number of post per page:"
+msgstr "Antal indlæg pr. side"
+
+#: settings-menu.php:137
+msgid "Page containing [frontier-post] shortcode:"
+msgstr "Side der indeholder [frontier-post] shortcode:"
+
+#: settings-menu.php:140
+msgid "None"
+msgstr "Ingen"
+
+#: settings-menu.php:149
+msgid "Capabilities by user role"
+msgstr "Rettigheder pr. rolle"
+
+#: settings-menu.php:152
+msgid "Role"
+msgstr "Rolle"
+
+#: settings-menu.php:153
+msgid "Can Add"
+msgstr "Kan oprette"
+
+#: settings-menu.php:154
+msgid "Can Edit"
+msgstr "Kan Rette"
+
+#: settings-menu.php:155
+msgid "Can Delete"
+msgstr "Kan Slette"
+
+#: settings-menu.php:156
+msgid "Edit Excerpt"
+msgstr "Ret Uddrag"
+
+#: settings-menu.php:157
+msgid "Edit Tags"
+msgstr "Ret Tags"
+
+#: settings-menu.php:158
+msgid "Frontier Edit"
+msgstr "Ret med Frontier"
+
+#: settings-menu.php:201
+msgid "NA"
+msgstr "NA"
+
+#: settings-menu.php:220
+msgid ""
+"- Media upload is not available to Contributors and Subscribers by Wordpress "
+"capabilities"
+msgstr ""
+"- Medie upload er ikke mulig for Biddragydere (Contributers) og Abbonenter "
+"(Subscribers) iht. Wordpress rettigheder."
+
+#: settings-menu.php:221
+msgid ""
+"- In wp 3.5.0 media upload fails due to a bug, existing media can be selected"
+msgstr ""
+"- I WP 3.5.0 fejler upload p.g.a. WP bug, eksisterende media kan vælges."
+
+#: settings-menu.php:222
+msgid ""
+"- Wordpress standard rolemode does not allow Contributors and Subscribers to "
+"add/edit/delete posts, but you can bypass this above"
+msgstr ""
+"- Wordpress std. rolle rettigheder tillader ikke Biddragydere (Contributers) "
+"og Abbonenter (Subscribers) at oprette/rette/slette indlæg, dette kan "
+"overstyres herover."
+
+#: settings-menu.php:223
+msgid ""
+"- Frontier Edit means that if a user selects the dit link on a post, "
+"Frontier will be used to edit instead of backend"
+msgstr ""
+"- Ret med Frontier betyder at hvis brugeren klikker på rediger linket på en "
+"post, benyttes Frontier Post i stedet for WP backend."
+
+#: settings-menu.php:224
+msgid ""
+"-    - This is only if selected from frontend, if edit from backend, backend "
+"interface will be used"
+msgstr ""
+"-    - Dette er kun fra Frontend, hvis rediger vælges fra backend benyttes "
+"standard metoden."
+
+#: settings-menu.php:230
+msgid "Save Changes"
+msgstr "Gem Ændringer"
+
+#. Plugin Name of the plugin/theme
+msgid "Frontier Post"
+msgstr "Frontier Post"
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/frontier-post/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Effective and secure plugin that enables adding, deleting and editing "
+"standard posts from frontend. Add the shortcode [frontier-post] in a page, "
+"and you are ready to go."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "finnj"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://http://wordpress.org/extend/plugins/frontier-post/"
+msgstr ""
+
+#~ msgid "Submit"
+#~ msgstr "Send"
+
+#~ msgid "Add new post"
+#~ msgstr "Opret nyt indlæg"
