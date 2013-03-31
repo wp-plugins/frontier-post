@@ -7,8 +7,8 @@ $frontier_permalink = get_permalink();
 //$role =	frontier_get_user_role();
 //echo "Role: ".$role."</br>"
 
-//print_r("allow edit with comments: ".get_option("frontier_edit_w_comments")."</br>");
-//print_r("allow delete with comments: ".get_option("frontier_del_w_comments")."</br>");
+//print_r("allow edit with comments: ".get_option("frontier_post_edit_w_comments")."</br>");
+//print_r("allow delete with comments: ".get_option("frontier_post_del_w_comments")."</br>");
 
 if (frontier_can_add() )
 	{
@@ -78,7 +78,7 @@ if( $user_posts->found_posts > 0 )
 						if (frontier_can_delete($post->post_date, $post->comment_count) == true)
 							{
 								?>
-									<a href="#" onclick="if(confirm('Are you sure?')){location.href='<?php echo $frontier_permalink;?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>'}" >Delete</a>
+									<a href="#" onclick="if(confirm('<?php _e('Are you sure you want to delete this post?', 'frontier-post')?>')){location.href='<?php echo $frontier_permalink;?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>'}" >Delete</a>
 								<?php
 							}
 					?>

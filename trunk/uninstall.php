@@ -29,9 +29,9 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 	//error_log("Deleting options for Frontier Post");
 	delete_option('frontier_post_edit_max_age');
 	delete_option("frontier_post_delete_max_age");
-	delete_option("frontier_ppp");
-	delete_option("frontier_del_w_comments");
-	delete_option("frontier_edit_w_comments");
+	delete_option("frontier_post_ppp");
+	delete_option("frontier_post_del_w_comments");
+	delete_option("frontier_post_edit_w_comments");
 	delete_option("frontier_post_page_id");
 	
 	foreach( $roles as $key => $item )

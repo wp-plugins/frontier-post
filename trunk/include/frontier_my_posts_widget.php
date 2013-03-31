@@ -11,9 +11,8 @@ class frontier_my_posts_widget extends WP_Widget
     /** constructor */
     function frontier_my_posts_widget() 
 		{
-		
-		
-    	$this->defaults = array(
+	
+		$this->defaults = array(
     		'title' 			=> __('My posts','frontier-post'),
     		'post_type' 		=> 'post',
 			'post_status' 		=> 'publish',
@@ -48,12 +47,16 @@ class frontier_my_posts_widget extends WP_Widget
 		
 		
     	$widget_ops = array('description' => __( "List posts of current user (author)", 'frontier-post') );
-        parent::WP_Widget(false, $name = 'My Posts', $widget_ops);	
+        parent::WP_Widget(false, $name = 'Frontier My Posts', $widget_ops);	
 		}
 
     /** @see WP_Widget::widget */
     function widget($args, $instance) 
+	{
+	
+	if(is_user_logged_in())
 		{
+		
 		
 		global $current_user, $wpdb, $r;
 		
@@ -77,41 +80,63 @@ class frontier_my_posts_widget extends WP_Widget
 		else
 			$show_comments 		= false;
 		
-		$tmp_url				= get_bloginfo('template_directory');
-		$comment_icon			= "<img src='".get_bloginfo('template_directory')."/images/comments.png'></img>";
+		// Get comment icon from theme, first check local file path, if exists set tu url of icon
+		$comment_icon			= TEMPLATEPATH."/images/comments.png";
 		
+		//print_r("Comment icon: ".$comment_icon);
 		
-		//extract($args);
-	
-		if (!$show_comments)
+		if (file_exists($comment_icon))
 			{
-			$tmp_sql 		=  " SELECT $wpdb->posts.ID AS post_id, 
-								 $wpdb->posts.post_title AS post_title, 
-								 $wpdb->posts.post_date AS post_date 
-								 FROM $wpdb->posts 
-								 WHERE $wpdb->posts.post_author = ".$author." AND $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type = 'post'  
-								 ORDER BY $wpdb->posts.post_date DESC 
-								 LIMIT ".$rec_limit;
+			$comment_icon		= "<img src='".get_bloginfo('template_directory')."/images/comments.png'></img>";
 			}
+		else
+			{
+			$comment_icon		= ABSPATH."/wp-includes/images/wlw/wp-comments.png";
+			// if no icon in theme, check wp-includes, and if it isnt the use a space
+			if (file_exists($comment_icon))
+				{
+				$comment_icon		= "<img src='".get_bloginfo('url')."/wp-includes/images/wlw/wp-comments.png'></img>";
+				}
 			else
+				{
+				$comment_icon		= "&nbsp;";
+				}
+			}	
+
+		// Build sql statement	
+		if ($show_comments)
 			{
 			$tmp_sql 			=  " SELECT 
-							 $wpdb->posts.ID AS post_id, 
-							 $wpdb->posts.post_title AS post_title, 
-							 $wpdb->posts.post_date AS post_date, 
-							 $wpdb->comments.comment_ID AS comment_id, 
-							 $wpdb->comments.comment_author AS comment_author,
-							 $wpdb->comments.comment_date AS comment_date,
-							 $wpdb->comments.comment_content AS comment_content 
+							 $wpdb->posts.ID 					AS post_id, 
+							 $wpdb->posts.post_title 			AS post_title, 
+							 $wpdb->posts.post_date 			AS post_date, 
+							 $wpdb->comments.comment_ID 		AS comment_id, 
+							 $wpdb->comments.comment_author 	AS comment_author,
+							 $wpdb->comments.comment_date 		AS comment_date,
+							 $wpdb->comments.comment_approved	AS comment_approved,
+							 $wpdb->comments.comment_content 	AS comment_content 
 								 FROM $wpdb->posts 
 								 left OUTER JOIN $wpdb->comments ON 
 									 $wpdb->posts.ID = $wpdb->comments.comment_post_ID 
 								 WHERE $wpdb->posts.post_status = 'publish' 
-								 AND $wpdb->posts.post_author = ".$author."
-								 ORDER BY $wpdb->posts.ID DESC, $wpdb->comments.comment_date_gmt DESC 
+								 AND $wpdb->posts.post_type 	= 'post'  
+								 AND $wpdb->posts.post_author 	= ".$author."
+								 ORDER BY $wpdb->posts.post_date DESC, $wpdb->comments.comment_date_gmt DESC 
 								 LIMIT ".$rec_limit;
 			}
-
+			else
+			{
+			$tmp_sql 		=  " SELECT $wpdb->posts.ID 	AS post_id, 
+								 $wpdb->posts.post_title 	AS post_title, 
+								 $wpdb->posts.post_date 	AS post_date 
+								 FROM $wpdb->posts 
+								 WHERE $wpdb->posts.post_author = ".$author." AND $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type = 'post'  
+								 ORDER BY $wpdb->posts.post_date DESC 
+								 LIMIT ".$rec_limit*5;
+								 // needs to multiply to account for non approved comments
+			}
+			
+			
 		$r 	= $wpdb->get_results($tmp_sql);
 		
 		echo $args['before_widget'];
@@ -135,56 +160,62 @@ class frontier_my_posts_widget extends WP_Widget
 		<?php 
 		$last_post 	= 0;
 		$post_cnt	= 0;
-		if ( $r ) : foreach ( $r as $post) : 
-		
-		?>
-			<?php
-			$tmp_link = "xx";
-			?>
-			
-			<?php 
-			if ( $last_post != $post->post_id )
-				{ 
-				if ($post_cnt >0)
-					echo "</li>";
+		if ( $r ) 
+			{
+			foreach ( $r as $post)
+				{
+				$tmp_link = "xx";
+				if ( $last_post != $post->post_id )
+					{ 
+					if ($post_cnt >0)
+						echo "</li>";
 				
-				echo "<li>";
+					echo "<li>";
 				
-				//$post_cnt = $post_cnt+1;
-				$post_cnt++;
-				if ($show_date)
-					{
-					echo mysql2date($instance['postdateformat'], $post->post_date); 
-					echo '&nbsp;&nbsp;';
+				
+					$post_cnt++;
+					if ($show_date)
+						{
+						echo mysql2date($instance['postdateformat'], $post->post_date); 
+						echo '&nbsp;&nbsp;';
+						}
+					?>
+					<a href="<?php echo post_permalink($post->post_id);?>"><?php echo $post->post_title;?></a>
+					<?php
 					}
-				?>
-				<a href="<?php echo post_permalink($post->post_id);?>"><?php echo $post->post_title;?></a>
-				<?php
+					
+					$last_post = $post->post_id;
+					if ($show_comments && (!empty($post->comment_id)) && ($post->comment_approved == 1))
+						{
+						echo "</br>".$comment_icon."&nbsp;&nbsp;";
+						if ($show_comment_date)
+							echo mysql2date($instance['cmtdateformat'], $post->comment_date)." - ";
+						echo $post->comment_author; 
+						if ( $instance['showcomments'] == 'excerpts' )
+							{
+							$tmp_comment = substr($post->comment_content, 0, $excerpt_length);
+							if (strlen($post->comment_content) > strlen($tmp_comment))
+								$tmp_comment = $tmp_comment."...";
+							
+							echo ":&nbsp"."</br><i>".$tmp_comment."</i>"; 
+							}
+						}
+						
+					if ($post_cnt >= $rec_limit)
+						{
+						break;
+						}
 				}
-				$last_post = $post->post_id;
-				if ($show_comments && (!empty($post->comment_id)))
-					{
-					echo "</br>".$comment_icon."&nbsp;&nbsp;";
-					if ($show_comment_date)
-						echo mysql2date($instance['cmtdateformat'], $post->comment_date)." - ";
-					echo $post->comment_author; 
-					if ( $instance['showcomments'] == 'excerpts' )
-						$tmp_comment = substr($post->comment_content, 0, $excerpt_length);
-						if (strlen($post->comment_content) > strlen($tmp_comment))
-						$tmp_comment = $tmp_comment."...";
-						echo ":&nbsp"."</br><i>".$tmp_comment."</i>"; 
-					} ?>
-			
-			
-		<?php 
-			if ($post_cnt >= $rec_limit)
-				break;
-			
-			endforeach; endif; 
+			 
+			}
+			else
+			{
+				echo "<li>".$instance['no_posts_text']."</li>";
+			}
 		?>
 		</li>
 		</ul>
-		<?php if (isset($instance['show_add_post']) && $instance['show_add_post'] == 1)
+		<?php if (isset($instance['show_add_post']) && $instance['show_add_post'] == 1 && (current_user_can('frontier_post_can_add')))
 			{ 
 			echo '<p><center><a href="'.frontier_post_add_link().'">'.__("Create New Post", "frontier-post").'</a></center></p>';
 			} ?>
@@ -192,6 +223,11 @@ class frontier_my_posts_widget extends WP_Widget
 		<?php
 		
 		echo $args['after_widget'];
+		}
+	else // If not logged in
+		{
+		// echo "<p>".__("You need to login to see your posts", "frontier-post")."</p>";
+		}
     }
 
     /** @see WP_Widget::update */
@@ -261,7 +297,7 @@ class frontier_my_posts_widget extends WP_Widget
 		
 		<p>
 			<label for="<?php echo $this->get_field_id('no_posts_text'); ?>"><?php _e('No post text','frontier-post'); ?>: </label>
-			<input type="text" id="<?php echo $this->get_field_id('no_posts_text'); ?>" name="<?php echo $this->get_field_name('no_posts_text'); ?>" value="<?php echo (!empty($instance['no_events_text'])) ? $instance['no_posts_text']:__('No posts', 'frontier-post'); ?>" >
+			<input type="text" id="<?php echo $this->get_field_id('no_posts_text'); ?>" name="<?php echo $this->get_field_name('no_posts_text'); ?>" value="<?php echo (!empty($instance['no_posts_text'])) ? $instance['no_posts_text']:__('You have no posts', 'frontier-post'); ?>" >
 		</p>
         <?php 
     }
