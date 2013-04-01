@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.2
+Version: 1.2.1
 Author URI: http://http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "1.2"); 
+define('FRONTIER_POST_VERSION', "1.2.1"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -24,13 +24,14 @@ function  frontier_user_post_list()
 		global $post;
 		global $current_user;
 		get_currentuserinfo();
+		
 		$pagenum	= isset( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
 		$ppp		= get_option('frontier_post_ppp') ? get_option('frontier_post_ppp') : 5;
 	
 		$args = array(
 				'post_type' 		=> 'post',
 				'post_status' 		=> 'publish',
-				'post_author'		=>	$current_user->ID,
+				'author_author'		=>	$current_user->ID,
 				'order'				=> 'DESC',
 				'orderby' 			=> 'post_date', 
 				'posts_per_page'    => $ppp,
@@ -38,7 +39,7 @@ function  frontier_user_post_list()
 				);
 		
 		$user_posts 	= new WP_Query( $args );
-		
+		//print_r("Last SQL-Query: {$user_posts->request}");
 		include("forms/frontier_list.php");
 		
 	}  
@@ -148,7 +149,7 @@ function frontier_posting_form_submit()
 
 function frontier_user_post_form()
 	{
-	
+	global $current_user;
 	require_once(ABSPATH . '/wp-admin/includes/post.php');    
 	
     $concat= get_option("permalink_structure")?"?":"&";  
@@ -161,6 +162,7 @@ function frontier_user_post_form()
     else
 		{
 		$thispost = get_default_post_to_edit( "post", true );	
+		$thispost->post_author = $current_user->ID;
 		$_REQUEST['task']="new";
 		}
      
