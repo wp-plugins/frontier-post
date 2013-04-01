@@ -35,9 +35,10 @@ Add short-code [frontier-post] in a page content after install and activativatio
 
 = My Posts Widget =
 * Show logged-in users posts (Author)
+ * My Posts
  * Comments to users posts
  * Experpts of comments
-* Create New Post link
+* Link: Create New Post 
 
 = Translations =
 * Danish
@@ -58,6 +59,8 @@ Let me know what you think, and if you have enhancement requests or problems let
 * No Custom Fields
 * Supports only published state - New posts are published immediately!.
 * Only for standard posts, not custom post types
+* If limited administrator access is select for a profile in Theme My Login, media uploads will fail for this profile.
+
 
 = Testing =
 * Frontier post is mainly tested with:
@@ -85,6 +88,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 1.2.1 =
+* Fixed error in user_post_list query
 
 = 1.2 =
 * New My Posts Widget
