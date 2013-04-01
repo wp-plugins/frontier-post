@@ -52,14 +52,16 @@
 			}
 		}
 	
-?>
-<script type="text/javascript">
-	var filenames="";
-</script>
+	if ($thispost->post_author == $current_user->ID)
+	{
+?>	
+	<script type="text/javascript">
+		var filenames="";
+	</script>
 
-<div class="frontier_post_form"> 
+	<div class="frontier_post_form"> 
 
-<table >
+	<table >
 	<tbody>
 	<form action="" method="post" name="wppu" id="wppu" enctype="multipart/form-data" >
 		<input type="hidden" name="home" value="<?php the_permalink(); ?>" > 
@@ -136,9 +138,14 @@
 	</tr>
 	</form> 
 	</tbody>
-</table>
+	</table>
 
- </div> <!-- ending div -->  
+	</div> <!-- ending div -->  
 <?php
+	}
+	else
+	{
+	_e("You are not allowed to edit other users posts !","frontier-post");
+	}
 	// end form file
 ?>

@@ -4,11 +4,6 @@ $concat= get_option("permalink_structure")?"?":"&";
 //set the permalink for the page itself
 $frontier_permalink = get_permalink();
 
-//$role =	frontier_get_user_role();
-//echo "Role: ".$role."</br>"
-
-//print_r("allow edit with comments: ".get_option("frontier_post_edit_w_comments")."</br>");
-//print_r("allow delete with comments: ".get_option("frontier_post_del_w_comments")."</br>");
 
 if (frontier_can_add() )
 	{
