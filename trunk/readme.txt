@@ -89,7 +89,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 1.2.1 =
+= 1.2.2 =
 * Fixed error in user_post_list query
 
 = 1.2 =
