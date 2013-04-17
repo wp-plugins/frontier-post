@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frontier Post 1.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
-"POT-Creation-Date: 2013-04-01 12:24:55+00:00\n"
-"PO-Revision-Date: 2013-04-01 14:28+0100\n"
+"POT-Creation-Date: 2013-04-17 18:46:43+00:00\n"
+"PO-Revision-Date: 2013-04-17 20:50+0100\n"
 "Last-Translator: finnj\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,79 +13,134 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: forms/frontier_form.php:73 forms/frontier_list.php:35
+#: forms/frontier_form.php:113 forms/frontier_list.php:36
+#: include/frontier_approvals_widget.php:151
 #: include/frontier_my_posts_widget.php:251
 msgid "Title"
 msgstr "Titel"
 
-#: forms/frontier_form.php:85 forms/frontier_list.php:36
+#: forms/frontier_form.php:117 forms/frontier_list.php:37
+msgid "Status"
+msgstr "Status"
+
+#: forms/frontier_form.php:138 forms/frontier_list.php:38
 msgid "Category"
 msgstr "Kategori"
 
-#: forms/frontier_form.php:88
+#: forms/frontier_form.php:141
 msgid "Tags"
 msgstr "Tags"
 
-#: forms/frontier_form.php:105
+#: forms/frontier_form.php:158
 msgid "Select category, multible can be selected using ctrl key"
 msgstr "Vælg kategori, flere can vælges med ctrl"
 
-#: forms/frontier_form.php:110 forms/frontier_form.php:111
-#: forms/frontier_form.php:112
+#: forms/frontier_form.php:163 forms/frontier_form.php:164
+#: forms/frontier_form.php:165
 msgid "Enter tag here"
 msgstr "Indsæt tag her"
 
-#: forms/frontier_form.php:129
+#: forms/frontier_form.php:182
 msgid "Excerpt"
 msgstr "Uddrag"
 
-#: forms/frontier_form.php:135
-msgid "Publish"
-msgstr "Udgiv"
+#: forms/frontier_form.php:188
+msgid "Save"
+msgstr "Gem"
 
-#: forms/frontier_form.php:136
+#: forms/frontier_form.php:189
 msgid "Cancel"
 msgstr "Annuller"
 
-#: forms/frontier_form.php:148
-msgid "You are not allowed to edit other users posts !"
+#: forms/frontier_form.php:201
+#, fuzzy
+msgid "You are not allowed to edit this post !"
 msgstr "Du kan ikke rette i andre brugeres indlæg!"
 
 #: forms/frontier_list.php:15 include/frontier_my_posts_widget.php:220
 msgid "Create New Post"
 msgstr "Opret Nyt Indlæg"
 
-#: forms/frontier_list.php:34
+#: forms/frontier_list.php:35
 msgid "Date"
 msgstr "Dato"
 
-#: forms/frontier_list.php:37
+#: forms/frontier_list.php:39
 msgid "Cmt"
 msgstr "Kmt"
 
-#: forms/frontier_list.php:38
+#: forms/frontier_list.php:40
 msgid "Action"
 msgstr "Aktion"
 
-#: forms/frontier_list.php:76
+#: forms/frontier_list.php:78
 msgid "Are you sure you want to delete this post?"
 msgstr "Er du sikker på at du vil slette dette indlæg?"
 
-#: forms/frontier_list.php:94
+#: forms/frontier_list.php:96
 msgid "&laquo;"
 msgstr ""
 
-#: forms/frontier_list.php:95
+#: forms/frontier_list.php:97
 msgid "&raquo;"
 msgstr ""
 
-#: forms/frontier_list.php:109
+#: forms/frontier_list.php:111
 msgid "Sorry, you do not have any posts (yet)"
 msgstr "Desværre, du har ingen indlæg (endnu)"
 
-#: frontier-post.php:220
+#: frontier-post.php:215
 msgid "Please log in !"
 msgstr "Log venligst ind !"
+
+#: include/frontier_approvals_widget.php:16
+msgid "My approvals"
+msgstr "Mine godkendelser"
+
+#: include/frontier_approvals_widget.php:22
+#, fuzzy
+msgid "You have no approvals pending"
+msgstr "Du har ingen indlæg"
+
+#: include/frontier_approvals_widget.php:27
+#, fuzzy
+msgid "List number of posts and comments for approval"
+msgstr "Antal indlæg og kommentarer"
+
+#: include/frontier_approvals_widget.php:46
+#, fuzzy
+msgid "draft posts"
+msgstr "Mine Indlæg"
+
+#: include/frontier_approvals_widget.php:57
+msgid "posts to be approved"
+msgstr "indlæg til godkendelse"
+
+#: include/frontier_approvals_widget.php:68
+msgid "comments to be approved"
+msgstr "kommentarer til godkendelse"
+
+#: include/frontier_approvals_widget.php:79
+#, fuzzy
+msgid "spam comments"
+msgstr "Vis kommentarer"
+
+#: include/frontier_approvals_widget.php:155
+msgid "Show posts pending approval ?"
+msgstr "Vis indlæg til godkendelse ?"
+
+#: include/frontier_approvals_widget.php:160
+msgid "Show number of draft posts ?"
+msgstr "Vis antal indlægs kladder ?"
+
+#: include/frontier_approvals_widget.php:165
+msgid "Show comments pending approval ?"
+msgstr "Vis kommentarer til godkendelse ?"
+
+#: include/frontier_approvals_widget.php:170
+#, fuzzy
+msgid "Show comments marked as spam ?"
+msgstr "Vis kommentarer"
 
 #: include/frontier_my_posts_widget.php:16
 msgid "My posts"
@@ -144,79 +199,84 @@ msgstr "Vis Opret Indlæg link ?"
 msgid "No post text"
 msgstr "Ingen indlæg text"
 
-#: settings-menu.php:33
+#: settings-menu.php:19
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Du har ikke tilstrækkelige rettigheder til at se denne side"
 
-#: settings-menu.php:99
+#: settings-menu.php:85
 msgid "Settings saved."
 msgstr "Indstillinger gemt"
 
-#: settings-menu.php:122
+#: settings-menu.php:108
 msgid "Max age in days to allow edit of post:"
 msgstr "Maks alder i dage for at tillade at rette indlæg:"
 
-#: settings-menu.php:125
+#: settings-menu.php:111
 msgid "Allow edit of posts with comments:"
 msgstr "Tillad at redigere indlæg med kommentarer:"
 
-#: settings-menu.php:128
+#: settings-menu.php:114
 msgid "Max age in days to allow delete of post:"
 msgstr "Maks alder i dage for at tillade sletning indlæg:"
 
-#: settings-menu.php:131
+#: settings-menu.php:117
 msgid "Allow deletion of posts with comments:"
 msgstr "Tillad sletning indlæg med kommentarer:"
 
-#: settings-menu.php:134
+#: settings-menu.php:120
 msgid "Number of post per page:"
 msgstr "Antal indlæg pr. side"
 
-#: settings-menu.php:137
+#: settings-menu.php:123
 msgid "Page containing [frontier-post] shortcode:"
 msgstr "Side der indeholder [frontier-post] shortcode:"
 
-#: settings-menu.php:140
+#: settings-menu.php:126
 msgid "None"
 msgstr "Ingen"
 
-#: settings-menu.php:149
+#: settings-menu.php:135
 msgid "Capabilities by user role"
 msgstr "Rettigheder pr. rolle"
 
-#: settings-menu.php:152
+#: settings-menu.php:138
 msgid "Role"
 msgstr "Rolle"
 
-#: settings-menu.php:153
+#: settings-menu.php:139
 msgid "Can Add"
 msgstr "Kan oprette"
 
-#: settings-menu.php:154
+#: settings-menu.php:140
 msgid "Can Edit"
 msgstr "Kan Rette"
 
-#: settings-menu.php:155
+#: settings-menu.php:141
+#, fuzzy
+msgid "Can Publish"
+msgstr "Udgiv"
+
+#: settings-menu.php:142
 msgid "Can Delete"
 msgstr "Kan Slette"
 
-#: settings-menu.php:156
+#: settings-menu.php:143
 msgid "Edit Excerpt"
 msgstr "Ret Uddrag"
 
-#: settings-menu.php:157
+#: settings-menu.php:144
 msgid "Edit Tags"
 msgstr "Ret Tags"
 
-#: settings-menu.php:158
+#: settings-menu.php:145
 msgid "Frontier Edit"
 msgstr "Ret med Frontier"
 
-#: settings-menu.php:201
+#: settings-menu.php:188
 msgid "NA"
 msgstr "NA"
 
-#: settings-menu.php:220
+#: settings-menu.php:207
 msgid ""
 "- Media upload is not available to Contributors and Subscribers by Wordpress "
 "capabilities"
@@ -224,7 +284,7 @@ msgstr ""
 "- Medie upload er ikke mulig for Biddragydere (Contributers) og Abbonenter "
 "(Subscribers) iht. Wordpress rettigheder."
 
-#: settings-menu.php:221
+#: settings-menu.php:208
 #, fuzzy
 msgid ""
 "- Wordpress standard rolemodel does not allow Contributors and Subscribers "
@@ -234,7 +294,7 @@ msgstr ""
 "og Abbonenter (Subscribers) at oprette/rette/slette indlæg, dette kan "
 "overstyres herover."
 
-#: settings-menu.php:222
+#: settings-menu.php:209
 msgid ""
 "- Frontier Edit means that if a user selects the dit link on a post, "
 "Frontier will be used to edit instead of backend"
@@ -242,7 +302,7 @@ msgstr ""
 "- Ret med Frontier betyder at hvis brugeren klikker på rediger linket på en "
 "post, benyttes Frontier Post i stedet for WP backend."
 
-#: settings-menu.php:223
+#: settings-menu.php:210
 msgid ""
 "-    - This is only if selected from frontend, if edit from backend, backend "
 "interface will be used"
@@ -250,7 +310,7 @@ msgstr ""
 "-    - Dette er kun fra Frontend, hvis rediger vælges fra backend benyttes "
 "standard metoden."
 
-#: settings-menu.php:229
+#: settings-menu.php:216
 msgid "Save Changes"
 msgstr "Gem Ændringer"
 
@@ -258,7 +318,10 @@ msgstr "Gem Ændringer"
 msgid "Frontier Post"
 msgstr "Frontier Post"
 
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.3)  #-#-#-#-#
+#. Author URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/frontier-post/"
 msgstr ""
 
@@ -270,10 +333,6 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "finnj"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://http://wordpress.org/extend/plugins/frontier-post/"
 msgstr ""
 
 #~ msgid "No posts"
