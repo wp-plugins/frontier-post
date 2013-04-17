@@ -1,0 +1,69 @@
+/* ------------------
+ styling for front-end posts
+   ------------------   */
+
+#user_post_title {
+	width: 75%;
+	vertical-align: middle !important;
+}
+
+#frontier_post_title {
+	border: 0 !important;
+}
+
+#user_post_excerpt {
+	width: 98%;
+}
+
+#frontier_categorymulti {
+	width: 100% !important;
+}
+
+.frontier_helptext {
+	color: DarkGrey !important;
+}
+
+
+td.frontier_post_form   {  
+	border: 0 !important;
+}
+
+td.frontier_no_border  {  
+	border: 0 !important;
+}
+
+td.frontier_border  {  
+	border: 1px solid #ccc !important;
+	vertical-align: top !important;
+}
+
+
+th.frontier_heading  {  
+	padding: 5px !important;
+	margin: 5px !important;
+	border: 0 !important;
+	border-bottom : 0 !important;
+	/* background-color: #ccc; */
+}
+
+.frontier-list {
+	background-image: none !important;
+	list-style: none !important;
+}
+
+
+table.frontier-list {
+	width: 90%;
+	border: 0;
+}
+
+.frontier-menu {
+	text-align: center;
+	border: 0;
+}
+table.frontier-menu {
+	width: 90%;
+}
+th.frontier-menu {
+	width: 33%;
+}
