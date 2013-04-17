@@ -8,24 +8,10 @@ function frontier_post_settings_menu()
 	{
 	//create new top-level menu
 	add_options_page('Frontier Post', 'Frontier Post', 'administrator', __FILE__, 'frontier_post_settings_page');
-
-	//call register settings function
-	//add_action( 'admin_init', 'register_frontier_post_settings' );
 	}
-
-/*
-function register_frontier_post_settings() 
-	{
-	register_setting( 'frontier-post-settings-group', 'frontier_edit_post_max_age' );
-	register_setting( 'frontier-post-settings-group', 'frontier_delete_post_max_age' );
-	}
-*/
-
-
 
 function frontier_post_settings_page() 
 	{
-		//include("include/frontier_post_defaults.php");
 	
 		//must check that the user has the required capability 
 		if (!current_user_can('manage_options'))
@@ -39,7 +25,7 @@ function frontier_post_settings_page()
 			$wp_roles = new WP_Roles();
 				
 		$roles 			= $wp_roles->get_names();
-		$tmp_cap_list	= Array('can_add', 'can_edit', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
+		$tmp_cap_list	= Array('can_add', 'can_edit', 'can_publish', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
 		// check for edit_published posts, for the edit_redir option
 		$cap2check = "edit_published_posts";
 		
@@ -149,9 +135,10 @@ function frontier_post_settings_page()
 					<th colspan="7"></center><?php _e("Capabilities by user role", "frontier-post"); ?></center></th>
 					<tr></tr>
 					<tr></tr>
-						<th width="40%"><?php _e("Role", "frontier-post")?></th>
+						<th width="30%"><?php _e("Role", "frontier-post")?></th>
 						<th width="10%"><?php _e("Can Add", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Edit", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Can Publish", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Delete", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Edit Excerpt", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Edit Tags", "frontier-post"); ?></th>

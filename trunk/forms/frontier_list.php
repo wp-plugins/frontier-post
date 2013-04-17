@@ -24,6 +24,7 @@ if (frontier_can_add() )
 if( $user_posts->found_posts > 0 )
 	{
 
+	$tmp_status_list = get_post_statuses( );
 
 ?>
 
@@ -33,6 +34,7 @@ if( $user_posts->found_posts > 0 )
 		<tr>
 			<th><?php _e("Date", "frontier-post"); ?></th>
 			<th><?php _e("Title", "frontier-post"); ?></th>
+			<th><?php _e("Status", "frontier-post"); ?></th>
 			<th><?php _e("Category", "frontier-post"); ?></th>
 			<th><?php _e("Cmt", "frontier-post"); ?></th> <!--number of comments-->
 			<th><?php _e("Action", "frontier-post"); ?></th>
@@ -47,7 +49,7 @@ if( $user_posts->found_posts > 0 )
 			<tr>
 				<td><?php echo mysql2date('Y-m-d', $post->post_date); ?></td>
 				<td><a href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a></td>
-				
+				<td><?php  echo isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status;   ;?></td>
 				<td><?php  
 					// List categories
 					$categories=get_the_category( $post->ID );

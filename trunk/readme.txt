@@ -25,12 +25,14 @@ Add short-code [frontier-post] in a page content after install and activativatio
 * Create posts with media directly from frontend
 * Users can delete their own posts (Setting) 
 * Users can edit their own posts (Setting)
-* Post can be edited in frontend directly from post - standard edit link (Can be enabled/disabled in settings)
+* Post can be edited in frontend directly - standard edit link (Can be enabled/disabled in settings)
 * My Posts Widget 
+* My Approvals Widget
 * Capabilities are aligned with Wordpress standard.
 * Excerpts editable (Can be enabled/disabled in settings)
 * Multi select of Categories
 * Tags (Can be enabled/disabled in settings)
+* Supports Wordpress Post Status Transitions
 * Users must be logged in to post
 
 = My Posts Widget =
@@ -39,6 +41,13 @@ Add short-code [frontier-post] in a page content after install and activativatio
  * Comments to users posts
  * Experpts of comments
 * Link: Create New Post 
+
+= My Approvals Widget =
+* Shows pending approval actions including link to approval (will only show for administrators)
+ * Number of post approvals pending
+ * Number of drafts (optional)
+ * Number of comment approvals pending
+ * Number of comments marked as spam
 
 = Translations =
 * Danish
@@ -57,9 +66,16 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 = Known Issues and limitations =
 * No Custom Fields
-* Supports only published state - New posts are published immediately!.
 * Only for standard posts, not custom post types
-* If limited administrator access is select for a profile in Theme My Login, media uploads will fail for this profile.
+* If limited administrator access is selected for a profile in Theme My Login, media uploads will fail for this profile.
+
+
+= Widgets =
+* Widgets are not cached as content is based on current logged in user. 
+* Widget queries are index optimized, but queries will execute each time they are shown.
+* Might have a performance impact on large blogs with high activity.
+ * Consider not to place widgets on front page.
+* If you experience performance issues with widgets, create a support issue (preferably with suggestions to remedy this :) )
 
 
 = Testing =
@@ -68,9 +84,10 @@ Let me know what you think, and if you have enhancement requests or problems let
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
  * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)
  * and sometimes with twenty twelve theme...
-* Windows: IE9, Firefox & Chrome, iPad & iPhone: Safari & Chrome
+* iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
 
-
+= Translations =
+* Please post a link in support to translation files and I will include them in next release.
 
  = Clenup =
  * On deactivation: no cleanup.
@@ -89,7 +106,15 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+
+= 1.3 =
+* Supports Wordpress Post Status Transitions (draft/pending/publish)
+* New Widget: My Approvals
+
 = 1.2.2 =
+* Fixed error in user_post_list query
+
+= 1.2.1 =
 * Fixed error in user_post_list query
 
 = 1.2 =
