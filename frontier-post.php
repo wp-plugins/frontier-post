@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.2.2
+Version: 1.3
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "1.2.2"); 
+define('FRONTIER_POST_VERSION', "1.3"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -30,7 +30,7 @@ function  frontier_user_post_list()
 	
 		$args = array(
 				'post_type' 		=> 'post',
-				'post_status' 		=> 'publish',
+				'post_status' 		=> 'draft, pending, publish',
 				'author'			=>	$current_user->ID,
 				'order'				=> 'DESC',
 				'orderby' 			=> 'post_date', 
@@ -54,15 +54,11 @@ function frontier_posting_form_submit()
 		{
         if($_POST['user_post_title'])
 			{
-			// Only handle published posts, rest must be done from admin panel
-            $post_status = 'publish';
 			
-			//if(isset($_POST['cat']))
-			//	$tmp_category = $_POST['cat'];
-				
-			
-			//if(!is_numeric($tmp_category) || $tmp_category <= 0)
-			//	$tmp_category = get_option("default_category");
+			if(isset($_POST['post_status']))
+				$post_status = $_POST['post_status'];
+			else
+				$post_status = 'draft';
 				
 			$tmp_title 	= trim( $_POST['user_post_title'] );
 			if ( empty( $tmp_title ) ) 
@@ -74,7 +70,7 @@ function frontier_posting_form_submit()
 			if ( empty( $tmp_content ) ) 
 				$tmp_content = "No content";
 			
-			$tmp_excerpt = trim($_POST['user_post_excerpt'] );
+			$tmp_excerpt = isset( $_POST['user_post_excerpt']) ? trim($_POST['user_post_excerpt'] ) : null;
 
 			$tmp_categorymulti = $_POST['categorymulti'];
 			if ((!isset($tmp_categorymulti)) || (count($tmp_categorymulti)==0))
@@ -91,9 +87,8 @@ function frontier_posting_form_submit()
 			
             $my_post = array(
                  'post_title' 		=> $tmp_title,
+				 'post_status' 		=> $post_status,
                  'post_content' 	=> $tmp_content,				 
-                 'post_status' 		=> $post_status,
-                 'post_author' 		=> $current_user->ID,				 
                  'post_category' 	=> $tmp_categorymulti,
 				 'post_excerpt' 	=> $tmp_excerpt,
 				);
@@ -455,15 +450,11 @@ function frontier_media_fix_filter( $settings, $post )
 	
 	return $settings;
 	} 	
-	
+
+
+//widgets	
 include("include/frontier_my_posts_widget.php");
-/*
-function frontier_my_posts_widget_init() 
-	{
-	register_widget('frontier_my_posts_widget');
-	}
-add_action('widgets_init', 'frontier_my_posts_widget_init');
-*/
+include("include/frontier_approvals_widget.php");
 
 //add translation files
 function frontier_post_init() 
