@@ -104,25 +104,25 @@ class frontier_approvals_widget extends WP_Widget
 			<?php if ($show_pending) 
 				{ ?>
 				<li>
-					<a href="http://diskstation/wordpress/wp-admin/edit.php?post_status=pending&post_type=post"><?php echo $pending_txt;?></a>
+					<a href="<?php echo site_url('/wp-admin/edit.php?post_status=pending&post_type=post')?>"><?php echo $pending_txt;?></a>
 				</li>
 			<?php } ?>
 			<?php if ($show_draft) 
 				{ ?>
 				<li>
-					<a href="http://diskstation/wordpress/wp-admin/edit.php?post_status=draft&post_type=post"><?php echo $draft_txt;?></a>
+					<a href="<?php echo site_url('/wp-admin/edit.php?post_status=draft&post_type=post')?>"><?php echo $draft_txt;?></a>
 				</li>
 			<?php } ?>
 			<?php if ($show_comments) 
 				{ ?>
 				<li>
-					<a href="http://diskstation/wordpress/wp-admin/edit-comments.php?comment_status=moderated"><?php echo $cmt_pending_txt;?></a>
+					<a href="<?php echo site_url('/wp-admin/edit-comments.php?comment_status=moderated')?>"><?php echo $cmt_pending_txt;?></a>
 				</li>
 			<?php } ?>
 			<?php if ($show_comment_spam) 
 				{ ?>
 				<li>
-					<a href="http://diskstation/wordpress/wp-admin/edit-comments.php?comment_status=spam"><?php echo $cmt_spam_txt;?></a>
+					<a href="<?php echo site_url('/wp-admin/edit-comments.php?comment_status=spam')?>"><?php echo $cmt_spam_txt;?></a>
 				</li>
 			<?php } ?>
 		<?php
