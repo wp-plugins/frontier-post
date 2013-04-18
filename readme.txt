@@ -36,11 +36,12 @@ Add short-code [frontier-post] in a page content after install and activativatio
 * Users must be logged in to post
 
 = My Posts Widget =
+* Link: Create New Post 
 * Show logged-in users posts (Author)
  * My Posts
  * Comments to users posts
  * Experpts of comments
-* Link: Create New Post 
+
 
 = My Approvals Widget =
 * Shows pending approval actions including link to approval (will only show for administrators)
@@ -73,18 +74,20 @@ Let me know what you think, and if you have enhancement requests or problems let
 = Widgets =
 * Widgets are not cached as content is based on current logged in user. 
 * Widget queries are index optimized, but queries will execute each time they are shown.
+* If you experience performance issues with widgets, create a support issue (preferably with suggestions to remedy this :) )
 * Might have a performance impact on large blogs with high activity.
  * Consider not to place widgets on front page.
-* If you experience performance issues with widgets, create a support issue (preferably with suggestions to remedy this :) )
+
 
 
 = Testing =
+* iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
 * Frontier post is mainly tested with:
 * Wordpress 3.5.1
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
  * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)
  * and sometimes with twenty twelve theme...
-* iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
+
 
 = Translations =
 * Please post a link in support to translation files and I will include them in next release.
