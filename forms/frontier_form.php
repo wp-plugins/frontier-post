@@ -1,5 +1,6 @@
 <?php
 
+	$frontier_task = $_REQUEST['task'] ? $_REQUEST['task'] :"?";
 	
 	if(!isset($thispost->post_type))
 		{
@@ -21,6 +22,9 @@
 	$user_can_edit_this_post = true;
 
 	if ($thispost->post_author != $current_user->ID && (!current_user_can( 'administrator' )))
+		$user_can_edit_this_post = false;
+	
+	if (($frontier_task == "new") && (!current_user_can( 'frontier_post_can_add' )))
 		$user_can_edit_this_post = false;
 	
 	//build post status list based on current status and users capability
