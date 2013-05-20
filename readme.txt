@@ -1,10 +1,10 @@
 === Frontier Post ===
 Contributors: finnj
 Donate link: 
-Tags: post from frontend, frontend posting, frontend editing, Frontier, my post widget
+Tags: frontend, frontend post, frontend edit, frontier, frontier post, my post widget, post, widget
 Requires at least: 3.4.0
 Tested up to: 3.5.1
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPL v3 or later
  
 Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
@@ -36,12 +36,11 @@ Add short-code [frontier-post] in a page content after install and activativatio
 * Users must be logged in to post
 
 = My Posts Widget =
-* Link: Create New Post 
 * Show logged-in users posts (Author)
  * My Posts
  * Comments to users posts
  * Experpts of comments
-
+* Link: Create New Post 
 
 = My Approvals Widget =
 * Shows pending approval actions including link to approval (will only show for administrators)
@@ -52,6 +51,8 @@ Add short-code [frontier-post] in a page content after install and activativatio
 
 = Translations =
 * Danish
+* Russian (samaks)
+* Chinese (beezeeking)
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
 
@@ -74,20 +75,18 @@ Let me know what you think, and if you have enhancement requests or problems let
 = Widgets =
 * Widgets are not cached as content is based on current logged in user. 
 * Widget queries are index optimized, but queries will execute each time they are shown.
-* If you experience performance issues with widgets, create a support issue (preferably with suggestions to remedy this :) )
 * Might have a performance impact on large blogs with high activity.
  * Consider not to place widgets on front page.
-
+* If you experience performance issues with widgets, create a support issue (preferably with suggestions to remedy this :) )
 
 
 = Testing =
-* iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
 * Frontier post is mainly tested with:
 * Wordpress 3.5.1
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
  * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)
  * and sometimes with twenty twelve theme...
-
+* iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
 
 = Translations =
 * Please post a link in support to translation files and I will include them in next release.
@@ -109,6 +108,10 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+= 1.3.3 =
+* Fixed security issue with add new post
+* Chinese translation
+* Russian translation
 
 = 1.3.2 =
 * Fixed hardcoded urls in My Approvals widget
