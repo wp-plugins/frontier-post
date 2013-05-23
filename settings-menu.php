@@ -25,7 +25,7 @@ function frontier_post_settings_page()
 			$wp_roles = new WP_Roles();
 				
 		$roles 			= $wp_roles->get_names();
-		$tmp_cap_list	= Array('can_add', 'can_edit', 'can_publish', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
+		
 		// check for edit_published posts, for the edit_redir option
 		$cap2check = "edit_published_posts";
 		
@@ -41,13 +41,18 @@ function frontier_post_settings_page()
 				update_option("frontier_post_page_id", ( (int) $_POST[ "frontier_post_page_id"] ) );
 				update_option("frontier_post_del_w_comments", ( isset($_POST[ "frontier_post_del_w_comments"]) ? $_POST[ "frontier_post_del_w_comments"] : "false" ) );
 				update_option("frontier_post_edit_w_comments", ( isset($_POST[ "frontier_post_edit_w_comments"]) ? $_POST[ "frontier_post_edit_w_comments"] : "false" ) );
+				update_option("frontier_post_use_draft", ( isset($_POST[ "frontier_post_use_draft"]) ? $_POST[ "frontier_post_use_draft"] : "false" ) );
 				
 				//save capability settings
-		
+				$tmp_cap_list	= array('can_add', 'can_edit', 'can_publish', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit', 'can_media');
+				$tmp_cap_list	= array('can_add', 'can_edit', 'can_publish', 'can_draft', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit', 'can_media', 'editor');
+				$editor_list 	= array();
 				foreach( $roles as $key => $item ) 
 					{
 					$xrole = get_role($key);
 					$xrole_caps = $xrole->capabilities;
+					
+					
 					
 					if (( array_key_exists($cap2check, $xrole_caps) ) && ($xrole_caps[$cap2check]) )
 						$tmp_cap_ok = true;
@@ -56,29 +61,38 @@ function frontier_post_settings_page()
 				
 					foreach($tmp_cap_list as $tmp_cap)
 						{
-						$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
-						$tmp_option_id	= 'frontier_post_'.$key.'_'.$tmp_cap;
-						if (isset($_POST[ $tmp_name]))
-							$tmp_value		= ( $_POST[ $tmp_name] ? $_POST[ $tmp_name] : "false" );
+						if ($tmp_cap == 'editor')
+							{
+							$tmp_name		= 'frontier_post_editor_'.$key;
+							$tmp_value		= ( $_POST[ $tmp_name] ? $_POST[ $tmp_name] : "minimal" );
+							$editor_list[$key] = $tmp_value;
+							}
 						else
-							$tmp_value		= "false";
-						//print_r('Update: '.$tmp_option_id.' --> '.$tmp_name.' --> '.$tmp_value.'</br>');
-						update_option($tmp_option_id,  $tmp_value);
+							{
+							$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
+							$tmp_option_id	= 'frontier_post_'.$key.'_'.$tmp_cap;
+							if (isset($_POST[ $tmp_name]))
+								$tmp_value		= ( $_POST[ $tmp_name] ? $_POST[ $tmp_name] : "false" );
+							else
+								$tmp_value		= "false";
 						
-						// set capability
-						if ( $tmp_value == "true" )
-							{
+							//print_r('Update: '.$tmp_option_id.' --> '.$tmp_name.' --> '.$tmp_value.'</br>');
+							update_option($tmp_option_id,  $tmp_value);
+						
+							// set capability
+							if ( $tmp_value == "true" )
+								{
 								$xrole->add_cap( 'frontier_post_'.$tmp_cap );
-							}
-						else
-							{
+								}
+							else
+								{
 								$xrole->remove_cap( 'frontier_post_'.$tmp_cap );
+								}
 							}
-					
 						}
 					}
 		
-		
+				update_option('frontier_post_editor', $editor_list);
 				
 				// Put an settings updated message on the screen
 				?>
@@ -89,11 +103,11 @@ function frontier_post_settings_page()
 		// get values from db
 		$frontier_post_edit_max_age 		= get_option('frontier_post_edit_max_age');
 		$frontier_post_delete_max_age 		= get_option('frontier_post_delete_max_age');
-		$frontier_post_ppp						= get_option('frontier_post_ppp');
+		$frontier_post_ppp					= get_option('frontier_post_ppp');
 		$frontier_post_page_id				= get_option('frontier_post_page_id');
-		$frontier_post_del_w_comments			= (get_option("frontier_post_del_w_comments")) ? get_option("frontier_post_del_w_comments") : "false";
-		$frontier_post_edit_w_comments			= (get_option("frontier_post_edit_w_comments")) ? get_option("frontier_post_edit_w_comments") : "false";
-		
+		$frontier_post_del_w_comments		= (get_option("frontier_post_del_w_comments")) ? get_option("frontier_post_del_w_comments") : "false";
+		$frontier_post_edit_w_comments		= (get_option("frontier_post_edit_w_comments")) ? get_option("frontier_post_edit_w_comments") : "false";
+		//$frontier_post_use_draft			= (get_option("frontier_post_use_draft")) ? get_option("frontier_post_use_draft") : "false";
 		
 	?>
 	
@@ -139,17 +153,17 @@ function frontier_post_settings_page()
 						<th width="10%"><?php _e("Can Add", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Edit", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Publish", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Allow Drafts", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Delete", "frontier-post"); ?></th>
-						<th width="10%"><?php _e("Edit Excerpt", "frontier-post"); ?></th>
-						<th width="10%"><?php _e("Edit Tags", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Frontier Edit", "frontier-post"); ?></th>
+						
 					
 					</tr><tr>
 					
 			<?php
 			
 			//Build table based on values from options
-		
+			$tmp_cap_list	= Array('can_add', 'can_edit', 'can_publish', 'can_draft', 'can_delete', 'redir_edit');
 			foreach( $roles as $key => $item ) 
 				{
 				
@@ -198,6 +212,98 @@ function frontier_post_settings_page()
 				echo '</tr>';
 					
 				}
+			
+			
+			// ------>>> Editor options
+			?>
+			
+			<table border="1">
+					<tr>
+					<th colspan="7"></center><?php _e("Editor options", "frontier-post"); ?></center></th>
+					<tr></tr>
+					<tr></tr>
+						<th width="30%"><?php _e("Role", "frontier-post")?></th>
+						<th width="10%"><?php _e("Edit Excerpt", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Edit Tags", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Media Upload", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Editor Type", "frontier-post"); ?></th>
+					
+					</tr><tr>
+					
+			<?php
+			
+			//Build table based on values from options
+			$tmp_cap_list	= array( 'exerpt_edit', 'tags_edit', 'can_media', 'editor');
+			$editor_types = array('Full Editor' => 'full', 'Minimal Editor' => 'minimal', 'Simple Editor' => 'simple', 'Text only Editor' => 'text');
+			foreach( $roles as $key => $item ) 
+				{
+				
+				echo '<tr>';
+				echo '<td>'.$item.'</td>';
+				
+				$xrole = get_role($key);
+				$xrole_caps = $xrole->capabilities;
+				
+				if (( array_key_exists($cap2check, $xrole_caps) ) && ($xrole_caps[$cap2check]) )
+					$tmp_cap_ok = true;
+				else
+					$tmp_cap_ok = false;
+				
+				
+				
+				foreach($tmp_cap_list as $tmp_cap)
+					{
+					
+					if ($tmp_cap == 'editor')
+						{
+						$editor_list = get_option('frontier_post_editor', array());
+						echo '<td>';
+						?>
+						
+						<select  id="post_status" name="<?php echo 'frontier_post_editor_'.$key ?>" >
+						<?php foreach($editor_types as $desc => $id) : ?>   
+							<option value='<?php echo $id ?>' <?php echo ( $id == $editor_list[$key]) ? "selected='selected'" : ' ';?>>
+								<?php echo $desc; ?>
+							</option>
+						<?php endforeach; ?>
+						</select>
+						
+						<?php
+						echo '</td>';
+						}
+					else
+						{
+						$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
+						$tmp_option_id	= 'frontier_post_'.$key.'_'.$tmp_cap;
+						$tmp_value		= ( get_option($tmp_option_id) ? get_option($tmp_option_id) : "false" );
+						if ( $tmp_value == "true" )
+							{
+							$tmp_checked	= " checked"; 
+							}
+						else
+							{
+							$tmp_checked	= " "; 
+							}
+						
+						echo '<td><center>';
+					
+						if (( $tmp_cap == 'can_media' ) && (!$tmp_cap_ok) )
+							{
+							echo _e('NA', 'frontier-post');
+							}
+						else
+							{
+							echo '<input value="true" type="checkbox" name="'.$tmp_name.'" id="' .$tmp_name. '" '. $tmp_checked.' />';
+							}
+						
+						echo '</center></td>';
+						}
+					}
+				//echo '<td>'.$tmp_name.'<td>';
+				echo '</tr>';
+					
+				}
+			
 			
 			?>
 			

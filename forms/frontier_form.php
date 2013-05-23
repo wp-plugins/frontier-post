@@ -1,5 +1,6 @@
 <?php
 
+	$frontier_task = $_REQUEST['task'] ? $_REQUEST['task'] :"?";
 	
 	if(!isset($thispost->post_type))
 		{
@@ -23,10 +24,19 @@
 	if ($thispost->post_author != $current_user->ID && (!current_user_can( 'administrator' )))
 		$user_can_edit_this_post = false;
 	
+	if (($frontier_task == "new") && (!current_user_can( 'frontier_post_can_add' )))
+		$user_can_edit_this_post = false;
+	
 	//build post status list based on current status and users capability
 	$tmp_status_list = get_post_statuses( );
+	
 	// Remove private status from array
 	unset($tmp_status_list['private']);
+	
+	// Remove draft status from array if user is not allowed to use drafts
+	if (!current_user_can('frontier_post_can_draft'))
+	unset($tmp_status_list['draft']);
+	
 	
 	$status_list 		= array();
 	$tmp_post_status 	= $thispost->post_status ? $thispost->post_status : "unknown";
@@ -50,7 +60,64 @@
 			unset($status_list['publish']);
 			}
 		}
+	
+
+	// -- Setup wp_editor layout
+	// full: full Tiny MCE
+	// minimal: Teeny layout
+	// simple: simple layout
+	// text: text only
+	
+	//test
+	$editor_list = get_option('frontier_post_editor', array());
+	$editor_type = $editor_list[frontier_get_user_role()] ? $editor_list[frontier_get_user_role()] : "minimal";
+	//$editor_type = 'full';
+	//$allow_media = true;
+	
+	// Editor settings
+	$editor_layout = array('dfw' => true, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
+	
+	if (!current_user_can( 'frontier_post_can_media' ))
+		{
+		$tmp = array('media_buttons' => false);
+		$editor_layout = array_merge($editor_layout, $tmp);
+		}
+	
+
+	
+	if ($editor_type == "minimal")
+		{
+		$tmp = array('teeny' => true, 'quicktags' => false);
+		$editor_layout = array_merge($editor_layout, $tmp);
+		}
 		
+	if ($editor_type == "simple")
+		{
+		$tmp = array('teeny' => true, 'tinymce' => false);
+		$editor_layout = array_merge($editor_layout, $tmp);
+		}
+		
+	if ($editor_type == "text")	
+		{
+		$tmp = array('quicktags' => false, 'tinymce' =>false);
+		$editor_layout = array_merge($editor_layout, $tmp);
+		}
+		
+	
+	
+	/*
+	print_r("<hr>");
+	print_r($editor_list);
+	
+	print_r("</br>");
+	print_r('editor: '.$editor_type);
+	print_r("<hr>");
+	*/
+	
+	
+	
+	
+	
 	/*
 	print_r("<hr>");
 	print_r($tmp_status_list);
@@ -129,7 +196,7 @@
 	</tr><tr>
 		<td> 
 			<?php
-			wp_editor($thispost->post_content, 'user_post_desc', array('dfw' => true, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300) );
+			wp_editor($thispost->post_content, 'user_post_desc', $editor_layout);
 			?>
 		</td>
 	</tr><tr>

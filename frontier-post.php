@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.3.2
+Version: 1.3.3
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "1.3.2"); 
+define('FRONTIER_POST_VERSION', "1.3.3"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -259,14 +259,18 @@ function frontier_post_set_defaults()
 	
 	
 	$role_list		= Array('administrator', 'editor', 'author', 'contributor', 'subscriber');
-	$tmp_cap_list	= Array('can_add', 'can_edit', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
+	$tmp_cap_list	= Array('can_add', 'can_edit', 'can_publish', 'can_draft', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit', 'can_media');
 	
 	//print_r('building default WP options');
 	add_option("frontier_post_edit_max_age", 10 );
 	add_option("frontier_post_delete_max_age", 3 );
 	add_option("frontier_post_ppp", 15 );
 	add_option("frontier_post_del_w_comments", "false"  );
-	add_option("frontier_post_edit_w_comments", "false"  );
+	add_option("frontier_post_use_draft", "false"  );
+	
+	// add option will not overwrite existing option
+	add_option('frontier_post_editor', array('administrator' => 'full', 'editor' => 'full', 'author' => 'minimal', 'contributor' => 'simple', 'subscriber' => 'simple'));
+	$editor_list = get_option('frontier_post_editor', array());
 	
 	
 	foreach( $role_list as $role_name )
@@ -274,7 +278,12 @@ function frontier_post_set_defaults()
 		
 		//error_log('Setting up role: '.$role_name);
 		$xrole = get_role($role_name);
-					
+		
+		if ( ($role_name == 'administrator') || ($role_name == 'editor') )
+			$editor_list[$role_name] = $editor_list[$role_name] ? $editor_list[$role_name] : 'full'; 
+		else
+			$editor_list[$role_name] = $editor_list[$role_name] ? $editor_list[$role_name] : 'minimal'; 
+			
 		foreach($tmp_cap_list as $tmp_cap)
 			{
 				// Only enable all defaults for Administrator, Editor & Author
@@ -311,6 +320,10 @@ function frontier_post_set_defaults()
 				
 			} // End capabilities
 		} // End roles
+		
+		
+		update_option('frontier_post_editor', $editor_list);
+	
 
 	// Add capability edit_published_pages to allow authors to upload media if not present already
 	$xrole = get_role("author");

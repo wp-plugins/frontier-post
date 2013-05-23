@@ -1,0 +1,273 @@
+# Copyright (C) 2013 Frontier Post
+# This file is distributed under the same license as the Frontier Post package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Frontier Post 1.2.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
+"POT-Creation-Date: 2013-04-01 12:24:55+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-04-22 08:18+0800\n"
+"Last-Translator: 123@123.com <123@123.com>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+
+#: forms/frontier_form.php:73 forms/frontier_list.php:35
+#: include/frontier_my_posts_widget.php:251
+msgid "Title"
+msgstr "标题"
+
+#: forms/frontier_form.php:85 forms/frontier_list.php:36
+msgid "Category"
+msgstr "分类"
+
+#: forms/frontier_form.php:88
+msgid "Tags"
+msgstr "标签"
+
+#: forms/frontier_form.php:105
+msgid "Select category, multible can be selected using ctrl key"
+msgstr "选择发布信息的分类"
+
+#: forms/frontier_form.php:110 forms/frontier_form.php:111
+#: forms/frontier_form.php:112
+msgid "Enter tag here"
+msgstr "输入标签"
+
+#: forms/frontier_form.php:129
+msgid "Excerpt"
+msgstr "信息摘要"
+
+#: forms/frontier_form.php:135
+msgid "Publish"
+msgstr "发布"
+
+#: forms/frontier_form.php:136
+msgid "Cancel"
+msgstr "取消"
+
+#: forms/frontier_form.php:148
+msgid "You are not allowed to edit other users posts !"
+msgstr "没有权限编辑其他用户的信息"
+
+#: forms/frontier_list.php:15 include/frontier_my_posts_widget.php:220
+msgid "Create New Post"
+msgstr "新建信息"
+
+#: forms/frontier_list.php:34
+msgid "Date"
+msgstr "时间"
+
+#: forms/frontier_list.php:37
+msgid "Cmt"
+msgstr "评论"
+
+#: forms/frontier_list.php:38
+msgid "Action"
+msgstr "管理"
+
+#: forms/frontier_list.php:76
+msgid "Are you sure you want to delete this post?"
+msgstr "你确定要删除这条信息吗？"
+
+#: forms/frontier_list.php:94
+msgid "&laquo;"
+msgstr ""
+
+#: forms/frontier_list.php:95
+msgid "&raquo;"
+msgstr ""
+
+#: forms/frontier_list.php:109
+msgid "Sorry, you do not have any posts (yet)"
+msgstr "对不起，你还没有发布过信息哦。。。"
+
+#: frontier-post.php:220
+msgid "Please log in !"
+msgstr "请先登录！或注册账号！"
+
+#: include/frontier_my_posts_widget.php:16
+msgid "My posts"
+msgstr "发布信息"
+
+#: include/frontier_my_posts_widget.php:27
+#: include/frontier_my_posts_widget.php:300
+msgid "You have no posts"
+msgstr "没有信息"
+
+#: include/frontier_my_posts_widget.php:39
+msgid "Dont show date"
+msgstr "不显示时间"
+
+#: include/frontier_my_posts_widget.php:43
+msgid "Only posts"
+msgstr "只有文章"
+
+#: include/frontier_my_posts_widget.php:44
+msgid "Posts & comments "
+msgstr "文章和评论"
+
+#: include/frontier_my_posts_widget.php:45
+msgid "Posts and comments excerpt"
+msgstr "文章和摘要"
+
+#: include/frontier_my_posts_widget.php:49
+msgid "List posts of current user (author)"
+msgstr "用户文章列表"
+
+#: include/frontier_my_posts_widget.php:255
+msgid "Post date format"
+msgstr "文章 日期 格式"
+
+#: include/frontier_my_posts_widget.php:265
+msgid "Show comments"
+msgstr "显示评论"
+
+#: include/frontier_my_posts_widget.php:276
+msgid "Comment date format"
+msgstr "评论 日期 格式"
+
+#: include/frontier_my_posts_widget.php:286
+msgid "Number of posts & comments"
+msgstr "文章/评论数量"
+
+#: include/frontier_my_posts_widget.php:290
+msgid "Length of comment excerpt"
+msgstr "评论摘要长度"
+
+#: include/frontier_my_posts_widget.php:294
+msgid "Show Add Post link ?"
+msgstr "显示新建文章链接"
+
+#: include/frontier_my_posts_widget.php:299
+msgid "No post text"
+msgstr "没有输入内容"
+
+#: settings-menu.php:33
+msgid "You do not have sufficient permissions to access this page."
+msgstr "没有权限管理这个页面"
+
+#: settings-menu.php:99
+msgid "Settings saved."
+msgstr "保存设置"
+
+#: settings-menu.php:122
+msgid "Max age in days to allow edit of post:"
+msgstr "允许1天编辑文章的最大数量："
+
+#: settings-menu.php:125
+msgid "Allow edit of posts with comments:"
+msgstr "允许编辑带有评论的文章："
+
+#: settings-menu.php:128
+msgid "Max age in days to allow delete of post:"
+msgstr "允许1天删除文章的最大数量："
+
+#: settings-menu.php:131
+msgid "Allow deletion of posts with comments:"
+msgstr "允许删除带有评论的文章："
+
+#: settings-menu.php:134
+msgid "Number of post per page:"
+msgstr "每页显示的文章数："
+
+#: settings-menu.php:137
+msgid "Page containing [frontier-post] shortcode:"
+msgstr "包含短代码 [frontier-post] 的页面（显示用户发表的文章）："
+
+#: settings-menu.php:140
+msgid "None"
+msgstr ""
+
+#: settings-menu.php:149
+msgid "Capabilities by user role"
+msgstr "用户角色权限"
+
+#: settings-menu.php:152
+msgid "Role"
+msgstr "角色"
+
+#: settings-menu.php:153
+msgid "Can Add"
+msgstr "新建"
+
+#: settings-menu.php:154
+msgid "Can Edit"
+msgstr "编辑"
+
+#: settings-menu.php:155
+msgid "Can Delete"
+msgstr "删除"
+
+#: settings-menu.php:156
+msgid "Edit Excerpt"
+msgstr "编辑摘要"
+
+#: settings-menu.php:157
+msgid "Edit Tags"
+msgstr "编辑标签"
+
+#: settings-menu.php:158
+msgid "Frontier Edit"
+msgstr "前台编辑"
+
+#: settings-menu.php:201
+msgid "NA"
+msgstr ""
+
+#: settings-menu.php:220
+msgid ""
+"- Media upload is not available to Contributors and Subscribers by Wordpress "
+"capabilities"
+msgstr "订阅者和贡献者没有上传媒体文件的权限（wordpress限定）"
+
+#: settings-menu.php:221
+msgid ""
+"- Wordpress standard rolemodel does not allow Contributors and Subscribers "
+"to add/edit/delete posts, but you can bypass this above"
+msgstr ""
+"WordPress的标准规范不允许贡献者和订阅用户添加/编辑/删除帖子，但你可以通过以上"
+"选框绕过限制。"
+
+#: settings-menu.php:222
+msgid ""
+"- Frontier Edit means that if a user selects the dit link on a post, "
+"Frontier will be used to edit instead of backend"
+msgstr ""
+"Frontier Edit意味着如果用户选择一片文章的编辑链接，Frontier 前台编辑将代替后"
+"台编辑"
+
+#: settings-menu.php:223
+msgid ""
+"-    - This is only if selected from frontend, if edit from backend, backend "
+"interface will be used"
+msgstr "这是只有从前端，如果编辑从后端，后端接口将被使用"
+
+#: settings-menu.php:229
+msgid "Save Changes"
+msgstr "保存更改"
+
+#. Plugin Name of the plugin/theme
+msgid "Frontier Post"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/frontier-post/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Fast, easy & secure Front End management of posts. Add, Edit, Delete posts "
+"from frontend - My Posts Widget"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "finnj"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://http://wordpress.org/extend/plugins/frontier-post/"
+msgstr ""

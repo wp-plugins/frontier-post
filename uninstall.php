@@ -16,7 +16,7 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 		$wp_roles = new WP_Roles();
 	
 	$roles 			= $wp_roles->get_names();
-	$tmp_cap_list	= Array('can_add', 'can_edit', 'can_publish', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
+	$tmp_cap_list	= Array('can_add', 'can_edit', 'can_publish', 'can_draft', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit', 'can_media');
 	
 	// Remove capability edit_published_pages to allow authors to upload media if added on activation	
 	$tmp_author_cap_set = get_option("frontier_post_author_cap_set") ? get_option("frontier_post_author_cap_set") : "false";
@@ -33,6 +33,7 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 	delete_option("frontier_post_del_w_comments");
 	delete_option("frontier_post_edit_w_comments");
 	delete_option("frontier_post_page_id");
+	//delete_option("frontier_post_use_draft");
 	
 	foreach( $roles as $key => $item )
 		{
