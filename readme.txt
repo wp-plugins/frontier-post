@@ -11,7 +11,7 @@ Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from 
   
 == Description ==
 
-WordPress Frontier Post Plugin enables adding, deleting and editing standard posts from frontend.
+WordPress Frontier Post Plugin enables adding, deleting and editing standard posts from frontend
 
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
 Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.

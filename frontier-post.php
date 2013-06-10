@@ -2,7 +2,7 @@
 /*
 Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
-Description: Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
+Description: Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
 Version: 1.4.9
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
