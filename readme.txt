@@ -109,7 +109,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 1.4.8
+= 1.4.8 =
 * 4 editor options for frontend editing (Full, Simple-Visual, Simple-Html or Text-Only)
 * Category: Multi-select, dropdown or hidden
 * Media upload can be disabled per role
