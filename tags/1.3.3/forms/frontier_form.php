@@ -1,15 +1,6 @@
 <?php
 
 	$frontier_task = $_REQUEST['task'] ? $_REQUEST['task'] :"?";
-	// get options
-	$saved_options 		= get_option('frontier_post_options', array() );
-	
-	//get users role:
-	$users_role 		= frontier_get_user_role();
-	
-	$editor_type 		= $saved_options[$users_role]['editor'] ? $saved_options[$users_role]['editor'] : "full"; 
-	$category_type 		= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
-	
 	
 	if(!isset($thispost->post_type))
 		{
@@ -38,14 +29,8 @@
 	
 	//build post status list based on current status and users capability
 	$tmp_status_list = get_post_statuses( );
-	
 	// Remove private status from array
 	unset($tmp_status_list['private']);
-	
-	// Remove draft status from array if user is not allowed to use drafts
-	if (!current_user_can('frontier_post_can_draft'))
-	unset($tmp_status_list['draft']);
-	
 	
 	$status_list 		= array();
 	$tmp_post_status 	= $thispost->post_status ? $thispost->post_status : "unknown";
@@ -69,58 +54,7 @@
 			unset($status_list['publish']);
 			}
 		}
-	
-
-	// -- Setup wp_editor layout
-	// full: full Tiny MCE
-	// minimal-visual: Teeny layout
-	// minimal-html: simple layout with html options
-	// text: text only
-	
-	
-	
-	// Editor settings
-	$editor_layout = array('dfw' => true, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
-	
-	if (!current_user_can( 'frontier_post_can_media' ))
-		{
-		$tmp = array('media_buttons' => false);
-		$editor_layout = array_merge($editor_layout, $tmp);
-		}
-	
-	if ($editor_type == "minimal-visual")
-		{
-		$tmp = array('teeny' => true, 'quicktags' => false);
-		$editor_layout = array_merge($editor_layout, $tmp);
-		}
 		
-	if ($editor_type == "minimal-html")
-		{
-		$tmp = array('teeny' => true, 'tinymce' => false);
-		$editor_layout = array_merge($editor_layout, $tmp);
-		}
-		
-	if ($editor_type == "text")	
-		{
-		$tmp = array('quicktags' => false, 'tinymce' =>false);
-		$editor_layout = array_merge($editor_layout, $tmp);
-		}
-		
-	
-	
-	/*
-	print_r("<hr>");
-	print_r($editor_list);
-	
-	print_r("</br>");
-	print_r('editor: '.$editor_type);
-	print_r("<hr>");
-	*/
-	
-	
-	
-	
-	
 	/*
 	print_r("<hr>");
 	print_r($tmp_status_list);
@@ -130,39 +64,20 @@
 	*/
 	
 	// Build list of categories (3 levels)
-	if ($category_type == "multi")
-		{
-		$catlist = array();
-		foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => 0)) as $category1) :
-			$tmp = Array('cat_ID' => $category1->cat_ID, 'cat_name' => $category1->cat_name);
+	$catlist = array();
+	foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => 0)) as $category1) :
+		$tmp = Array('cat_ID' => $category1->cat_ID, 'cat_name' => $category1->cat_name);
+		array_push($catlist, $tmp);
+		foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $category1->cat_ID)) as $category2) :
+			$tmp = Array('cat_ID' => $category2->cat_ID, 'cat_name' => "-- ".$category2->cat_name);
 			array_push($catlist, $tmp);
-			foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $category1->cat_ID)) as $category2) :
-				$tmp = Array('cat_ID' => $category2->cat_ID, 'cat_name' => "-- ".$category2->cat_name);
+			foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $category2->cat_ID)) as $category3) :
+				$tmp = Array('cat_ID' => $category3->cat_ID, 'cat_name' => "-- -- ".$category3->cat_name);
 				array_push($catlist, $tmp);
-				foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $category2->cat_ID)) as $category3) :
-					$tmp = Array('cat_ID' => $category3->cat_ID, 'cat_name' => "-- -- ".$category3->cat_name);
-					array_push($catlist, $tmp);
-				endforeach; // Level 3
-			endforeach; // Level 2
-		endforeach; //Level 1
-		}
-		
-	if ($category_type == "single")
-		{
-		if(isset($thispost->ID) )
-			{
-			$postcategory=get_the_category($thispost->ID); 
-			if (array_key_exists(0, $postcategory))
-				$postcategoryid = $postcategory[0]->term_id;
-			else
-				$postcategoryid	= -1;				
-			}
-		else
-			{
-			$postcategoryid	= -1;				
-			}	
-		}
-		
+			endforeach; // Level 3
+		endforeach; // Level 2
+	endforeach; //Level 1
+
 	if ( current_user_can( 'frontier_post_tags_edit' )  )
 		{
 		$taglist = array();
@@ -218,20 +133,14 @@
 	</tr><tr>
 		<td> 
 			<?php
-			wp_editor($thispost->post_content, 'user_post_desc', $editor_layout);
+			wp_editor($thispost->post_content, 'user_post_desc', array('dfw' => true, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300) );
 			?>
 		</td>
 	</tr><tr>
 		<td><table><tbody>
 		<tr>
-		<?php
-		if ($category_type != "hide")
-			{  
-		?>
 			<th class="frontier_heading" width="50%"><?php _e("Category", "frontier-post"); ?></th>
-		<?php 
-			}
-			if ( current_user_can( 'frontier_post_tags_edit' ) )
+			<?php if ( current_user_can( 'frontier_post_tags_edit' ) )
 				{ ?>
 			<th class="frontier_heading" width="50%"><?php _e("Tags", "frontier-post"); ?></th>
 			<?php } else 
@@ -239,35 +148,19 @@
 				  <th class="frontier_heading" width="50%">&nbsp;</th>
 			<?php } ?>	  
 		</tr><tr>
-			<?php
-			if ($category_type != "hide")
-				{
-				?>
-				<td class="frontier_border" width="50%">
-				<?php
-				$cats_selected 		= $thispost->post_category;
-				
-				if ($category_type == "single")
-					{
-					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'orderby' => 'name', 'selected' => $postcategoryid, 'hierarchical' => true, 'show_option_none' => __('None'))); 
-					}
-				else
-					{
-					?>
-					<select name="categorymulti[]" id="frontier_categorymulti" multiple="multiple" size="8">
-					<?php  
-					
-					foreach ( $catlist as $category1) : ?>
-						<option value="<?php echo $category1['cat_ID']; ?>" <?php if ( $cats_selected && in_array( $category1['cat_ID'], $cats_selected ) ) { echo 'selected="selected"'; }?>><?php echo $category1['cat_name']; ?></option>
-					<?php endforeach; ?>
-					</select>
-					</br><div class="frontier_helptext"><?php _e("Select category, multible can be selected using ctrl key", "frontier-post"); ?></div>
-					</td>
-					<?php 
-					} // end multis elect 
-				} // end hide category 
-				?>
-				
+			<!-- Category Multi select 
+			source: http://wordpress.stackexchange.com/questions/62993/category-list-in-theme-options-page
+			-->
+			<td class="frontier_border" width="50%">
+				<select name="categorymulti[]" id="frontier_categorymulti" multiple="multiple" size="8">
+				<?php  
+				$cats_selected = $thispost->post_category;
+				foreach ( $catlist as $category1) : ?>
+					<option value="<?php echo $category1['cat_ID']; ?>" <?php if ( $cats_selected && in_array( $category1['cat_ID'], $cats_selected ) ) { echo 'selected="selected"'; }?>><?php echo $category1['cat_name']; ?></option>
+				<?php endforeach; ?>
+				</select>
+				</br><div class="frontier_helptext"><?php _e("Select category, multible can be selected using ctrl key", "frontier-post"); ?></div>
+			</td>
 			<?php if ( current_user_can( 'frontier_post_tags_edit' ) )
 				{ ?>
 				<td class="frontier_border" width="50%">
@@ -281,6 +174,9 @@
 	</tr><tr>
 		<td class="frontier_no_border">
 			<?php
+			//$select_cats = wp_dropdown_categories( array( 'echo' => 0 ) );
+			//$select_cats = str_replace( "name='cat' id=", "name='cat[]' multiple='multiple' id=", $select_cats );
+			//echo $select_cats;
 			?>
 		</td>
 	</tr><tr>
