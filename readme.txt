@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, frontier post, my post widget, posts, widget
 Requires at least: 3.4.0
 Tested up to: 3.6
-Stable tag: 1.4.8
+Stable tag: 1.4.9
 License: GPL v3 or later
  
 Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
@@ -108,6 +108,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 1.4.9 =
+* Issue with svn, new tag created
 
 = 1.4.8 =
 * New Editor options for frontend editing - Full, Simple-Visual, Simple-Html or Text-Only
