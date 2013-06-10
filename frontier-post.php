@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.3.3
+Version: 1.4.8
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "1.3.3"); 
+define('FRONTIER_POST_VERSION', "1.4.8"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -72,7 +72,23 @@ function frontier_posting_form_submit()
 			
 			$tmp_excerpt = isset( $_POST['user_post_excerpt']) ? trim($_POST['user_post_excerpt'] ) : null;
 
-			$tmp_categorymulti = $_POST['categorymulti'];
+			$saved_options 		= get_option('frontier_post_options', array() );
+			$users_role 		= frontier_get_user_role();
+			$category_type 		= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
+			
+			if ($category_type == "multi")
+				$tmp_categorymulti = $_POST['categorymulti'];
+				
+			if ($category_type == "single")
+				{
+				if(isset($_POST['cat']))
+					{
+					$tmp_category = $_POST['cat'];
+					//error_log("Category from form: ".$tmp_category);
+					$tmp_categorymulti = array($tmp_category);
+					}
+				}
+				
 			if ((!isset($tmp_categorymulti)) || (count($tmp_categorymulti)==0))
 				$tmp_categorymulti = Array(get_option("default_category"));
 				
@@ -252,33 +268,45 @@ function frontier_delete_post()
 
 function frontier_post_set_defaults()
 	{
-	
+	include("include/frontier_post_defaults.php");
 	//error_log("Setting Frontier Post application Defaults ");
 	
 	global $wpdb;
+	global $wp_roles;
+	global $tmp_cap_list;
+	if ( !isset( $wp_roles ) )
+		$wp_roles = new WP_Roles();
+				
+	$roles 			= $wp_roles->get_names();
+		
 	
+	//$role_list		= Array('administrator', 'editor', 'author', 'contributor', 'subscriber');
 	
-	$role_list		= Array('administrator', 'editor', 'author', 'contributor', 'subscriber');
-	$tmp_cap_list	= Array('can_add', 'can_edit', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
 	
 	//print_r('building default WP options');
 	add_option("frontier_post_edit_max_age", 10 );
 	add_option("frontier_post_delete_max_age", 3 );
 	add_option("frontier_post_ppp", 15 );
 	add_option("frontier_post_del_w_comments", "false"  );
-	add_option("frontier_post_edit_w_comments", "false"  );
+	add_option("frontier_post_use_draft", "false"  );
 	
 	
-	foreach( $role_list as $role_name )
+	$tmp_cap_list	= $frontier_option_list;			
+	$saved_options = get_option('frontier_post_options', array() );
+	foreach( $roles as $key => $item )
 		{
 		
 		//error_log('Setting up role: '.$role_name);
-		$xrole = get_role($role_name);
-					
+		$xrole = get_role($key);
+		$xrole_caps = $xrole->capabilities;
+		
+			
 		foreach($tmp_cap_list as $tmp_cap)
 			{
+			
+				
 				// Only enable all defaults for Administrator, Editor & Author
-				if ( ($role_name == 'administrator') || ($role_name == 'editor') )
+				if ( ($key == 'administrator') || ($key == 'editor') )
 					{
 					$tmp_option  = "true";
 					}
@@ -287,42 +315,57 @@ function frontier_post_set_defaults()
 					// all options false for other profiles
 					$tmp_option = "false";
 					// except author who can add, edit and use the edit redir functionality
-					if ( ($role_name == 'author') && (($tmp_cap == 'add_edit') || ($tmp_cap == 'can_edit') || ($tmp_cap == 'redir_edit') ) )
-						{
+					if ( ($key == 'author') && (($tmp_cap == 'can_add') || ($tmp_cap == 'can_edit') || ($tmp_cap == 'redir_edit') ) )
 						$tmp_option  = "true";
-						}
 					}
+
+				if ($tmp_cap == 'editor')
+					$tmp_option  = "full";
+							
+				if ($tmp_cap == 'category')
+					$tmp_option  = "multi";
+					
+				//Check if option already exists, if not, set it
+				if ( !array_key_exists($key, $saved_options) )
+					$saved_options[$key] = array();
+					
+				$role_options = $saved_options[$key];
+				if ( !array_key_exists($tmp_cap, $role_options) )
+					{	
+					//check if old option (pre ver. 1.4) exists
+					$tmp_option_id = 'frontier_post_'.$key.'_'.$tmp_cap;
+					
+					if (!get_option('frontier_post_'.$key.'_'.$tmp_cap))
+						$tmp_option = get_option('frontier_post_'.$key.'_'.$tmp_cap);
+							
+					}
+				$saved_options[$key][$tmp_cap] = $tmp_option;
 				
-				$tmp_option_id = 'frontier_post_'.$role_name.'_'.$tmp_cap;
-				
-				// add option (will not overwrite value if allready defined
-				add_option('frontier_post_'.$role_name.'_'.$tmp_cap, $tmp_option);
-				
-				// set capability (Based on option, so previous settings are respected is set)
-				$tmp_value		= ( get_option($tmp_option_id) ? get_option($tmp_option_id) : "false" );
-				if ( $tmp_value == "true" )
+				if (!get_option('frontier_post_'.$key.'_'.$tmp_cap))
+					delete_option('frontier_post_'.$key.'_'.$tmp_cap);
+									
+				// set capability, but not for editor and catory as they are not capabilities
+				if ($tmp_cap != 'editor' && $tmp_cap != 'category')
 					{
+					$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
+					if ( $tmp_value == "true" )
+						{
 						$xrole->add_cap( 'frontier_post_'.$tmp_cap );
-					}
-				else
-					{
+						}
+					else
+						{
 						$xrole->remove_cap( 'frontier_post_'.$tmp_cap );
-					}
+						}
 				
+					}
 			} // End capabilities
 		} // End roles
+		
+		// save options
+		update_option('frontier_post_options', $saved_options);
+		//error_log(var_dump($saved_options));
 
-	// Add capability edit_published_pages to allow authors to upload media if not present already
-	$xrole = get_role("author");
-	$xrole_caps = $xrole->capabilities;
-	/* Not neccessary 
-	if (!array_key_exists("edit_published_pages", $xrole_caps))
-		{
-			$xrole->add_cap( 'edit_published_pages');
-			//Set option to use on unistall to remove capability again
-			add_option("frontier_post_author_cap_set", "true");
-		}
-	*/	
+		
 	// Check if page containing [frontier-post] exists already, else create it
 	$tmp_id = $wpdb->get_var(
 		"SELECT id 
@@ -353,27 +396,16 @@ function frontier_post_set_defaults()
 	// Set version
 	update_option("frontier_post_version", FRONTIER_POST_VERSION);
 	
-	}
+	} // end function
 
 register_activation_hook( __FILE__ , 'frontier_post_set_defaults');
 	
 function frontier_get_user_role() 
 	{
-	$tmp_role = 'unkown';
-	
-	if (current_user_can( 'administrator' ))
-		{ $tmp_role = 'administrator'; }
-	if (current_user_can( 'editor' ))
-		{ $tmp_role = 'editor'; }
-	if (current_user_can( 'author' ))
-		{ $tmp_role = 'author'; }
-	if (current_user_can( 'contributor' ))
-		{ $tmp_role = 'contributor'; }
-	if (current_user_can( 'subscriber' ))
-		{ $tmp_role = 'subscriber'; }
-	
-	return $tmp_role;
-	
+	global $current_user;
+	$user_roles = $current_user->roles;
+	$user_role = array_shift($user_roles);
+	return $user_role ? $user_role : 'unkown';
 	}
 	
 	
@@ -461,6 +493,7 @@ function frontier_post_init()
 	{
 	load_plugin_textdomain('frontier-post', false, dirname( plugin_basename( __FILE__ ) ).'/language');
 	}
+	
 add_action('plugins_loaded', 'frontier_post_init');
 
 add_filter( 'get_edit_post_link', 'frontier_edit_post_link', 10, 2 );

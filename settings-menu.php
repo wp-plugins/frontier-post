@@ -3,6 +3,7 @@
 Admin settings menu - Frontier Post
 */
 
+include("include/frontier_post_defaults.php");
 
 function frontier_post_settings_menu() 
 	{
@@ -12,7 +13,7 @@ function frontier_post_settings_menu()
 
 function frontier_post_settings_page() 
 	{
-	
+		include("include/frontier_post_defaults.php");
 		//must check that the user has the required capability 
 		if (!current_user_can('manage_options'))
 			{
@@ -25,7 +26,7 @@ function frontier_post_settings_page()
 			$wp_roles = new WP_Roles();
 				
 		$roles 			= $wp_roles->get_names();
-		$tmp_cap_list	= Array('can_add', 'can_edit', 'can_publish', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit');
+		
 		// check for edit_published posts, for the edit_redir option
 		$cap2check = "edit_published_posts";
 		
@@ -41,14 +42,15 @@ function frontier_post_settings_page()
 				update_option("frontier_post_page_id", ( (int) $_POST[ "frontier_post_page_id"] ) );
 				update_option("frontier_post_del_w_comments", ( isset($_POST[ "frontier_post_del_w_comments"]) ? $_POST[ "frontier_post_del_w_comments"] : "false" ) );
 				update_option("frontier_post_edit_w_comments", ( isset($_POST[ "frontier_post_edit_w_comments"]) ? $_POST[ "frontier_post_edit_w_comments"] : "false" ) );
+				update_option("frontier_post_use_draft", ( isset($_POST[ "frontier_post_use_draft"]) ? $_POST[ "frontier_post_use_draft"] : "false" ) );
 				
 				//save capability settings
-		
+				$tmp_cap_list	= $frontier_option_list;			
+				$saved_options = get_option('frontier_post_options', array() );
 				foreach( $roles as $key => $item ) 
 					{
 					$xrole = get_role($key);
 					$xrole_caps = $xrole->capabilities;
-					
 					if (( array_key_exists($cap2check, $xrole_caps) ) && ($xrole_caps[$cap2check]) )
 						$tmp_cap_ok = true;
 					else
@@ -56,29 +58,41 @@ function frontier_post_settings_page()
 				
 					foreach($tmp_cap_list as $tmp_cap)
 						{
-						$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
-						$tmp_option_id	= 'frontier_post_'.$key.'_'.$tmp_cap;
-						if (isset($_POST[ $tmp_name]))
-							$tmp_value		= ( $_POST[ $tmp_name] ? $_POST[ $tmp_name] : "false" );
-						else
-							$tmp_value		= "false";
-						//print_r('Update: '.$tmp_option_id.' --> '.$tmp_name.' --> '.$tmp_value.'</br>');
-						update_option($tmp_option_id,  $tmp_value);
 						
-						// set capability
-						if ( $tmp_value == "true" )
-							{
-								$xrole->add_cap( 'frontier_post_'.$tmp_cap );
-							}
+						$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
+						$def_value		= "false";
+						
+						if ($tmp_cap == 'editor')
+							$def_value		= "minimal-visual";
+						
+						if ($tmp_cap == 'category')
+							$def_value		= "multi";
+							
+						if (isset($_POST[ $tmp_name]))
+							$tmp_value		= ( $_POST[ $tmp_name] ? $_POST[ $tmp_name] : $def_value );
 						else
+							$tmp_value		= $def_value;
+							
+						// set capability, but not for editor and category
+						
+						if (($tmp_cap != 'editor') && ($tmp_cap != 'category'))
 							{
+							if ( $tmp_value == "true" )
+								$xrole->add_cap( 'frontier_post_'.$tmp_cap );
+							else
 								$xrole->remove_cap( 'frontier_post_'.$tmp_cap );
 							}
+						$saved_options[$key][$tmp_cap] = $tmp_value;
+						
+						} //caps
 					
-						}
-					}
-		
-		
+					
+					} // roles
+					
+				// Save options
+				update_option('frontier_post_options', $saved_options);
+				
+				
 				
 				// Put an settings updated message on the screen
 				?>
@@ -89,37 +103,35 @@ function frontier_post_settings_page()
 		// get values from db
 		$frontier_post_edit_max_age 		= get_option('frontier_post_edit_max_age');
 		$frontier_post_delete_max_age 		= get_option('frontier_post_delete_max_age');
-		$frontier_post_ppp						= get_option('frontier_post_ppp');
+		$frontier_post_ppp					= get_option('frontier_post_ppp');
 		$frontier_post_page_id				= get_option('frontier_post_page_id');
-		$frontier_post_del_w_comments			= (get_option("frontier_post_del_w_comments")) ? get_option("frontier_post_del_w_comments") : "false";
-		$frontier_post_edit_w_comments			= (get_option("frontier_post_edit_w_comments")) ? get_option("frontier_post_edit_w_comments") : "false";
+		$frontier_post_del_w_comments		= (get_option("frontier_post_del_w_comments")) ? get_option("frontier_post_del_w_comments") : "false";
+		$frontier_post_edit_w_comments		= (get_option("frontier_post_edit_w_comments")) ? get_option("frontier_post_edit_w_comments") : "false";
+		//$frontier_post_use_draft			= (get_option("frontier_post_use_draft")) ? get_option("frontier_post_use_draft") : "false";
 		
-		
-	?>
+		//$frontier_options =
+		?>
 	
-	<div class="wrap">
-	<div class="frontier-admin-menu">
+		<div class="wrap">
+		<div class="frontier-admin-menu">
 		<h2>Frontier Post Settings</h2>
 
 		<form name="frontier_post_settings" method="post" action="">
 			<input type="hidden" name="frontier_isupdated_hidden" value="Y">
-			<table>
+			<table border="1">
 				<tr>
+					<td><?php _e("Allow edit of posts with comments:", "frontier-post"); ?>:</td>
+					<td><center><input type="checkbox" name="frontier_post_edit_w_comments" value="true" <?php echo ($frontier_post_edit_w_comments == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Max age in days to allow edit of post:", "frontier-post");?>:</td>
 					<td><input type="text" name="frontier_post_edit_max_age" value="<?php echo $frontier_post_edit_max_age; ?>" /></td>
 				</tr><tr>
-					<td><?php _e("Allow edit of posts with comments:", "frontier-post"); ?>:</td>
-					<td><input type="checkbox" name="frontier_post_edit_w_comments" value="true" <?php echo ($frontier_post_edit_w_comments == "true") ? 'checked':''; ?>></td>
-				</tr><tr>
+					<td><?php _e("Allow deletion of posts with comments:", "frontier-post"); ?>:</td>
+					<td><center><input type="checkbox" name="frontier_post_del_w_comments" value="true" <?php echo ($frontier_post_del_w_comments == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Max age in days to allow delete of post:", "frontier-post"); ?>:</td>
 					<td><input type="text" name="frontier_post_delete_max_age" value="<?php echo $frontier_post_delete_max_age; ?>" /></td>
 				</tr><tr>
-					<td><?php _e("Allow deletion of posts with comments:", "frontier-post"); ?>:</td>
-					<td><input type="checkbox" name="frontier_post_del_w_comments" value="true" <?php echo ($frontier_post_del_w_comments == "true") ? 'checked':''; ?>></td>
-				</tr><tr>
 					<td><?php _e("Number of post per page:", "frontier-post"); ?>:</td>
 					<td><input type="text" name="frontier_post_ppp" value="<?php echo $frontier_post_ppp; ?>" /></td>
-				</tr><tr>
 					<td><?php _e("Page containing [frontier-post] shortcode:", "frontier-post"); ?></td>
 					<td>
 						<?php 
@@ -139,17 +151,23 @@ function frontier_post_settings_page()
 						<th width="10%"><?php _e("Can Add", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Edit", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Publish", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Allow Drafts", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Delete", "frontier-post"); ?></th>
-						<th width="10%"><?php _e("Edit Excerpt", "frontier-post"); ?></th>
-						<th width="10%"><?php _e("Edit Tags", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Frontier Edit", "frontier-post"); ?></th>
+						
 					
 					</tr><tr>
 					
 			<?php
 			
 			//Build table based on values from options
-		
+			
+			$saved_options 	= get_option('frontier_post_options', array() );
+			$tmp_cap_list	= $frontier_option_list;
+			
+			//Only show first part of options, so the table doesnt get too wide
+			$tmp_cap_list	= array_slice($tmp_cap_list,0,$frontier_option_slice);
+			
 			foreach( $roles as $key => $item ) 
 				{
 				
@@ -164,40 +182,122 @@ function frontier_post_settings_page()
 				else
 					$tmp_cap_ok = false;
 				
+				//$role_settings = 
 				
 				foreach($tmp_cap_list as $tmp_cap)
 					{
-					
 					$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
-					$tmp_option_id	= 'frontier_post_'.$key.'_'.$tmp_cap;
-					$tmp_value		= ( get_option($tmp_option_id) ? get_option($tmp_option_id) : "false" );
+					$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
 					if ( $tmp_value == "true" )
-						{
-							$tmp_checked	= " checked"; 
-						}
-						else
-						{
-							$tmp_checked	= " "; 
-						}
-						
-					echo '<td><center>';
+						$tmp_checked	= " checked"; 
+					else
+						$tmp_checked	= " "; 
 					
-					// can only enable redirect for edit posts if role has the neccessary capabilities
+					echo '<td><center>';
+					// can only enable redirect for edit posts if role has the necessary capabilities
 					if (( $tmp_cap == 'redir_edit' ) && (!$tmp_cap_ok) )
-						{
 						echo _e('NA', 'frontier-post');
+					else
+						echo '<input value="true" type="checkbox" name="'.$tmp_name.'" id="' .$tmp_name. '" '. $tmp_checked.' />';
+						
+					echo '</center></td>';
+					} // end cap
+					echo '</tr>';
+				} // end roles
+			
+			
+			
+			?>
+			</table>
+			
+			<?php
+			$tmp_cap_list	= $frontier_option_list;
+			// show second part of options
+			$tmp_cap_list	= array_slice($tmp_cap_list,$frontier_option_slice );
+			//print_r($tmp_cap_list);
+			
+			?>
+			<table border="1">
+					<tr>
+					<th colspan="7"></center><?php _e("Editor options", "frontier-post"); ?></center></th>
+					<tr></tr>
+					<tr></tr>
+						<th width="30%"><?php _e("Role", "frontier-post")?></th>
+						<th width="10%"><?php _e("Edit Excerpt", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Edit Tags", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Media Upload", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Editor Type", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Category", "frontier-post"); ?></th>
+					</tr><tr>
+					
+			<?php
+			
+			
+			foreach( $roles as $key => $item ) 
+				{
+				
+				echo '<tr>';
+				echo '<td>'.$item.'</td>';
+				
+				$xrole = get_role($key);
+				$xrole_caps = $xrole->capabilities;
+				
+				if (( array_key_exists($cap2check, $xrole_caps) ) && ($xrole_caps[$cap2check]) )
+					$tmp_cap_ok = true;
+				else
+					$tmp_cap_ok = false;
+				
+				//$role_settings = 
+				
+				foreach($tmp_cap_list as $tmp_cap)
+					{
+					$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
+					$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
+					
+					if ($tmp_cap == 'editor' || $tmp_cap == 'category')
+						{
+						if ($tmp_cap == 'editor')
+							$optionlist = $editor_types;
+							
+						if ($tmp_cap == 'category')
+							$optionlist = $category_types;
+							
+						echo '<td>';
+						?>	
+						<select  id="post_status" name="<?php echo $tmp_name ?>" >
+						<?php foreach($optionlist as $desc => $id) : ?>   
+							<option value='<?php echo $id ?>' <?php echo ( $id == $tmp_value) ? "selected='selected'" : ' ';?>>
+								<?php echo $desc; ?>
+							</option>
+						<?php endforeach; ?>
+						</select>
+						
+						<?php
+						echo '</td>';
 						}
 					else
 						{
-						echo '<input value="true" type="checkbox" name="'.$tmp_name.'" id="' .$tmp_name. '" '. $tmp_checked.' />';
-						}
-						
-					echo '</center></td>';
-					}
-				//echo '<td>'.$tmp_name.'<td>';
-				echo '</tr>';
+						if ( $tmp_value == "true" )
+							$tmp_checked	= " checked"; 
+						else
+							$tmp_checked	= " "; 
 					
-				}
+						echo '<td><center>';
+						// can only enable redirect for edit posts if role has the necessary capabilities
+						if (( $tmp_cap == 'redir_edit' ) && (!$tmp_cap_ok) )
+							echo _e('NA', 'frontier-post');
+						else
+							echo '<input value="true" type="checkbox" name="'.$tmp_name.'" id="' .$tmp_name. '" '. $tmp_checked.' />';
+						
+						echo '</center></td>';
+						}
+					
+					} // end cap
+					echo '</tr>';
+				} // end roles
+			
+			
+			
 			
 			?>
 			
@@ -222,6 +322,6 @@ function frontier_post_settings_page()
 	</div> <!-- wrap -->
 
 	<?php 
-	} 
+	} // end function frontier_post_settings_page
 	
 	?>
