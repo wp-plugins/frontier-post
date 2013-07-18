@@ -111,6 +111,10 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+= 1.5.2 =
+* New buttons on editor: Smileys, search & replace and table control
+* Frontend Author role added
+
 = 1.5.1 =
 * Option to hide admin bar
 * Default category per role

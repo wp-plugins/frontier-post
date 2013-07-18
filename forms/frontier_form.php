@@ -5,11 +5,14 @@
 	$saved_options 		= get_option('frontier_post_options', array() );
 	
 	//get users role:
-	$users_role 		= frontier_get_user_role();
+	$users_role 				= frontier_get_user_role();
 	
-	$editor_type 		= $saved_options[$users_role]['editor'] ? $saved_options[$users_role]['editor'] : "full"; 
-	$category_type 		= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
-	$default_category	= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
+	$editor_type 				= $saved_options[$users_role]['editor'] ? $saved_options[$users_role]['editor'] : "full"; 
+	$frontier_post_mce_custom	= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "false";
+	$frontier_post_mce_button	= get_option("frontier_post_mce_button", array());
+		
+	$category_type 				= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
+	$default_category			= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
 	
 	
 	
@@ -83,6 +86,21 @@
 	
 	// Editor settings
 	$editor_layout = array('dfw' => true, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
+	
+	
+	
+	if ($editor_type == "full" && $frontier_post_mce_custom == "true")
+		{
+		$tinymce_options = array(
+			'theme_advanced_buttons1' 	=> ($frontier_post_mce_button[0] ? $frontier_post_mce_button[0] : ''),
+			'theme_advanced_buttons2' 	=> ($frontier_post_mce_button[1] ? $frontier_post_mce_button[1] : ''),
+			'theme_advanced_buttons3' 	=> ($frontier_post_mce_button[2] ? $frontier_post_mce_button[2] : ''),
+			'theme_advanced_buttons4' 	=> ($frontier_post_mce_button[3] ? $frontier_post_mce_button[3] : '')
+			);
+	
+		$tmp = array('tinymce' => $tinymce_options);
+		$editor_layout = array_merge($editor_layout, $tmp);
+		}
 	
 	if (!current_user_can( 'frontier_post_can_media' ))
 		{

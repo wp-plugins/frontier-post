@@ -163,7 +163,7 @@ function frontier_user_post_form()
 	{
 	global $current_user;
 	require_once(ABSPATH . '/wp-admin/includes/post.php');    
-	
+	//include("include/frontier_post_defaults.php");
     $concat= get_option("permalink_structure")?"?":"&";  
         
     if($_REQUEST['task']=="edit")
@@ -290,7 +290,18 @@ function frontier_post_set_defaults()
 	add_option("frontier_post_ppp", 15 );
 	add_option("frontier_post_del_w_comments", "false"  );
 	add_option("frontier_post_use_draft", "false"  );
+	add_option("frontier_post_author_role", "false"  );
+	add_option("frontier_post_mce_custom",  "false" );
 	
+	/*	
+	$tmp_buttons = array();
+	$tmp_buttons[0]	= (isset($_POST[ "frontier_post_mce_button1"]) ? $_POST[ "frontier_post_mce_button1"] : '' );
+	$tmp_buttons[1]	= (isset($_POST[ "frontier_post_mce_button2"]) ? $_POST[ "frontier_post_mce_button2"] : '' );
+	$tmp_buttons[2]	= (isset($_POST[ "frontier_post_mce_button3"]) ? $_POST[ "frontier_post_mce_button3"] : '' );
+	$tmp_buttons[3]	= (isset($_POST[ "frontier_post_mce_button4"]) ? $_POST[ "frontier_post_mce_button4"] : '' );
+	*/
+	add_option(frontier_post_mce_button ,array($frontier_mce_buttons_1, $frontier_mce_buttons_2, $frontier_mce_buttons_3, $frontier_mce_buttons_4 )); 
+				
 	
 	$tmp_cap_list	= $frontier_option_list;			
 	$saved_options = get_option('frontier_post_options', array() );
@@ -428,6 +439,20 @@ add_action("init","frontier_get_user_role");
 add_action("init","frontier_posting_form_submit"); 
 add_action("init","frontier_delete_post");  
 
+// Load tinymce plugins
+add_filter('mce_external_plugins', 'frontier_tinymce_plugins');
+function frontier_tinymce_plugins () 
+	{
+	$plugins = array('emotions', 'table', 'searchreplace'); 
+	$plugins_array = array();
+	//Build the response - the key is the plugin name, value is the URL to the plugin JS
+	foreach ($plugins as $plugin ) 
+		{
+		$plugins_array[ $plugin ] = plugins_url('tinymce/', __FILE__) . $plugin . '/editor_plugin.js';
+		}
+	return $plugins_array;
+	}
+	
 // Hide admin bar for user role based on settings
 function frontier_admin_bar()
 	{

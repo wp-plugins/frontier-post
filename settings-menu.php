@@ -43,6 +43,32 @@ function frontier_post_settings_page()
 				update_option("frontier_post_del_w_comments", ( isset($_POST[ "frontier_post_del_w_comments"]) ? $_POST[ "frontier_post_del_w_comments"] : "false" ) );
 				update_option("frontier_post_edit_w_comments", ( isset($_POST[ "frontier_post_edit_w_comments"]) ? $_POST[ "frontier_post_edit_w_comments"] : "false" ) );
 				update_option("frontier_post_use_draft", ( isset($_POST[ "frontier_post_use_draft"]) ? $_POST[ "frontier_post_use_draft"] : "false" ) );
+				update_option("frontier_post_author_role", ( isset($_POST[ "frontier_post_author_role"]) ? $_POST[ "frontier_post_author_role"] : "false" ) );
+				update_option("frontier_post_mce_custom", ( isset($_POST[ "frontier_post_mce_custom"]) ? $_POST[ "frontier_post_mce_custom"] : "false" ) );
+				
+				$tmp_buttons = array();
+				$tmp_buttons[0]	= (isset($_POST[ "frontier_post_mce_button1"]) ? $_POST[ "frontier_post_mce_button1"] : '' );
+				$tmp_buttons[1]	= (isset($_POST[ "frontier_post_mce_button2"]) ? $_POST[ "frontier_post_mce_button2"] : '' );
+				$tmp_buttons[2]	= (isset($_POST[ "frontier_post_mce_button3"]) ? $_POST[ "frontier_post_mce_button3"] : '' );
+				$tmp_buttons[3]	= (isset($_POST[ "frontier_post_mce_button4"]) ? $_POST[ "frontier_post_mce_button4"] : '' );
+				update_option("frontier_post_mce_button" ,$tmp_buttons); 
+				
+				if (get_option("frontier_post_author_role") == "true")
+					{
+					// add role if it doesnt exists
+					if (!get_role($frontier_author_role_name))
+						add_role($frontier_author_role_name, __("Frontend Author"), $frontier_author_default_caps);					
+					}
+				else
+					{
+					// remove role if it  exists
+					if (get_role($frontier_author_role_name))
+						remove_role($frontier_author_role_name);					
+					}
+				
+				// Need to reinstate roles, as they have been manipulated above
+				$wp_roles	= new WP_Roles();
+				$roles 	  	= $wp_roles->get_names();
 				
 				//save capability settings
 				$tmp_cap_list	= $frontier_option_list;			
@@ -107,9 +133,9 @@ function frontier_post_settings_page()
 		$frontier_post_page_id				= get_option('frontier_post_page_id');
 		$frontier_post_del_w_comments		= (get_option("frontier_post_del_w_comments")) ? get_option("frontier_post_del_w_comments") : "false";
 		$frontier_post_edit_w_comments		= (get_option("frontier_post_edit_w_comments")) ? get_option("frontier_post_edit_w_comments") : "false";
-		//$frontier_post_use_draft			= (get_option("frontier_post_use_draft")) ? get_option("frontier_post_use_draft") : "false";
-		
-		//$frontier_options =
+		$frontier_post_author_role			= (get_option("frontier_post_author_role")) ? get_option("frontier_post_author_role") : "false";
+		$frontier_post_mce_custom			= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "false";
+		$frontier_post_mce_button			= get_option("frontier_post_mce_button");
 		?>
 	
 		<div class="wrap">
@@ -120,17 +146,17 @@ function frontier_post_settings_page()
 			<input type="hidden" name="frontier_isupdated_hidden" value="Y">
 			<table border="1">
 				<tr>
-					<td><?php _e("Allow edit of posts with comments:", "frontier-post"); ?>:</td>
+					<td><?php _e("Allow edit of posts with comments", "frontier-post"); ?>:</td>
 					<td><center><input type="checkbox" name="frontier_post_edit_w_comments" value="true" <?php echo ($frontier_post_edit_w_comments == "true") ? 'checked':''; ?>></center></td>
-					<td><?php _e("Max age in days to allow edit of post:", "frontier-post");?>:</td>
+					<td><?php _e("Max age in days to allow edit of post", "frontier-post");?>:</td>
 					<td><input type="text" name="frontier_post_edit_max_age" value="<?php echo $frontier_post_edit_max_age; ?>" /></td>
 				</tr><tr>
-					<td><?php _e("Allow deletion of posts with comments:", "frontier-post"); ?>:</td>
+					<td><?php _e("Allow deletion of posts with comments", "frontier-post"); ?>:</td>
 					<td><center><input type="checkbox" name="frontier_post_del_w_comments" value="true" <?php echo ($frontier_post_del_w_comments == "true") ? 'checked':''; ?>></center></td>
-					<td><?php _e("Max age in days to allow delete of post:", "frontier-post"); ?>:</td>
+					<td><?php _e("Max age in days to allow delete of post", "frontier-post"); ?>:</td>
 					<td><input type="text" name="frontier_post_delete_max_age" value="<?php echo $frontier_post_delete_max_age; ?>" /></td>
 				</tr><tr>
-					<td><?php _e("Number of post per page:", "frontier-post"); ?>:</td>
+					<td><?php _e("Number of post per page", "frontier-post"); ?>:</td>
 					<td><input type="text" name="frontier_post_ppp" value="<?php echo $frontier_post_ppp; ?>" /></td>
 					<td><?php _e("Page containing [frontier-post] shortcode:", "frontier-post"); ?></td>
 					<td>
@@ -328,12 +354,40 @@ function frontier_post_settings_page()
 					echo '</tr>';
 				} // end roles
 			
-			
-			
-			
 			?>
+			</table>
+			<p class="submit">
+				<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
+			</p>
 			
-				</table>		
+			<h2>Advanced Settings</h2>
+			</br>
+			<table border="1">
+				<tr>
+					<th align='left'><?php _e("Add Frontier Author user role:", "frontier-post"); ?>:</th>
+					<td><center><input type="checkbox" name="frontier_post_author_role" value="true" <?php echo ($frontier_post_author_role == "true") ? 'checked':''; ?>></center></td>
+					<td><?php _e("Adds a new role: Frontend Author to Wordpress", "frontier-post"); ?></td>
+				</tr><tr>
+					<th align='left'><?php _e("Use custom editor buttons:", "frontier-post"); ?>:</th>
+					<td><center><input type="checkbox" name="frontier_post_mce_custom" value="true" <?php echo ($frontier_post_mce_custom == "true") ? 'checked':''; ?>></center></td>
+					<td><?php _e("Control the buttons showed in the editor (only in frontend)", "frontier-post"); ?></td>
+				</tr><tr>
+					<td><?php _e("Custom button row", "frontier-post"); ?>1:</td>
+					<td colspan='2'><input type="text" name="frontier_post_mce_button1" value="<?php echo $frontier_post_mce_button[0]; ?>" size='200'></td>
+				</tr><tr>
+					<td><?php _e("Custom button row", "frontier-post"); ?>2:</td>
+					<td colspan='2'><input type="text" name="frontier_post_mce_button2" value="<?php echo $frontier_post_mce_button[1]; ?>" size='200'></td>
+				</tr><tr>
+					<td><?php _e("Custom button row", "frontier-post"); ?>3:</td>
+					<td colspan='2'><input type="text" name="frontier_post_mce_button3" value="<?php echo $frontier_post_mce_button[2]; ?>" size='200'></td>
+				</tr><tr>
+					<td><?php _e("Custom button row", "frontier-post"); ?>4:</td>
+					<td colspan='2'><input type="text" name="frontier_post_mce_button4" value="<?php echo $frontier_post_mce_button[3]; ?>" size='200'></td>
+					
+				</tr>
+			</table>
+			</br><hr></br>
+			</table>		
 				</tr><tr>
 					<td colspan="2"><b>Notice:</b></br><i>
 					<?php _e("- Media upload is not available to Contributors and Subscribers by Wordpress capabilities", "frontier-post");?></br>
@@ -344,9 +398,11 @@ function frontier_post_settings_page()
 				</tr>
 			</table>
 			<br/>
+			<br/>
 			<p class="submit">
 				<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
 			</p>
+			
 
 		</form>
 
