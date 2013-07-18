@@ -135,7 +135,7 @@ function frontier_post_settings_page()
 		$frontier_post_edit_w_comments		= (get_option("frontier_post_edit_w_comments")) ? get_option("frontier_post_edit_w_comments") : "false";
 		$frontier_post_author_role			= (get_option("frontier_post_author_role")) ? get_option("frontier_post_author_role") : "false";
 		$frontier_post_mce_custom			= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "false";
-		$frontier_post_mce_button			= get_option("frontier_post_mce_button");
+		$frontier_post_mce_button			= get_option("frontier_post_mce_button", array());
 		?>
 	
 		<div class="wrap">
@@ -360,7 +360,7 @@ function frontier_post_settings_page()
 				<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
 			</p>
 			
-			<h2>Advanced Settings</h2>
+			<h2>Advanced Settings - BETA</h2>
 			</br>
 			<table border="1">
 				<tr>
