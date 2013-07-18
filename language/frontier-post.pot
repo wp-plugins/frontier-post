@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Frontier Post package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Frontier Post 1.4.8\n"
+"Project-Id-Version: Frontier Post 1.5.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
-"POT-Creation-Date: 2013-06-10 19:52:39+00:00\n"
+"POT-Creation-Date: 2013-07-18 12:17:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,55 +12,51 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: forms/frontier_form.php:202 forms/frontier_list.php:36
-#: include/frontier_approvals_widget.php:151
-#: include/frontier_my_posts_widget.php:251
+#: forms/frontier_form.php:186 forms/frontier_list.php:36
+#: include/frontier_approvals_widget.php:153
+#: include/frontier_my_posts_widget.php:270
 msgid "Title"
 msgstr ""
 
-#: forms/frontier_form.php:206 forms/frontier_list.php:37
+#: forms/frontier_form.php:190 forms/frontier_list.php:37
 msgid "Status"
 msgstr ""
 
-#: forms/frontier_form.php:231 forms/frontier_list.php:38
-#: settings-menu.php:230
+#: forms/frontier_form.php:224 forms/frontier_list.php:38
+#: settings-menu.php:240
 msgid "Category"
 msgstr ""
 
-#: forms/frontier_form.php:236
+#: forms/frontier_form.php:229
 msgid "Tags"
 msgstr ""
 
-#: forms/frontier_form.php:252 settings-menu.php:138
-msgid "None"
-msgstr ""
-
-#: forms/frontier_form.php:264
+#: forms/frontier_form.php:257
 msgid "Select category, multible can be selected using ctrl key"
 msgstr ""
 
-#: forms/frontier_form.php:274 forms/frontier_form.php:275
-#: forms/frontier_form.php:276
+#: forms/frontier_form.php:267 forms/frontier_form.php:268
+#: forms/frontier_form.php:269
 msgid "Enter tag here"
 msgstr ""
 
-#: forms/frontier_form.php:290
+#: forms/frontier_form.php:283
 msgid "Excerpt"
 msgstr ""
 
-#: forms/frontier_form.php:296
+#: forms/frontier_form.php:289
 msgid "Save"
 msgstr ""
 
-#: forms/frontier_form.php:297
+#: forms/frontier_form.php:290
 msgid "Cancel"
 msgstr ""
 
-#: forms/frontier_form.php:309
+#: forms/frontier_form.php:302
 msgid "You are not allowed to edit this post !"
 msgstr ""
 
-#: forms/frontier_list.php:15 include/frontier_my_posts_widget.php:220
+#: forms/frontier_list.php:15 include/frontier_my_posts_widget.php:227
 msgid "Create New Post"
 msgstr ""
 
@@ -88,11 +84,15 @@ msgstr ""
 msgid "&raquo;"
 msgstr ""
 
-#: forms/frontier_list.php:111
+#: forms/frontier_list.php:107
+msgid "Number of posts already created by you: "
+msgstr ""
+
+#: forms/frontier_list.php:113
 msgid "Sorry, you do not have any posts (yet)"
 msgstr ""
 
-#: frontier-post.php:231
+#: frontier-post.php:232
 msgid "Please log in !"
 msgstr ""
 
@@ -124,19 +124,19 @@ msgstr ""
 msgid "spam comments"
 msgstr ""
 
-#: include/frontier_approvals_widget.php:155
+#: include/frontier_approvals_widget.php:157
 msgid "Show posts pending approval ?"
 msgstr ""
 
-#: include/frontier_approvals_widget.php:160
+#: include/frontier_approvals_widget.php:162
 msgid "Show number of draft posts ?"
 msgstr ""
 
-#: include/frontier_approvals_widget.php:165
+#: include/frontier_approvals_widget.php:167
 msgid "Show comments pending approval ?"
 msgstr ""
 
-#: include/frontier_approvals_widget.php:170
+#: include/frontier_approvals_widget.php:172
 msgid "Show comments marked as spam ?"
 msgstr ""
 
@@ -145,55 +145,67 @@ msgid "My posts"
 msgstr ""
 
 #: include/frontier_my_posts_widget.php:27
-#: include/frontier_my_posts_widget.php:300
+#: include/frontier_my_posts_widget.php:324
 msgid "You have no posts"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:39
+#: include/frontier_my_posts_widget.php:40
 msgid "Dont show date"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:43
+#: include/frontier_my_posts_widget.php:44
 msgid "Only posts"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:44
+#: include/frontier_my_posts_widget.php:45
 msgid "Posts & comments "
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:45
+#: include/frontier_my_posts_widget.php:46
 msgid "Posts and comments excerpt"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:49
+#: include/frontier_my_posts_widget.php:50
 msgid "List posts of current user (author)"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:255
+#: include/frontier_my_posts_widget.php:234
+msgid "Your have published: "
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:234
+msgid "posts"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:274
 msgid "Post date format"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:265
+#: include/frontier_my_posts_widget.php:284
 msgid "Show comments"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:276
+#: include/frontier_my_posts_widget.php:295
 msgid "Comment date format"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:286
+#: include/frontier_my_posts_widget.php:305
 msgid "Number of posts & comments"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:290
+#: include/frontier_my_posts_widget.php:309
 msgid "Length of comment excerpt"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:294
+#: include/frontier_my_posts_widget.php:313
 msgid "Show Add Post link ?"
 msgstr ""
 
-#: include/frontier_my_posts_widget.php:299
+#: include/frontier_my_posts_widget.php:318
+msgid "Show Post Count ?"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:323
 msgid "No post text"
 msgstr ""
 
@@ -257,11 +269,15 @@ msgstr ""
 msgid "Page containing [frontier-post] shortcode:"
 msgstr ""
 
+#: settings-menu.php:138
+msgid "None"
+msgstr ""
+
 #: settings-menu.php:147
 msgid "Capabilities by user role"
 msgstr ""
 
-#: settings-menu.php:150 settings-menu.php:225
+#: settings-menu.php:150 settings-menu.php:235
 msgid "Role"
 msgstr ""
 
@@ -289,55 +305,63 @@ msgstr ""
 msgid "Frontier Edit"
 msgstr ""
 
-#: settings-menu.php:199 settings-menu.php:288
+#: settings-menu.php:157
+msgid "Show admin bar"
+msgstr ""
+
+#: settings-menu.php:209 settings-menu.php:320
 msgid "NA"
 msgstr ""
 
-#: settings-menu.php:222
+#: settings-menu.php:232
 msgid "Editor options"
 msgstr ""
 
-#: settings-menu.php:226
+#: settings-menu.php:236
 msgid "Edit Excerpt"
 msgstr ""
 
-#: settings-menu.php:227
+#: settings-menu.php:237
 msgid "Edit Tags"
 msgstr ""
 
-#: settings-menu.php:228
+#: settings-menu.php:238
 msgid "Media Upload"
 msgstr ""
 
-#: settings-menu.php:229
+#: settings-menu.php:239
 msgid "Editor Type"
 msgstr ""
 
-#: settings-menu.php:307
+#: settings-menu.php:241
+msgid "Default Category"
+msgstr ""
+
+#: settings-menu.php:339
 msgid ""
 "- Media upload is not available to Contributors and Subscribers by Wordpress "
 "capabilities"
 msgstr ""
 
-#: settings-menu.php:308
+#: settings-menu.php:340
 msgid ""
 "- Wordpress standard rolemodel does not allow Contributors and Subscribers "
 "to add/edit/delete posts, but you can bypass this above"
 msgstr ""
 
-#: settings-menu.php:309
+#: settings-menu.php:341
 msgid ""
 "- Frontier Edit means that if a user selects the dit link on a post, "
 "Frontier will be used to edit instead of backend"
 msgstr ""
 
-#: settings-menu.php:310
+#: settings-menu.php:342
 msgid ""
 "-    - This is only if selected from frontend, if edit from backend, backend "
 "interface will be used"
 msgstr ""
 
-#: settings-menu.php:316
+#: settings-menu.php:348
 msgid "Save Changes"
 msgstr ""
 
@@ -345,9 +369,9 @@ msgstr ""
 msgid "Frontier Post"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (Frontier Post 1.4.8)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.5.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Frontier Post 1.4.8)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.5.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/frontier-post/"
 msgstr ""
@@ -355,7 +379,7 @@ msgstr ""
 #. Description of the plugin/theme
 msgid ""
 "Fast, easy & secure Front End management of posts. Add, Edit, Delete posts "
-"from frontend - My Posts Widget"
+"from frontend - My Posts Widget."
 msgstr ""
 
 #. Author of the plugin/theme

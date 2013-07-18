@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frontier Post 1.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
-"POT-Creation-Date: 2013-06-10 19:52:39+00:00\n"
-"PO-Revision-Date: 2013-06-10 22:05+0100\n"
+"POT-Creation-Date: 2013-07-18 12:17:16+00:00\n"
+"PO-Revision-Date: 2013-07-18 14:18+0100\n"
 "Last-Translator: finnj\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,55 +13,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: forms/frontier_form.php:202 forms/frontier_list.php:36
-#: include/frontier_approvals_widget.php:151
-#: include/frontier_my_posts_widget.php:251
+#: forms/frontier_form.php:186 forms/frontier_list.php:36
+#: include/frontier_approvals_widget.php:153
+#: include/frontier_my_posts_widget.php:270
 msgid "Title"
 msgstr "Titel"
 
-#: forms/frontier_form.php:206 forms/frontier_list.php:37
+#: forms/frontier_form.php:190 forms/frontier_list.php:37
 msgid "Status"
 msgstr "Status"
 
-#: forms/frontier_form.php:231 forms/frontier_list.php:38
-#: settings-menu.php:230
+#: forms/frontier_form.php:224 forms/frontier_list.php:38
+#: settings-menu.php:240
 msgid "Category"
 msgstr "Kategori"
 
-#: forms/frontier_form.php:236
+#: forms/frontier_form.php:229
 msgid "Tags"
 msgstr "Tags"
 
-#: forms/frontier_form.php:252 settings-menu.php:138
-msgid "None"
-msgstr "Ingen"
-
-#: forms/frontier_form.php:264
+#: forms/frontier_form.php:257
 msgid "Select category, multible can be selected using ctrl key"
 msgstr "Vælg kategori, flere can vælges med ctrl"
 
-#: forms/frontier_form.php:274 forms/frontier_form.php:275
-#: forms/frontier_form.php:276
+#: forms/frontier_form.php:267 forms/frontier_form.php:268
+#: forms/frontier_form.php:269
 msgid "Enter tag here"
 msgstr "Indsæt tag her"
 
-#: forms/frontier_form.php:290
+#: forms/frontier_form.php:283
 msgid "Excerpt"
 msgstr "Uddrag"
 
-#: forms/frontier_form.php:296
+#: forms/frontier_form.php:289
 msgid "Save"
 msgstr "Gem"
 
-#: forms/frontier_form.php:297
+#: forms/frontier_form.php:290
 msgid "Cancel"
 msgstr "Annuller"
 
-#: forms/frontier_form.php:309
+#: forms/frontier_form.php:302
 msgid "You are not allowed to edit this post !"
 msgstr "Du kan ikke rette dette indlæg !"
 
-#: forms/frontier_list.php:15 include/frontier_my_posts_widget.php:220
+#: forms/frontier_list.php:15 include/frontier_my_posts_widget.php:227
 msgid "Create New Post"
 msgstr "Opret Nyt Indlæg"
 
@@ -89,11 +85,15 @@ msgstr ""
 msgid "&raquo;"
 msgstr ""
 
-#: forms/frontier_list.php:111
+#: forms/frontier_list.php:107
+msgid "Number of posts already created by you: "
+msgstr "Antal indlæg du har udgivet: "
+
+#: forms/frontier_list.php:113
 msgid "Sorry, you do not have any posts (yet)"
 msgstr "Desværre, du har ingen indlæg (endnu)"
 
-#: frontier-post.php:231
+#: frontier-post.php:232
 msgid "Please log in !"
 msgstr "Log venligst ind !"
 
@@ -111,7 +111,7 @@ msgstr "Vis antal indlæg og kommentarer til godkendelse"
 
 #: include/frontier_approvals_widget.php:46
 msgid "draft posts"
-msgstr "ladder"
+msgstr "kladder"
 
 #: include/frontier_approvals_widget.php:57
 msgid "posts to be approved"
@@ -125,19 +125,19 @@ msgstr "kommentarer til godkendelse"
 msgid "spam comments"
 msgstr "spam kommentarer"
 
-#: include/frontier_approvals_widget.php:155
+#: include/frontier_approvals_widget.php:157
 msgid "Show posts pending approval ?"
 msgstr "Vis indlæg til godkendelse ?"
 
-#: include/frontier_approvals_widget.php:160
+#: include/frontier_approvals_widget.php:162
 msgid "Show number of draft posts ?"
 msgstr "Vis antal indlægs kladder ?"
 
-#: include/frontier_approvals_widget.php:165
+#: include/frontier_approvals_widget.php:167
 msgid "Show comments pending approval ?"
 msgstr "Vis kommentarer til godkendelse ?"
 
-#: include/frontier_approvals_widget.php:170
+#: include/frontier_approvals_widget.php:172
 msgid "Show comments marked as spam ?"
 msgstr "Vis kommentarer markeret som spam ?"
 
@@ -146,55 +146,67 @@ msgid "My posts"
 msgstr "Mine Indlæg"
 
 #: include/frontier_my_posts_widget.php:27
-#: include/frontier_my_posts_widget.php:300
+#: include/frontier_my_posts_widget.php:324
 msgid "You have no posts"
 msgstr "Du har ingen indlæg"
 
-#: include/frontier_my_posts_widget.php:39
+#: include/frontier_my_posts_widget.php:40
 msgid "Dont show date"
 msgstr "Vis ikke dato"
 
-#: include/frontier_my_posts_widget.php:43
+#: include/frontier_my_posts_widget.php:44
 msgid "Only posts"
 msgstr "Kun indlæg"
 
-#: include/frontier_my_posts_widget.php:44
+#: include/frontier_my_posts_widget.php:45
 msgid "Posts & comments "
 msgstr "Indlæg & kommentarer"
 
-#: include/frontier_my_posts_widget.php:45
+#: include/frontier_my_posts_widget.php:46
 msgid "Posts and comments excerpt"
 msgstr "Indlæg og kommentar uddrag"
 
-#: include/frontier_my_posts_widget.php:49
+#: include/frontier_my_posts_widget.php:50
 msgid "List posts of current user (author)"
 msgstr "Vis indlæg for nuværende bruger (forfatter)"
 
-#: include/frontier_my_posts_widget.php:255
+#: include/frontier_my_posts_widget.php:234
+msgid "Your have published: "
+msgstr "Du har udgivet:"
+
+#: include/frontier_my_posts_widget.php:234
+msgid "posts"
+msgstr "indlæg"
+
+#: include/frontier_my_posts_widget.php:274
 msgid "Post date format"
 msgstr "Datoformat for indlæg"
 
-#: include/frontier_my_posts_widget.php:265
+#: include/frontier_my_posts_widget.php:284
 msgid "Show comments"
 msgstr "Vis kommentarer"
 
-#: include/frontier_my_posts_widget.php:276
+#: include/frontier_my_posts_widget.php:295
 msgid "Comment date format"
 msgstr "Datoformat for kommentarer"
 
-#: include/frontier_my_posts_widget.php:286
+#: include/frontier_my_posts_widget.php:305
 msgid "Number of posts & comments"
 msgstr "Antal indlæg og kommentarer"
 
-#: include/frontier_my_posts_widget.php:290
+#: include/frontier_my_posts_widget.php:309
 msgid "Length of comment excerpt"
 msgstr "Længde af kommentar uddrag"
 
-#: include/frontier_my_posts_widget.php:294
+#: include/frontier_my_posts_widget.php:313
 msgid "Show Add Post link ?"
 msgstr "Vis Opret Indlæg link ?"
 
-#: include/frontier_my_posts_widget.php:299
+#: include/frontier_my_posts_widget.php:318
+msgid "Show Post Count ?"
+msgstr "Vis antal indlæg ?"
+
+#: include/frontier_my_posts_widget.php:323
 msgid "No post text"
 msgstr "Ingen indlægs tekst"
 
@@ -216,11 +228,11 @@ msgstr "Kun Tekst"
 
 #: include/frontier_post_defaults.php:16
 msgid "Multi select"
-msgstr ""
+msgstr "Multi select"
 
 #: include/frontier_post_defaults.php:16
 msgid "Single select"
-msgstr ""
+msgstr "Single select"
 
 #: include/frontier_post_defaults.php:16
 msgid "Hide"
@@ -258,11 +270,15 @@ msgstr "Antal indlæg pr. side"
 msgid "Page containing [frontier-post] shortcode:"
 msgstr "Side der indeholder [frontier-post] shortcode:"
 
+#: settings-menu.php:138
+msgid "None"
+msgstr "Ingen"
+
 #: settings-menu.php:147
 msgid "Capabilities by user role"
 msgstr "Rettigheder pr. rolle"
 
-#: settings-menu.php:150 settings-menu.php:225
+#: settings-menu.php:150 settings-menu.php:235
 msgid "Role"
 msgstr "Rolle"
 
@@ -290,31 +306,39 @@ msgstr "Kan Slette"
 msgid "Frontier Edit"
 msgstr "Ret med Frontier"
 
-#: settings-menu.php:199 settings-menu.php:288
+#: settings-menu.php:157
+msgid "Show admin bar"
+msgstr "Vis admin bar"
+
+#: settings-menu.php:209 settings-menu.php:320
 msgid "NA"
 msgstr "NA"
 
-#: settings-menu.php:222
+#: settings-menu.php:232
 msgid "Editor options"
 msgstr "Editor valg"
 
-#: settings-menu.php:226
+#: settings-menu.php:236
 msgid "Edit Excerpt"
 msgstr "Ret Uddrag"
 
-#: settings-menu.php:227
+#: settings-menu.php:237
 msgid "Edit Tags"
 msgstr "Ret Tags"
 
-#: settings-menu.php:228
+#: settings-menu.php:238
 msgid "Media Upload"
-msgstr ""
+msgstr "Media Upload"
 
-#: settings-menu.php:229
+#: settings-menu.php:239
 msgid "Editor Type"
-msgstr ""
+msgstr "Editor Type"
 
-#: settings-menu.php:307
+#: settings-menu.php:241
+msgid "Default Category"
+msgstr "Standard Kategori"
+
+#: settings-menu.php:339
 msgid ""
 "- Media upload is not available to Contributors and Subscribers by Wordpress "
 "capabilities"
@@ -322,7 +346,7 @@ msgstr ""
 "- Medie upload er ikke mulig for Biddragydere (Contributers) og Abbonenter "
 "(Subscribers) iht. Wordpress rettigheder."
 
-#: settings-menu.php:308
+#: settings-menu.php:340
 msgid ""
 "- Wordpress standard rolemodel does not allow Contributors and Subscribers "
 "to add/edit/delete posts, but you can bypass this above"
@@ -331,7 +355,7 @@ msgstr ""
 "og Abbonenter (Subscribers) at oprette/rette/slette indlæg, dette kan "
 "overstyres herover."
 
-#: settings-menu.php:309
+#: settings-menu.php:341
 msgid ""
 "- Frontier Edit means that if a user selects the dit link on a post, "
 "Frontier will be used to edit instead of backend"
@@ -339,7 +363,7 @@ msgstr ""
 "- Ret med Frontier betyder at hvis brugeren klikker på rediger linket på en "
 "post, benyttes Frontier Post i stedet for WP backend."
 
-#: settings-menu.php:310
+#: settings-menu.php:342
 msgid ""
 "-    - This is only if selected from frontend, if edit from backend, backend "
 "interface will be used"
@@ -347,7 +371,7 @@ msgstr ""
 "-    - Dette er kun fra Frontend, hvis rediger vælges fra backend benyttes "
 "standard metoden."
 
-#: settings-menu.php:316
+#: settings-menu.php:348
 msgid "Save Changes"
 msgstr "Gem Ændringer"
 
@@ -355,9 +379,9 @@ msgstr "Gem Ændringer"
 msgid "Frontier Post"
 msgstr "Frontier Post"
 
-#. #-#-#-#-#  plugin.pot (Frontier Post 1.4.8)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.5.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Frontier Post 1.4.8)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.5.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/frontier-post/"
 msgstr ""
@@ -365,7 +389,7 @@ msgstr ""
 #. Description of the plugin/theme
 msgid ""
 "Fast, easy & secure Front End management of posts. Add, Edit, Delete posts "
-"from frontend - My Posts Widget"
+"from frontend - My Posts Widget."
 msgstr ""
 
 #. Author of the plugin/theme
