@@ -125,6 +125,8 @@ class frontier_approvals_widget extends WP_Widget
 					<a href="<?php echo site_url('/wp-admin/edit-comments.php?comment_status=spam')?>"><?php echo $cmt_spam_txt;?></a>
 				</li>
 			<?php } ?>
+		</ul>
+		</div>
 		<?php
 		echo $args['after_widget'];
 		}

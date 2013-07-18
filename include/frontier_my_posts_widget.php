@@ -26,6 +26,7 @@ class frontier_my_posts_widget extends WP_Widget
     		'nolistwrap' 		=> false,
     		'no_posts_text' 	=> __('You have no posts', 'frontier-post'),
 			'show_add_post'		=> 1,
+			'show_post_count'	=> 1,
 			'excerpt_length'	=>50,
 			);
 
@@ -84,6 +85,11 @@ class frontier_my_posts_widget extends WP_Widget
 		$comment_icon			= TEMPLATEPATH."/images/comments.png";
 		
 		//print_r("Comment icon: ".$comment_icon);
+		
+		if (isset($instance['show_post_count']) && $instance['show_post_count'] == 1 )
+			{ 
+			$tmp_post_cnt	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
+			}		
 		
 		if (file_exists($comment_icon))
 			{
@@ -215,12 +221,25 @@ class frontier_my_posts_widget extends WP_Widget
 		?>
 		</li>
 		</ul>
-		<?php if (isset($instance['show_add_post']) && $instance['show_add_post'] == 1 && (current_user_can('frontier_post_can_add')))
+		<?php 
+		if (isset($instance['show_add_post']) && $instance['show_add_post'] == 1 && (current_user_can('frontier_post_can_add')))
 			{ 
 			echo '<p><center><a href="'.frontier_post_add_link().'">'.__("Create New Post", "frontier-post").'</a></center></p>';
-			} ?>
+			} 
+		
+		// Count authors posts - get_permalink(get_option('frontier_post_page_id'))
+		if (isset($instance['show_post_count']) && $instance['show_post_count'] == 1 )
+			{ 
+			$tmp_post_cnt	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
+			echo '<p><center><a href="'.get_permalink(get_option('frontier_post_page_id')).'">'.__("Your have published: ", "frontier-post").$tmp_post_cnt.'&nbsp;'.__("posts", "frontier-post").'</a></center></p>';
+			}		
+		
+		
+		?>
 		</div>
 		<?php
+
+		
 		
 		echo $args['after_widget'];
 		}
@@ -293,6 +312,11 @@ class frontier_my_posts_widget extends WP_Widget
 		<p>
 			<label for="<?php echo $this->get_field_id('show_add_post'); ?>"><?php _e('Show Add Post link ?', 'frontier-post'); ?>: </label>
 			<input type="checkbox" id="<?php echo $this->get_field_id('show_add_post'); ?>" name="<?php echo $this->get_field_name('show_add_post'); ?>" value="1" <?php echo ($instance['show_add_post'] == '1') ? 'checked="checked"':''; ?>/>
+		</p>
+		
+		<p>
+			<label for="<?php echo $this->get_field_id('show_post_count'); ?>"><?php _e('Show Post Count ?', 'frontier-post'); ?>: </label>
+			<input type="checkbox" id="<?php echo $this->get_field_id('show_post_count'); ?>" name="<?php echo $this->get_field_name('show_post_count'); ?>" value="1" <?php echo ($instance['show_post_count'] == '1') ? 'checked="checked"':''; ?>/>
 		</p>
 		
 		<p>

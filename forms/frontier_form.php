@@ -5,10 +5,15 @@
 	$saved_options 		= get_option('frontier_post_options', array() );
 	
 	//get users role:
-	$users_role 		= frontier_get_user_role();
+	$users_role 				= frontier_get_user_role();
 	
-	$editor_type 		= $saved_options[$users_role]['editor'] ? $saved_options[$users_role]['editor'] : "full"; 
-	$category_type 		= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
+	$editor_type 				= $saved_options[$users_role]['editor'] ? $saved_options[$users_role]['editor'] : "full"; 
+	$frontier_post_mce_custom	= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "false";
+	$frontier_post_mce_button	= get_option("frontier_post_mce_button", array());
+		
+	$category_type 				= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
+	$default_category			= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
+	
 	
 	
 	if(!isset($thispost->post_type))
@@ -82,6 +87,21 @@
 	// Editor settings
 	$editor_layout = array('dfw' => true, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
 	
+	
+	
+	if ($editor_type == "full" && $frontier_post_mce_custom == "true")
+		{
+		$tinymce_options = array(
+			'theme_advanced_buttons1' 	=> ($frontier_post_mce_button[0] ? $frontier_post_mce_button[0] : ''),
+			'theme_advanced_buttons2' 	=> ($frontier_post_mce_button[1] ? $frontier_post_mce_button[1] : ''),
+			'theme_advanced_buttons3' 	=> ($frontier_post_mce_button[2] ? $frontier_post_mce_button[2] : ''),
+			'theme_advanced_buttons4' 	=> ($frontier_post_mce_button[3] ? $frontier_post_mce_button[3] : '')
+			);
+	
+		$tmp = array('tinymce' => $tinymce_options);
+		$editor_layout = array_merge($editor_layout, $tmp);
+		}
+	
 	if (!current_user_can( 'frontier_post_can_media' ))
 		{
 		$tmp = array('media_buttons' => false);
@@ -107,32 +127,14 @@
 		}
 		
 	
-	
-	/*
-	print_r("<hr>");
-	print_r($editor_list);
-	
-	print_r("</br>");
-	print_r('editor: '.$editor_type);
-	print_r("<hr>");
-	*/
-	
-	
-	
-	
-	
-	/*
-	print_r("<hr>");
-	print_r($tmp_status_list);
-	print_r("<hr>");
-	print_r($status_list);
-	print_r("<hr>");
-	*/
-	
 	// Build list of categories (3 levels)
 	if ($category_type == "multi")
 		{
-		$catlist = array();
+		$cats_selected	= $thispost->post_category;
+		if (empty($cats_selected[0]))
+			$cats_selected[0] = $default_category;
+			
+		$catlist 		= array();
 		foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => 0)) as $category1) :
 			$tmp = Array('cat_ID' => $category1->cat_ID, 'cat_name' => $category1->cat_name);
 			array_push($catlist, $tmp);
@@ -155,11 +157,11 @@
 			if (array_key_exists(0, $postcategory))
 				$postcategoryid = $postcategory[0]->term_id;
 			else
-				$postcategoryid	= -1;				
+				$postcategoryid	= $default_category;				
 			}
 		else
 			{
-			$postcategoryid	= -1;				
+			$postcategoryid	= $default_category;				
 			}	
 		}
 		
@@ -204,6 +206,14 @@
 				</td>
 				
 				<td  class="frontier_no_border"><?php _e("Status", "frontier-post"); ?>:&nbsp;
+				<?php 
+				if (count($status_list) <=1)
+					{
+					$tmp_a = array_values($status_list);
+					echo $tmp_a[0];
+					}
+				else
+					{ ?>
 					<select  id="post_status" name="post_status" <?php echo $status_readonly; ?>>
 						<?php foreach($status_list as $key => $value) : ?>   
 							<option value='<?php echo $key ?>' <?php echo ( $key == $tmp_post_status) ? "selected='selected'" : ' ';?>>
@@ -211,6 +221,7 @@
 							</option>
 						<?php endforeach; ?>
 					</select>
+				<?php } ?>	
 				</td>
 			</tr>
 			</tbody></table>
@@ -245,11 +256,11 @@
 				?>
 				<td class="frontier_border" width="50%">
 				<?php
-				$cats_selected 		= $thispost->post_category;
+				
 				
 				if ($category_type == "single")
 					{
-					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'orderby' => 'name', 'selected' => $postcategoryid, 'hierarchical' => true, 'show_option_none' => __('None'))); 
+					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'orderby' => 'name', 'selected' => $postcategoryid, 'hierarchical' => true)); 
 					}
 				else
 					{
@@ -264,7 +275,7 @@
 					</br><div class="frontier_helptext"><?php _e("Select category, multible can be selected using ctrl key", "frontier-post"); ?></div>
 					</td>
 					<?php 
-					} // end multis elect 
+					} // end multis select 
 				} // end hide category 
 				?>
 				

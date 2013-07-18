@@ -1,17 +1,17 @@
 === Frontier Post ===
 Contributors: finnj
 Donate link: 
-Tags: frontend, frontend post, frontend edit, frontier, frontier post, my post widget, posts, widget
+Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 3.6
-Stable tag: 1.4.9
+Stable tag: 1.5.1
 License: GPL v3 or later
  
-Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
+Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
   
 == Description ==
 
-WordPress Frontier Post Plugin enables adding, deleting and editing standard posts from frontend.
+WordPress Frontier Post Plugin enables simple full featured management of standard posts from frontend for all user roles.
 
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
 Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.
@@ -19,21 +19,23 @@ Editors and Administrators can use Frontier to edit posts from the frontend (Can
 Frontier Post is intentionally made simple :)
 
 = Usage = 
-Add short-code [frontier-post] in a page content after install and activativation of the plugin
+Add short-code [frontier-post] in a page content after install and activation of the plugin
 
 = Main Features =
 * Create posts with media directly from frontend
-* Users can delete their own posts (Setting) 
-* Users can edit their own posts (Setting)
-* Post can be edited in frontend directly - standard edit link (Can be enabled/disabled in settings)
+* Users can delete their own posts (Optional) 
+* Users can edit their own posts (Optional)
+* Post can be edited in frontend directly - Using standard edit link (Optional)
 * My Posts Widget 
 * My Approvals Widget
 * Capabilities are aligned with Wordpress standard.
-* Excerpts editable (Can be enabled/disabled in settings)
+* Excerpts editable (Optional)
 * Edit Categories (dropdown or multiselect)
-* Tags (Can be enabled/disabled in settings)
+* Default category per role
+* Tags (Optional)
 * Supports Wordpress Post Status Transitions
 * 4 editor options for frontend editing (Full, Simple-Visual, Simple-Html or Text-Only)
+* Disable Admin bar per role (Optional)
 * Users must be logged in to post
 
 = My Posts Widget =
@@ -83,7 +85,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 = Testing =
 * Frontier post is mainly tested with:
-* Wordpress 3.5.1
+* Wordpress 3.5.2
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
  * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)
  * and sometimes with twenty twelve theme...
@@ -92,7 +94,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 = Translations =
 * Please post a link in support to translation files and I will include them in next release.
 
- = Clenup =
+ = Cleanup =
  * On deactivation: no cleanup.
  * On deletion options are deleted, and role capabilities are removed.
  * If you accidently delete the frontier-post plugin folder, you should:
@@ -108,6 +110,18 @@ Let me know what you think, and if you have enhancement requests or problems let
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 1.5.2 =
+* New buttons on editor: Smileys, search & replace and table control
+* Frontend Author role added
+
+= 1.5.1 =
+* Option to hide admin bar
+* Default category per role
+* Only redirect edit to frontend for standard post type (not pages and custom post types)
+* Du not show dropdown for status with only 1 option, only show value
+* Added missing closing tags for ul and div in my approvals widget 
+
 
 = 1.4.9 =
 * Issue with svn, new tag created
