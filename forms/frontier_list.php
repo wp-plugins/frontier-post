@@ -23,7 +23,7 @@ if (frontier_can_add() )
 
 if( $user_posts->found_posts > 0 )
 	{
-
+	
 	$tmp_status_list = get_post_statuses( );
 
 ?>
@@ -104,7 +104,9 @@ if( $user_posts->found_posts > 0 )
 		{
 			echo $pagination;
 		}
+	echo "</br>".__("Number of posts already created by you: ", "frontier-post").$user_posts->post_count."</br>";
 	}
+	
 else
 	{
 		echo "</br><center>";

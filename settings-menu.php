@@ -75,7 +75,7 @@ function frontier_post_settings_page()
 							
 						// set capability, but not for editor and category
 						
-						if (($tmp_cap != 'editor') && ($tmp_cap != 'category'))
+						if (($tmp_cap != 'editor') && ($tmp_cap != 'category') && ($tmp_cap != 'default_category'))
 							{
 							if ( $tmp_value == "true" )
 								$xrole->add_cap( 'frontier_post_'.$tmp_cap );
@@ -154,7 +154,7 @@ function frontier_post_settings_page()
 						<th width="10%"><?php _e("Allow Drafts", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Delete", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Frontier Edit", "frontier-post"); ?></th>
-						
+						<th width="10%"><?php _e("Show admin bar", "frontier-post"); ?></th>
 					
 					</tr><tr>
 					
@@ -174,6 +174,11 @@ function frontier_post_settings_page()
 				echo '<tr>';
 				echo '<td>'.$item.'</td>';
 				
+				if ( !array_key_exists($key, $saved_options) )
+					$saved_options[$key] = array();
+				
+				$tmp_role_settings = $saved_options[$key];
+				
 				$xrole = get_role($key);
 				$xrole_caps = $xrole->capabilities;
 				
@@ -187,7 +192,12 @@ function frontier_post_settings_page()
 				foreach($tmp_cap_list as $tmp_cap)
 					{
 					$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
-					$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
+					
+					if ( array_key_exists($tmp_cap, $tmp_role_settings))
+						$tmp_value	= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
+					else
+						$tmp_value	= "false";
+						
 					if ( $tmp_value == "true" )
 						$tmp_checked	= " checked"; 
 					else
@@ -228,6 +238,7 @@ function frontier_post_settings_page()
 						<th width="10%"><?php _e("Media Upload", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Editor Type", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Category", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Default Category", "frontier-post"); ?></th>
 					</tr><tr>
 					
 			<?php
@@ -238,6 +249,11 @@ function frontier_post_settings_page()
 				
 				echo '<tr>';
 				echo '<td>'.$item.'</td>';
+				
+				if ( !array_key_exists($key, $saved_options) )
+					$saved_options[$key] = array();
+				
+				$tmp_role_settings = $saved_options[$key];
 				
 				$xrole = get_role($key);
 				$xrole_caps = $xrole->capabilities;
@@ -252,27 +268,43 @@ function frontier_post_settings_page()
 				foreach($tmp_cap_list as $tmp_cap)
 					{
 					$tmp_name		= 'frontier_post_'.$key.'_'.$tmp_cap;
-					$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
 					
-					if ($tmp_cap == 'editor' || $tmp_cap == 'category')
+					if ( array_key_exists($tmp_cap, $tmp_role_settings))
+						$tmp_value	= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
+					else
+						$tmp_value	= "false";
+					
+					
+					if ($tmp_cap == 'editor' || $tmp_cap == 'category' || $tmp_cap == 'default_category')
 						{
+						echo '<td>';
+						
 						if ($tmp_cap == 'editor')
 							$optionlist = $editor_types;
 							
 						if ($tmp_cap == 'category')
 							$optionlist = $category_types;
-							
-						echo '<td>';
-						?>	
-						<select  id="post_status" name="<?php echo $tmp_name ?>" >
-						<?php foreach($optionlist as $desc => $id) : ?>   
-							<option value='<?php echo $id ?>' <?php echo ( $id == $tmp_value) ? "selected='selected'" : ' ';?>>
-								<?php echo $desc; ?>
-							</option>
-						<?php endforeach; ?>
-						</select>
 						
-						<?php
+						if ($tmp_cap == 'default_category')
+							{
+							//$optionlist = get_categories(array('hide_empty' => 0, 'orderby' => 'name', 'hierarchical' => true)); 
+							if (empty($tmp_value))
+								$tmp_value = get_option("default_category");
+								
+							wp_dropdown_categories(array('id'=>$tmp_name, 'hide_empty' => 0, 'name' => $tmp_name, 'orderby' => 'name', 'selected' => $tmp_value, 'hierarchical' => true)); 
+							}
+						else
+							{
+							?>	
+							<select  id="<?php echo $tmp_name ?>" name="<?php echo $tmp_name ?>" >
+							<?php foreach($optionlist as $desc => $id) : ?>   
+								<option value='<?php echo $id ?>' <?php echo ( $id == $tmp_value) ? "selected='selected'" : ' ';?>>
+									<?php echo $desc; ?>
+								</option>
+							<?php endforeach; ?>
+							</select>
+							<?php
+							}
 						echo '</td>';
 						}
 					else

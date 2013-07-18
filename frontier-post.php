@@ -2,14 +2,14 @@
 /*
 Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
-Description: Fast, easy & secure Front End management of posts. Add, Edit, Delete posts from frontend - My Posts Widget
+Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.4.9
+Version: 1.5.1
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "1.4.9"); 
+define('FRONTIER_POST_VERSION', "1.5.1"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -75,6 +75,7 @@ function frontier_posting_form_submit()
 			$saved_options 		= get_option('frontier_post_options', array() );
 			$users_role 		= frontier_get_user_role();
 			$category_type 		= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
+			$default_category	= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
 			
 			if ($category_type == "multi")
 				$tmp_categorymulti = $_POST['categorymulti'];
@@ -90,7 +91,7 @@ function frontier_posting_form_submit()
 				}
 				
 			if ((!isset($tmp_categorymulti)) || (count($tmp_categorymulti)==0))
-				$tmp_categorymulti = Array(get_option("default_category"));
+				$tmp_categorymulti = array($default_category);
 				
 			$taglist = array();
 			if (isset( $_POST['user_post_tag1']))
@@ -295,6 +296,10 @@ function frontier_post_set_defaults()
 	$saved_options = get_option('frontier_post_options', array() );
 	foreach( $roles as $key => $item )
 		{
+		if ( !array_key_exists($key, $saved_options) )
+			$saved_options[$key] = array();
+				
+		$tmp_role_settings = $saved_options[$key];
 		
 		//error_log('Setting up role: '.$role_name);
 		$xrole = get_role($key);
@@ -304,6 +309,7 @@ function frontier_post_set_defaults()
 		foreach($tmp_cap_list as $tmp_cap)
 			{
 			
+				$tmp_option  = "false";
 				
 				// Only enable all defaults for Administrator, Editor & Author
 				if ( ($key == 'administrator') || ($key == 'editor') )
@@ -312,40 +318,28 @@ function frontier_post_set_defaults()
 					}
 				else
 					{
-					// all options false for other profiles
-					$tmp_option = "false";
 					// except author who can add, edit and use the edit redir functionality
 					if ( ($key == 'author') && (($tmp_cap == 'can_add') || ($tmp_cap == 'can_edit') || ($tmp_cap == 'redir_edit') ) )
 						$tmp_option  = "true";
 					}
 
+					
 				if ($tmp_cap == 'editor')
 					$tmp_option  = "full";
 							
 				if ($tmp_cap == 'category')
 					$tmp_option  = "multi";
-					
-				//Check if option already exists, if not, set it
-				if ( !array_key_exists($key, $saved_options) )
-					$saved_options[$key] = array();
-					
-				$role_options = $saved_options[$key];
-				if ( !array_key_exists($tmp_cap, $role_options) )
-					{	
-					//check if old option (pre ver. 1.4) exists
-					$tmp_option_id = 'frontier_post_'.$key.'_'.$tmp_cap;
-					
-					if (!get_option('frontier_post_'.$key.'_'.$tmp_cap))
-						$tmp_option = get_option('frontier_post_'.$key.'_'.$tmp_cap);
-							
-					}
-				$saved_options[$key][$tmp_cap] = $tmp_option;
 				
-				if (!get_option('frontier_post_'.$key.'_'.$tmp_cap))
-					delete_option('frontier_post_'.$key.'_'.$tmp_cap);
+				if ($tmp_cap == 'default_category')
+					$tmp_option  = get_option("default_category");
+					
+				//Check if option already exists, if not, set it (we will not overwrite existing settings
+				if ( !array_key_exists($tmp_cap, $tmp_role_settings) || empty($saved_options[$key][$tmp_cap]))
+					$saved_options[$key][$tmp_cap] = $tmp_option;
+					
 									
 				// set capability, but not for editor and catory as they are not capabilities
-				if ($tmp_cap != 'editor' && $tmp_cap != 'category')
+				if ($tmp_cap != 'editor' && $tmp_cap != 'category' && $tmp_cap != 'default_category')
 					{
 					$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
 					if ( $tmp_value == "true" )
@@ -411,6 +405,7 @@ function frontier_get_user_role()
 	
 include('settings-menu.php');
 
+
 //Link for Frontier add post	
 function frontier_post_add_link() 
 	{
@@ -433,11 +428,19 @@ add_action("init","frontier_get_user_role");
 add_action("init","frontier_posting_form_submit"); 
 add_action("init","frontier_delete_post");  
 
+// Hide admin bar for user role based on settings
+function frontier_admin_bar()
+	{
+	if (!current_user_can( 'frontier_post_show_admin_bar' ))
+		show_admin_bar(false);
+	}
+add_action("init","frontier_admin_bar");  
+	
 //error_log("Log message : ");
 
 function frontier_edit_post_link( $url, $post_id ) 
 	{
-	if ( is_admin()  ) // Administrator in admin dashboard, dont change url
+	if ( is_admin() || (get_post_type($post_id) != 'post') ) // Administrator in admin dashboard, dont change url and only change for type = post
 		{
 			return $url;
 		}
