@@ -133,7 +133,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 = 1.5.3 =
 * New buttons on editor: Smileys, search & replace and table control
 * Frontend Author role added
-* Spanish Translation
+* Spanish Translation (hasmin)
 
 = 1.5.1 =
 * Option to hide admin bar
