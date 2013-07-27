@@ -48,7 +48,17 @@ if( $user_posts->found_posts > 0 )
 	?>
 			<tr>
 				<td><?php echo mysql2date('Y-m-d', $post->post_date); ?></td>
-				<td><a href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a></td>
+				<td>
+				<?php if ($post->post_status == "publish")
+						{ ?>
+						<a href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a>
+				<?php	} 
+					else
+						{
+						echo $post->post_title;
+						} ?>
+						
+				</td>
 				<td><?php  echo isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status;   ;?></td>
 				<td><?php  
 					// List categories

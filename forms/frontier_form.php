@@ -8,12 +8,12 @@
 	$users_role 				= frontier_get_user_role();
 	
 	$editor_type 				= $saved_options[$users_role]['editor'] ? $saved_options[$users_role]['editor'] : "full"; 
-	$frontier_post_mce_custom	= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "false";
+	$frontier_post_mce_custom	= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "disable";
 	$frontier_post_mce_button	= get_option("frontier_post_mce_button", array());
 		
 	$category_type 				= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
 	$default_category			= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
-	
+	$preview_label 				= __("Preview", "frontier-post");
 	
 	
 	if(!isset($thispost->post_type))

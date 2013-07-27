@@ -140,7 +140,7 @@ function frontier_post_settings_page()
 	
 		<div class="wrap">
 		<div class="frontier-admin-menu">
-		<h2>Frontier Post Settings</h2>
+		<h2><?php _e("Frontier Post Settings", "frontier-post") ?></h2>
 
 		<form name="frontier_post_settings" method="post" action="">
 			<input type="hidden" name="frontier_isupdated_hidden" value="Y">
@@ -360,7 +360,7 @@ function frontier_post_settings_page()
 				<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
 			</p>
 			
-			<h2>Advanced Settings - BETA</h2>
+			<h2><?php _e("Advanced Settings - BETA", "frontier-post") ?></h2>
 			</br>
 			<table border="1">
 				<tr>
@@ -370,7 +370,9 @@ function frontier_post_settings_page()
 				</tr><tr>
 					<th align='left'><?php _e("Use custom editor buttons:", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_mce_custom" value="true" <?php echo ($frontier_post_mce_custom == "true") ? 'checked':''; ?>></center></td>
-					<td><?php _e("Control the buttons showed in the editor (only in frontend)", "frontier-post"); ?></td>
+					<td><?php _e("Control the buttons showed in the editor (only in frontend)", "frontier-post"); ?> &nbsp;
+					<a href="http://wordpress.org/plugins/frontier-post/faq/" target="_blank"><?php _e("Additional info: FAQ on plugin site", "frontier-post"); ?>
+					</td>
 				</tr><tr>
 					<td><?php _e("Custom button row", "frontier-post"); ?>1:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button1" value="<?php echo $frontier_post_mce_button[0]; ?>" size='200'></td>

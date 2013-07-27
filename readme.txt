@@ -35,8 +35,10 @@ Add short-code [frontier-post] in a page content after install and activation of
 * Tags (Optional)
 * Supports Wordpress Post Status Transitions
 * 4 editor options for frontend editing (Full, Simple-Visual, Simple-Html or Text-Only)
+* Editor enhancements: Smiley (emoticons), Table control and Search & Replace 
 * Disable Admin bar per role (Optional)
 * Users must be logged in to post
+
 
 = My Posts Widget =
 * Show logged-in users posts (Author)
@@ -56,6 +58,7 @@ Add short-code [frontier-post] in a page content after install and activation of
 * Danish
 * Russian (samaks)
 * Chinese (beezeeking)
+* Spanish (Hasmin)
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
 
@@ -74,6 +77,22 @@ Let me know what you think, and if you have enhancement requests or problems let
 * Only for standard posts, not custom post types
 * If limited administrator access is selected for a profile in Theme My Login, media uploads will fail for this profile.
 
+= Editor =
+* At the moment this functionality is Beta !
+* The following tinymce modules are loaded: emotions, searchreplace & table.
+* Standard wordpress button setup
+ * 1: bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv
+ * 2: formatselect, underline, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help
+ * 3: Empty
+ * 4: Empty
+* Suggested button setup (Default on Frontier Post install)
+ * 1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv
+ * 2: emotions, formatselect, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help
+ * 3: search,replace,|,tablecontrols
+ * 4: Empty
+* Documentation:
+ * [tinymce ](http://www.tinymce.com/wiki.php/TinyMCE3x:Buttons/controls/)
+ * [Wordpress Codex](http://codex.wordpress.org/TinyMCE/)
 
 = Widgets =
 * Widgets are not cached as content is based on current logged in user. 
@@ -87,7 +106,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 * Frontier post is mainly tested with:
 * Wordpress 3.5.2
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
- * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/)
+ * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/) - Theme My Login is tested with version 6.2.3, version above this has challenges.
  * and sometimes with twenty twelve theme...
 * iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
 
@@ -111,9 +130,10 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 1.5.2 =
+= 1.5.3 =
 * New buttons on editor: Smileys, search & replace and table control
 * Frontend Author role added
+* Spanish Translation
 
 = 1.5.1 =
 * Option to hide admin bar

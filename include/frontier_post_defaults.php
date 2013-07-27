@@ -29,4 +29,5 @@ $frontier_mce_buttons_4 = '';
 $frontier_author_default_caps = array('delete_posts' => true, 'delete_published_posts' => true, 'edit_posts' => true, 'edit_published_posts' => true, 'publish_posts' => true, 'read' => true, 'upload_files' => true);
 $frontier_author_role_name	  = "frontier-author";
 
+
 ?>

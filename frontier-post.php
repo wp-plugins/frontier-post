@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.5.1
+Version: 1.5.3
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "1.5.1"); 
+define('FRONTIER_POST_VERSION', "1.5.3"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -439,8 +439,11 @@ add_action("init","frontier_get_user_role");
 add_action("init","frontier_posting_form_submit"); 
 add_action("init","frontier_delete_post");  
 
-// Load tinymce plugins
-add_filter('mce_external_plugins', 'frontier_tinymce_plugins');
+// Load tinymce plugins if enabled in frontier settings
+$frontier_post_mce_custom = get_option("frontier_post_mce_custom", "false");
+if ($frontier_post_mce_custom == "true") 
+	add_filter('mce_external_plugins', 'frontier_tinymce_plugins');
+
 function frontier_tinymce_plugins () 
 	{
 	$plugins = array('emotions', 'table', 'searchreplace'); 
