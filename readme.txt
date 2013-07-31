@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 3.6
-Stable tag: 1.5.1
+Stable tag: 1.5.6
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -130,9 +130,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 1.5.5 =
+= 1.5.6 =
 * New buttons on editor: Smileys, search & replace and table control
-* Frontend Author role added
+* Frontend Author role added (Same capabilities as Author, makes it possible to distinguish between Author and Frontend Author) 
 * Bug in My Posts fixed (comments from post showing), wp_reset_postdata() added in end of frontier_list.php
 * Spanish Translation (hasmin)
 
