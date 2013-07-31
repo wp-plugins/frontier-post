@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Frontier Post 1.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
 "POT-Creation-Date: 2013-07-27 11:23:04+00:00\n"
-"PO-Revision-Date: 2013-07-27 13:28+0100\n"
+"PO-Revision-Date: 2013-07-27 14:04+0100\n"
 "Last-Translator: finnj\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -440,7 +440,7 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "finnj"
-msgstr ""
+msgstr "finnj"
 
 #~ msgid "No posts"
 #~ msgstr "Ingen Indlæg"

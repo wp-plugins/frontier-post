@@ -123,4 +123,8 @@ else
 		_e('Sorry, you do not have any posts (yet)', 'frontier-post');
 		echo "</center><br></br>";
 	} // end post count
+	
+//Re-instate $post for the page
+wp_reset_postdata();
+
 ?>
