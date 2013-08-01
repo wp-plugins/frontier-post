@@ -211,6 +211,9 @@
 					{
 					$tmp_a = array_values($status_list);
 					echo $tmp_a[0];
+					?>
+					<input type="hidden" id="post_status" name="post_status" value="<?php echo $tmp_a[0]; ?>"  ></br>
+					<?php
 					}
 				else
 					{ ?>
