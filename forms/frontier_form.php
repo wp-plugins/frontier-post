@@ -209,10 +209,11 @@
 				<?php 
 				if (count($status_list) <=1)
 					{
-					$tmp_a = array_values($status_list);
-					echo $tmp_a[0];
+					$status_name = array_values($status_list);
+					$status_value = array_keys($status_list);
+					echo $status_name[0];
 					?>
-					<input type="hidden" id="post_status" name="post_status" value="<?php echo $tmp_a[0]; ?>"  ></br>
+					<input type="hidden" id="post_status" name="post_status" value="<?php echo $status_value[0]; ?>"  ></br>
 					<?php
 					}
 				else
