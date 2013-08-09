@@ -64,32 +64,7 @@ if( $r )
 				?></td>
 				<td><?php  echo $post->comment_count;?></td>
 				<td>
-					<?php
-						if (frontier_can_edit($post->post_date, $post->comment_count) == true)
-							{
-								?>
-									<a href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>">Edit</a>&nbsp;&nbsp;
-								<?php
-							}
-												
-						if (frontier_can_delete($post->post_date, $post->comment_count) == true)
-							{
-								?>
-									<a href="#" onclick="if(confirm('<?php _e('Are you sure you want to delete this post?', 'frontier-post')?>')){location.href='<?php echo $frontier_permalink;?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>'}" >Delete</a>
-								<?php
-							}
-						
-						if ($post->post_status != "publish")
-							{ 
-							$tmp_post_link = site_url();
-							$tmp_post_link = $tmp_post_link."/?p=".$post->ID."&preview=true"
-							?>
-							<a href="<?php echo $tmp_post_link;?>" target="_blank"><?php _e("Preview","frontier-post") ?></a>
-							<?php		
-							} 
-
-					?>
-					&nbsp;
+					<a href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>">Edit</a>&nbsp;&nbsp;
 				</td>
 			</tr>
 		<?php 
