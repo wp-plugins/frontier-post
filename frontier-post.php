@@ -62,13 +62,13 @@ function frontier_posting_form_submit()
 				
 			$tmp_title 	= trim( $_POST['user_post_title'] );
 			if ( empty( $tmp_title ) ) 
-				$tmp_title = "No Title";
+				$tmp_title = __("No Title", "frontier-post");
 			
 			$tmp_title = trim( strip_tags( $tmp_title ));
         
 			$tmp_content = trim( $_POST['user_post_desc'] );
 			if ( empty( $tmp_content ) ) 
-				$tmp_content = "No content";
+				$tmp_content = __("No content", "frontier-post");
 			
 			$tmp_excerpt = isset( $_POST['user_post_excerpt']) ? trim($_POST['user_post_excerpt'] ) : null;
 
