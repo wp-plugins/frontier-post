@@ -130,6 +130,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+= 1.6.0
+* Temp version to be able correct the post_data issue.
+
 = 1.5.9
 * Fixed issue where post_status was set to display value instead of value, meaning post was updated with translated value. Posts still in db, but does not show up in WP
 
