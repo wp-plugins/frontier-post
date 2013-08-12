@@ -374,24 +374,30 @@ function frontier_post_settings_page()
 					<a href="http://wordpress.org/plugins/frontier-post/faq/" target="_blank"><?php _e("Additional info: FAQ on plugin site", "frontier-post"); ?>
 					</td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>1:</td>
+					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;1:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button1" value="<?php echo $frontier_post_mce_button[0]; ?>" size='200'></td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>2:</td>
+					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;2:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button2" value="<?php echo $frontier_post_mce_button[1]; ?>" size='200'></td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>3:</td>
+					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;3:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button3" value="<?php echo $frontier_post_mce_button[2]; ?>" size='200'></td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>4:</td>
+					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;4:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button4" value="<?php echo $frontier_post_mce_button[3]; ?>" size='200'></td>
 					
 				</tr>
 			</table>
-			</br><hr></br>
+			</br>
+			<b><?php _e("Suggested buttons", "frontier-post") ?>:</b></br><i>
+					<?php _e("Row", "frontier-post");?>&nbsp;1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv</br>
+					<?php _e("Row", "frontier-post");?>&nbsp;2: emotions, formatselect, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help</br>
+					<?php _e("Row", "frontier-post");?>&nbsp;3: search,replace,|,tablecontrols</br>
+			<hr></br>
 			</table>		
 				</tr><tr>
-					<td colspan="2"><b>Notice:</b></br><i>
+					<td colspan="2">
+					<b><?php _e("Notice", "frontier-post") ?></b></br><i>
 					<?php _e("- Media upload is not available to Contributors and Subscribers by Wordpress capabilities", "frontier-post");?></br>
 					<?php _e("- Wordpress standard rolemodel does not allow Contributors and Subscribers to add/edit/delete posts, but you can bypass this above", "frontier-post");?></br>
 					<?php _e("- Frontier Edit means that if a user selects the dit link on a post, Frontier will be used to edit instead of backend", "frontier-post");?></br>

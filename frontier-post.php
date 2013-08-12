@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.6.0
+Version: 1.6.1
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "1.6.0"); 
+define('FRONTIER_POST_VERSION', "1.6.1"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -186,7 +186,8 @@ function get_file_extension($file_name)
           return substr(strrchr($file_name,'.'),1);
 	}
   
-//post_status_fix
+//post_status_fix - Removed in v 1.6.1
+/*
 function frontier_status_fix()
 	{
 	// check if admin
@@ -197,6 +198,7 @@ function frontier_status_fix()
 	include("forms/frontier_fix_list.php");
 	
 	} // End post_status fix
+*/
 
 function frontier_user_posts()
 	{    
@@ -541,6 +543,7 @@ add_filter( 'get_edit_post_link', 'frontier_edit_post_link', 10, 2 );
 add_action('admin_menu', 'frontier_post_settings_menu');
 add_shortcode("frontier-post","frontier_user_posts");
 
-//post_status_fix
-add_shortcode("frontier-status-fix","frontier_status_fix");
+
+//post_status_fix - Removed in version 1.6.1
+//add_shortcode("frontier-status-fix","frontier_status_fix");
 ?>
