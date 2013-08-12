@@ -78,14 +78,14 @@ if( $user_posts->found_posts > 0 )
 						if (frontier_can_edit($post->post_date, $post->comment_count) == true)
 							{
 								?>
-									<a href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>">Edit</a>&nbsp;&nbsp;
+									<a href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>"><?php _e("Edit", "frontier-post") ?></a>&nbsp;&nbsp;
 								<?php
 							}
 												
 						if (frontier_can_delete($post->post_date, $post->comment_count) == true)
 							{
 								?>
-									<a href="#" onclick="if(confirm('<?php _e('Are you sure you want to delete this post?', 'frontier-post')?>')){location.href='<?php echo $frontier_permalink;?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>'}" >Delete</a>
+									<a href="#" onclick="if(confirm('<?php _e('Are you sure you want to delete this post?', 'frontier-post')?>')){location.href='<?php echo $frontier_permalink;?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>'}" ><?php _e("Delete", "frontier-post") ?></a>
 								<?php
 							}
 						
