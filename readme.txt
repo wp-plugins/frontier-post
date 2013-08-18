@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 3.6
-Stable tag: 1.5.1
+Stable tag: 1.6.2
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -59,6 +59,7 @@ Add short-code [frontier-post] in a page content after install and activation of
 * Russian (samaks)
 * Chinese (beezeeking)
 * Spanish (Hasmin)
+* Polish (Thomasz)
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
 
@@ -130,10 +131,32 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 1.5.3 =
+= Planned =
+* Simple email notifications to admin for posts pending approval, and to author when approved
+* Save button on Frontier edit form (so user can save post and stay on form)
+* Submit button: New setting to decide if user is taken to My Posts or to the actual post when a new post is submitted or edited. 
+
+= 1.6.2 =
+* Translation fixes (Thanks: Thomasz Bednarek)
+* Updated translations: Danish, Spanish, Polish & Russian)
+* Added suggested buttons for editor in settings page.
+* frontier_fix_list.php removed
+
+= 1.6.0 =
+* Temp version to be able correct the post_data issue (frontier_fix_list.php).
+
+= 1.5.9 =
+* Fixed issue where post_status was set to display value instead of value, meaning post was updated with translated value. Posts still in db, but does not show up in WP
+
+= 1.5.7 =
+* Bug: Post status changed to draft if post status was not selectable (as with a published post), hidden input field added to hold post_status
+* Preview link added to My Posts list for posts that are not published (Link to unpublished posts was removed in 1.5.1)
+
+= 1.5.6 =
 * New buttons on editor: Smileys, search & replace and table control
-* Frontend Author role added
-* Spanish Translation
+* Frontend Author role added (Same capabilities as Author, makes it possible to distinguish between Author and Frontend Author) 
+* Bug in My Posts fixed (comments from post showing), wp_reset_postdata() added in end of frontier_list.php
+* Spanish Translation (hasmin)
 
 = 1.5.1 =
 * Option to hide admin bar
@@ -141,7 +164,6 @@ Let me know what you think, and if you have enhancement requests or problems let
 * Only redirect edit to frontend for standard post type (not pages and custom post types)
 * Du not show dropdown for status with only 1 option, only show value
 * Added missing closing tags for ul and div in my approvals widget 
-
 
 = 1.4.9 =
 * Issue with svn, new tag created
