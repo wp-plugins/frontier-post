@@ -9,7 +9,7 @@ Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "1.7.0"); 
+define('FRONTIER_POST_VERSION', "2.0.0"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 

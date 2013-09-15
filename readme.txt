@@ -139,16 +139,16 @@ Let me know what you think, and if you have enhancement requests or problems let
 == Changelog ==
 
 = Planned =
-* Simple email notifications to admin for posts pending approval, and to author when approved
-* Save button on Frontier edit form (so user can save post and stay on form)
-* Submit button: New setting to decide if user is taken to My Posts or to the actual post when a new post is submitted or edited. 
 
-= 1.7.0 =
+= 2.0.0 =
 * BETA - Only for testing
+* Template forms: Forms can be copied (and changed) to theme folder - See FAQ
 * Option: Exclude categories by ID from dropdowns on form
 * Option: Email to list of emails on post for approval
 * Option: Email to Author when post is approved (Pending to Publish)
-*
+* Save button on Frontier edit form (so user can save post and stay on form)
+* Submit button: New setting to decide if user is taken to My Posts or to the actual post when a new post is submitted or edited. 
+
 
 = 1.6.2 =
 * Translation fixes (Thanks: Thomasz Bednarek)
