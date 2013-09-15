@@ -37,6 +37,7 @@ Add short-code [frontier-post] in a page content after install and activation of
 * 4 editor options for frontend editing (Full, Simple-Visual, Simple-Html or Text-Only)
 * Editor enhancements: Smiley (emoticons), Table control and Search & Replace 
 * Disable Admin bar per role (Optional)
+* User defined templates for forms
 * Users must be logged in to post
 
 
@@ -77,6 +78,12 @@ Let me know what you think, and if you have enhancement requests or problems let
 * No Custom Fields
 * Only for standard posts, not custom post types
 * If limited administrator access is selected for a profile in Theme My Login, media uploads will fail for this profile.
+
+= Template Forms =
+* At the moment this functionality is Beta !
+* You can copy the forms located in the forms directory of the plugin to your theme
+** create a subdirectory in you theme (or child theme) folder: /plugins/frontier-post/ - Example: wordpress/wp-content/themes/twentytwelve/plugins/frontier-post/
+
 
 = Editor =
 * At the moment this functionality is Beta !
@@ -135,6 +142,13 @@ Let me know what you think, and if you have enhancement requests or problems let
 * Simple email notifications to admin for posts pending approval, and to author when approved
 * Save button on Frontier edit form (so user can save post and stay on form)
 * Submit button: New setting to decide if user is taken to My Posts or to the actual post when a new post is submitted or edited. 
+
+= 1.7.0 =
+* BETA - Only for testing
+* Option: Exclude categories by ID from dropdowns on form
+* Option: Email to list of emails on post for approval
+* Option: Email to Author when post is approved (Pending to Publish)
+*
 
 = 1.6.2 =
 * Translation fixes (Thanks: Thomasz Bednarek)
