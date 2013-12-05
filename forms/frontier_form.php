@@ -1,5 +1,6 @@
 <?php
 
+	//error_log("post_id - f1: ".$post_id);
 	
 	if ($user_can_edit_this_post)
 	{
@@ -127,7 +128,37 @@
 					<textarea name="user_post_excerpt" id="user_post_excerpt"  cols="8" rows="2"><?php if(!empty($thispost->post_excerpt))echo $thispost->post_excerpt;?></textarea>
 				</td>
 				</tr><tr>
-			<?php 	} ?>
+		<?php 	} 
+		if (get_option("frontier_post_show_feat_img", "false") == "true")
+			{
+		?>
+		<th class="frontier_heading" width="50%"><?php _e("Featured image", "frontier-post"); ?></th>
+	</tr><tr>
+		<td class="frontier_border" width="50%">
+		<?php
+		//Only possible to set a featured image on a post that has been saved.
+			if ( isset($_REQUEST['task']) and $_REQUEST['task'] == "edit" )
+				{
+				$FeatImgLinkHTML = '<a title="Vælg fremhævet billede" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.'" id="set-post-thumbnail" class="thickbox">';
+				if (has_post_thumbnail($post_id))
+					{
+					$FeatImgLinkHTML = $FeatImgLinkHTML.get_the_post_thumbnail($post_id, 'thumbnail').'<br>';
+					}
+				
+				$FeatImgLinkHTML = $FeatImgLinkHTML.__("Select featured image", "frontier-post").'</a>';
+			
+				echo $FeatImgLinkHTML;
+				}
+			else
+				{
+				_e("You need to save the post, before you can select a featured image.", "frontier-post");
+				}
+			}
+		?>
+		
+		
+		</td>
+	</tr><tr>
 		<td>
 			<button class="button" type="submit" name="user_post_save" id="user_post_save" value="save"><?php _e("Save", "frontier-post"); ?></button>
 			<button class="button" type="submit" name="user_post_submit" id="user_post_submit" value="savereturn"><?php _e("Save & Return", "frontier-post"); ?></button>

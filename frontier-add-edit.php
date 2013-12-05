@@ -15,11 +15,14 @@ function frontier_post_add_edit()
         }
     else
 		{
-		$thispost = get_default_post_to_edit( "post", true );	
+		$thispost = get_default_post_to_edit( "post", true );
 		$thispost->post_author = $current_user->ID;
 		$_REQUEST['task']="new";
 		}
-	
+		
+	$post_id = $thispost->ID;
+	//error_log("post_id: ".$post_id);
+		
 	$frontier_task = $_REQUEST['task'] ? $_REQUEST['task'] :"?";
 	
 	// get options
@@ -44,12 +47,12 @@ function frontier_post_add_edit()
 		{
 			$thispost->post_content = '';
 		}
-	
+	/*
 	if (isset($thispost->ID))
 		{
 		$post_id = $thispost->ID;
 		}
-	
+	*/
 	frontier_media_fix( $post_id );
 	
 	$user_can_edit_this_post = true;
@@ -62,6 +65,7 @@ function frontier_post_add_edit()
 	
 	//build post status list based on current status and users capability
 	$tmp_status_list = get_post_statuses( );
+	$tmp_status_list = array_reverse($tmp_status_list);
 	
 	// Remove private status from array
 	unset($tmp_status_list['private']);
@@ -205,20 +209,8 @@ function frontier_post_add_edit()
 			}
 		}
 	
+	$frontier_use_feat_img = get_option("frontier_post_show_feat_img") ? get_option("frontier_post_show_feat_img") : "false";
 	
-	//Display form
-	/*
-	$frontier_form_name = "frontier_form.php";
-	// Check if template is located in theme or child-theme
-	$located = locate_template(array('plugins/frontier-post/'.$frontier_form_name), false, true);
-	//error_log("Form: ".$located);
-	if(!$located )
-		{
-		// if not found in theme folders, load native fronpier form
-		$located = "forms/".$frontier_form_name;
-		}
-	include_once($located);
-	*/
 	include_once(frontier_load_form("frontier_form.php"));	
 	} 
 

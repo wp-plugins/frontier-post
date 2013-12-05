@@ -112,10 +112,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 = Testing =
 * Frontier post is mainly tested with:
-* Wordpress 3.5.2
+* Wordpress 3.7.1
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
- * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/) - Theme My Login is tested with version 6.2.3, version above this has challenges.
- * and sometimes with twenty twelve theme...
+ * and sometimes with twenty thirteen theme...
 * iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
 
 = Translations =
@@ -140,14 +139,14 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 = Planned =
 
-= 2.0.0 =
-* BETA - Only for testing
+= 2.0.3 =
 * Template forms: Forms can be copied (and changed) to theme folder - See FAQ
 * Option: Exclude categories by ID from dropdowns on form
 * Option: Email to list of emails on post for approval
 * Option: Email to Author when post is approved (Pending to Publish)
 * Save button on Frontier edit form (so user can save post and stay on form)
 * Submit button: New setting to decide if user is taken to My Posts or to the actual post when a new post is submitted or edited. 
+* Featured Image support.
 
 
 = 1.6.2 =

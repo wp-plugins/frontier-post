@@ -82,13 +82,22 @@ function frontier_posting_form_submit()
 			// Set tags
 			if ( current_user_can( 'frontier_post_tags_edit' ) )
 				wp_set_post_tags($postid, $taglist);
+				
+			
 	
 			$upload_dir = wp_upload_dir();
 			
 			if(isset( $_POST['filename'] ))
 				{
+				
 				$filenames= $_POST['filename'];
-								
+				error_log("filenames: ");
+				error_log(var_dump($filenames));
+				
+				//$thumbnail_id=$_POST['thumbnail_id'];
+				//error_log("thumbnail_id: ");
+				//error_log(var_dump($thumbnail_id));
+				
 				if(is_array($filenames))
 					{
 					foreach($filenames as $value)
@@ -102,11 +111,15 @@ function frontier_posting_form_submit()
 							'post_status' => 'inherit'
 							);
 						$attach_id = wp_insert_attachment( $attachment, $value, $postid );
-						set_post_thumbnail( $postid, $attach_id );
+						if (!has_post_thumbnail( $postid ))
+							set_post_thumbnail( $postid, $attach_id );
 						}
 					}    
 				}
 			}
+		
+		$concat= get_option("permalink_structure")?"?":"&";		
+		
 		if (isset($_POST['user_post_preview']))
 			{
 			header("location: ".site_url()."/?p=".$postid."&preview=true");
@@ -116,7 +129,10 @@ function frontier_posting_form_submit()
 			{
 			if (isset($_POST['user_post_save']))
 				{
-				header("location: ".get_permalink(get_option('frontier_post_page_id')).get_option("permalink_structure")?"?":"&"."task=edit&postid=".$postid);
+				$hdrloc = "location: ".get_permalink(get_option('frontier_post_page_id')).$concat."task=edit&postid=".$postid;
+				//error_log("Header: ".$hdrloc ? $hdrloc : "?");
+				header($hdrloc);
+				die();
 				}
 				else
 				{

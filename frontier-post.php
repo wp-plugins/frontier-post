@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 1.7.0
+Version: 2.0.3
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "2.0.0"); 
+define('FRONTIER_POST_VERSION', "2.0.3"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -155,18 +155,15 @@ function frontier_email_on_transition(  $new_status, $old_status, $post )
 		$author_name	= get_the_author_meta( 'display_name', $post->post_author );
         $to      		= get_option("frontier_post_mail_address") ? get_option("frontier_post_mail_address") : get_settings("admin_email");
         $subject 		= __("Post for approval from", "frontier-post").": ".$author_name ." (".get_bloginfo( "name" ).")";
-        $body    		= __("Post for approval from", "frontier-post").": ".$author_name ." (".get_bloginfo( "name" ).")";
+        $body    		= 		__("Post for approval from", "frontier-post").": ".$author_name ." (".get_bloginfo( "name" ).")"."\r\n\r\n";
+		$body    		= $body."Title:: ".$post->post_title."\r\n\r\n";
+		$body    		= $body."Link to approvals: ".site_url('/wp-admin/edit.php?post_status=pending&post_type=post')."\r\n\r\n";
 
-		error_log('sending email: '.$subject);
+		//error_log('sending email: '.$subject.' To: '.$to);
 		
-        if( wp_mail($to, $subject, $body ) ) 
-			{
-            error_log('Message successfully sent!');
-			} 
-			else 
-			{
-            error_log('<p>Message delivery failed...</p>');
-			}
+        if( !wp_mail($to, $subject, $body ) ) 
+			error_log(__("Message delivery failed - Recipient: (", "frontier-post").$to.")");
+			
 		}
 		
 	if(  $old_status == 'pending'  && $new_status == 'publish' && get_option("frontier_post_mail_approved", "false") == "true"  )
@@ -176,18 +173,13 @@ function frontier_email_on_transition(  $new_status, $old_status, $post )
 		
 		$to      		= get_the_author_meta( 'email', $post->post_author );
         $subject 		= __("Your post has been approved", "frontier-post")." (".get_bloginfo( "name" ).")";
-        $body    		= __("Your post has been approved", "frontier-post").": ".$post->title ." (".get_bloginfo( "name" ).")";
-
-		error_log('sending email: '.$subject);
+        $body    		= __("Your post has been approved", "frontier-post").": ".$post->title ." (".get_bloginfo( "name" ).")"."\r\n\r\n";
+		$body    		= $body."Title:: ".$post->post_title."\r\n\r\n";
 		
-        if( wp_mail($to, $subject, $body ) ) 
-			{
-            error_log('Message successfully sent!');
-			} 
-			else 
-			{
-            error_log('Message delivery failed...');
-			}
+		//error_log('sending email: '.$subject.' To: '.$to);
+		
+        if( !wp_mail($to, $subject, $body ) ) 
+			error_log(__("Message delivery failed - Recipient: (", "frontier-post").$to.")");
 		
 		}
 	}
@@ -195,18 +187,14 @@ function frontier_email_on_transition(  $new_status, $old_status, $post )
 
 add_action('transition_post_status', 'frontier_email_on_transition', 10, 3);
 
-	/*
-function frontier_test_status(  $new_status, $old_status, $post ) 
-	{
-	error_log('Old status: '.$old_status.' - New status: '.$new_status);
-	}
-add_action('transition_post_status', 'frontier_test_status', 10, 3);
-*/
 
-// Load tinymce plugins if enabled in frontier settings
+// Load tinymce plugins if enabled in frontier settings.
 $frontier_post_mce_custom = get_option("frontier_post_mce_custom", "false");
+
 if ($frontier_post_mce_custom == "true") 
 	add_filter('mce_external_plugins', 'frontier_tinymce_plugins');
+else
+	remove_filter('mce_external_plugins', 'frontier_tinymce_plugins');
 
 function frontier_tinymce_plugins () 
 	{
@@ -225,6 +213,8 @@ function frontier_admin_bar()
 	{
 	if (!current_user_can( 'frontier_post_show_admin_bar' ))
 		show_admin_bar(false);
+	else
+		show_admin_bar(true);
 	}
 add_action("init","frontier_admin_bar");  
 	
