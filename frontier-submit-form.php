@@ -94,8 +94,8 @@ function frontier_posting_form_submit()
 				//error_log("filenames: ");
 				//error_log(var_dump($filenames));
 				
-				$thumbnail_id=$_POST['thumbnail_id'];
-				error_log("thumbnail_id: ");
+				//$thumbnail_id=$_POST['thumbnail_id'];
+				//error_log("thumbnail_id: ");
 				//error_log(var_dump($thumbnail_id));
 				
 				if(is_array($filenames))
