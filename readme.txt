@@ -3,8 +3,8 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 3.7.1
-Stable tag: 2.0.4
+Tested up to: 3.8
+Stable tag: 2.0.5
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -61,6 +61,7 @@ Add short-code [frontier-post] in a page content after install and activation of
 * Chinese (beezeeking)
 * Spanish (Hasmin)
 * Polish (Thomasz)
+* French (pabaly)
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
 
@@ -83,18 +84,27 @@ Let me know what you think, and if you have enhancement requests or problems let
 * At the moment this functionality is Beta !
 * You can copy the forms located in the forms directory of the plugin to your theme
 ** create a subdirectory in you theme (or child theme) folder: /plugins/frontier-post/ - Example: wordpress/wp-content/themes/twentytwelve/plugins/frontier-post/
+* The custom templates is quite easy (example below is if you installed wp in the root):
+** Navigate to ./wp-content/plugins/frontier-post/forms
+** Copy frontier_form.php and frontier_list.php
+** Navigate to ./wp.content/themes/[your active theme]/
+** check if ./wp.content/themes/[your active theme]/plugins/frontier-post/ exists, if not create it
+** Paste the 2 files to ./wp.content/themes/[your active theme]/plugins/frontier-post/
+
+Now you can edit the 2 files to match your formatting requirements
+Be aware that the template files will be deleted on theme upgrade, so make sure you have a copy, or use a child theme 
 
 
 = Editor =
 * At the moment this functionality is Beta !
 * The following tinymce modules are loaded: emotions, searchreplace & table.
 * Standard wordpress button setup
- * 1: bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv
+ * 1: bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv
  * 2: formatselect, underline, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help
  * 3: Empty
  * 4: Empty
 * Suggested button setup (Default on Frontier Post install)
- * 1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv
+ * 1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv
  * 2: emotions, formatselect, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help
  * 3: search,replace,|,tablecontrols
  * 4: Empty
@@ -138,6 +148,10 @@ Let me know what you think, and if you have enhancement requests or problems let
 == Changelog ==
 
 = Planned =
+
+= 2.0.5 =
+* Wordcount added (TinyMCE plugin, you need to enable custom editor buttons)
+* French translation added (thanks to pabaly)
 
 = 2.0.4 =
 * Template forms: Forms can be copied (and changed) to theme folder - See FAQ

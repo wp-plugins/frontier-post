@@ -110,7 +110,7 @@ function frontier_post_add_edit()
 	$frontier_post_mce_custom	= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "disable";
 	$frontier_post_mce_button	= get_option("frontier_post_mce_button", array());
 	
-	$editor_layout = array('dfw' => true, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
+	$editor_layout = array('dfw' => false, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
 	
 		
 	if ($editor_type == "full" && $frontier_post_mce_custom == "true")
