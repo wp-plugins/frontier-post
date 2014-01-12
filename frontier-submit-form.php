@@ -65,20 +65,20 @@ function frontier_posting_form_submit()
 				 'post_excerpt' 	=> $tmp_excerpt,
 				);
 				
-            if($_REQUEST['task']=="new")
+			$postid= $_REQUEST['postid'];
+			if( empty($postid) )
 				{
                 // Insert the post into the database
-                $postid=wp_insert_post( $my_post );
+                $postid = wp_insert_post( $my_post );
 				}
-        
-			if($_REQUEST['task']=="edit")
+			else
 				{
 				// update the post into the database   
-				$my_post['ID']=$_REQUEST['postid'];
-				wp_update_post( $my_post );
-				$postid= $_REQUEST['postid']; 
+				$my_post['ID']=$postid;
+				wp_update_post( $my_post ); 
 				}
-	
+			
+			
 			// Set tags
 			if ( current_user_can( 'frontier_post_tags_edit' ) )
 				wp_set_post_tags($postid, $taglist);

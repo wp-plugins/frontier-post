@@ -49,6 +49,7 @@
 					</select>
 				<?php } ?>	
 				</td>
+				
 			</tr>
 			</tbody></table>
 		</td>	
@@ -56,6 +57,7 @@
 		<td> 
 			<?php
 			wp_editor($thispost->post_content, 'user_post_desc', $editor_layout);
+			//printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
 			?>
 		</td>
 	</tr><tr>
@@ -136,23 +138,14 @@
 	</tr><tr>
 		<td class="frontier_border" width="50%">
 		<?php
-		//Only possible to set a featured image on a post that has been saved.
-			if ( isset($_REQUEST['task']) and $_REQUEST['task'] == "edit" )
-				{
-				$FeatImgLinkHTML = '<a title="Vælg fremhævet billede" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.'" id="set-post-thumbnail" class="thickbox">';
-				if (has_post_thumbnail($post_id))
-					{
-					$FeatImgLinkHTML = $FeatImgLinkHTML.get_the_post_thumbnail($post_id, 'thumbnail').'<br>';
-					}
+			$FeatImgLinkHTML = '<a title="Vælg fremhævet billede" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.'" id="set-post-thumbnail" class="thickbox">';
+			if (has_post_thumbnail($post_id))
+				$FeatImgLinkHTML = $FeatImgLinkHTML.get_the_post_thumbnail($post_id, 'thumbnail').'<br>';
 				
-				$FeatImgLinkHTML = $FeatImgLinkHTML.__("Select featured image", "frontier-post").'</a>';
+			$FeatImgLinkHTML = $FeatImgLinkHTML.__("Select featured image", "frontier-post").'</a>';
 			
-				echo $FeatImgLinkHTML;
-				}
-			else
-				{
-				_e("You need to save the post, before you can select a featured image.", "frontier-post");
-				}
+			echo $FeatImgLinkHTML."<br>";
+			_e("Featured image (or new featured image) not visible until post is saved", "frontier-post");
 			}
 		?>
 		

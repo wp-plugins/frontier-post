@@ -122,7 +122,7 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 = Testing =
 * Frontier post is mainly tested with:
-* Wordpress 3.7.1
+* Wordpress 3.8
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
  * and sometimes with twenty thirteen theme...
 * iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
@@ -148,6 +148,12 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 == Changelog ==
 
 = Planned =
+
+
+= 2.0.6 =
+* Images was not prperly attached to post, fixed
+* Featured image need the post to be saved once to work, fixed
+* User still needs to press save to view featured image
 
 = 2.0.5 =
 * Wordcount added (TinyMCE plugin, you need to enable custom editor buttons)

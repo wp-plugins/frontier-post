@@ -15,12 +15,14 @@ function frontier_post_add_edit()
         }
     else
 		{
-		$thispost = get_default_post_to_edit( "post", true );
+		if ( empty($thispost->ID) )
+			$thispost = get_default_post_to_edit( "post", true );
 		$thispost->post_author = $current_user->ID;
 		$_REQUEST['task']="new";
 		}
 		
 	$post_id = $thispost->ID;
+	//$_REQUEST['this_post_id'] = $post_id;
 	//error_log("post_id: ".$post_id);
 		
 	$frontier_task = $_REQUEST['task'] ? $_REQUEST['task'] :"?";
