@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frontier Post 1.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
-"POT-Creation-Date: 2013-12-05 15:26:50+00:00\n"
-"PO-Revision-Date: 2014-01-12 11:35+0100\n"
+"POT-Creation-Date: 2014-01-12 15:01:48+00:00\n"
+"PO-Revision-Date: 2014-01-12 16:04+0100\n"
 "Last-Translator: finnj\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,57 +23,58 @@ msgstr "Titel"
 msgid "Status"
 msgstr "Status"
 
-#: forms/frontier_form.php:68 forms/frontier_list.php:38 settings-menu.php:286
+#: forms/frontier_form.php:70 forms/frontier_list.php:38 settings-menu.php:286
 msgid "Category"
 msgstr "Kategori"
 
-#: forms/frontier_form.php:73
+#: forms/frontier_form.php:75
 msgid "Tags"
 msgstr "Tags"
 
-#: forms/frontier_form.php:101
+#: forms/frontier_form.php:103
 msgid "Select category, multible can be selected using ctrl key"
 msgstr "Vælg kategori, flere can vælges med ctrl"
 
-#: forms/frontier_form.php:111 forms/frontier_form.php:112
-#: forms/frontier_form.php:113
+#: forms/frontier_form.php:113 forms/frontier_form.php:114
+#: forms/frontier_form.php:115
 msgid "Enter tag here"
 msgstr "Indsæt tag her"
 
-#: forms/frontier_form.php:127
+#: forms/frontier_form.php:129
 msgid "Excerpt"
 msgstr "Uddrag"
 
-#: forms/frontier_form.php:135
+#: forms/frontier_form.php:137
 msgid "Featured image"
 msgstr "Fremhævet billede"
 
-#: forms/frontier_form.php:148
+#: forms/frontier_form.php:145
 msgid "Select featured image"
 msgstr "Vælg fremhævet billede"
 
-#: forms/frontier_form.php:154
-msgid "You need to save the post, before you can select a featured image."
-msgstr "Du skal gemme indlægget før du kan vælge fremhævet billede"
+#: forms/frontier_form.php:148
+msgid "Featured image (or new featured image) not visible until post is saved"
+msgstr ""
+"Fremhævet billede (eller nyt fremhævet billede) ikke synligt før indlæg er "
+"gemt"
 
-#: forms/frontier_form.php:163
+#: forms/frontier_form.php:156
 msgid "Save"
 msgstr "Gem"
 
-#: forms/frontier_form.php:164
+#: forms/frontier_form.php:157
 msgid "Save & Return"
 msgstr "Gem & Retur"
 
-#: forms/frontier_form.php:165
-#, fuzzy
+#: forms/frontier_form.php:158
 msgid "Save & Preview"
 msgstr "Vis"
 
-#: forms/frontier_form.php:167
+#: forms/frontier_form.php:160
 msgid "Cancel"
 msgstr "Annuller"
 
-#: forms/frontier_form.php:179
+#: forms/frontier_form.php:172
 msgid "You are not allowed to edit this post !"
 msgstr "Du kan ikke rette dette indlæg !"
 
@@ -105,7 +106,7 @@ msgstr "Er du sikker på at du vil slette dette indlæg?"
 msgid "Delete"
 msgstr "Slet"
 
-#: forms/frontier_list.php:97 frontier-add-edit.php:38
+#: forms/frontier_list.php:97 frontier-add-edit.php:40
 msgid "Preview"
 msgstr "Vis"
 
@@ -125,20 +126,19 @@ msgstr "Antal indlæg du har oprettet: "
 msgid "Sorry, you do not have any posts (yet)"
 msgstr "Desværre, du har ingen indlæg (endnu)"
 
-#: frontier-post.php:81
+#: frontier-post.php:82
 msgid "Please log in !"
 msgstr "Log venligst ind !"
 
-#: frontier-post.php:157 frontier-post.php:158
+#: frontier-post.php:158 frontier-post.php:159
 msgid "Post for approval from"
 msgstr "Indlæg til godkendelse fra"
 
-#: frontier-post.php:165 frontier-post.php:182
+#: frontier-post.php:166 frontier-post.php:183
 msgid "Message delivery failed - Recipient: ("
 msgstr "Kunne ikke levere meddelelse - Modtager: ("
 
-#: frontier-post.php:175 frontier-post.php:176
-#, fuzzy
+#: frontier-post.php:176 frontier-post.php:177
 msgid "Your post has been approved"
 msgstr "indlæg til godkendelse"
 
@@ -509,9 +509,9 @@ msgstr ""
 msgid "Frontier Post"
 msgstr "Frontier Post"
 
-#. #-#-#-#-#  plugin.pot (Frontier Post 2.0.3)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 2.0.6)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Frontier Post 2.0.3)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 2.0.6)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/frontier-post/"
 msgstr ""
@@ -525,6 +525,9 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "finnj"
 msgstr "finnj"
+
+#~ msgid "You need to save the post, before you can select a featured image."
+#~ msgstr "Du skal gemme indlægget før du kan vælge fremhævet billede"
 
 #~ msgid "No posts"
 #~ msgstr "Ingen Indlæg"
