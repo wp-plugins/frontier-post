@@ -16,12 +16,12 @@ $editor_types 			= array(__('Full Editor') => 'full', __('Minimal Visual') => 'm
 $category_types 		= array(__('Multi select') => 'multi', __('Single select') => 'single', __('Hide') => 'hide');
 $frontier_option_slice 	= 7;
 
-$std_mce_buttons_1		= 'bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv';
+$std_mce_buttons_1		= 'bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv';
 $std_mce_buttons_2		= 'formatselect, underline, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help';
 $std_mce_buttons_3		= '';
 $std_mce_buttons_4		= '';
 
-$frontier_mce_buttons_1	= 'bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv';
+$frontier_mce_buttons_1	= 'bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv';
 $frontier_mce_buttons_2	= 'emotions, formatselect, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help';
 $frontier_mce_buttons_3 = 'search,replace,|,tablecontrols';
 $frontier_mce_buttons_4 = '';
