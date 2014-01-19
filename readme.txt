@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 3.8
-Stable tag: 2.0.5
+Stable tag: 2.0.7
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -147,13 +147,11 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
-= Planned =
 
-
-= 2.0.6 =
-* Images was not prperly attached to post, fixed
+= 2.0.7 =
+* Images was not properly attached to post, fixed
 * Featured image need the post to be saved once to work, fixed
-* User still needs to press save to view featured image
+** User still needs to press save to view featured image
 
 = 2.0.5 =
 * Wordcount added (TinyMCE plugin, you need to enable custom editor buttons)
