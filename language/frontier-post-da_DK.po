@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frontier Post 1.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
-"POT-Creation-Date: 2013-07-27 11:23:04+00:00\n"
-"PO-Revision-Date: 2013-07-27 13:28+0100\n"
+"POT-Creation-Date: 2014-01-12 15:01:48+00:00\n"
+"PO-Revision-Date: 2014-01-12 16:04+0100\n"
 "Last-Translator: finnj\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,51 +13,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 
-#: forms/frontier_form.php:16
-msgid "Preview"
-msgstr "Vis"
-
-#: forms/frontier_form.php:204 forms/frontier_list.php:36
+#: forms/frontier_form.php:26 forms/frontier_list.php:36
 #: include/frontier_approvals_widget.php:153
 #: include/frontier_my_posts_widget.php:270
 msgid "Title"
 msgstr "Titel"
 
-#: forms/frontier_form.php:208 forms/frontier_list.php:37
+#: forms/frontier_form.php:30 forms/frontier_list.php:37
 msgid "Status"
 msgstr "Status"
 
-#: forms/frontier_form.php:242 forms/frontier_list.php:38
-#: settings-menu.php:266
+#: forms/frontier_form.php:70 forms/frontier_list.php:38 settings-menu.php:286
 msgid "Category"
 msgstr "Kategori"
 
-#: forms/frontier_form.php:247
+#: forms/frontier_form.php:75
 msgid "Tags"
 msgstr "Tags"
 
-#: forms/frontier_form.php:275
+#: forms/frontier_form.php:103
 msgid "Select category, multible can be selected using ctrl key"
 msgstr "Vælg kategori, flere can vælges med ctrl"
 
-#: forms/frontier_form.php:285 forms/frontier_form.php:286
-#: forms/frontier_form.php:287
+#: forms/frontier_form.php:113 forms/frontier_form.php:114
+#: forms/frontier_form.php:115
 msgid "Enter tag here"
 msgstr "Indsæt tag her"
 
-#: forms/frontier_form.php:301
+#: forms/frontier_form.php:129
 msgid "Excerpt"
 msgstr "Uddrag"
 
-#: forms/frontier_form.php:307
+#: forms/frontier_form.php:137
+msgid "Featured image"
+msgstr "Fremhævet billede"
+
+#: forms/frontier_form.php:145
+msgid "Select featured image"
+msgstr "Vælg fremhævet billede"
+
+#: forms/frontier_form.php:148
+msgid "Featured image (or new featured image) not visible until post is saved"
+msgstr ""
+"Fremhævet billede (eller nyt fremhævet billede) ikke synligt før indlæg er "
+"gemt"
+
+#: forms/frontier_form.php:156
 msgid "Save"
 msgstr "Gem"
 
-#: forms/frontier_form.php:308
+#: forms/frontier_form.php:157
+msgid "Save & Return"
+msgstr "Gem & Retur"
+
+#: forms/frontier_form.php:158
+msgid "Save & Preview"
+msgstr "Vis"
+
+#: forms/frontier_form.php:160
 msgid "Cancel"
 msgstr "Annuller"
 
-#: forms/frontier_form.php:320
+#: forms/frontier_form.php:172
 msgid "You are not allowed to edit this post !"
 msgstr "Du kan ikke rette dette indlæg !"
 
@@ -77,29 +94,61 @@ msgstr "Kmt"
 msgid "Action"
 msgstr "Aktion"
 
+#: forms/frontier_list.php:81
+msgid "Edit"
+msgstr "Ret"
+
 #: forms/frontier_list.php:88
 msgid "Are you sure you want to delete this post?"
 msgstr "Er du sikker på at du vil slette dette indlæg?"
 
-#: forms/frontier_list.php:106
+#: forms/frontier_list.php:88
+msgid "Delete"
+msgstr "Slet"
+
+#: forms/frontier_list.php:97 frontier-add-edit.php:40
+msgid "Preview"
+msgstr "Vis"
+
+#: forms/frontier_list.php:116
 msgid "&laquo;"
 msgstr ""
 
-#: forms/frontier_list.php:107
+#: forms/frontier_list.php:117
 msgid "&raquo;"
 msgstr ""
 
-#: forms/frontier_list.php:117
+#: forms/frontier_list.php:127
 msgid "Number of posts already created by you: "
 msgstr "Antal indlæg du har oprettet: "
 
-#: forms/frontier_list.php:123
+#: forms/frontier_list.php:133
 msgid "Sorry, you do not have any posts (yet)"
 msgstr "Desværre, du har ingen indlæg (endnu)"
 
-#: frontier-post.php:232
+#: frontier-post.php:82
 msgid "Please log in !"
 msgstr "Log venligst ind !"
+
+#: frontier-post.php:158 frontier-post.php:159
+msgid "Post for approval from"
+msgstr "Indlæg til godkendelse fra"
+
+#: frontier-post.php:166 frontier-post.php:183
+msgid "Message delivery failed - Recipient: ("
+msgstr "Kunne ikke levere meddelelse - Modtager: ("
+
+#: frontier-post.php:176 frontier-post.php:177
+msgid "Your post has been approved"
+msgstr "indlæg til godkendelse"
+
+#: frontier-submit-form.php:20
+msgid "No Title"
+msgstr "Ingen Titel"
+
+#: frontier-submit-form.php:26
+msgid "No content"
+msgstr "Intet Indhold"
 
 #: include/frontier_approvals_widget.php:16
 msgid "My approvals"
@@ -246,149 +295,184 @@ msgstr "Skjul"
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Du har ikke tilstrækkelige rettigheder til at se denne side"
 
-#: settings-menu.php:60
+#: settings-menu.php:65
 msgid "Frontend Author"
 msgstr "Frontend Forfatter"
 
-#: settings-menu.php:125
+#: settings-menu.php:130
 msgid "Settings saved."
 msgstr "Indstillinger gemt"
 
-#: settings-menu.php:143
+#: settings-menu.php:153
 msgid "Frontier Post Settings"
 msgstr "Frontier Post indstillinger"
 
-#: settings-menu.php:149
-#, fuzzy
-msgid "Allow edit of posts with comments"
-msgstr "Tillad at redigere indlæg med kommentarer:"
-
-#: settings-menu.php:151
-#, fuzzy
-msgid "Max age in days to allow edit of post"
-msgstr "Maks alder i dage for at tillade at rette indlæg:"
-
-#: settings-menu.php:154
-#, fuzzy
-msgid "Allow deletion of posts with comments"
-msgstr "Tillad sletning indlæg med kommentarer:"
-
-#: settings-menu.php:156
-#, fuzzy
-msgid "Max age in days to allow delete of post"
-msgstr "Maks alder i dage for at tillade sletning indlæg:"
-
 #: settings-menu.php:159
-#, fuzzy
+msgid "Allow edit of posts with comments"
+msgstr "Tillad at redigere indlæg med kommentarer"
+
+#: settings-menu.php:161
+msgid "Max age in days to allow edit of post"
+msgstr "Maks alder i dage for at tillade at rette indlæg"
+
+#: settings-menu.php:164
+msgid "Allow deletion of posts with comments"
+msgstr "Tillad sletning indlæg med kommentarer"
+
+#: settings-menu.php:166
+msgid "Max age in days to allow delete of post"
+msgstr "Maks alder i dage for at tillade sletning indlæg"
+
+#: settings-menu.php:169
 msgid "Number of post per page"
 msgstr "Antal indlæg pr. side"
 
-#: settings-menu.php:161
+#: settings-menu.php:171
 msgid "Page containing [frontier-post] shortcode:"
 msgstr "Side der indeholder [frontier-post] shortcode:"
 
-#: settings-menu.php:164
+#: settings-menu.php:174
 msgid "None"
 msgstr "Ingen"
 
-#: settings-menu.php:173
+#: settings-menu.php:178
+msgid "Send email to Admins on post to approve"
+msgstr "Send email til Admins nor indlæg skal godkendes"
+
+#: settings-menu.php:180
+msgid "Send email to author when post is approved"
+msgstr "Send email til forfatter når indlæg er godkendt"
+
+#: settings-menu.php:183
+msgid "Approver email (ex: name1@domain.xx, name2@domain.xx)"
+msgstr "Godkender email (ex: name1@domain.xx, name2@domain.xx)"
+
+#: settings-menu.php:186
+msgid "Exclude categories (comma separated. list of IDs)"
+msgstr "Udelad kategorier (komma separeret liste af ID)"
+
+#: settings-menu.php:193
 msgid "Capabilities by user role"
 msgstr "Rettigheder pr. rolle"
 
-#: settings-menu.php:176 settings-menu.php:261
+#: settings-menu.php:196 settings-menu.php:281
 msgid "Role"
 msgstr "Rolle"
 
-#: settings-menu.php:177
+#: settings-menu.php:197
 msgid "Can Add"
 msgstr "Kan oprette"
 
-#: settings-menu.php:178
+#: settings-menu.php:198
 msgid "Can Edit"
 msgstr "Kan Rette"
 
-#: settings-menu.php:179
+#: settings-menu.php:199
 msgid "Can Publish"
 msgstr "Kan Udgive"
 
-#: settings-menu.php:180
+#: settings-menu.php:200
 msgid "Allow Drafts"
 msgstr "Tillad Kladde"
 
-#: settings-menu.php:181
+#: settings-menu.php:201
 msgid "Can Delete"
 msgstr "Kan Slette"
 
-#: settings-menu.php:182
+#: settings-menu.php:202
 msgid "Frontier Edit"
 msgstr "Ret med Frontier"
 
-#: settings-menu.php:183
+#: settings-menu.php:203
 msgid "Show admin bar"
 msgstr "Vis admin bar"
 
-#: settings-menu.php:235 settings-menu.php:346
+#: settings-menu.php:255 settings-menu.php:366
 msgid "NA"
 msgstr "NA"
 
-#: settings-menu.php:258
+#: settings-menu.php:278
 msgid "Editor options"
 msgstr "Editor valg"
 
-#: settings-menu.php:262
+#: settings-menu.php:282
 msgid "Edit Excerpt"
 msgstr "Ret Uddrag"
 
-#: settings-menu.php:263
+#: settings-menu.php:283
 msgid "Edit Tags"
 msgstr "Ret Tags"
 
-#: settings-menu.php:264
+#: settings-menu.php:284
 msgid "Media Upload"
 msgstr "Media Upload"
 
-#: settings-menu.php:265
+#: settings-menu.php:285
 msgid "Editor Type"
 msgstr "Editor Type"
 
-#: settings-menu.php:267
+#: settings-menu.php:287
 msgid "Default Category"
 msgstr "Standard Kategori"
 
-#: settings-menu.php:360 settings-menu.php:405
+#: settings-menu.php:380 settings-menu.php:435
 msgid "Save Changes"
 msgstr "Gem Ændringer"
 
-#: settings-menu.php:363
+#: settings-menu.php:383
 msgid "Advanced Settings - BETA"
 msgstr "Avanceret Opsætning - BETA"
 
-#: settings-menu.php:367
+#: settings-menu.php:387
 msgid "Add Frontier Author user role:"
 msgstr "Tilføj Frontend Forfatter rolle"
 
-#: settings-menu.php:369
+#: settings-menu.php:389
 msgid "Adds a new role: Frontend Author to Wordpress"
 msgstr "Tilføjer rollen: Frontend Forfatter til Wordpress"
 
-#: settings-menu.php:371
+#: settings-menu.php:391
+msgid "Use featured image:"
+msgstr "Anvend fremhævet billede"
+
+#: settings-menu.php:393
+msgid ""
+"Enables selection of featured image from frontend form (does not work "
+"perfectly)"
+msgstr ""
+"Muliggør at brugeren kan vælge fremhævet billede fra front end (virker ikke "
+"perfekt)"
+
+#: settings-menu.php:395
 msgid "Use custom editor buttons:"
 msgstr "Brug tilpassede editor knapper"
 
-#: settings-menu.php:373
+#: settings-menu.php:397
 msgid "Control the buttons showed in the editor (only in frontend)"
 msgstr "Kontrollerer knapperne på editoren (Kun i frontend)"
 
-#: settings-menu.php:374
+#: settings-menu.php:398
 msgid "Additional info: FAQ on plugin site"
 msgstr "Yderligere info: FAQ på plugin site"
 
-#: settings-menu.php:377 settings-menu.php:380 settings-menu.php:383
-#: settings-menu.php:386
+#: settings-menu.php:401 settings-menu.php:404 settings-menu.php:407
+#: settings-menu.php:410
 msgid "Custom button row"
 msgstr "Tilpasset knap række"
 
-#: settings-menu.php:395
+#: settings-menu.php:416
+msgid "Suggested buttons"
+msgstr "Anbefalede knapper"
+
+#: settings-menu.php:417 settings-menu.php:418 settings-menu.php:419
+msgid "Row"
+msgstr "Række"
+
+#: settings-menu.php:424
+msgid "Notice"
+msgstr "Bemærkning"
+
+#: settings-menu.php:425
 msgid ""
 "- Media upload is not available to Contributors and Subscribers by Wordpress "
 "capabilities"
@@ -396,7 +480,7 @@ msgstr ""
 "- Medie upload er ikke mulig for Biddragydere (Contributers) og Abbonenter "
 "(Subscribers) iht. Wordpress rettigheder."
 
-#: settings-menu.php:396
+#: settings-menu.php:426
 msgid ""
 "- Wordpress standard rolemodel does not allow Contributors and Subscribers "
 "to add/edit/delete posts, but you can bypass this above"
@@ -405,7 +489,7 @@ msgstr ""
 "og Abbonenter (Subscribers) at oprette/rette/slette indlæg, dette kan "
 "overstyres herover."
 
-#: settings-menu.php:397
+#: settings-menu.php:427
 msgid ""
 "- Frontier Edit means that if a user selects the dit link on a post, "
 "Frontier will be used to edit instead of backend"
@@ -413,7 +497,7 @@ msgstr ""
 "- Ret med Frontier betyder at hvis brugeren klikker på rediger linket på en "
 "post, benyttes Frontier Post i stedet for WP backend."
 
-#: settings-menu.php:398
+#: settings-menu.php:428
 msgid ""
 "-    - This is only if selected from frontend, if edit from backend, backend "
 "interface will be used"
@@ -425,9 +509,9 @@ msgstr ""
 msgid "Frontier Post"
 msgstr "Frontier Post"
 
-#. #-#-#-#-#  plugin.pot (Frontier Post 1.5.3)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 2.0.6)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Frontier Post 1.5.3)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 2.0.6)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/frontier-post/"
 msgstr ""
@@ -440,7 +524,10 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "finnj"
-msgstr ""
+msgstr "finnj"
+
+#~ msgid "You need to save the post, before you can select a featured image."
+#~ msgstr "Du skal gemme indlægget før du kan vælge fremhævet billede"
 
 #~ msgid "No posts"
 #~ msgstr "Ingen Indlæg"
