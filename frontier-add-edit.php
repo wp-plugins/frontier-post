@@ -2,13 +2,27 @@
 
 function frontier_post_add_edit()
 	{
+	
+	if (!is_user_logged_in())
+		{
+			echo "<br>---- ";
+			$frontier_show_login = get_option("frontier_post_show_login", "false");
+			//echo "Show login: ".$frontier_show_login."<br>";
+			if ($frontier_show_login == "true" )
+				echo __("Please log in !", "frontier-post")."&nbsp;<a href=".wp_login_url().">".__("Login Page", "frontier-post")."</a>&nbsp;&nbsp;";
+			else
+				_e("Please log in !", "frontier-post");
+					
+			echo "------<br><br>";
+		}
+	
 	global $current_user;
+	
 	require_once(ABSPATH . '/wp-admin/includes/post.php');    
 	//include_once("include/frontier_post_defaults.php");
     $concat= get_option("permalink_structure")?"?":"&";  
-        
-            
-    if($_REQUEST['task']=="edit")
+    
+	if(isset($_REQUEST['task']) && $_REQUEST['task']=="edit")
 		{
         $thispost			= get_post($_REQUEST['postid']);
 		$user_post_excerpt	= get_post_meta($thispost->ID, "user_post_excerpt");
@@ -31,7 +45,7 @@ function frontier_post_add_edit()
 	$saved_options 		= get_option('frontier_post_options', array() );
 	
 	//get users role:
-	$users_role 				= frontier_get_user_role();
+	$users_role 		= frontier_get_user_role();
 	
 	
 	
@@ -157,16 +171,21 @@ function frontier_post_add_edit()
 	$category_type 				= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
 	$default_category			= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
 	$frontier_post_excl_cats	= get_option("frontier_post_excl_cats", '');
+	$parent_category = isset($_REQUEST['parent_cat']) ? $_REQUEST['parent_cat'] : "0";
+	
+	//echo "Parent cat: ".$parent_category."<br>";
+	
 	
 	// Build list of categories (3 levels)
 	if ($category_type == "multi")
 		{
+		
 		$cats_selected	= $thispost->post_category;
 		if (empty($cats_selected[0]))
 			$cats_selected[0] = $default_category;
 			
 		$catlist 		= array();
-		foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => 0,'exclude' => $frontier_post_excl_cats, 'show_count' => true)) as $category1) :
+		foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_category, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)) as $category1) :
 			$tmp = Array('cat_ID' => $category1->cat_ID, 'cat_name' => $category1->cat_name);
 			array_push($catlist, $tmp);
 			foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $category1->cat_ID, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)) as $category2) :

@@ -50,6 +50,7 @@ function frontier_post_settings_page()
 				update_option("frontier_post_mail_address", ( isset($_POST[ "frontier_post_mail_address"]) ? $_POST[ "frontier_post_mail_address"] : "false" ) );
 				update_option("frontier_post_excl_cats", $_POST[ "frontier_post_excl_cats"]);
 				update_option("frontier_post_show_feat_img", ( isset($_POST[ "frontier_post_show_feat_img"]) ? $_POST[ "frontier_post_show_feat_img"] : "false" ) );
+				update_option("frontier_post_show_login", ( isset($_POST[ "frontier_post_show_login"]) ? $_POST[ "frontier_post_show_login"] : "false" ) );
 				
 				$tmp_buttons = array();
 				$tmp_buttons[0]	= (isset($_POST[ "frontier_post_mce_button1"]) ? $_POST[ "frontier_post_mce_button1"] : '' );
@@ -146,6 +147,7 @@ function frontier_post_settings_page()
 		$frontier_post_mail_address			= (get_option("frontier_post_mail_address")) ? get_option("frontier_post_mail_address") : get_option("admin-email"); 
 		$frontier_post_excl_cats			= get_option("frontier_post_excl_cats") ;
 		$frontier_post_show_feat_img		= (get_option("frontier_post_show_feat_img")) ? get_option("frontier_post_show_feat_img") : "false";
+		$frontier_post_show_login			= (get_option("frontier_post_show_login")) ? get_option("frontier_post_show_login") : "false";
 		?>
 	
 		<div class="wrap">
@@ -391,6 +393,10 @@ function frontier_post_settings_page()
 					<th align='left'><?php _e("Use featured image:", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_show_feat_img" value="true" <?php echo ($frontier_post_show_feat_img == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Enables selection of featured image from frontend form (does not work perfectly)", "frontier-post"); ?></td>
+				</tr><tr>
+					<th align='left'><?php _e("Show link to login page:", "frontier-post"); ?>:</th>
+					<td><center><input type="checkbox" name="frontier_post_show_login" value="true" <?php echo ($frontier_post_show_login == "true") ? 'checked':''; ?>></center></td>
+					<td><?php _e("Shows link to wp-login.php after text: Please login", "frontier-post"); ?></td>
 				</tr><tr>
 					<th align='left'><?php _e("Use custom editor buttons:", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_mce_custom" value="true" <?php echo ($frontier_post_mce_custom == "true") ? 'checked':''; ?>></center></td>

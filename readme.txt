@@ -3,8 +3,8 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 3.8
-Stable tag: 2.0.7
+Tested up to: 3.8.1
+Stable tag: 2.1.0
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -19,7 +19,10 @@ Editors and Administrators can use Frontier to edit posts from the frontend (Can
 Frontier Post is intentionally made simple :)
 
 = Usage = 
-Add short-code [frontier-post] in a page content after install and activation of the plugin
+* Short-code [frontier-post] in a page content after install and activation of the plugin
+* Short code parameters:
+** frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
+** frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
 
 = Main Features =
 * Create posts with media directly from frontend
@@ -147,6 +150,12 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+= 2.1.0 =
+* Short code parameters:
+** frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
+** frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
+** Combined: [frontier-post mode=add frontier_parent_cat_id=7] where 7 is the category id
+* option to show link to login page after message: Please login - Link used: wp_login_url()
 
 = 2.0.7 =
 * Images was not properly attached to post, fixed

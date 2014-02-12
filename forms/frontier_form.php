@@ -4,6 +4,9 @@
 	
 	if ($user_can_edit_this_post)
 	{
+	
+	//echo "Prev cat: ".$frontier_previous_category."<br>";
+	
 ?>	
 	<script type="text/javascript">
 		var filenames="";
@@ -17,6 +20,7 @@
 		<input type="hidden" name="home" value="<?php the_permalink(); ?>" > 
 		<input type="hidden" name="action" value="wpfrtp_save_post"> 
 		<input type="hidden" name="task" value="<?php echo $_REQUEST['task'];?>">
+		<input type="hidden" name="parent_cat" value="<?php echo $_REQUEST['parent_cat'];?>">
 		<input type="hidden" name="postid" id="postid" value="<?php if(isset($thispost->ID)) echo $thispost->ID; ?>">
 	<tr>
 		<td>
@@ -88,7 +92,7 @@
 				
 				if ($category_type == "single")
 					{
-					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'orderby' => 'name', 'selected' => $postcategoryid, 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
+					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'child_of' => $parent_category, 'orderby' => 'name', 'selected' => $postcategoryid, 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
 					}
 				else
 					{
@@ -138,7 +142,7 @@
 	</tr><tr>
 		<td class="frontier_border" width="50%">
 		<?php
-			$FeatImgLinkHTML = '<a title="Vælg fremhævet billede" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.'" id="set-post-thumbnail" class="thickbox">';
+			$FeatImgLinkHTML = '<a title="Select featured Image" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.'" id="set-post-thumbnail" class="thickbox">';
 			if (has_post_thumbnail($post_id))
 				$FeatImgLinkHTML = $FeatImgLinkHTML.get_the_post_thumbnail($post_id, 'thumbnail').'<br>';
 				

@@ -9,7 +9,7 @@ Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "2.0.7"); 
+define('FRONTIER_POST_VERSION', "2.0.9"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -36,7 +36,7 @@ function get_file_extension($file_name)
 	}
   
 
-function frontier_user_posts()
+function frontier_user_posts($atts)
 	{    
 		global $wp_roles;
 		global $current_user;
@@ -58,6 +58,23 @@ function frontier_user_posts()
 				{
 				$post_task = "notaskset";
 				}
+			
+			//Get shortcode parms
+			extract( shortcode_atts( array (
+				'frontier_mode' => 'none',
+				'frontier_parent_cat_id' => 0
+				), $atts ) );	
+				
+			//error_log("frontier_mode: ".$frontier_mode);
+			//error_log("frontier_cat_id: ".$frontier_cat_id);
+			
+			// if mode is add, go directly to show form - enables use directly on several pages
+			if ($frontier_mode == "add")
+				$post_task = "new";
+			
+			$_REQUEST['task'] 		= $post_task;
+			$_REQUEST['parent_cat']	= $frontier_parent_cat_id;
+			
             switch( $post_task )
 				{
                 case 'new':
@@ -79,7 +96,13 @@ function frontier_user_posts()
 			else
 			{
 				echo "<br>---- ";
-				_e("Please log in !", "frontier-post");
+				$frontier_show_login = get_option("frontier_post_show_login", "false");
+				//echo "Show login: ".$frontier_show_login."<br>";
+				if ($frontier_show_login == "true" )
+					echo __("Please log in !", "frontier-post")."&nbsp;<a href=".wp_login_url().">".__("Login Page", "frontier-post")."</a>&nbsp;&nbsp;";
+				else
+					_e("Please log in !", "frontier-post");
+					
 				echo "------<br><br>";
 			}
 
@@ -281,7 +304,9 @@ add_action('plugins_loaded', 'frontier_post_init');
 
 add_filter( 'get_edit_post_link', 'frontier_edit_post_link', 10, 2 );
 add_action('admin_menu', 'frontier_post_settings_menu');
+
 add_shortcode("frontier-post","frontier_user_posts");
+//add_shortcode("frontier-post-add","frontier_post_add_edit");
 
 
 //post_status_fix - Removed in version 1.6.1
