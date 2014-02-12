@@ -3,8 +3,8 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 3.6
-Stable tag: 1.5.1
+Tested up to: 3.8.1
+Stable tag: 2.1.0
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -19,7 +19,10 @@ Editors and Administrators can use Frontier to edit posts from the frontend (Can
 Frontier Post is intentionally made simple :)
 
 = Usage = 
-Add short-code [frontier-post] in a page content after install and activation of the plugin
+* Short-code [frontier-post] in a page content after install and activation of the plugin
+* Short code parameters:
+** frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
+** frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
 
 = Main Features =
 * Create posts with media directly from frontend
@@ -37,6 +40,7 @@ Add short-code [frontier-post] in a page content after install and activation of
 * 4 editor options for frontend editing (Full, Simple-Visual, Simple-Html or Text-Only)
 * Editor enhancements: Smiley (emoticons), Table control and Search & Replace 
 * Disable Admin bar per role (Optional)
+* User defined templates for forms
 * Users must be logged in to post
 
 
@@ -59,6 +63,8 @@ Add short-code [frontier-post] in a page content after install and activation of
 * Russian (samaks)
 * Chinese (beezeeking)
 * Spanish (Hasmin)
+* Polish (Thomasz)
+* French (pabaly)
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
 
@@ -77,16 +83,31 @@ Let me know what you think, and if you have enhancement requests or problems let
 * Only for standard posts, not custom post types
 * If limited administrator access is selected for a profile in Theme My Login, media uploads will fail for this profile.
 
+= Template Forms =
+* At the moment this functionality is Beta !
+* You can copy the forms located in the forms directory of the plugin to your theme
+** create a subdirectory in you theme (or child theme) folder: /plugins/frontier-post/ - Example: wordpress/wp-content/themes/twentytwelve/plugins/frontier-post/
+* The custom templates is quite easy (example below is if you installed wp in the root):
+** Navigate to ./wp-content/plugins/frontier-post/forms
+** Copy frontier_form.php and frontier_list.php
+** Navigate to ./wp.content/themes/[your active theme]/
+** check if ./wp.content/themes/[your active theme]/plugins/frontier-post/ exists, if not create it
+** Paste the 2 files to ./wp.content/themes/[your active theme]/plugins/frontier-post/
+
+Now you can edit the 2 files to match your formatting requirements
+Be aware that the template files will be deleted on theme upgrade, so make sure you have a copy, or use a child theme 
+
+
 = Editor =
 * At the moment this functionality is Beta !
 * The following tinymce modules are loaded: emotions, searchreplace & table.
 * Standard wordpress button setup
- * 1: bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv
+ * 1: bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv
  * 2: formatselect, underline, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help
  * 3: Empty
  * 4: Empty
 * Suggested button setup (Default on Frontier Post install)
- * 1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv
+ * 1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv
  * 2: emotions, formatselect, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help
  * 3: search,replace,|,tablecontrols
  * 4: Empty
@@ -104,10 +125,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 = Testing =
 * Frontier post is mainly tested with:
-* Wordpress 3.5.2
+* Wordpress 3.8
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
- * [Theme My Login](http://wordpress.org/extend/plugins/theme-my-login/) - Theme My Login is tested with version 6.2.3, version above this has challenges.
- * and sometimes with twenty twelve theme...
+ * and sometimes with twenty thirteen theme...
 * iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
 
 = Translations =
@@ -130,10 +150,53 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 1.5.3 =
+= 2.1.0 =
+* Short code parameters:
+** frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
+** frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
+** Combined: [frontier-post mode=add frontier_parent_cat_id=7] where 7 is the category id
+* option to show link to login page after message: Please login - Link used: wp_login_url()
+
+= 2.0.7 =
+* Images was not properly attached to post, fixed
+* Featured image need the post to be saved once to work, fixed
+** User still needs to press save to view featured image
+
+= 2.0.5 =
+* Wordcount added (TinyMCE plugin, you need to enable custom editor buttons)
+* French translation added (thanks to pabaly)
+
+= 2.0.4 =
+* Template forms: Forms can be copied (and changed) to theme folder - See FAQ
+* Option: Exclude categories by ID from dropdowns on form
+* Option: Email to list of emails on post for approval
+* Option: Email to Author when post is approved (Pending to Publish)
+* Save button on Frontier edit form (so user can save post and stay on form)
+* Submit button: New setting to decide if user is taken to My Posts or to the actual post when a new post is submitted or edited. 
+* Featured Image support.
+
+
+= 1.6.2 =
+* Translation fixes (Thanks: Thomasz Bednarek)
+* Updated translations: Danish, Spanish, Polish & Russian)
+* Added suggested buttons for editor in settings page.
+* frontier_fix_list.php removed
+
+= 1.6.0 =
+* Temp version to be able correct the post_data issue (frontier_fix_list.php).
+
+= 1.5.9 =
+* Fixed issue where post_status was set to display value instead of value, meaning post was updated with translated value. Posts still in db, but does not show up in WP
+
+= 1.5.7 =
+* Bug: Post status changed to draft if post status was not selectable (as with a published post), hidden input field added to hold post_status
+* Preview link added to My Posts list for posts that are not published (Link to unpublished posts was removed in 1.5.1)
+
+= 1.5.6 =
 * New buttons on editor: Smileys, search & replace and table control
-* Frontend Author role added
-* Spanish Translation
+* Frontend Author role added (Same capabilities as Author, makes it possible to distinguish between Author and Frontend Author) 
+* Bug in My Posts fixed (comments from post showing), wp_reset_postdata() added in end of frontier_list.php
+* Spanish Translation (hasmin)
 
 = 1.5.1 =
 * Option to hide admin bar
@@ -141,7 +204,6 @@ Let me know what you think, and if you have enhancement requests or problems let
 * Only redirect edit to frontend for standard post type (not pages and custom post types)
 * Du not show dropdown for status with only 1 option, only show value
 * Added missing closing tags for ul and div in my approvals widget 
-
 
 = 1.4.9 =
 * Issue with svn, new tag created

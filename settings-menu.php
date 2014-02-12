@@ -35,7 +35,7 @@ function frontier_post_settings_page()
 		if( isset($_POST[ "frontier_isupdated_hidden" ]) && $_POST[ "frontier_isupdated_hidden" ] == 'Y' ) 
 			{
 				
-				// Read their posted value, and save it
+				// get form data, and save it
 				update_option("frontier_post_edit_max_age", ( (int) $_POST[ "frontier_post_edit_max_age" ] ) );
 				update_option("frontier_post_delete_max_age", ( (int) $_POST[ "frontier_post_delete_max_age" ] ) );
 				update_option("frontier_post_ppp", ( (int) $_POST[ "frontier_post_ppp"] ) );
@@ -45,6 +45,12 @@ function frontier_post_settings_page()
 				update_option("frontier_post_use_draft", ( isset($_POST[ "frontier_post_use_draft"]) ? $_POST[ "frontier_post_use_draft"] : "false" ) );
 				update_option("frontier_post_author_role", ( isset($_POST[ "frontier_post_author_role"]) ? $_POST[ "frontier_post_author_role"] : "false" ) );
 				update_option("frontier_post_mce_custom", ( isset($_POST[ "frontier_post_mce_custom"]) ? $_POST[ "frontier_post_mce_custom"] : "false" ) );
+				update_option("frontier_post_mail_to_approve", ( isset($_POST[ "frontier_post_mail_to_approve"]) ? $_POST[ "frontier_post_mail_to_approve"] : "false" ) );
+				update_option("frontier_post_mail_approved", ( isset($_POST[ "frontier_post_mail_approved"]) ? $_POST[ "frontier_post_mail_approved"] : "false" ) );
+				update_option("frontier_post_mail_address", ( isset($_POST[ "frontier_post_mail_address"]) ? $_POST[ "frontier_post_mail_address"] : "false" ) );
+				update_option("frontier_post_excl_cats", $_POST[ "frontier_post_excl_cats"]);
+				update_option("frontier_post_show_feat_img", ( isset($_POST[ "frontier_post_show_feat_img"]) ? $_POST[ "frontier_post_show_feat_img"] : "false" ) );
+				update_option("frontier_post_show_login", ( isset($_POST[ "frontier_post_show_login"]) ? $_POST[ "frontier_post_show_login"] : "false" ) );
 				
 				$tmp_buttons = array();
 				$tmp_buttons[0]	= (isset($_POST[ "frontier_post_mce_button1"]) ? $_POST[ "frontier_post_mce_button1"] : '' );
@@ -136,6 +142,12 @@ function frontier_post_settings_page()
 		$frontier_post_author_role			= (get_option("frontier_post_author_role")) ? get_option("frontier_post_author_role") : "false";
 		$frontier_post_mce_custom			= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "false";
 		$frontier_post_mce_button			= get_option("frontier_post_mce_button", array());
+		$frontier_post_mail_to_approve		= (get_option("frontier_post_mail_to_approve")) ? get_option("frontier_post_mail_to_approve") : "false"; 
+		$frontier_post_mail_approved		= (get_option("frontier_post_mail_approved")) ? get_option("frontier_post_mail_approved") : "false"; 
+		$frontier_post_mail_address			= (get_option("frontier_post_mail_address")) ? get_option("frontier_post_mail_address") : get_option("admin-email"); 
+		$frontier_post_excl_cats			= get_option("frontier_post_excl_cats") ;
+		$frontier_post_show_feat_img		= (get_option("frontier_post_show_feat_img")) ? get_option("frontier_post_show_feat_img") : "false";
+		$frontier_post_show_login			= (get_option("frontier_post_show_login")) ? get_option("frontier_post_show_login") : "false";
 		?>
 	
 		<div class="wrap">
@@ -164,7 +176,17 @@ function frontier_post_settings_page()
 						wp_dropdown_pages(array('id'=>'frontier_post_page_id', 'dept' => 1, 'hide_empty' => 0, 'name' => 'frontier_post_page_id', 'selected' => $frontier_post_page_id, 'hierarchical' => true, 'show_option_none' => __('None'))); 
 						?>
 					</td>
-				</td>
+				</tr><tr>
+					<td><?php _e("Send email to Admins on post to approve", "frontier-post"); ?>:</td>
+					<td><center><input type="checkbox" name="frontier_post_mail_to_approve" value="true" <?php echo ($frontier_post_mail_to_approve == "true") ? 'checked':''; ?>></center></td>
+					<td><?php _e("Send email to author when post is approved", "frontier-post"); ?>:</td>
+					<td><center><input type="checkbox" name="frontier_post_mail_approved" value="true" <?php echo ($frontier_post_mail_approved == "true") ? 'checked':''; ?>></center></td>
+				</tr><tr>
+					<td><?php _e("Approver email (ex: name1@domain.xx, name2@domain.xx)", "frontier-post"); ?>:</td>
+					<td colspan="3" ><input size="100" type="text" name="frontier_post_mail_address" value="<?php echo $frontier_post_mail_address; ?>" /></td>
+				</tr><tr>
+					<td><?php _e("Exclude categories (comma separated. list of IDs)", "frontier-post"); ?>:</td>
+					<td colspan="3" ><input size="100" type="text" name="frontier_post_excl_cats" value="<?php echo $frontier_post_excl_cats; ?>" /></td>
 				</tr>
 			</table>
 			
@@ -368,30 +390,44 @@ function frontier_post_settings_page()
 					<td><center><input type="checkbox" name="frontier_post_author_role" value="true" <?php echo ($frontier_post_author_role == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Adds a new role: Frontend Author to Wordpress", "frontier-post"); ?></td>
 				</tr><tr>
+					<th align='left'><?php _e("Use featured image:", "frontier-post"); ?>:</th>
+					<td><center><input type="checkbox" name="frontier_post_show_feat_img" value="true" <?php echo ($frontier_post_show_feat_img == "true") ? 'checked':''; ?>></center></td>
+					<td><?php _e("Enables selection of featured image from frontend form (does not work perfectly)", "frontier-post"); ?></td>
+				</tr><tr>
+					<th align='left'><?php _e("Show link to login page:", "frontier-post"); ?>:</th>
+					<td><center><input type="checkbox" name="frontier_post_show_login" value="true" <?php echo ($frontier_post_show_login == "true") ? 'checked':''; ?>></center></td>
+					<td><?php _e("Shows link to wp-login.php after text: Please login", "frontier-post"); ?></td>
+				</tr><tr>
 					<th align='left'><?php _e("Use custom editor buttons:", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_mce_custom" value="true" <?php echo ($frontier_post_mce_custom == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Control the buttons showed in the editor (only in frontend)", "frontier-post"); ?> &nbsp;
 					<a href="http://wordpress.org/plugins/frontier-post/faq/" target="_blank"><?php _e("Additional info: FAQ on plugin site", "frontier-post"); ?>
 					</td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>1:</td>
+					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;1:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button1" value="<?php echo $frontier_post_mce_button[0]; ?>" size='200'></td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>2:</td>
+					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;2:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button2" value="<?php echo $frontier_post_mce_button[1]; ?>" size='200'></td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>3:</td>
+					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;3:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button3" value="<?php echo $frontier_post_mce_button[2]; ?>" size='200'></td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>4:</td>
+					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;4:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button4" value="<?php echo $frontier_post_mce_button[3]; ?>" size='200'></td>
 					
 				</tr>
 			</table>
-			</br><hr></br>
+			</br>
+			<b><?php _e("Suggested buttons", "frontier-post") ?>:</b></br><i>
+					<?php _e("Row", "frontier-post");?>&nbsp;1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv</br>
+					<?php _e("Row", "frontier-post");?>&nbsp;2: emotions, formatselect, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help</br>
+					<?php _e("Row", "frontier-post");?>&nbsp;3: search,replace,|,tablecontrols</br>
+			<hr></br>
 			</table>		
 				</tr><tr>
-					<td colspan="2"><b>Notice:</b></br><i>
+					<td colspan="2">
+					<b><?php _e("Notice", "frontier-post") ?></b></br><i>
 					<?php _e("- Media upload is not available to Contributors and Subscribers by Wordpress capabilities", "frontier-post");?></br>
 					<?php _e("- Wordpress standard rolemodel does not allow Contributors and Subscribers to add/edit/delete posts, but you can bypass this above", "frontier-post");?></br>
 					<?php _e("- Frontier Edit means that if a user selects the dit link on a post, Frontier will be used to edit instead of backend", "frontier-post");?></br>
