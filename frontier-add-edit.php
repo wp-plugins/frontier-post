@@ -84,11 +84,12 @@ function frontier_post_add_edit()
 	$tmp_status_list = array_reverse($tmp_status_list);
 	
 	// Remove private status from array
-	unset($tmp_status_list['private']);
+	if (!current_user_can('frontier_post_can_private'))
+		unset($tmp_status_list['private']);
 	
 	// Remove draft status from array if user is not allowed to use drafts
 	if (!current_user_can('frontier_post_can_draft'))
-	unset($tmp_status_list['draft']);
+		unset($tmp_status_list['draft']);
 	
 	
 	$status_list 		= array();

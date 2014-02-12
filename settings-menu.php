@@ -192,13 +192,14 @@ function frontier_post_settings_page()
 			
 			<table border="1">
 					<tr>
-					<th colspan="7"></center><?php _e("Capabilities by user role", "frontier-post"); ?></center></th>
+					<th colspan="8"></center><?php _e("Capabilities by user role", "frontier-post"); ?></center></th>
 					<tr></tr>
 					<tr></tr>
-						<th width="30%"><?php _e("Role", "frontier-post")?></th>
+						<th width="10%"><?php _e("Role", "frontier-post")?></th>
 						<th width="10%"><?php _e("Can Add", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Edit", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Publish", "frontier-post"); ?></th>
+						<th width="10%"><?php _e("Private Posts", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Allow Drafts", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Can Delete", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Frontier Edit", "frontier-post"); ?></th>
@@ -280,7 +281,7 @@ function frontier_post_settings_page()
 					<th colspan="7"></center><?php _e("Editor options", "frontier-post"); ?></center></th>
 					<tr></tr>
 					<tr></tr>
-						<th width="30%"><?php _e("Role", "frontier-post")?></th>
+						<th width="10%"><?php _e("Role", "frontier-post")?></th>
 						<th width="10%"><?php _e("Edit Excerpt", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Edit Tags", "frontier-post"); ?></th>
 						<th width="10%"><?php _e("Media Upload", "frontier-post"); ?></th>

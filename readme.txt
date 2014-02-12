@@ -21,8 +21,8 @@ Frontier Post is intentionally made simple :)
 = Usage = 
 * Short-code [frontier-post] in a page content after install and activation of the plugin
 * Short code parameters:
-** frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
-** frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
+ * frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
+ * frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
 
 = Main Features =
 * Create posts with media directly from frontend
@@ -86,13 +86,13 @@ Let me know what you think, and if you have enhancement requests or problems let
 = Template Forms =
 * At the moment this functionality is Beta !
 * You can copy the forms located in the forms directory of the plugin to your theme
-** create a subdirectory in you theme (or child theme) folder: /plugins/frontier-post/ - Example: wordpress/wp-content/themes/twentytwelve/plugins/frontier-post/
+ * create a subdirectory in you theme (or child theme) folder: /plugins/frontier-post/ - Example: wordpress/wp-content/themes/twentytwelve/plugins/frontier-post/
 * The custom templates is quite easy (example below is if you installed wp in the root):
-** Navigate to ./wp-content/plugins/frontier-post/forms
-** Copy frontier_form.php and frontier_list.php
-** Navigate to ./wp.content/themes/[your active theme]/
-** check if ./wp.content/themes/[your active theme]/plugins/frontier-post/ exists, if not create it
-** Paste the 2 files to ./wp.content/themes/[your active theme]/plugins/frontier-post/
+ * Navigate to ./wp-content/plugins/frontier-post/forms
+ * Copy frontier_form.php and frontier_list.php
+ * Navigate to ./wp.content/themes/[your active theme]/
+ * check if ./wp.content/themes/[your active theme]/plugins/frontier-post/ exists, if not create it
+ * Paste the 2 files to ./wp.content/themes/[your active theme]/plugins/frontier-post/
 
 Now you can edit the 2 files to match your formatting requirements
 Be aware that the template files will be deleted on theme upgrade, so make sure you have a copy, or use a child theme 
@@ -134,11 +134,11 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 * Please post a link in support to translation files and I will include them in next release.
 
  = Cleanup =
- * On deactivation: no cleanup.
- * On deletion options are deleted, and role capabilities are removed.
- * If you accidently delete the frontier-post plugin folder, you should:
-  * Delete all options starting with frontier_post
-  * Remove all capabilities starting with frontier
+* On deactivation: no cleanup.
+* On deletion options are deleted, and role capabilities are removed.
+* If you accidently delete the frontier-post plugin folder, you should:
+ * Delete all options starting with frontier_post
+ * Remove all capabilities starting with frontier
 
 
 == Screenshots ==
@@ -150,17 +150,20 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+= 2.1.1 =
+* Support for Private posts
+
 = 2.1.0 =
 * Short code parameters:
-** frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
-** frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
-** Combined: [frontier-post mode=add frontier_parent_cat_id=7] where 7 is the category id
+ * frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
+ * frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
+ * Combined: [frontier-post mode=add frontier_parent_cat_id=7] where 7 is the category id
 * option to show link to login page after message: Please login - Link used: wp_login_url()
 
 = 2.0.7 =
 * Images was not properly attached to post, fixed
 * Featured image need the post to be saved once to work, fixed
-** User still needs to press save to view featured image
+ * User still needs to press save to view featured image
 
 = 2.0.5 =
 * Wordcount added (TinyMCE plugin, you need to enable custom editor buttons)

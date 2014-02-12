@@ -136,7 +136,7 @@ function frontier_posting_form_submit()
 				}
 				else
 				{
-				header("location: ".$_POST['home']);
+				header("location: ".get_permalink(get_option('frontier_post_page_id')));
 				die();
 				}
 			}

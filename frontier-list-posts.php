@@ -13,7 +13,7 @@ function  frontier_user_post_list()
 	
 		$args = array(
 				'post_type' 		=> 'post',
-				'post_status' 		=> 'draft, pending, publish',
+				'post_status' 		=> 'draft, pending, publish, private',
 				'author'			=>	$current_user->ID,
 				'order'				=> 'DESC',
 				'orderby' 			=> 'post_date', 
