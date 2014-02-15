@@ -390,7 +390,7 @@ function frontier_post_settings_page()
 			</br>
 			<table border="1">
 				<tr>
-					<th align='left'><?php _e("Allow users to change staus from Published:", "frontier-post"); ?>:</th>
+					<th align='left'><?php _e("Allow users to change status from Published:", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_change_status" value="true" <?php echo ($frontier_post_change_status == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Once published users can change status back to draft/pending", "frontier-post"); ?></td>
 				</tr><tr>
