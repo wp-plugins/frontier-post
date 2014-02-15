@@ -51,6 +51,7 @@ function frontier_post_settings_page()
 				update_option("frontier_post_excl_cats", $_POST[ "frontier_post_excl_cats"]);
 				update_option("frontier_post_show_feat_img", ( isset($_POST[ "frontier_post_show_feat_img"]) ? $_POST[ "frontier_post_show_feat_img"] : "false" ) );
 				update_option("frontier_post_show_login", ( isset($_POST[ "frontier_post_show_login"]) ? $_POST[ "frontier_post_show_login"] : "false" ) );
+				update_option("frontier_post_change_status", ( isset($_POST[ "frontier_post_change_status"]) ? $_POST[ "frontier_post_change_status"] : "false" ) );
 				
 				$tmp_buttons = array();
 				$tmp_buttons[0]	= (isset($_POST[ "frontier_post_mce_button1"]) ? $_POST[ "frontier_post_mce_button1"] : '' );
@@ -148,6 +149,8 @@ function frontier_post_settings_page()
 		$frontier_post_excl_cats			= get_option("frontier_post_excl_cats") ;
 		$frontier_post_show_feat_img		= (get_option("frontier_post_show_feat_img")) ? get_option("frontier_post_show_feat_img") : "false";
 		$frontier_post_show_login			= (get_option("frontier_post_show_login")) ? get_option("frontier_post_show_login") : "false";
+		$frontier_post_change_status		= (get_option("frontier_post_change_status")) ? get_option("frontier_post_change_status") : "false";
+		
 		?>
 	
 		<div class="wrap">
@@ -387,6 +390,10 @@ function frontier_post_settings_page()
 			</br>
 			<table border="1">
 				<tr>
+					<th align='left'><?php _e("Allow users to change staus from Published:", "frontier-post"); ?>:</th>
+					<td><center><input type="checkbox" name="frontier_post_change_status" value="true" <?php echo ($frontier_post_change_status == "true") ? 'checked':''; ?>></center></td>
+					<td><?php _e("Once published users can change status back to draft/pending", "frontier-post"); ?></td>
+				</tr><tr>
 					<th align='left'><?php _e("Add Frontier Author user role:", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_author_role" value="true" <?php echo ($frontier_post_author_role == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Adds a new role: Frontend Author to Wordpress", "frontier-post"); ?></td>

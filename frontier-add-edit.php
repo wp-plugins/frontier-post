@@ -63,17 +63,15 @@ function frontier_post_add_edit()
 		{
 			$thispost->post_content = '';
 		}
-	/*
-	if (isset($thispost->ID))
-		{
-		$post_id = $thispost->ID;
-		}
-	*/
+
 	frontier_media_fix( $post_id );
 	
 	$user_can_edit_this_post = true;
-
-	if ($thispost->post_author != $current_user->ID && (!current_user_can( 'administrator' )))
+	
+	if (!frontier_can_edit($thispost->post_date, $thispost->comment_count) == true)
+		$user_can_edit_this_post = false;
+		
+	if ($thispost->post_author != $current_user->ID && (!current_user_can( 'edit_others_posts' )))
 		$user_can_edit_this_post = false;
 	
 	if (($frontier_task == "new") && (!current_user_can( 'frontier_post_can_add' )))
@@ -83,7 +81,7 @@ function frontier_post_add_edit()
 	$tmp_status_list = get_post_statuses( );
 	$tmp_status_list = array_reverse($tmp_status_list);
 	
-	// Remove private status from array
+	// Remove private status from array if not allowed
 	if (!current_user_can('frontier_post_can_private'))
 		unset($tmp_status_list['private']);
 	
@@ -99,7 +97,9 @@ function frontier_post_add_edit()
 	
 	if ($tmp_post_status == "publish")
 		{
-		$status_readonly = "readonly";
+		if (!get_option("frontier_post_change_status", "false") == "true");
+			$status_readonly = "readonly";
+			
 		$status_list[$tmp_post_status] = $tmp_status_list[$tmp_post_status];
 		if (!current_user_can( 'frontier_post_can_publish' ))
 			{

@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 2.1.1
+Version: 2.1.2
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "2.1.1"); 
+define('FRONTIER_POST_VERSION', "2.1.2"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -99,7 +99,8 @@ function frontier_user_posts($atts)
 				$frontier_show_login = get_option("frontier_post_show_login", "false");
 				//echo "Show login: ".$frontier_show_login."<br>";
 				if ($frontier_show_login == "true" )
-					echo __("Please log in !", "frontier-post")."&nbsp;<a href=".wp_login_url().">".__("Login Page", "frontier-post")."</a>&nbsp;&nbsp;";
+					echo __("Please log in !", "frontier-post")." <a href=".wp_login_url()."?redirect_to=".get_permalink(get_option('frontier_post_page_id')).">".__("Login Page", "frontier-post")."</a>  ";
+					//echo __("Please log in !", "frontier-post")."&nbsp;<a href=".wp_login_url().">".__("Login Page", "frontier-post")."</a>&nbsp;&nbsp;";
 				else
 					_e("Please log in !", "frontier-post");
 					

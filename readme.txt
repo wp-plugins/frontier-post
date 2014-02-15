@@ -150,8 +150,9 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
-= 2.1.1 =
+= 2.1.2 =
 * Support for Private posts
+* Redirect to frontier list post page after login
 
 = 2.1.0 =
 * Short code parameters:
