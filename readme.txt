@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 3.8.1
-Stable tag: 2.1.0
+Stable tag: 2.1.2
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -136,7 +136,7 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
  = Cleanup =
 * On deactivation: no cleanup.
 * On deletion options are deleted, and role capabilities are removed.
-* If you accidently delete the frontier-post plugin folder, you should:
+* If you accidental delete the frontier-post plugin folder, you should:
  * Delete all options starting with frontier_post
  * Remove all capabilities starting with frontier
 
@@ -152,7 +152,9 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 = 2.1.2 =
 * Support for Private posts
-* Redirect to frontier list post page after login
+* New setting: Allow users to change status from Published
+* Redirect to frontier list post page after login (thanks: newtonsongbird)
+* Fixed: Frontier Edit now respects max days set in Frontier settings
 
 = 2.1.0 =
 * Short code parameters:
