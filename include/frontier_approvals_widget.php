@@ -1,7 +1,7 @@
 <?php
 /**
- * @author marcus
- * Standard events list widget
+ * 
+ * Show approvals (only admins)
  */
 class frontier_approvals_widget extends WP_Widget 
 	{

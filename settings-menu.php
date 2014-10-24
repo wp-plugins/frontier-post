@@ -19,9 +19,17 @@ function frontier_post_settings_page()
 			{
 				wp_die( __('You do not have sufficient permissions to access this page.') );
 			}
+		// WP editor tinyMCE has been changed, and wont work - New plugin Frontier Buttons should be used instead
 		
+		global $wp_version;
 		global $wp_roles;
 		global $tmp_cap_list;
+		
+		if ($wp_version >= "3.9")
+			{
+			update_option("frontier_post_mce_custom", "false");
+			}
+		
 		if ( !isset( $wp_roles ) )
 			$wp_roles = new WP_Roles();
 				
@@ -155,7 +163,8 @@ function frontier_post_settings_page()
 	
 		<div class="wrap">
 		<div class="frontier-admin-menu">
-		<h2><?php _e("Frontier Post Settings", "frontier-post") ?></h2>
+		<h2><?php _e("Frontier Post Settings", "frontier-post") ?> </h2>
+		<p> (<?php _e("Version", "frontier-post").$FRONTIER_POST_VERSION ?></p>
 
 		<form name="frontier_post_settings" method="post" action="">
 			<input type="hidden" name="frontier_isupdated_hidden" value="Y">
@@ -382,15 +391,45 @@ function frontier_post_settings_page()
 			
 			?>
 			</table>
+			</br>
+			</table>		
+				</tr><tr>
+					<td colspan="2">
+					<b><?php _e("Notice", "frontier-post") ?></b></br><i>
+					<?php _e("- Media upload is not available to Contributors and Subscribers by Wordpress capabilities", "frontier-post");?></br>
+					<?php _e("- Wordpress standard rolemodel does not allow Contributors and Subscribers to add/edit/delete posts, but you can bypass this above", "frontier-post");?></br>
+					<?php _e("- Frontier Edit means that if a user selects the dit link on a post, Frontier will be used to edit instead of backend", "frontier-post");?></br>
+					<?php _e("-    - This is only if selected from frontend, if edit from backend, backend interface will be used", "frontier-post");?></br>
+					</i></td>
+				</tr>
+			</table>
+			
 			<p class="submit">
 				<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
 			</p>
 			
-			<h2><?php _e("Advanced Settings - BETA", "frontier-post") ?></h2>
+			<?php 
+			// WP editor tinyMCE has been changed, and wont work - New plugin Frontier Buttons should be used instead
+			if (($wp_version >= "3.9"))
+				{
+				update_option("frontier_post_mce_custom", "false");
+				$frontier_post_mce_custom = false;
+				$mce_readonly = "READONLY";
+				//echo("version: ");
+				//echo($wp_version);
+				}
+			else
+				{
+				$mce_readonly = " ";
+				}
+			
+			?>
+			
+			<h2><?php _e("Advanced Settings", "frontier-post") ?></h2>
 			</br>
 			<table border="1">
 				<tr>
-					<th align='left'><?php _e("Allow users to change status from Published:", "frontier-post"); ?>:</th>
+					<th align='left'><?php _e("Allow users to change status from Published", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_change_status" value="true" <?php echo ($frontier_post_change_status == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Once published users can change status back to draft/pending", "frontier-post"); ?></td>
 				</tr><tr>
@@ -405,10 +444,26 @@ function frontier_post_settings_page()
 					<th align='left'><?php _e("Show link to login page:", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_show_login" value="true" <?php echo ($frontier_post_show_login == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Shows link to wp-login.php after text: Please login", "frontier-post"); ?></td>
+			<?php 
+			// WP editor tinyMCE has been changed, and wont work - New plugin Frontier Buttons should be used instead
+			if (($wp_version >= "3.9"))
+				{
+				?>
 				</tr><tr>
 					<th align='left'><?php _e("Use custom editor buttons:", "frontier-post"); ?>:</th>
-					<td><center><input type="checkbox" name="frontier_post_mce_custom" value="true" <?php echo ($frontier_post_mce_custom == "true") ? 'checked':''; ?>></center></td>
-					<td><?php _e("Control the buttons showed in the editor (only in frontend)", "frontier-post"); ?> &nbsp;
+					<td></td>
+					<td><?php _e("From wordpress version 3.9 you need to use separate pluging Frontier Buttons to manage editor buttons", "frontier-post");  ?> &nbsp;
+					<a href="http://wordpress.org/plugins/frontier-post/faq/" target="_blank"><?php _e("Additional info: FAQ on plugin site", "frontier-post"); ?>
+					</td>
+				<?php
+				}
+			else
+				{
+			?>
+				</tr><tr>
+					<th align='left'><?php _e("Use custom editor buttons:", "frontier-post"); ?>:</th>
+					<td><center><input <?php echo $mce_readonly; ?> type="checkbox" name="frontier_post_mce_custom" value="true" <?php echo ($frontier_post_mce_custom == "true") ? 'checked':''; echo $mce_readonly; ?>></center></td>
+					<td><?php _e("Control the buttons showed in the editor (only in frontend)", "frontier-post");  ?> &nbsp;
 					<a href="http://wordpress.org/plugins/frontier-post/faq/" target="_blank"><?php _e("Additional info: FAQ on plugin site", "frontier-post"); ?>
 					</td>
 				</tr><tr>
@@ -423,26 +478,20 @@ function frontier_post_settings_page()
 				</tr><tr>
 					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;4:</td>
 					<td colspan='2'><input type="text" name="frontier_post_mce_button4" value="<?php echo $frontier_post_mce_button[3]; ?>" size='200'></td>
-					
+			<?php } ?>		
 				</tr>
 			</table>
 			</br>
+			<?php
+			if (($wp_version < "3.9"))
+				{
+			?>
 			<b><?php _e("Suggested buttons", "frontier-post") ?>:</b></br><i>
 					<?php _e("Row", "frontier-post");?>&nbsp;1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv</br>
 					<?php _e("Row", "frontier-post");?>&nbsp;2: emotions, formatselect, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help</br>
 					<?php _e("Row", "frontier-post");?>&nbsp;3: search,replace,|,tablecontrols</br>
-			<hr></br>
-			</table>		
-				</tr><tr>
-					<td colspan="2">
-					<b><?php _e("Notice", "frontier-post") ?></b></br><i>
-					<?php _e("- Media upload is not available to Contributors and Subscribers by Wordpress capabilities", "frontier-post");?></br>
-					<?php _e("- Wordpress standard rolemodel does not allow Contributors and Subscribers to add/edit/delete posts, but you can bypass this above", "frontier-post");?></br>
-					<?php _e("- Frontier Edit means that if a user selects the dit link on a post, Frontier will be used to edit instead of backend", "frontier-post");?></br>
-					<?php _e("-    - This is only if selected from frontend, if edit from backend, backend interface will be used", "frontier-post");?></br>
-					</i></td>
-				</tr>
-			</table>
+			<?php } ?>
+			<hr>
 			<br/>
 			<br/>
 			<p class="submit">

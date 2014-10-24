@@ -61,7 +61,7 @@
 		<td> 
 			<?php
 			wp_editor($thispost->post_content, 'user_post_desc', $editor_layout);
-			//printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
+			printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
 			?>
 		</td>
 	</tr><tr>

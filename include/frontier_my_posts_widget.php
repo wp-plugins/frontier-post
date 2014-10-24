@@ -1,7 +1,7 @@
 <?php
 /**
- * @author marcus
- * Standard events list widget
+ * 
+ * Show My Posts Widget
  */
 class frontier_my_posts_widget extends WP_Widget 
 	{
