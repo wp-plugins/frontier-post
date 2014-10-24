@@ -3,8 +3,8 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 3.8.1
-Stable tag: 2.1.2
+Tested up to: 4.0.0
+Stable tag: 2.5.1
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -39,6 +39,7 @@ Frontier Post is intentionally made simple :)
 * Supports Wordpress Post Status Transitions
 * 4 editor options for frontend editing (Full, Simple-Visual, Simple-Html or Text-Only)
 * Editor enhancements: Smiley (emoticons), Table control and Search & Replace 
+ * From WP 3.9 it requires a separate plugin: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
 * Disable Admin bar per role (Optional)
 * User defined templates for forms
 * Users must be logged in to post
@@ -57,6 +58,9 @@ Frontier Post is intentionally made simple :)
  * Number of drafts (optional)
  * Number of comment approvals pending
  * Number of comments marked as spam
+ 
+= Related plugins =
+* [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
 
 = Translations =
 * Danish
@@ -65,6 +69,7 @@ Frontier Post is intentionally made simple :)
 * Spanish (Hasmin)
 * Polish (Thomasz)
 * French (pabaly)
+* Dutch (fredwier)
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
 
@@ -99,7 +104,7 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 
 = Editor =
-* At the moment this functionality is Beta !
+* From version 3.9 an onwards, you need to use separate pluging: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
 * The following tinymce modules are loaded: emotions, searchreplace & table.
 * Standard wordpress button setup
  * 1: bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv
@@ -149,6 +154,10 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 2.5.1 =
+* tinyMCE editor buttons moved to separate plugin Frontier Buttons from Wordpress version 3.9
+* Dutch translation
 
 = 2.1.2 =
 * Support for Private posts
