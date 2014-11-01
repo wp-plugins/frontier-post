@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Frontier Post package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Frontier Post 2.5.1\n"
+"Project-Id-Version: Frontier Post 2.5.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
-"POT-Creation-Date: 2014-10-24 15:03:48+00:00\n"
+"POT-Creation-Date: 2014-11-01 14:05:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,70 +12,70 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: forms/frontier_form.php:30 forms/frontier_list.php:36
+#: forms/frontier_form.php:35 forms/frontier_list.php:36
 #: include/frontier_approvals_widget.php:153
 #: include/frontier_my_posts_widget.php:270
 msgid "Title"
 msgstr ""
 
-#: forms/frontier_form.php:34 forms/frontier_list.php:37
+#: forms/frontier_form.php:39 forms/frontier_list.php:37
 msgid "Status"
 msgstr ""
 
-#: forms/frontier_form.php:64
+#: forms/frontier_form.php:69
 msgid "Word count: %s"
 msgstr ""
 
-#: forms/frontier_form.php:74 forms/frontier_list.php:38 settings-menu.php:301
+#: forms/frontier_form.php:79 forms/frontier_list.php:38 settings-menu.php:314
 msgid "Category"
 msgstr ""
 
-#: forms/frontier_form.php:79
+#: forms/frontier_form.php:84
 msgid "Tags"
 msgstr ""
 
-#: forms/frontier_form.php:107
+#: forms/frontier_form.php:112
 msgid "Select category, multible can be selected using ctrl key"
 msgstr ""
 
-#: forms/frontier_form.php:117 forms/frontier_form.php:118
-#: forms/frontier_form.php:119
+#: forms/frontier_form.php:122 forms/frontier_form.php:123
+#: forms/frontier_form.php:124
 msgid "Enter tag here"
 msgstr ""
 
-#: forms/frontier_form.php:133
+#: forms/frontier_form.php:138
 msgid "Excerpt"
 msgstr ""
 
-#: forms/frontier_form.php:141
+#: forms/frontier_form.php:146
 msgid "Featured image"
 msgstr ""
 
-#: forms/frontier_form.php:149
+#: forms/frontier_form.php:154
 msgid "Select featured image"
 msgstr ""
 
-#: forms/frontier_form.php:152
+#: forms/frontier_form.php:157
 msgid "Featured image (or new featured image) not visible until post is saved"
 msgstr ""
 
-#: forms/frontier_form.php:160
+#: forms/frontier_form.php:165
 msgid "Save"
 msgstr ""
 
-#: forms/frontier_form.php:161
+#: forms/frontier_form.php:166
 msgid "Save & Return"
 msgstr ""
 
-#: forms/frontier_form.php:162
+#: forms/frontier_form.php:167
 msgid "Save & Preview"
 msgstr ""
 
-#: forms/frontier_form.php:164
+#: forms/frontier_form.php:169
 msgid "Cancel"
 msgstr ""
 
-#: forms/frontier_form.php:176
+#: forms/frontier_form.php:181
 msgid "You are not allowed to edit this post !"
 msgstr ""
 
@@ -107,7 +107,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: forms/frontier_list.php:97 frontier-add-edit.php:54
+#: forms/frontier_list.php:97 frontier-add-edit.php:51
 msgid "Preview"
 msgstr ""
 
@@ -301,232 +301,232 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: settings-menu.php:75
+#: settings-menu.php:77
 msgid "Frontend Author"
 msgstr ""
 
-#: settings-menu.php:140
+#: settings-menu.php:142
 msgid "Settings saved."
 msgstr ""
 
-#: settings-menu.php:166
+#: settings-menu.php:170
 msgid "Frontier Post Settings"
 msgstr ""
 
-#: settings-menu.php:167
-msgid "Version"
-msgstr ""
-
-#: settings-menu.php:173
+#: settings-menu.php:177
 msgid "Allow edit of posts with comments"
 msgstr ""
 
-#: settings-menu.php:175
+#: settings-menu.php:179
 msgid "Max age in days to allow edit of post"
 msgstr ""
 
-#: settings-menu.php:178
+#: settings-menu.php:182
 msgid "Allow deletion of posts with comments"
 msgstr ""
 
-#: settings-menu.php:180
+#: settings-menu.php:184
 msgid "Max age in days to allow delete of post"
 msgstr ""
 
-#: settings-menu.php:183
+#: settings-menu.php:187
 msgid "Number of post per page"
 msgstr ""
 
-#: settings-menu.php:185
+#: settings-menu.php:189
 msgid "Page containing [frontier-post] shortcode:"
 msgstr ""
 
-#: settings-menu.php:188
+#: settings-menu.php:192
 msgid "None"
 msgstr ""
 
-#: settings-menu.php:192
+#: settings-menu.php:196
 msgid "Send email to Admins on post to approve"
 msgstr ""
 
-#: settings-menu.php:194
+#: settings-menu.php:198
 msgid "Send email to author when post is approved"
 msgstr ""
 
-#: settings-menu.php:197
+#: settings-menu.php:201
+msgid "Default status for new posts"
+msgstr ""
+
+#: settings-menu.php:210
 msgid "Approver email (ex: name1@domain.xx, name2@domain.xx)"
 msgstr ""
 
-#: settings-menu.php:200
+#: settings-menu.php:213
 msgid "Exclude categories (comma separated. list of IDs)"
 msgstr ""
 
-#: settings-menu.php:207
+#: settings-menu.php:220
 msgid "Capabilities by user role"
 msgstr ""
 
-#: settings-menu.php:210 settings-menu.php:296
+#: settings-menu.php:223 settings-menu.php:309
 msgid "Role"
 msgstr ""
 
-#: settings-menu.php:211
+#: settings-menu.php:224
 msgid "Can Add"
 msgstr ""
 
-#: settings-menu.php:212
+#: settings-menu.php:225
 msgid "Can Edit"
 msgstr ""
 
-#: settings-menu.php:213
+#: settings-menu.php:226
 msgid "Can Publish"
 msgstr ""
 
-#: settings-menu.php:214
+#: settings-menu.php:227
 msgid "Private Posts"
 msgstr ""
 
-#: settings-menu.php:215
+#: settings-menu.php:228
 msgid "Allow Drafts"
 msgstr ""
 
-#: settings-menu.php:216
+#: settings-menu.php:229
 msgid "Can Delete"
 msgstr ""
 
-#: settings-menu.php:217
+#: settings-menu.php:230
 msgid "Frontier Edit"
 msgstr ""
 
-#: settings-menu.php:218
+#: settings-menu.php:231
 msgid "Show admin bar"
 msgstr ""
 
-#: settings-menu.php:270 settings-menu.php:381
+#: settings-menu.php:283 settings-menu.php:394
 msgid "NA"
 msgstr ""
 
-#: settings-menu.php:293
+#: settings-menu.php:306
 msgid "Editor options"
 msgstr ""
 
-#: settings-menu.php:297
+#: settings-menu.php:310
 msgid "Edit Excerpt"
 msgstr ""
 
-#: settings-menu.php:298
+#: settings-menu.php:311
 msgid "Edit Tags"
 msgstr ""
 
-#: settings-menu.php:299
+#: settings-menu.php:312
 msgid "Media Upload"
 msgstr ""
 
-#: settings-menu.php:300
+#: settings-menu.php:313
 msgid "Editor Type"
 msgstr ""
 
-#: settings-menu.php:302
+#: settings-menu.php:315
 msgid "Default Category"
 msgstr ""
 
-#: settings-menu.php:398
+#: settings-menu.php:411
 msgid "Notice"
 msgstr ""
 
-#: settings-menu.php:399
+#: settings-menu.php:412
 msgid ""
 "- Media upload is not available to Contributors and Subscribers by Wordpress "
 "capabilities"
 msgstr ""
 
-#: settings-menu.php:400
+#: settings-menu.php:413
 msgid ""
 "- Wordpress standard rolemodel does not allow Contributors and Subscribers "
 "to add/edit/delete posts, but you can bypass this above"
 msgstr ""
 
-#: settings-menu.php:401
+#: settings-menu.php:414
 msgid ""
 "- Frontier Edit means that if a user selects the dit link on a post, "
 "Frontier will be used to edit instead of backend"
 msgstr ""
 
-#: settings-menu.php:402
+#: settings-menu.php:415
 msgid ""
 "-    - This is only if selected from frontend, if edit from backend, backend "
 "interface will be used"
 msgstr ""
 
-#: settings-menu.php:408 settings-menu.php:498
+#: settings-menu.php:421 settings-menu.php:511
 msgid "Save Changes"
 msgstr ""
 
-#: settings-menu.php:428
+#: settings-menu.php:441
 msgid "Advanced Settings"
 msgstr ""
 
-#: settings-menu.php:432
+#: settings-menu.php:445
 msgid "Allow users to change status from Published"
 msgstr ""
 
-#: settings-menu.php:434
+#: settings-menu.php:447
 msgid "Once published users can change status back to draft/pending"
 msgstr ""
 
-#: settings-menu.php:436
+#: settings-menu.php:449
 msgid "Add Frontier Author user role:"
 msgstr ""
 
-#: settings-menu.php:438
+#: settings-menu.php:451
 msgid "Adds a new role: Frontend Author to Wordpress"
 msgstr ""
 
-#: settings-menu.php:440
+#: settings-menu.php:453
 msgid "Use featured image:"
 msgstr ""
 
-#: settings-menu.php:442
+#: settings-menu.php:455
 msgid ""
 "Enables selection of featured image from frontend form (does not work "
 "perfectly)"
 msgstr ""
 
-#: settings-menu.php:444
+#: settings-menu.php:457
 msgid "Show link to login page:"
 msgstr ""
 
-#: settings-menu.php:446
+#: settings-menu.php:459
 msgid "Shows link to wp-login.php after text: Please login"
 msgstr ""
 
-#: settings-menu.php:453 settings-menu.php:464
+#: settings-menu.php:466 settings-menu.php:477
 msgid "Use custom editor buttons:"
 msgstr ""
 
-#: settings-menu.php:455
+#: settings-menu.php:468
 msgid ""
 "From wordpress version 3.9 you need to use separate pluging Frontier Buttons "
 "to manage editor buttons"
 msgstr ""
 
-#: settings-menu.php:456 settings-menu.php:467
+#: settings-menu.php:469 settings-menu.php:480
 msgid "Additional info: FAQ on plugin site"
 msgstr ""
 
-#: settings-menu.php:466
+#: settings-menu.php:479
 msgid "Control the buttons showed in the editor (only in frontend)"
 msgstr ""
 
-#: settings-menu.php:470 settings-menu.php:473 settings-menu.php:476
-#: settings-menu.php:479
+#: settings-menu.php:483 settings-menu.php:486 settings-menu.php:489
+#: settings-menu.php:492
 msgid "Custom button row"
 msgstr ""
 
-#: settings-menu.php:489
+#: settings-menu.php:502
 msgid "Suggested buttons"
 msgstr ""
 
-#: settings-menu.php:490 settings-menu.php:491 settings-menu.php:492
+#: settings-menu.php:503 settings-menu.php:504 settings-menu.php:505
 msgid "Row"
 msgstr ""
 
@@ -534,9 +534,9 @@ msgstr ""
 msgid "Frontier Post"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (Frontier Post 2.5.1)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 2.5.4)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Frontier Post 2.5.1)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Frontier Post 2.5.4)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://wordpress.org/extend/plugins/frontier-post/"
 msgstr ""
