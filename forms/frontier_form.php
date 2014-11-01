@@ -5,8 +5,13 @@
 	if ($user_can_edit_this_post)
 	{
 	
-	//echo "Prev cat: ".$frontier_previous_category."<br>";
-	
+	/*
+	echo "Prev cat: ".$frontier_previous_category."<br>";
+	print_r("--Status: ".$tmp_post_status."</br>");
+	print_r("Status list: ");
+	print_r($status_list);
+	print_r("</br>");
+	*/
 ?>	
 	<script type="text/javascript">
 		var filenames="";

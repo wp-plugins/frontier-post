@@ -3,7 +3,7 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 4.0.0
+Tested up to: 4.0
 Stable tag: 2.5.1
 License: GPL v3 or later
  
@@ -154,6 +154,11 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 2.5.4 =
+* NEW option: Default post status
+* Option: Allow users to change status from Published - Fixed and works as designed
+* Corrected error where mce buttons didnt work for WP versions prior to WP 3.9
 
 = 2.5.1 =
 * tinyMCE editor buttons moved to separate plugin Frontier Buttons from Wordpress version 3.9

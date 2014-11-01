@@ -60,6 +60,8 @@ function frontier_post_settings_page()
 				update_option("frontier_post_show_feat_img", ( isset($_POST[ "frontier_post_show_feat_img"]) ? $_POST[ "frontier_post_show_feat_img"] : "false" ) );
 				update_option("frontier_post_show_login", ( isset($_POST[ "frontier_post_show_login"]) ? $_POST[ "frontier_post_show_login"] : "false" ) );
 				update_option("frontier_post_change_status", ( isset($_POST[ "frontier_post_change_status"]) ? $_POST[ "frontier_post_change_status"] : "false" ) );
+				update_option("frontier_default_status", ( isset($_POST[ "frontier_default_status"]) ? $_POST[ "frontier_default_status"] : "publish" ) );
+				
 				
 				$tmp_buttons = array();
 				$tmp_buttons[0]	= (isset($_POST[ "frontier_post_mce_button1"]) ? $_POST[ "frontier_post_mce_button1"] : '' );
@@ -158,13 +160,15 @@ function frontier_post_settings_page()
 		$frontier_post_show_feat_img		= (get_option("frontier_post_show_feat_img")) ? get_option("frontier_post_show_feat_img") : "false";
 		$frontier_post_show_login			= (get_option("frontier_post_show_login")) ? get_option("frontier_post_show_login") : "false";
 		$frontier_post_change_status		= (get_option("frontier_post_change_status")) ? get_option("frontier_post_change_status") : "false";
+		$frontier_default_status			= get_option("frontier_default_status", "publish");
 		
+		$tmp_status_list = get_post_statuses( );
 		?>
 	
 		<div class="wrap">
 		<div class="frontier-admin-menu">
 		<h2><?php _e("Frontier Post Settings", "frontier-post") ?> </h2>
-		<p> (<?php _e("Version", "frontier-post").$FRONTIER_POST_VERSION ?></p>
+		
 
 		<form name="frontier_post_settings" method="post" action="">
 			<input type="hidden" name="frontier_isupdated_hidden" value="Y">
@@ -193,6 +197,15 @@ function frontier_post_settings_page()
 					<td><center><input type="checkbox" name="frontier_post_mail_to_approve" value="true" <?php echo ($frontier_post_mail_to_approve == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Send email to author when post is approved", "frontier-post"); ?>:</td>
 					<td><center><input type="checkbox" name="frontier_post_mail_approved" value="true" <?php echo ($frontier_post_mail_approved == "true") ? 'checked':''; ?>></center></td>
+				</tr><tr>
+					<td><?php _e("Default status for new posts", "frontier-post"); ?>:</td>
+					<td><select  id="frontier_default_status" name="frontier_default_status" >
+						<?php foreach($tmp_status_list as $key => $value) : ?>   
+							<option value='<?php echo $key ?>' <?php echo ( $key == $frontier_default_status) ? "selected='selected'" : ' ';?>>
+								<?php echo $value; ?>
+							</option>
+						<?php endforeach; ?>
+					</select></td>
 				</tr><tr>
 					<td><?php _e("Approver email (ex: name1@domain.xx, name2@domain.xx)", "frontier-post"); ?>:</td>
 					<td colspan="3" ><input size="100" type="text" name="frontier_post_mail_address" value="<?php echo $frontier_post_mail_address; ?>" /></td>

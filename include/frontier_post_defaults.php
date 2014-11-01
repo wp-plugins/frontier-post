@@ -12,8 +12,8 @@ $default_post_edit_max_age		= 7;
 $default_post_delete_max_age	= 3;
 
 $frontier_option_list 	= array('can_add', 'can_edit', 'can_publish', 'can_private', 'can_draft', 'can_delete',  'redir_edit', 'show_admin_bar', 'exerpt_edit', 'tags_edit',  'can_media', 'editor', 'category', 'default_category');
-$editor_types 			= array(__('Full Editor') => 'full', __('Minimal Visual') => 'minimal-visual', __('Minimal-Html') => 'minimal-html', __('Text Only') => 'text');
-$category_types 		= array(__('Multi select') => 'multi', __('Single select') => 'single', __('Hide') => 'hide');
+$editor_types 			= array(__('Full Editor', 'frontier-post') => 'full', __('Minimal Visual', 'frontier-post') => 'minimal-visual', __('Minimal-Html', 'frontier-post') => 'minimal-html', __('Text Only', 'frontier-post') => 'text');
+$category_types 		= array(__('Multi select', 'frontier-post') => 'multi', __('Single select', 'frontier-post') => 'single', __('Hide', 'frontier-post') => 'hide');
 $frontier_option_slice 	= 8;
 
 $std_mce_buttons_1		= 'bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv';
