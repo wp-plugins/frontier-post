@@ -5,8 +5,13 @@
 	if ($user_can_edit_this_post)
 	{
 	
-	//echo "Prev cat: ".$frontier_previous_category."<br>";
-	
+	/*
+	echo "Prev cat: ".$frontier_previous_category."<br>";
+	print_r("--Status: ".$tmp_post_status."</br>");
+	print_r("Status list: ");
+	print_r($status_list);
+	print_r("</br>");
+	*/
 ?>	
 	<script type="text/javascript">
 		var filenames="";
@@ -61,7 +66,7 @@
 		<td> 
 			<?php
 			wp_editor($thispost->post_content, 'user_post_desc', $editor_layout);
-			//printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
+			printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
 			?>
 		</td>
 	</tr><tr>

@@ -26,7 +26,14 @@ function frontier_post_set_defaults()
 	add_option("frontier_post_use_draft", "false"  );
 	add_option("frontier_post_author_role", "false"  );
 	add_option("frontier_post_mce_custom",  "false" );
-	
+	add_option("frontier_post_mail_to_approve", "false");
+	add_option("frontier_post_mail_approved", "false");
+	add_option("frontier_post_mail_address","false");
+	add_option("frontier_post_show_feat_img", "false");
+	add_option("frontier_post_show_login", "false");
+	add_option("frontier_post_change_status", "false");
+	add_option("frontier_default_status", "publish");
+				
 	/*	
 	$tmp_buttons = array();
 	$tmp_buttons[0]	= (isset($_POST[ "frontier_post_mce_button1"]) ? $_POST[ "frontier_post_mce_button1"] : '' );

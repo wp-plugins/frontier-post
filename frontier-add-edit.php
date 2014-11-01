@@ -31,6 +31,7 @@ function frontier_post_add_edit()
 		{
 		if ( empty($thispost->ID) )
 			$thispost = get_default_post_to_edit( "post", true );
+		
 		$thispost->post_author = $current_user->ID;
 		$_REQUEST['task']="new";
 		}
@@ -47,12 +48,7 @@ function frontier_post_add_edit()
 	//get users role:
 	$users_role 		= frontier_get_user_role();
 	
-	
-	
-		
-		
 	$preview_label 				= __("Preview", "frontier-post");
-	
 	
 	if(!isset($thispost->post_type))
 		{
@@ -89,18 +85,51 @@ function frontier_post_add_edit()
 	if (!current_user_can('frontier_post_can_draft'))
 		unset($tmp_status_list['draft']);
 	
+	//print_r("Status: ".get_option("frontier_default_status", "publish")."</br>");
 	
+	// Set default status if new post
+	if ( (isset($_REQUEST['task'])) && ($_REQUEST['task']="new") )
+		{
+		$tmp_default_status 	= get_option("frontier_default_status", "publish");
+		// Check if the default status is in the allowed statuses, and if so set the default status
+		if (array_key_exists($tmp_default_status , $tmp_status_list))
+			$thispost->post_status	= $tmp_default_status;
+		}
+		
 	$status_list 		= array();
 	$tmp_post_status 	= $thispost->post_status ? $thispost->post_status : "unknown";
+	//print_r("Status: ".$tmp_post_status."</br>");
 	
 	$status_readonly = "";
 	
+	/*
+	print_r("Change status: ".get_option("frontier_post_change_status")."<br>");
+	print_r("Can Draft: ".current_user_can('frontier_post_can_draft')."<br>");
+	print_r("Can Publish: ".current_user_can('frontier_post_can_publish')."<br>");
+	print_r("status: ".$tmp_post_status."<br>");
+	print_r($tmp_status_list);
+	print_r("<br>");
+	print_r("<br>");
+	*/
+	
+	//print_r("tmp_post_status: ".$tmp_post_status."<br>");
+	
 	if ($tmp_post_status == "publish")
 		{
-		if (!get_option("frontier_post_change_status", "false") == "true");
-			$status_readonly = "readonly";
-			
+		if (get_option("frontier_post_change_status", "false") != "true")
+			{
+			$status_readonly = "READONLY";
+			//print_r("Readonly: ".$status_readonly."<br>");
+			}
+		else
+			{
+			if (current_user_can( 'frontier_post_can_publish' ))
+				$status_list = $tmp_status_list;			
+			}
+		// somthings wrong with the following line ????
 		$status_list[$tmp_post_status] = $tmp_status_list[$tmp_post_status];
+			
+		
 		if (!current_user_can( 'frontier_post_can_publish' ))
 			{
 			$user_can_edit_this_post = false;
@@ -115,7 +144,13 @@ function frontier_post_add_edit()
 			}
 		}
 	
-
+	/*
+	print_r($tmp_status_list);
+	print_r("<br>");
+	
+	print_r($status_list);
+	print_r("<br>");
+	*/
 	// -- Setup wp_editor layout
 	// full: full Tiny MCE
 	// minimal-visual: Teeny layout
@@ -124,10 +159,13 @@ function frontier_post_add_edit()
 	
 	// setup editor
 	$editor_type 				= $saved_options[$users_role]['editor'] ? $saved_options[$users_role]['editor'] : "full"; 
+	$editor_layout		 		= array('dfw' => false, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
+
+
 	$frontier_post_mce_custom	= (get_option("frontier_post_mce_custom")) ? get_option("frontier_post_mce_custom") : "disable";
 	$frontier_post_mce_button	= get_option("frontier_post_mce_button", array());
 	
-	$editor_layout = array('dfw' => false, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
+	//print_r("MCE custom: ".$frontier_post_mce_custom."<br>");
 	
 		
 	if ($editor_type == "full" && $frontier_post_mce_custom == "true")
@@ -142,6 +180,7 @@ function frontier_post_add_edit()
 		$tmp = array('tinymce' => $tinymce_options);
 		$editor_layout = array_merge($editor_layout, $tmp);
 		}
+
 	
 	if (!current_user_can( 'frontier_post_can_media' ))
 		{
