@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.0
-Stable tag: 2.5.4
+Stable tag: 2.5.5
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -154,6 +154,9 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 2.5.5 =
+* Fixed My Approvals Widget & My Posts Widget - Logical values (checkbox) did not save
 
 = 2.5.4 =
 * NEW option: Default post status

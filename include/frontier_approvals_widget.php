@@ -14,11 +14,11 @@ class frontier_approvals_widget extends WP_Widget
 	
 		$this->defaults = array(
     		'title' 			=> __('My approvals','frontier-post'),
-			'show_draft'		=> true,
+			'show_draft'		=> false,
 			'show_pending'		=> true,
-			'show_comments'		=> true,
+			'show_comments'		=> false,
 			'show_comment_spam'	=> true,
-    		'nolistwrap' 		=> false,
+    		'nolistwrap' 		=> true,
     		'no_approvals_text'	=> __('You have no approvals pending', 'frontier-post'),
 			);
 
@@ -40,7 +40,9 @@ class frontier_approvals_widget extends WP_Widget
 		
     	$instance 			= array_merge($this->defaults, $instance);
 	
-		if (isset( $instance['show_draft'] ) && $instance['show_draft'] == 1 )
+		//error_log(print_r($instance), true);
+	
+		if (isset( $instance['show_draft'] ) && $instance['show_draft'] == true )
 			{
 			$draft_cnt 			= $wpdb->get_var("SELECT count(id) AS draft_cnt FROM $wpdb->posts WHERE post_status = 'draft'");
 			$draft_txt			= $draft_cnt.' '.__('draft posts','frontier-post');
@@ -51,7 +53,7 @@ class frontier_approvals_widget extends WP_Widget
 			$show_draft 		= false;
 			}
 		
-		if (isset( $instance['show_pending'] ) && $instance['show_pending'] == 1 )
+		if (isset( $instance['show_pending'] ) && $instance['show_pending'] == true )
 			{
 			$pending_cnt 		= $wpdb->get_var("SELECT count(id) AS pending_cnt FROM $wpdb->posts WHERE post_status = 'pending'");
 			$pending_txt		= $pending_cnt.' '.__('posts to be approved','frontier-post');
@@ -62,7 +64,7 @@ class frontier_approvals_widget extends WP_Widget
 			$show_pending 		= false;
 			}
 		
-		if (isset( $instance['show_comments'] ) && $instance['show_comments'] == 1 )
+		if (isset( $instance['show_comments'] ) && $instance['show_comments'] == true )
 			{
 			$cmt_pending_cnt	= $wpdb->get_var("SELECT count(comment_ID) AS cmt_pending_cnt FROM $wpdb->comments WHERE comment_approved = 0");
 			$cmt_pending_txt	= $cmt_pending_cnt.' '.__('comments to be approved','frontier-post');
@@ -73,7 +75,7 @@ class frontier_approvals_widget extends WP_Widget
 			$show_comments		= false;
 			}
 		
-		if (isset( $instance['show_comment_spam'] ) && $instance['show_comment_spam'] == 1 )
+		if (isset( $instance['show_comment_spam'] ) && $instance['show_comment_spam'] == true )
 			{
 			$cmt_spam_cnt		= $wpdb->get_var("SELECT count(comment_ID) AS cmt_pending_cnt FROM $wpdb->comments WHERE comment_approved = 'spam'");
 			$cmt_spam_txt		= $cmt_spam_cnt.' '.__('spam comments','frontier-post');
@@ -135,11 +137,19 @@ class frontier_approvals_widget extends WP_Widget
     /** @see WP_Widget::update */
     function update($new_instance, $old_instance) 
 		{
-    	foreach($this->defaults as $key => $value){
-    		if( !isset($new_instance[$key]) ){
-    			$new_instance[$key] = $value;
-    		}
-    	}
+		$tmp_boolean_fields = array('show_draft', 'show_pending', 'show_comments', 'show_comment_spam');
+    	foreach($this->defaults as $key => $value)
+			{
+    		if( !isset($new_instance[$key]) )
+				{
+				//check if is one of the logical fields (checkbox) and set value to false, so it isnt empty...
+				if (in_array($key, $tmp_boolean_fields))
+					$new_instance[$key] = false;
+				else
+					$new_instance[$key] = $value;
+				}
+			}
+		//error_log("New: ".print_r($new_instance, true)." - old: ".print_r($old_instance, true));
     	return $new_instance;
 		}
 
@@ -155,22 +165,22 @@ class frontier_approvals_widget extends WP_Widget
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id('show_pending'); ?>"><?php _e('Show posts pending approval ?', 'frontier-post'); ?>: </label>
-			<input type="checkbox" id="<?php echo $this->get_field_id('show_pending'); ?>" name="<?php echo $this->get_field_name('show_pending'); ?>" value="1" <?php echo ($instance['show_pending'] == '1') ? 'checked="checked"':''; ?>/>
+			<input type="checkbox" id="<?php echo $this->get_field_id('show_pending'); ?>" name="<?php echo $this->get_field_name('show_pending'); ?>" value="true" <?php echo ($instance['show_pending'] == true) ? 'checked="checked"':''; ?>/>
 		</p>
 		
 		<p>
 			<label for="<?php echo $this->get_field_id('show_draft'); ?>"><?php _e('Show number of draft posts ?', 'frontier-post'); ?>: </label>
-			<input type="checkbox" id="<?php echo $this->get_field_id('show_draft'); ?>" name="<?php echo $this->get_field_name('show_draft'); ?>" value="1" <?php echo ($instance['show_draft'] == '1') ? 'checked="checked"':''; ?>/>
+			<input type="checkbox" id="<?php echo $this->get_field_id('show_draft'); ?>" name="<?php echo $this->get_field_name('show_draft'); ?>" value="true" <?php echo ($instance['show_draft'] == true) ? 'checked="checked"':''; ?>/>
 		</p>
 		
 		<p>
 			<label for="<?php echo $this->get_field_id('show_comments'); ?>"><?php _e('Show comments pending approval ?', 'frontier-post'); ?>: </label>
-			<input type="checkbox" id="<?php echo $this->get_field_id('show_comments'); ?>" name="<?php echo $this->get_field_name('show_comments'); ?>" value="1" <?php echo ($instance['show_comments'] == '1') ? 'checked="checked"':''; ?>/>
+			<input type="checkbox" id="<?php echo $this->get_field_id('show_comments'); ?>" name="<?php echo $this->get_field_name('show_comments'); ?>" value="true" <?php echo ($instance['show_comments'] == true) ? 'checked="checked"':''; ?>/>
 		</p>
 		
 		<p>
 			<label for="<?php echo $this->get_field_id('show_comment_spam'); ?>"><?php _e('Show comments marked as spam ?', 'frontier-post'); ?>: </label>
-			<input type="checkbox" id="<?php echo $this->get_field_id('show_comment_spam'); ?>" name="<?php echo $this->get_field_name('show_comment_spam'); ?>" value="1" <?php echo ($instance['show_comment_spam'] == '1') ? 'checked="checked"':''; ?>/>
+			<input type="checkbox" id="<?php echo $this->get_field_id('show_comment_spam'); ?>" name="<?php echo $this->get_field_name('show_comment_spam'); ?>" value="true" <?php echo ($instance['show_comment_spam'] == true) ? 'checked="checked"':''; ?>/>
 		</p>
 		
 		<?php 

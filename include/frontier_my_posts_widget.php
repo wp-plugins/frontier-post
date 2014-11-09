@@ -252,11 +252,19 @@ class frontier_my_posts_widget extends WP_Widget
     /** @see WP_Widget::update */
     function update($new_instance, $old_instance) 
 		{
-    	foreach($this->defaults as $key => $value){
-    		if( !isset($new_instance[$key]) ){
-    			$new_instance[$key] = $value;
-    		}
-    	}
+		$tmp_boolean_fields = array('show_add_post', 'show_post_count');
+    	foreach($this->defaults as $key => $value)
+			{
+    		if( !isset($new_instance[$key]) )
+				{
+				//check if is one of the logical fields (checkbox) and set value to false, so it isnt empty...
+				if (in_array($key, $tmp_boolean_fields))
+					$new_instance[$key] = false;
+				else
+					$new_instance[$key] = $value;
+				
+				}
+			}
     	return $new_instance;
 		}
 
