@@ -28,10 +28,10 @@ function frontier_post_set_defaults()
 	add_option("frontier_post_mce_custom",  "false" );
 	add_option("frontier_post_mail_to_approve", "false");
 	add_option("frontier_post_mail_approved", "false");
-	add_option("frontier_post_mail_address","false");
+	add_option("frontier_post_mail_address","");
 	add_option("frontier_post_show_feat_img", "false");
 	add_option("frontier_post_show_login", "false");
-	add_option("frontier_post_change_status", "false");
+	add_option("frontier_post_change_status", "true");
 	add_option("frontier_default_status", "publish");
 				
 	/*	
@@ -75,12 +75,23 @@ function frontier_post_set_defaults()
 						$tmp_option  = "true";
 					}
 
+				if ($tmp_cap == 'can_draft')
+					$tmp_option  = "true";
+				
+				if ($tmp_cap == 'redir_edit')
+					$tmp_option  = "true";
 					
+				if ($tmp_cap == 'can_private')
+					$tmp_option  = "false";
+					
+				if ($tmp_cap == 'exerpt_edit')
+					$tmp_option  = "false";
+								
 				if ($tmp_cap == 'editor')
 					$tmp_option  = "full";
 							
 				if ($tmp_cap == 'category')
-					$tmp_option  = "multi";
+					$tmp_option  = "checkbox";
 				
 				if ($tmp_cap == 'default_category')
 					$tmp_option  = get_option("default_category");
@@ -90,7 +101,7 @@ function frontier_post_set_defaults()
 					$saved_options[$key][$tmp_cap] = $tmp_option;
 					
 									
-				// set capability, but not for editor and catory as they are not capabilities
+				// set capability, but not for editor and category as they are not capabilities
 				if ($tmp_cap != 'editor' && $tmp_cap != 'category' && $tmp_cap != 'default_category')
 					{
 					$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );

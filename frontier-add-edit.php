@@ -85,10 +85,9 @@ function frontier_post_add_edit()
 	if (!current_user_can('frontier_post_can_draft'))
 		unset($tmp_status_list['draft']);
 	
-	//print_r("Status: ".get_option("frontier_default_status", "publish")."</br>");
-	
+	//print_r("Pre-Status: ".$thispost->post_status."</br>");
 	// Set default status if new post
-	if ( (isset($_REQUEST['task'])) && ($_REQUEST['task']="new") )
+	if ( (isset($_REQUEST['task'])) && ($_REQUEST['task'] == "new") )
 		{
 		$tmp_default_status 	= get_option("frontier_default_status", "publish");
 		// Check if the default status is in the allowed statuses, and if so set the default status
@@ -98,7 +97,8 @@ function frontier_post_add_edit()
 		
 	$status_list 		= array();
 	$tmp_post_status 	= $thispost->post_status ? $thispost->post_status : "unknown";
-	//print_r("Status: ".$tmp_post_status."</br>");
+	
+	//print_r("Post-Status: ".$thispost->post_status."</br>");
 	
 	$status_readonly = "";
 	
@@ -211,13 +211,13 @@ function frontier_post_add_edit()
 	$category_type 				= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
 	$default_category			= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
 	$frontier_post_excl_cats	= get_option("frontier_post_excl_cats", '');
-	$parent_category = isset($_REQUEST['parent_cat']) ? $_REQUEST['parent_cat'] : "0";
+	$parent_category 			= isset($_REQUEST['parent_cat']) ? $_REQUEST['parent_cat'] : "0";
 	
 	//echo "Parent cat: ".$parent_category."<br>";
 	
 	
 	// Build list of categories (3 levels)
-	if ($category_type == "multi")
+	if ( ($category_type == "multi") || ($category_type == "checkbox") )
 		{
 		
 		$cats_selected	= $thispost->post_category;
@@ -225,6 +225,8 @@ function frontier_post_add_edit()
 			$cats_selected[0] = $default_category;
 			
 		$catlist 		= array();
+		$catlist 		= frontier_tax_list("category", $frontier_post_excl_cats);
+		/*
 		foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_category, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)) as $category1) :
 			$tmp = Array('cat_ID' => $category1->cat_ID, 'cat_name' => $category1->cat_name);
 			array_push($catlist, $tmp);
@@ -237,8 +239,13 @@ function frontier_post_add_edit()
 				endforeach; // Level 3
 			endforeach; // Level 2
 		endforeach; //Level 1
+		*/
 		}
-		
+	
+	
+	//error_log(print_r($catlist, true));
+	//error_log(print_r($yy, true));
+	
 	if ($category_type == "single")
 		{
 		if(isset($thispost->ID) )

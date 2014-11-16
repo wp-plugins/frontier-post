@@ -67,3 +67,8 @@ table.frontier-menu {
 th.frontier-menu {
 	width: 33%;
 }
+.container { 
+	border:2px solid #ccc; 
+	height: 120px; 
+	overflow-y: scroll; 
+}

@@ -48,7 +48,8 @@
 					<?php
 					}
 				else
-					{ ?>
+					{
+					?>
 					<select  id="post_status" name="post_status" <?php echo $status_readonly; ?>>
 						<?php foreach($status_list as $key => $value) : ?>   
 							<option value='<?php echo $key ?>' <?php echo ( $key == $tmp_post_status) ? "selected='selected'" : ' ';?>>
@@ -101,18 +102,32 @@
 					}
 				else
 					{
-					?>
-					<select name="categorymulti[]" id="frontier_categorymulti" multiple="multiple" size="8">
-					<?php  
+					if ($category_type == "multi")
+						{
+						?>
+						<select name="categorymulti[]" id="frontier_categorymulti" multiple="multiple" size="8">
+						<?php  
+						foreach ( $catlist as $category1) : ?>
+							<option value="<?php echo $category1['cat_ID']; ?>" <?php if ( $cats_selected && in_array( $category1['cat_ID'], $cats_selected ) ) { echo 'selected="selected"'; }?>><?php echo $category1['cat_name']; ?></option>
+						<?php endforeach; ?>
+						</select>
+						</br><div class="frontier_helptext"><?php _e("Select category, multible can be selected using ctrl key", "frontier-post"); ?></div>
+						</td>
+						<?php 
+						}// end multis select
+					else
+						{
+						?>
+						<div class="container">
+						<?php  
+						foreach ( $catlist as $category1) : ?>
+							<input type="checkbox" name="categorymulti[]" value="<?php echo $category1['cat_ID']; ?>" <?php if ( $cats_selected && in_array( $category1['cat_ID'], $cats_selected ) ) { echo 'checked="checked"';} ?>><?php echo $category1['cat_name']; ?><br /> 
+						<?php endforeach; ?>
 					
-					foreach ( $catlist as $category1) : ?>
-						<option value="<?php echo $category1['cat_ID']; ?>" <?php if ( $cats_selected && in_array( $category1['cat_ID'], $cats_selected ) ) { echo 'selected="selected"'; }?>><?php echo $category1['cat_name']; ?></option>
-					<?php endforeach; ?>
-					</select>
-					</br><div class="frontier_helptext"><?php _e("Select category, multible can be selected using ctrl key", "frontier-post"); ?></div>
-					</td>
-					<?php 
-					} // end multis select 
+						</div></td>
+						<?php
+						}
+					}  
 				} // end hide category 
 				?>
 				
@@ -124,6 +139,9 @@
 					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[2]))echo $taglist[2];?>" name="user_post_tag3" id="user_post_tag" ></br>
 				</td>
 			<?php } ?>
+		
+			
+		
 		</tr>
 		</tbody></table></td>
 	</tr><tr>

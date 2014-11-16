@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.0
-Stable tag: 2.5.5
+Stable tag: 2.6.0
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -12,6 +12,8 @@ Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts fro
 == Description ==
 
 WordPress Frontier Post Plugin enables simple full featured management of standard posts from frontend for all user roles.
+
+Related plugins: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
 
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
 Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.
@@ -58,9 +60,7 @@ Frontier Post is intentionally made simple :)
  * Number of drafts (optional)
  * Number of comment approvals pending
  * Number of comments marked as spam
- 
-= Related plugins =
-* [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
+
 
 = Translations =
 * Danish
@@ -130,7 +130,7 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 = Testing =
 * Frontier post is mainly tested with:
-* Wordpress 3.8
+* Wordpress 4.0
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
  * and sometimes with twenty thirteen theme...
 * iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
@@ -154,6 +154,12 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+
+= 2.6.0 =
+* Added option for categories as checkbox list
+* Fixed issue, Post status dropdown didnt shor correct status.
+* Added function frontier_tax_list() to prepare support for taxonomies
 
 = 2.5.5 =
 * Fixed My Approvals Widget & My Posts Widget - Logical values (checkbox) did not save
