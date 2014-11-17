@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.0
-Stable tag: 2.6.0
+Stable tag: 2.6.1
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -155,6 +155,8 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+= 2.6.0 =
+* Removed .container (added in 2.6.0) from css as it might conflict 
 
 = 2.6.0 =
 * Added option for categories as checkbox list
