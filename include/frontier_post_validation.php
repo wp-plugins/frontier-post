@@ -53,6 +53,27 @@ function frontier_can_delete($tmp_post_date, $tmp_comments_cnt)
 	
 	}	
 
+function frontier_tax_list($tmp_tax_name, $exclude_list)
+	{
+	$tmp_tax_list 		= array();
+	$parent_tax			= 0;
+	$level_sep			= "-- ";
+	
+	foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_tax, 'exclude' => $exclude_list, 'show_count' => true)) as $tax1) :
+			$tmp = Array('cat_ID' => $tax1->cat_ID, 'cat_name' => $tax1->cat_name);
+			array_push($tmp_tax_list, $tmp);
+			foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax1->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax2) :
+				$tmp = Array('cat_ID' => $tax2->cat_ID, 'cat_name' => $level_sep.$tax2->cat_name);
+				array_push($tmp_tax_list, $tmp);
+				foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax2->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax3) :
+					$tmp = Array('cat_ID' => $tax3->cat_ID, 'cat_name' => $level_sep.$level_sep.$tax3->cat_name);
+					array_push($tmp_tax_list, $tmp);
+				endforeach; // Level 3
+			endforeach; // Level 2
+		endforeach; //Level 1
+	
+	return $tmp_tax_list;
+	}
 
 
 ?>
