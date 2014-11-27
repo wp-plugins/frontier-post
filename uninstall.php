@@ -28,6 +28,20 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 	delete_option("frontier_post_page_id");
 	delete_option("frontier_post_options");
 	delete_option("frontier_post_version");
+	delete_option("frontier_post_use_draft"  );
+	delete_option("frontier_post_author_role"  );
+	delete_option("frontier_post_mce_custom");
+	delete_option("frontier_post_mail_to_approve");
+	delete_option("frontier_post_mail_approved");
+	delete_option("frontier_post_mail_address");
+	delete_option("frontier_post_show_feat_img");
+	delete_option("frontier_post_show_login");
+	delete_option("frontier_post_change_status");
+	delete_option("frontier_default_status");
+	delete_option("frontier_post_external_cap");
+	delete_option("frontier_default_editor");
+	update_option("frontier_default_cat_select");
+				
 	//delete_option("frontier_post_use_draft");
 	
 	foreach( $roles as $key => $item )

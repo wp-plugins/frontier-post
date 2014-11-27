@@ -7,6 +7,10 @@ function frontier_posting_form_submit()
 			
     if(isset($_POST['action'])&&$_POST['action']=="wpfrtp_save_post")
 		{
+		if ( !wp_verify_nonce( $_REQUEST['_wpnonce'], 'frontier_add_edit_post' ) )
+			{
+			wp_die(__(" Securitiy violation - Please contact your webmaster", "frontier-post"));
+			}
         if($_POST['user_post_title'])
 			{
 			
@@ -32,9 +36,17 @@ function frontier_posting_form_submit()
 			$category_type 		= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
 			$default_category	= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
 			
-			if ($category_type == "multi")
+			// test checkbox category
+			//$zzz = $_POST['check_list'];
+			//error_log("Checlist");
+			//error_log(print_r($zzz, true));
+			 
+			
+			if ( ($category_type == "multi") || ($category_type == "checkbox") )
+				{
+				//$tmp_categorymulti = $_POST['check_list'];
 				$tmp_categorymulti = $_POST['categorymulti'];
-				
+				}
 			if ($category_type == "single")
 				{
 				if(isset($_POST['cat']))
@@ -91,13 +103,8 @@ function frontier_posting_form_submit()
 				{
 				
 				$filenames= $_POST['filename'];
-				//error_log("filenames: ");
-				//error_log(var_dump($filenames));
 				
-				//$thumbnail_id=$_POST['thumbnail_id'];
-				//error_log("thumbnail_id: ");
-				//error_log(var_dump($thumbnail_id));
-				
+				// Attach the files uploaded to the post
 				if(is_array($filenames))
 					{
 					foreach($filenames as $value)
@@ -116,8 +123,48 @@ function frontier_posting_form_submit()
 						}
 					}    
 				}
+/*
+			//If no Featured Image (Thumbnail)
+			if (!has_post_thumbnail($postid))  
+				{
+				//, set the first image as featured image 
+				$attached_image = get_children( array("post_parent" => $postid, "post_type" => "attachment", "post_mime_type" => "image", "numberposts" => 1) );
+				if ($attached_image) 
+					{
+					foreach ($attached_image as $attachment_id => $attachment) 
+						{
+						set_post_thumbnail($postid, $attachment_id);
+						}
+					}
+				else
+					{
+					// If no image linked to the postgGet image ids (images in the content from the image gallery) and set the first as featured image
+					$inlineImages = array(); 
+					preg_match_all( '/wp-image-([^"]*)"/i', $tmp_content, $inlineImages ) ;
+					if ( count($inlineImages>0) )
+						set_post_thumbnail($postid, $inlineImages [1][0]);
+					}
+				}
+				
+				// Testing:
+				$used_images 	= array(); 
+				$used_image_ids	= array();
+				preg_match_all( '/wp-image-([^"]*)"/i', $tmp_content, $used_images ) ;
+				if ( count($used_images [1])>0 )
+					{
+					foreach ($used_images [1] as $tmp_image_id)
+						{
+						// remove trailing /
+						$tmp_image_id = substr($tmp_image_id, 0, -1);
+						array_unshift($used_image_ids, $tmp_image_id);
+						}
+					}
+				error_log(print_r($used_images, true));
+				error_log(print_r($used_image_ids, true));
+*/				
+				
 			}
-		
+			
 		$concat= get_option("permalink_structure")?"?":"&";		
 		
 		if (isset($_POST['user_post_preview']))

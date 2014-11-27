@@ -5,8 +5,13 @@
 	if ($user_can_edit_this_post)
 	{
 	
-	//echo "Prev cat: ".$frontier_previous_category."<br>";
-	
+	/*
+	echo "Prev cat: ".$frontier_previous_category."<br>";
+	print_r("--Status: ".$tmp_post_status."</br>");
+	print_r("Status list: ");
+	print_r($status_list);
+	print_r("</br>");
+	*/
 ?>	
 	<script type="text/javascript">
 		var filenames="";
@@ -21,7 +26,10 @@
 		<input type="hidden" name="action" value="wpfrtp_save_post"> 
 		<input type="hidden" name="task" value="<?php echo $_REQUEST['task'];?>">
 		<input type="hidden" name="parent_cat" value="<?php echo $_REQUEST['parent_cat'];?>">
+		<input type="hidden" name="frontier_cat_id" value="<?php echo $_REQUEST['frontier_cat_id'];?>">
 		<input type="hidden" name="postid" id="postid" value="<?php if(isset($thispost->ID)) echo $thispost->ID; ?>">
+		<?php wp_nonce_field( 'frontier_add_edit_post' ); ?>
+		
 	<tr>
 		<td>
 			<table><tbody>
@@ -43,7 +51,8 @@
 					<?php
 					}
 				else
-					{ ?>
+					{
+					?>
 					<select  id="post_status" name="post_status" <?php echo $status_readonly; ?>>
 						<?php foreach($status_list as $key => $value) : ?>   
 							<option value='<?php echo $key ?>' <?php echo ( $key == $tmp_post_status) ? "selected='selected'" : ' ';?>>
@@ -61,7 +70,7 @@
 		<td> 
 			<?php
 			wp_editor($thispost->post_content, 'user_post_desc', $editor_layout);
-			//printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
+			printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
 			?>
 		</td>
 	</tr><tr>
@@ -83,32 +92,43 @@
 			<?php } ?>	  
 		</tr><tr>
 			<?php
-			if ($category_type != "hide")
+			switch ($category_type) 
 				{
-				?>
-				<td class="frontier_border" width="50%">
-				<?php
-				
-				
-				if ($category_type == "single")
-					{
+				case "hide":
+					break;
+			
+				case "single":
+					echo '<td class="frontier_border" width="50%">';
 					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'child_of' => $parent_category, 'orderby' => 'name', 'selected' => $postcategoryid, 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
-					}
-				else
-					{
-					?>
-					<select name="categorymulti[]" id="frontier_categorymulti" multiple="multiple" size="8">
-					<?php  
+					break;
+			
+				case "multi":
+					echo '<td class="frontier_border" width="50%">';
+					echo frontier_post_tax_multi($catlist, $cats_selected, "categorymulti[]", "frontier_categorymulti", 8);
+					echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+					echo '</td>';
+					break;
+    
+				case "checkbox":
+					echo '<td class="frontier_border" width="$cats_selected50%"><div class="frontier-tax-box">';
+					echo frontier_post_tax_checkbox($catlist, $cats_selected, "categorymulti[]", "frontier_categorymulti");
+					echo '</div></td>';
+					break;
+				
+				case "readonly":
+					$post_taxs = get_the_category($thispost);
+					echo '<td class="frontier_border" width="50%">';
+					foreach ( $post_taxs as $category1) :
+						echo $category1->name.", "; 
+					endforeach;
+					echo '</td>';
+					break;
 					
-					foreach ( $catlist as $category1) : ?>
-						<option value="<?php echo $category1['cat_ID']; ?>" <?php if ( $cats_selected && in_array( $category1['cat_ID'], $cats_selected ) ) { echo 'selected="selected"'; }?>><?php echo $category1['cat_name']; ?></option>
-					<?php endforeach; ?>
-					</select>
-					</br><div class="frontier_helptext"><?php _e("Select category, multible can be selected using ctrl key", "frontier-post"); ?></div>
-					</td>
-					<?php 
-					} // end multis select 
-				} // end hide category 
+				default:
+					break;
+				}
+			
+				
 				?>
 				
 			<?php if ( current_user_can( 'frontier_post_tags_edit' ) )
@@ -119,6 +139,8 @@
 					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[2]))echo $taglist[2];?>" name="user_post_tag3" id="user_post_tag" ></br>
 				</td>
 			<?php } ?>
+		
+			
 		</tr>
 		</tbody></table></td>
 	</tr><tr>

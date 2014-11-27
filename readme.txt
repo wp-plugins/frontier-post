@@ -3,8 +3,8 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 3.8.1
-Stable tag: 2.1.2
+Tested up to: 4.0.1
+Stable tag: 2.6.1
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -12,6 +12,8 @@ Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts fro
 == Description ==
 
 WordPress Frontier Post Plugin enables simple full featured management of standard posts from frontend for all user roles.
+
+Related plugins: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
 
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
 Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.
@@ -39,6 +41,7 @@ Frontier Post is intentionally made simple :)
 * Supports Wordpress Post Status Transitions
 * 4 editor options for frontend editing (Full, Simple-Visual, Simple-Html or Text-Only)
 * Editor enhancements: Smiley (emoticons), Table control and Search & Replace 
+ * From WP 3.9 it requires a separate plugin: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
 * Disable Admin bar per role (Optional)
 * User defined templates for forms
 * Users must be logged in to post
@@ -58,6 +61,7 @@ Frontier Post is intentionally made simple :)
  * Number of comment approvals pending
  * Number of comments marked as spam
 
+
 = Translations =
 * Danish
 * Russian (samaks)
@@ -65,6 +69,7 @@ Frontier Post is intentionally made simple :)
 * Spanish (Hasmin)
 * Polish (Thomasz)
 * French (pabaly)
+* Dutch (fredwier)
 
 Let me know what you think, and if you have enhancement requests or problems let me know through support area
 
@@ -99,7 +104,7 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 
 = Editor =
-* At the moment this functionality is Beta !
+* From version 3.9 an onwards, you need to use separate pluging: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
 * The following tinymce modules are loaded: emotions, searchreplace & table.
 * Standard wordpress button setup
  * 1: bold, italic, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, fullscreen, wp_adv
@@ -125,7 +130,7 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 = Testing =
 * Frontier post is mainly tested with:
-* Wordpress 3.8
+* Wordpress 4.0
  * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
  * and sometimes with twenty thirteen theme...
 * iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
@@ -149,6 +154,35 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 2.7.1 =
+* Tested with WP 4.0.1
+* Cleaned frontier_form.php, added switch for category display type
+* Changed HTML output to functions for multi and checkbox
+* Added category in shortcode ex:  [frontier-post frontier_cat_id=7]
+* Enabled support for capabilties can be managed from other plugin (User Role Editor)
+* Added widget New post from Category - The widget can be added to a category page, and will take the category from that page
+
+
+= 2.6.1 =
+* Removed .container (added in 2.6.0) from css as it might conflict 
+
+= 2.6.0 =
+* Added option for categories as checkbox list
+* Fixed issue, Post status dropdown didnt show correct status.
+* Added function frontier_tax_list() to prepare support for taxonomies
+
+= 2.5.5 =
+* Fixed My Approvals Widget & My Posts Widget - Logical values (checkbox) did not save
+
+= 2.5.4 =
+* NEW option: Default post status
+* Option: Allow users to change status from Published - Fixed and works as designed
+* Corrected error where mce buttons didnt work for WP versions prior to WP 3.9
+
+= 2.5.1 =
+* tinyMCE editor buttons moved to separate plugin Frontier Buttons from Wordpress version 3.9
+* Dutch translation
 
 = 2.1.2 =
 * Support for Private posts

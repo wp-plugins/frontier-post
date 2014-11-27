@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
 Author: finnj
-Version: 2.1.2
+Version: 2.7.1
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "2.1.2"); 
+define('FRONTIER_POST_VERSION', "2.7.1"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 
 
@@ -27,7 +27,7 @@ include("frontier-add-edit.php");
 //widgets	
 include("include/frontier_my_posts_widget.php");
 include("include/frontier_approvals_widget.php");
-
+include("include/frontier_new_category_post_widget.php");
 
  
 function get_file_extension($file_name)
@@ -62,18 +62,23 @@ function frontier_user_posts($atts)
 			//Get shortcode parms
 			extract( shortcode_atts( array (
 				'frontier_mode' => 'none',
-				'frontier_parent_cat_id' => 0
+				'frontier_parent_cat_id' => 0,
+				'frontier_cat_id' => 0
 				), $atts ) );	
-				
-			//error_log("frontier_mode: ".$frontier_mode);
-			//error_log("frontier_cat_id: ".$frontier_cat_id);
+			
+			/*	
+			error_log("frontier_mode: ".$frontier_mode);
+			error_log("parent_cat: ".$frontier_parent_cat_id);
+			error_log("frontier_cat_id: ".$frontier_cat_id);
+			*/
 			
 			// if mode is add, go directly to show form - enables use directly on several pages
 			if ($frontier_mode == "add")
 				$post_task = "new";
 			
-			$_REQUEST['task'] 		= $post_task;
-			$_REQUEST['parent_cat']	= $frontier_parent_cat_id;
+			$_REQUEST['task'] 				= $post_task;
+			$_REQUEST['parent_cat']			= $frontier_parent_cat_id;
+			$_REQUEST['frontier_cat_id']	= $frontier_cat_id; 
 			
             switch( $post_task )
 				{
@@ -114,6 +119,12 @@ function frontier_user_posts($atts)
 
 
 register_activation_hook( __FILE__ , 'frontier_post_set_defaults');
+	
+function frontier_template_dir()
+	{
+ 	// get frontier dir in theme or child-theme	
+	return get_stylesheet_directory().'plugins/frontier-post/';		
+	}	
 	
 function frontier_load_form($frontier_form_name)
 	{
@@ -213,9 +224,17 @@ function frontier_email_on_transition(  $new_status, $old_status, $post )
 add_action('transition_post_status', 'frontier_email_on_transition', 10, 3);
 
 
+
+// WP editor tinyMCE has been changed, and wont work - New plugin Frontier Buttons should be used instead
+global $wp_version;
+if ($wp_version >= "3.9")
+	{
+	update_option("frontier_post_mce_custom", "false");
+	}
+
 // Load tinymce plugins if enabled in frontier settings.
 $frontier_post_mce_custom = get_option("frontier_post_mce_custom", "false");
-
+	
 if ($frontier_post_mce_custom == "true") 
 	add_filter('mce_external_plugins', 'frontier_tinymce_plugins');
 else
@@ -223,7 +242,8 @@ else
 
 function frontier_tinymce_plugins () 
 	{
-	$plugins = array('emotions', 'table', 'searchreplace', 'wordcount'); 
+	//$plugins = array('emotions', 'table', 'searchreplace', 'wordcount');
+	$plugins = array('emotions', 'table', 'searchreplace');
 	$plugins_array = array();
 	//Build the response - the key is the plugin name, value is the URL to the plugin JS
 	foreach ($plugins as $plugin ) 
@@ -232,6 +252,7 @@ function frontier_tinymce_plugins ()
 		}
 	return $plugins_array;
 	}
+
 	
 // Hide admin bar for user role based on settings
 function frontier_admin_bar()
