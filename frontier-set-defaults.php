@@ -33,6 +33,10 @@ function frontier_post_set_defaults()
 	add_option("frontier_post_show_login", "false");
 	add_option("frontier_post_change_status", "true");
 	add_option("frontier_default_status", "publish");
+	add_option("frontier_post_external_cap", "false" );
+	add_option("frontier_default_editor", "full" );
+	add_option("frontier_default_cat_select", "checkbox" );
+				
 				
 	/*	
 	$tmp_buttons = array();
@@ -81,10 +85,10 @@ function frontier_post_set_defaults()
 				if ($tmp_cap == 'redir_edit')
 					$tmp_option  = "true";
 					
-				if ($tmp_cap == 'can_private')
+				if ( ($tmp_cap == 'can_private') && ($key != 'administrator') )
 					$tmp_option  = "false";
 					
-				if ($tmp_cap == 'exerpt_edit')
+				if ($tmp_cap == 'exerpt_edit'  && ($key != 'administrator') )
 					$tmp_option  = "false";
 								
 				if ($tmp_cap == 'editor')

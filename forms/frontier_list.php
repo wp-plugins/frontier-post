@@ -4,18 +4,28 @@ $concat= get_option("permalink_structure")?"?":"&";
 //set the permalink for the page itself
 $frontier_permalink = get_permalink();
 
+//error_log("pid: ".$tmp_page_id);
+//error_log("text: ".$tmp_button_txt);
+
+//Display message
+frontier_post_output_msg();
 
 if (frontier_can_add() )
 	{
 ?>
-
+	<form  action="" method="post" name="frontier_list" id="frontier_list" enctype="multipart/form-data" >
+	<input type="hidden" name="frontier_return_page_id" id="id" value="<?php echo $tmp_page_id; ?>">
+	<input type="hidden" name="frontier_return_text" id="id" value="<?php echo $tmp_button_txt; ?>">
+	
+	
 	<table class="frontier-menu" >
 		<tr class="frontier-menu">
 			<th class="frontier-menu" >&nbsp;</th>
-			<th class="frontier-menu" ><a href='<?php echo frontier_post_add_link() ?>'><?php _e("Create New Post", "frontier-post"); ?></a></th>
+			<th class="frontier-menu" ><a href='<?php echo frontier_post_add_link($tmp_page_id) ?>'><?php _e("Create New Post", "frontier-post"); ?></a></th>
 			<th class="frontier-menu" >&nbsp;</th>
 		</tr>
 	</table>
+	</form>
 	</br>
 <?php
 	
@@ -75,17 +85,17 @@ if( $user_posts->found_posts > 0 )
 				<td><?php  echo $post->comment_count;?></td>
 				<td>
 					<?php
-						if (frontier_can_edit($post->post_date, $post->comment_count) == true)
+						if (frontier_can_edit($post) == true)
 							{
 								?>
 									<a href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>"><?php _e("Edit", "frontier-post") ?></a>&nbsp;&nbsp;
 								<?php
 							}
 												
-						if (frontier_can_delete($post->post_date, $post->comment_count) == true)
+						if (frontier_can_delete($post) == true)
 							{
 								?>
-									<a href="#" onclick="if(confirm('<?php _e('Are you sure you want to delete this post?', 'frontier-post')?>')){location.href='<?php echo $frontier_permalink;?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>'}" ><?php _e("Delete", "frontier-post") ?></a>
+									<a href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>" ><?php _e("Delete", "frontier-post") ?></a>
 								<?php
 							}
 						
@@ -124,7 +134,7 @@ if( $user_posts->found_posts > 0 )
 		{
 			echo $pagination;
 		}
-	echo "</br>".__("Number of posts already created by you: ", "frontier-post").$user_posts->post_count."</br>";
+	echo "</br>".__("Number of posts already created by you: ", "frontier-post").$user_posts->found_posts."</br>";
 	}
 	
 else
