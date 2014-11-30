@@ -67,3 +67,7 @@ table.frontier-menu {
 th.frontier-menu {
 	width: 33%;
 }
+.frontier-tax-box {
+	border:2px solid #ccc;
+	height: 132px; 
+	overflow-y: scroll; 

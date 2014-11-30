@@ -1,9 +1,12 @@
 <?php
 
 
-function  frontier_user_post_list()
+function  frontier_user_post_list($tmp_cat_id = 0, $tmp_page_id = 0, $tmp_button_txt = "false")
 	{
-	
+		$tmp_page_id = get_permalink();
+		$_REQUEST['frontier_return_page_id']	= $tmp_page_id;
+		$_REQUEST['frontier_return_text']		= $tmp_button_txt;
+		
 		global $post;
 		global $current_user;
 		get_currentuserinfo();
@@ -21,9 +24,20 @@ function  frontier_user_post_list()
 				'paged'				=> $pagenum,
 				);
 		
+		// add category from shortcode to limit posts
+		if ( isset($tmp_cat_id) && ($tmp_cat_id > 0) )
+			$args["cat"] = $tmp_cat_id;
+		
+			
+		
+		//error_log(print_r($args, true));
+		
 		$user_posts 	= new WP_Query( $args );
 		//print_r("Last SQL-Query: {$user_posts->request}");
 		//include("forms/frontier_list.php");
+		
+		
+		
 		include_once(frontier_load_form("frontier_list.php"));
 		
 	}  

@@ -61,6 +61,8 @@ function frontier_post_settings_page()
 				update_option("frontier_post_show_login", ( isset($_POST[ "frontier_post_show_login"]) ? $_POST[ "frontier_post_show_login"] : "false" ) );
 				update_option("frontier_post_change_status", ( isset($_POST[ "frontier_post_change_status"]) ? $_POST[ "frontier_post_change_status"] : "false" ) );
 				update_option("frontier_default_status", ( isset($_POST[ "frontier_default_status"]) ? $_POST[ "frontier_default_status"] : "publish" ) );
+				update_option("frontier_default_editor", ( isset($_POST[ "frontier_default_editor"]) ? $_POST[ "frontier_default_editor"] : "full" ) );
+				update_option("frontier_default_cat_select", ( isset($_POST[ "frontier_default_cat_select"]) ? $_POST[ "frontier_default_cat_select"] : "checkbox" ) );
 				
 				
 				$tmp_buttons = array();
@@ -82,6 +84,15 @@ function frontier_post_settings_page()
 					if (get_role($frontier_author_role_name))
 						remove_role($frontier_author_role_name);					
 					}
+			// only save caps if managed from within Frontier Post, else save default editor and category select type
+			if ( get_option("frontier_post_external_cap ", "false") == "true" )
+				{
+				update_option("frontier_post_external_cap", ( isset($_POST[ "frontier_post_external_cap"]) ? $_POST[ "frontier_post_external_cap"] : "false" ) );
+				
+				}
+			else
+				{
+				update_option("frontier_post_external_cap", ( isset($_POST[ "frontier_post_external_cap"]) ? $_POST[ "frontier_post_external_cap"] : "false" ) );
 				
 				// Need to reinstate roles, as they have been manipulated above
 				$wp_roles	= new WP_Roles();
@@ -133,8 +144,10 @@ function frontier_post_settings_page()
 					} // roles
 					
 				// Save options
+				//error_log("saving options");
 				update_option('frontier_post_options', $saved_options);
 				
+				} // End external managed capabilities
 				
 				
 				// Put an settings updated message on the screen
@@ -161,8 +174,14 @@ function frontier_post_settings_page()
 		$frontier_post_show_login			= (get_option("frontier_post_show_login")) ? get_option("frontier_post_show_login") : "false";
 		$frontier_post_change_status		= (get_option("frontier_post_change_status")) ? get_option("frontier_post_change_status") : "false";
 		$frontier_default_status			= get_option("frontier_default_status", "publish");
-		
+		$frontier_post_external_cap			= (get_option("frontier_post_external_cap")) ? get_option("frontier_post_external_cap") : "false";
+		$frontier_default_editor			= get_option("frontier_default_editor", "full");
+		$frontier_default_cat_select		= get_option("frontier_default_cat_select", "checkbox");
+				
 		$tmp_status_list = get_post_statuses( );
+		
+		
+	
 		?>
 	
 		<div class="wrap">
@@ -214,7 +233,38 @@ function frontier_post_settings_page()
 					<td colspan="3" ><input size="100" type="text" name="frontier_post_excl_cats" value="<?php echo $frontier_post_excl_cats; ?>" /></td>
 				</tr>
 			</table>
-			
+	<?php
+	// Do not show cababilities if managed externally	
+	if ( $frontier_post_external_cap == "true" )
+		{
+		?>
+		<hr>
+		<table border="1">
+			<tr>
+				<th colspan="4"></center><?php _e("Capabilities managed externally, below is for all roles", "frontier-post"); ?></center></th>
+			</tr><tr>
+				<td><?php _e("Default Editor", "frontier-post"); ?>:</td>
+				<td><select  id="frontier_default_editor" name="frontier_default_editor" >
+					<?php foreach($editor_types as $key => $value) : ?>   
+						<option value='<?php echo $key ?>' <?php echo ( $key == $frontier_default_editor) ? "selected='selected'" : ' ';?>>
+							<?php echo $value; ?>
+						</option>
+					<?php endforeach; ?>
+				</select></td>
+				<td><?php _e("Default category select", "frontier-post"); ?>:</td>
+				<td><select  id="frontier_default_cat_select" name="frontier_default_cat_select" >
+					<?php foreach($category_types as $key => $value) : ?>   
+						<option value='<?php echo $key ?>' <?php echo ( $key == $frontier_default_cat_select) ? "selected='selected'" : ' ';?>>
+							<?php echo $value; ?>
+						</option>
+					<?php endforeach; ?>
+				</select></td>
+		</table><hr>	
+		<?php		
+		}
+	else
+		{
+	?>
 			<table border="1">
 					<tr>
 					<th colspan="8"></center><?php _e("Capabilities by user role", "frontier-post"); ?></center></th>
@@ -401,7 +451,8 @@ function frontier_post_settings_page()
 					} // end cap
 					echo '</tr>';
 				} // end roles
-			
+	
+	
 			?>
 			</table>
 			</br>
@@ -416,25 +467,13 @@ function frontier_post_settings_page()
 					</i></td>
 				</tr>
 			</table>
-			
-			<p class="submit">
-				<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
-			</p>
+	
 			
 			<?php 
-			// WP editor tinyMCE has been changed, and wont work - New plugin Frontier Buttons should be used instead
-			if (($wp_version >= "3.9"))
-				{
-				update_option("frontier_post_mce_custom", "false");
-				$frontier_post_mce_custom = false;
-				$mce_readonly = "READONLY";
-				//echo("version: ");
-				//echo($wp_version);
-				}
-			else
-				{
-				$mce_readonly = " ";
-				}
+	
+	} // end cap managed externally
+
+	
 			
 			?>
 			
@@ -457,54 +496,30 @@ function frontier_post_settings_page()
 					<th align='left'><?php _e("Show link to login page:", "frontier-post"); ?>:</th>
 					<td><center><input type="checkbox" name="frontier_post_show_login" value="true" <?php echo ($frontier_post_show_login == "true") ? 'checked':''; ?>></center></td>
 					<td><?php _e("Shows link to wp-login.php after text: Please login", "frontier-post"); ?></td>
-			<?php 
-			// WP editor tinyMCE has been changed, and wont work - New plugin Frontier Buttons should be used instead
-			if (($wp_version >= "3.9"))
-				{
-				?>
+				</tr><tr>
+					<th align='left'><?php _e("Set Capabilities externally:", "frontier-post"); ?>:</th>
+					<td><center><input type="checkbox" name="frontier_post_external_cap" value="true" <?php echo ($frontier_post_external_cap == "true") ? 'checked':''; ?>></center></td>
+					<td><?php _e("If checked capabilities (see below) will be managed from external plugin ex.: User Role Editor", "frontier-post"); ?></td>
 				</tr><tr>
 					<th align='left'><?php _e("Use custom editor buttons:", "frontier-post"); ?>:</th>
 					<td></td>
-					<td><?php _e("From wordpress version 3.9 you need to use separate pluging Frontier Buttons to manage editor buttons", "frontier-post");  ?> &nbsp;
-					<a href="http://wordpress.org/plugins/frontier-post/faq/" target="_blank"><?php _e("Additional info: FAQ on plugin site", "frontier-post"); ?>
-					</td>
-				<?php
-				}
-			else
-				{
-			?>
-				</tr><tr>
-					<th align='left'><?php _e("Use custom editor buttons:", "frontier-post"); ?>:</th>
-					<td><center><input <?php echo $mce_readonly; ?> type="checkbox" name="frontier_post_mce_custom" value="true" <?php echo ($frontier_post_mce_custom == "true") ? 'checked':''; echo $mce_readonly; ?>></center></td>
-					<td><?php _e("Control the buttons showed in the editor (only in frontend)", "frontier-post");  ?> &nbsp;
-					<a href="http://wordpress.org/plugins/frontier-post/faq/" target="_blank"><?php _e("Additional info: FAQ on plugin site", "frontier-post"); ?>
+					<td>Has been moved to a separate pluging: <a href="http://wordpress.org/plugins/frontier-buttons/" target="_blank">Frontier Buttons</a>
 					</td>
 				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;1:</td>
-					<td colspan='2'><input type="text" name="frontier_post_mce_button1" value="<?php echo $frontier_post_mce_button[0]; ?>" size='200'></td>
-				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;2:</td>
-					<td colspan='2'><input type="text" name="frontier_post_mce_button2" value="<?php echo $frontier_post_mce_button[1]; ?>" size='200'></td>
-				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;3:</td>
-					<td colspan='2'><input type="text" name="frontier_post_mce_button3" value="<?php echo $frontier_post_mce_button[2]; ?>" size='200'></td>
-				</tr><tr>
-					<td><?php _e("Custom button row", "frontier-post"); ?>&nbsp;4:</td>
-					<td colspan='2'><input type="text" name="frontier_post_mce_button4" value="<?php echo $frontier_post_mce_button[3]; ?>" size='200'></td>
-			<?php } ?>		
+					<th align='left'><?php _e("Template directory:", "frontier-post"); ?>:</th>
+					<td></td>
+					<td>
+					<?php 
+					echo frontier_template_dir();  
+					// check if frontuier post templates are used
+					if (locate_template(array('plugins/frontier-post/'."frontier_form.php"), false, true))
+						echo "<br /><strong> frontier_form.php ".__("exists in the template directory", "fontier-post")."</strong>";
+					if (locate_template(array('plugins/frontier-post/'."frontier_list.php"), false, true))
+						echo "<br /><strong> frontier_list.php ".__("exists in the template directory", "fontier-post")."</strong>";					
+					?> 
+					</td>	
 				</tr>
 			</table>
-			</br>
-			<?php
-			if (($wp_version < "3.9"))
-				{
-			?>
-			<b><?php _e("Suggested buttons", "frontier-post") ?>:</b></br><i>
-					<?php _e("Row", "frontier-post");?>&nbsp;1: bold, italic, underline, strikethrough, bullist, numlist, blockquote, justifyleft, justifycenter, justifyright, link, unlink, wp_more, spellchecker, fullscreen, wp_adv</br>
-					<?php _e("Row", "frontier-post");?>&nbsp;2: emotions, formatselect, justifyfull, forecolor, pastetext, pasteword, removeformat, charmap, outdent, indent, undo, redo, wp_help</br>
-					<?php _e("Row", "frontier-post");?>&nbsp;3: search,replace,|,tablecontrols</br>
-			<?php } ?>
-			<hr>
 			<br/>
 			<br/>
 			<p class="submit">
@@ -513,6 +528,52 @@ function frontier_post_settings_page()
 			
 
 		</form>
+		<hr>
+		<h1> <?php _e("Additional info", "frontier-post"); ?> </h1>
+		<table width="100%" border="2">
+			<tr>
+				<th>Shortcodes:</th>
+				<th><?php _e('Parameters', 'frontier-post'); ?></th>
+				<th>&nbsp;</th>
+			</tr><tr>
+				<td align="left"><pre>[frontier-post]</pre></td>
+				<td></td>
+				<td align="left"><?php _e('Will show the My post list and link to create new post', 'frontier-post'); ?></td>
+			</tr><tr>
+				<td></td>
+				<td align="left"><pre>frontier_mode=add</pre></td>
+				<td align="left"><?php _e('Will show the add post form in the page where shortcode is entered', 'frontier-post'); ?></td>
+			</tr><tr>
+				<td></td>
+				<td align="left"><pre>frontier_parent_cat_id=7</pre></td>
+				<td align="left"><?php _e('Will limit the categories to the children of category with id=7', 'frontier-post'); ?></td>
+			</tr><tr>
+				<td></td>
+				<td align="left"><pre>frontier_cat_id=24</pre></td>
+				<td align="left"><?php _e('Will default to category with id=24 when a new post is created', 'frontier-post'); ?></td>
+			</tr><tr>
+				<td></td>
+				<td align="left"><pre>frontier_return_text="Save & return to category"</pre></td>
+				<td align="left"><?php _e('Will change text on Save & Return button', 'frontier-post'); ?></td>
+			
+			
+			</tr>
+		</table>
+		<hr>
+		<table width="100%">
+			<tr>
+			<th align="left"><strong><?php _e("Frontier Post Capabilities", "frontier-post"); ?> :</strong></th>
+			</tr><tr>
+			<td>	
+				<?php 
+				foreach($frontier_cap_list as $tmp_cap) : 
+					echo $tmp_cap."<br>";
+				endforeach; 
+				?>
+			</td>
+			</tr>
+		</table>
+		<hr>	
 
 	</div> <!-- frontier-admin-menu -->
 	</div> <!-- wrap -->
