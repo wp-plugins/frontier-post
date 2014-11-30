@@ -5,6 +5,13 @@
 	if ($user_can_edit_this_post)
 	{
 	
+	
+	//echo("Post id: ".($thispost->ID ? $thispost->ID : "??"));
+	//error_log("text: ".$_REQUEST['frontier_return_text']);
+	
+	//echo("return cat: ".( isset($_REQUEST['return_category_archive']) ? $_REQUEST['return_category_archive'] : "?") );
+	//$_REQUEST['frontier_return_text']		= $frontier_return_text;
+	
 	/*
 	echo "Prev cat: ".$frontier_previous_category."<br>";
 	print_r("--Status: ".$tmp_post_status."</br>");
@@ -21,12 +28,17 @@
 
 	<table >
 	<tbody>
-	<form action="" method="post" name="wppu" id="wppu" enctype="multipart/form-data" >
+	<form action="" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >
 		<input type="hidden" name="home" value="<?php the_permalink(); ?>" > 
 		<input type="hidden" name="action" value="wpfrtp_save_post"> 
 		<input type="hidden" name="task" value="<?php echo $_REQUEST['task'];?>">
 		<input type="hidden" name="parent_cat" value="<?php echo $_REQUEST['parent_cat'];?>">
+		<input type="hidden" name="frontier_cat_id" value="<?php echo $_REQUEST['frontier_cat_id'];?>">
+		<input type="hidden" name="return_category_archive" value="<?php echo $_REQUEST['return_category_archive'];?>">
 		<input type="hidden" name="postid" id="postid" value="<?php if(isset($thispost->ID)) echo $thispost->ID; ?>">
+		<input type="hidden" name="return_p_id" id="id" value="<?php echo $_REQUEST['frontier_return_page_id']; ?>">
+		<?php wp_nonce_field( 'frontier_add_edit_post' ); ?>
+		
 	<tr>
 		<td>
 			<table><tbody>
@@ -89,46 +101,43 @@
 			<?php } ?>	  
 		</tr><tr>
 			<?php
-			if ($category_type != "hide")
+			switch ($category_type) 
 				{
-				?>
-				<td class="frontier_border" width="50%">
-				<?php
-				
-				
-				if ($category_type == "single")
-					{
+				case "hide":
+					break;
+			
+				case "single":
+					echo '<td class="frontier_border" width="50%">';
 					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'child_of' => $parent_category, 'orderby' => 'name', 'selected' => $postcategoryid, 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
-					}
-				else
-					{
-					if ($category_type == "multi")
-						{
-						?>
-						<select name="categorymulti[]" id="frontier_categorymulti" multiple="multiple" size="8">
-						<?php  
-						foreach ( $catlist as $category1) : ?>
-							<option value="<?php echo $category1['cat_ID']; ?>" <?php if ( $cats_selected && in_array( $category1['cat_ID'], $cats_selected ) ) { echo 'selected="selected"'; }?>><?php echo $category1['cat_name']; ?></option>
-						<?php endforeach; ?>
-						</select>
-						</br><div class="frontier_helptext"><?php _e("Select category, multible can be selected using ctrl key", "frontier-post"); ?></div>
-						</td>
-						<?php 
-						}// end multis select
-					else
-						{
-						?>
-						<div class="container">
-						<?php  
-						foreach ( $catlist as $category1) : ?>
-							<input type="checkbox" name="categorymulti[]" value="<?php echo $category1['cat_ID']; ?>" <?php if ( $cats_selected && in_array( $category1['cat_ID'], $cats_selected ) ) { echo 'checked="checked"';} ?>><?php echo $category1['cat_name']; ?><br /> 
-						<?php endforeach; ?>
+					break;
+			
+				case "multi":
+					echo '<td class="frontier_border" width="50%">';
+					echo frontier_post_tax_multi($catlist, $cats_selected, "categorymulti[]", "frontier_categorymulti", 8);
+					echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+					echo '</td>';
+					break;
+    
+				case "checkbox":
+					echo '<td class="frontier_border" width="$cats_selected50%"><div class="frontier-tax-box">';
+					echo frontier_post_tax_checkbox($catlist, $cats_selected, "categorymulti[]", "frontier_categorymulti");
+					echo '</div></td>';
+					break;
+				
+				case "readonly":
+					$post_taxs = get_the_category($thispost);
+					echo '<td class="frontier_border" width="50%">';
+					foreach ( $post_taxs as $category1) :
+						echo $category1->name.", "; 
+					endforeach;
+					echo '</td>';
+					break;
 					
-						</div></td>
-						<?php
-						}
-					}  
-				} // end hide category 
+				default:
+					break;
+				}
+			
+				
 				?>
 				
 			<?php if ( current_user_can( 'frontier_post_tags_edit' ) )
@@ -141,7 +150,6 @@
 			<?php } ?>
 		
 			
-		
 		</tr>
 		</tbody></table></td>
 	</tr><tr>
@@ -180,9 +188,16 @@
 		</td>
 	</tr><tr>
 		<td>
-			<button class="button" type="submit" name="user_post_save" id="user_post_save" value="save"><?php _e("Save", "frontier-post"); ?></button>
-			<button class="button" type="submit" name="user_post_submit" id="user_post_submit" value="savereturn"><?php _e("Save & Return", "frontier-post"); ?></button>
-			<button class="button" type="submit" name="user_post_preview" id="user_post_preview" value="preview"><?php _e("Save & Preview", "frontier-post"); ?></button>
+			<?php
+			if ( isset($_REQUEST['frontier_return_text']) && ($_REQUEST['frontier_return_text'] != "false") )
+				$save_return_text = $_REQUEST['frontier_return_text'];
+			else
+				$save_return_text = __("Save & Return", "frontier-post");
+			?>
+		
+			<button class="button" type="submit" name="user_post_save" 		id="user_post_save" 	value="save"><?php _e("Save", "frontier-post"); ?></button>
+			<button class="button" type="submit" name="user_post_submit" 	id="user_post_submit" 	value="savereturn"><?php echo $save_return_text; ?></button>
+			<button class="button" type="submit" name="user_post_preview" 	id="user_post_preview" 	value="preview"><?php _e("Save & Preview", "frontier-post"); ?></button>
 			
 			<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
 		</td>

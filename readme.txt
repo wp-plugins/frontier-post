@@ -3,7 +3,7 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 4.0
+Tested up to: 4.0.1
 Stable tag: 2.6.1
 License: GPL v3 or later
  
@@ -155,12 +155,31 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
-= 2.6.0 =
+= 2.7.5 =
+* Added shortcode parameter [frontier-post frontier_list_all_posts="frontier_list_all_posts"] - Will list all published posts, not only from current user, can be combined with frontier_list_cat_id 
+
+= 2.7.4 =
+* Added shortcode parameter [frontier-post frontier_return_text="Save & return to category"] - Will change text on Save & Return button
+
+= 2.7.2 =
+* Added shortcode parameter [frontier-post frontier_list_cat_id=7] to allow for the list of the users post to be limited to one category
+
+
+= 2.7.1 =
+* Tested with WP 4.0.1
+* Cleaned frontier_form.php, added switch for category display type
+* Changed HTML output to functions for multi and checkbox
+* Added category in shortcode ex:  [frontier-post frontier_cat_id=7]
+* Enabled support for capabilties can be managed from other plugin (User Role Editor)
+* Added widget New post from Category - The widget can be added to a category page, and will take the category from that page
+
+
+= 2.6.1 =
 * Removed .container (added in 2.6.0) from css as it might conflict 
 
 = 2.6.0 =
 * Added option for categories as checkbox list
-* Fixed issue, Post status dropdown didnt shor correct status.
+* Fixed issue, Post status dropdown didnt show correct status.
 * Added function frontier_tax_list() to prepare support for taxonomies
 
 = 2.5.5 =
