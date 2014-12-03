@@ -187,7 +187,7 @@
 			{ ?>
 				<button class="button" type="submit" name="user_post_submit" 	id="user_post_submit" 	value="savereturn"><?php echo $save_return_text; ?></button>
 			<?php }
-			if ( $frontier_submit_buttons['preview'] == "true" )
+			if ( $frontier_submit_buttons['savereturn'] == "true" )
 			{ ?>
 				<button class="button" type="submit" name="user_post_preview" 	id="user_post_preview" 	value="preview"><?php _e("Save & Preview", "frontier-post"); ?></button>
 			<?php } 

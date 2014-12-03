@@ -33,16 +33,13 @@ function frontier_post_set_defaults()
 	add_option("frontier_post_show_login", "false");
 	add_option("frontier_post_change_status", "true");
 	add_option("frontier_default_status", "publish");
+	add_option("frontier_post_external_cap", "false" );
+	add_option("frontier_default_editor", "full" );
+	add_option("frontier_default_cat_select", "checkbox" );
+
+	add_option("frontier_post_submit_buttons", array('save' => 'true', 'savereturn' => 'true', 'preview' => 'true', 'cancel' => 'true' ));
 				
-	/*	
-	$tmp_buttons = array();
-	$tmp_buttons[0]	= (isset($_POST[ "frontier_post_mce_button1"]) ? $_POST[ "frontier_post_mce_button1"] : '' );
-	$tmp_buttons[1]	= (isset($_POST[ "frontier_post_mce_button2"]) ? $_POST[ "frontier_post_mce_button2"] : '' );
-	$tmp_buttons[2]	= (isset($_POST[ "frontier_post_mce_button3"]) ? $_POST[ "frontier_post_mce_button3"] : '' );
-	$tmp_buttons[3]	= (isset($_POST[ "frontier_post_mce_button4"]) ? $_POST[ "frontier_post_mce_button4"] : '' );
-	*/
-	add_option(frontier_post_mce_button ,array($frontier_mce_buttons_1, $frontier_mce_buttons_2, $frontier_mce_buttons_3, $frontier_mce_buttons_4 )); 
-				
+			
 	
 	$tmp_cap_list	= $frontier_option_list;			
 	$saved_options = get_option('frontier_post_options', array() );
@@ -81,10 +78,10 @@ function frontier_post_set_defaults()
 				if ($tmp_cap == 'redir_edit')
 					$tmp_option  = "true";
 					
-				if ($tmp_cap == 'can_private')
+				if ( ($tmp_cap == 'can_private') && ($key != 'administrator') )
 					$tmp_option  = "false";
 					
-				if ($tmp_cap == 'exerpt_edit')
+				if ($tmp_cap == 'exerpt_edit'  && ($key != 'administrator') )
 					$tmp_option  = "false";
 								
 				if ($tmp_cap == 'editor')
@@ -99,21 +96,24 @@ function frontier_post_set_defaults()
 				//Check if option already exists, if not, set it (we will not overwrite existing settings
 				if ( !array_key_exists($tmp_cap, $tmp_role_settings) || empty($saved_options[$key][$tmp_cap]))
 					$saved_options[$key][$tmp_cap] = $tmp_option;
-					
-									
-				// set capability, but not for editor and category as they are not capabilities
-				if ($tmp_cap != 'editor' && $tmp_cap != 'category' && $tmp_cap != 'default_category')
-					{
-					$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
-					if ( $tmp_value == "true" )
-						{
-						$xrole->add_cap( 'frontier_post_'.$tmp_cap );
-						}
-					else
-						{
-						$xrole->remove_cap( 'frontier_post_'.$tmp_cap );
-						}
 				
+				// do not change capabilities if managed externally
+				if ( get_option("frontier_post_external_cap", "false") != "true" )					
+					{
+					// set capability, but not for editor and category as they are not capabilities
+					if ($tmp_cap != 'editor' && $tmp_cap != 'category' && $tmp_cap != 'default_category')
+						{
+						$tmp_value		= ( $saved_options[$key][$tmp_cap] ? $saved_options[$key][$tmp_cap] : "false" );
+						if ( $tmp_value == "true" )
+							{
+							$xrole->add_cap( 'frontier_post_'.$tmp_cap );
+							}
+						else
+							{
+							$xrole->remove_cap( 'frontier_post_'.$tmp_cap );
+							}
+					
+						}
 					}
 			} // End capabilities
 		} // End roles
