@@ -3,7 +3,7 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 2.6.1
 License: GPL v3 or later
  
@@ -155,12 +155,54 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
-= 2.6.0 =
+= 2.7.7
+* Tested with 4.1
+* Fixed submit button select in settings page, and moved option to advanced options
+* Added option to show IDs for categories in the admin panel list
+* Removed post status column from list posts if short code parameter: frontier_list_all_posts="true"
+* Removed count of users posts text from list posts if short code parameter: frontier_list_all_posts="true"
+* Added option for editor height (default 300)
+* Fixed return from delete post, so returned to calling list page
+* New function: frontier_post_wp_editor_args to allow change of editor options
+* Call to wp_editor in frontier_form to use new function, to enable config of editor in templates
+
+
+= 2.7.6 =
+* Added hidden field post_categories to frontier_form.php to keep categories if category field is removed from form
+* Updated logic for set capabilities, and disabled capability set on plugin activate, if external management of capabilities is enabled
+* Added integration with Frontier Buttons calling function: theme_advanced_buttons1
+* Disable submit buttons individually in settings
+* If user has capability "delete_other_posts" (Administrators & Editors) always allow them allow them to delete posts from frontend.
+* If user has capability "edit_others_posts" (Administrators & Editors) always allow them allow them to edit posts from frontend.
+* If all posts are being displayed in frontier-list, show author instead of category
+* "Cmt" heading in frontier list replaced by comment icon as heading was confusing.
+* frontier_post.css will be loaded from template directory if present
+
+= 2.7.5 =
+* Added shortcode parameter [frontier-post frontier_list_all_posts="frontier_list_all_posts"] - Will list all published posts, not only from current user, can be combined with frontier_list_cat_id 
+
+= 2.7.4 =
+* Added shortcode parameter [frontier-post frontier_return_text="Save & return to category"] - Will change text on Save & Return button
+
+= 2.7.2 =
+* Added shortcode parameter [frontier-post frontier_list_cat_id=7] to allow for the list of the users post to be limited to one category
+
+
+= 2.7.1 =
+* Tested with WP 4.0.1
+* Cleaned frontier_form.php, added switch for category display type
+* Changed HTML output to functions for multi and checkbox
+* Added category in shortcode ex:  [frontier-post frontier_cat_id=7]
+* Enabled support for capabilties can be managed from other plugin (User Role Editor)
+* Added widget New post from Category - The widget can be added to a category page, and will take the category from that page
+
+
+= 2.6.1 =
 * Removed .container (added in 2.6.0) from css as it might conflict 
 
 = 2.6.0 =
 * Added option for categories as checkbox list
-* Fixed issue, Post status dropdown didnt shor correct status.
+* Fixed issue, Post status dropdown didnt show correct status.
 * Added function frontier_tax_list() to prepare support for taxonomies
 
 = 2.5.5 =
