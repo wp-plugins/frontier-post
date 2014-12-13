@@ -1,18 +1,19 @@
 <?php
 
 
-function  frontier_user_post_list($frontier_post_shortcode_parms = array())
+function  frontier_user_post_list()
 	{
-	extract($frontier_post_shortcode_parms);
+		
+	global $frontier_parent_cat_id;
+	global $frontier_cat_id;
+	global $frontier_list_cat_id;
+	global $frontier_return_page_id;
+	global $frontier_return_text;
+	global $frontier_list_all_posts;
 	
 	global $post;
 	global $current_user;
 	get_currentuserinfo();
-
-	
-	fp_log("fp cat id List: ".($frontier_cat_id ? $frontier_cat_id : "Unknown"));
-	//fp_log("fp cat id List test: ".(isset($fp_cat_id) ? $fp_cat_id : "Unknown"));		
-	//fp_log($frontier_post_shortcode_parms);		
 	
 	$pagenum	= isset( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
 	$ppp		= (int) get_option('frontier_post_ppp',5);
