@@ -1,19 +1,19 @@
 <?php
 
 
-function  frontier_user_post_list($frontier_post_shortcode_parms = array())
+function  frontier_user_post_list()
 	{
-	extract($frontier_post_shortcode_parms);
+		
+	global $frontier_parent_cat_id;
+	global $frontier_cat_id;
+	global $frontier_list_cat_id;
+	global $frontier_return_page_id;
+	global $frontier_return_text;
+	global $frontier_list_all_posts;
 	
 	global $post;
 	global $current_user;
 	get_currentuserinfo();
-
-	$tmp_p_id = get_the_id();
-	
-	fp_log("fp cat id List: ".($frontier_cat_id ? $frontier_cat_id : "Unknown"));
-	//fp_log("fp cat id List test: ".(isset($fp_cat_id) ? $fp_cat_id : "Unknown"));		
-	//fp_log($frontier_post_shortcode_parms);		
 	
 	$pagenum	= isset( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
 	$ppp		= (int) get_option('frontier_post_ppp',5);
@@ -29,8 +29,7 @@ function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 	
 	// add category from shortcode to limit posts
 	if ( $frontier_list_cat_id > 0) 
-		$args["cat"] = implode(",",$frontier_list_cat_id);
-
+		$args["cat"] = $frontier_list_cat_id;
 	
 	//List all published posts
 	if ( $frontier_list_all_posts == "true" )
@@ -38,7 +37,7 @@ function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 	else
 		$args["author"] = $current_user->ID;
 	
-	fp_log($args);
+	
 	
 	$user_posts 	= new WP_Query( $args );
 	//print_r("Last SQL-Query: {$user_posts->request}");
