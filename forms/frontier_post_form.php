@@ -14,7 +14,7 @@ frontier_post_output_msg();
 		<input type="hidden" name="task" value="<?php echo $_REQUEST['task'];?>">
 		<?php wp_nonce_field( 'frontier_add_edit_post' ); ?>
 		<!-- Keep selected categories if no category field on form -->
-		<input  type="hidden" name="post_categories" value="<?php echo implode(',', $cats_selected) ;?>">
+		<input  type="hidden" name="post_categories" value="<?php echo $cats_selected_txt ;?>">
 	<tr>
 		<td>
 			<table><tbody>
@@ -43,7 +43,7 @@ frontier_post_output_msg();
 				else
 					{
 					?>
-					<select  id="post_status" name="post_status" <?php echo $status_readonly; ?>>
+					<select  id="post_status" name="post_status" >
 						<?php foreach($status_list as $key => $value) : ?>   
 							<option value='<?php echo $key ?>' <?php echo ( $key == $tmp_post_status) ? "selected='selected'" : ' ';?>>
 								<?php echo $value; ?>
@@ -100,9 +100,9 @@ frontier_post_output_msg();
 					break;
     
 				case "checkbox":
-					echo '<td class="frontier_border" width="$cats_selected50%"><div class="frontier-tax-box">';
+					echo '<td class="frontier_border" width="50%"><div class="frontier-tax-box">';
 					echo frontier_post_tax_checkbox($catlist, $cats_selected, "categorymulti[]", "frontier_categorymulti");
-					echo '</div></td>';
+					echo '</td>';
 					break;
 				
 				case "readonly":
@@ -181,7 +181,7 @@ frontier_post_output_msg();
 			
 			if ( $frontier_submit_buttons['save'] == "true" )
 			{ ?>
-				<button class="button" type="submit" name="user_post_submit" 		id="user_post_submit" 	value="save"><?php _e("Save", "frontier-post"); ?></button>
+				<button class="button" type="submit" name="user_post_submit" 		id="user_post_save" 	value="save"><?php _e("Save", "frontier-post"); ?></button>
 			<?php }
 			if ( $frontier_submit_buttons['savereturn'] == "true" )
 			{ ?>
@@ -189,7 +189,7 @@ frontier_post_output_msg();
 			<?php }
 			if ( $frontier_submit_buttons['preview'] == "true" )
 			{ ?>
-				<button class="button" type="submit" name="user_post_submit" 	id="user_post_submit" 	value="preview"><?php _e("Save & Preview", "frontier-post"); ?></button>
+				<button class="button" type="submit" name="user_post_submit" 	id="user_post_preview" 	value="preview"><?php _e("Save & Preview", "frontier-post"); ?></button>
 			<?php } 
 			if ( $frontier_submit_buttons['cancel'] == "true" )
 			{ ?>
