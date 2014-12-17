@@ -1,48 +1,22 @@
 <?php
 
 
-function  frontier_user_post_list()
-	{
-		
-	global $frontier_parent_cat_id;
-	global $frontier_cat_id;
-	global $frontier_list_cat_id;
-	global $frontier_return_page_id;
-	global $frontier_return_text;
-	global $frontier_list_all_posts;
-	
-	global $post;
-	global $current_user;
-	get_currentuserinfo();
-	
-	$pagenum	= isset( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
-	$ppp		= (int) get_option('frontier_post_ppp',5);
 
-	$args = array(
-			'post_type' 		=> 'post',
-			'post_status' 		=> 'draft, pending, publish, private',
-			'order'				=> 'DESC',
-			'orderby' 			=> 'post_date', 
-			'posts_per_page'    => $ppp,
-			'paged'				=> $pagenum,
-			);
-	
-	// add category from shortcode to limit posts
-	if ( $frontier_list_cat_id > 0) 
-		$args["cat"] = $frontier_list_cat_id;
-	
-	//List all published posts
-	if ( $frontier_list_all_posts == "true" )
-		$args["post_status"] = "publish";
-	else
-		$args["author"] = $current_user->ID;
-	
-	
-	
-	$user_posts 	= new WP_Query( $args );
-	//print_r("Last SQL-Query: {$user_posts->request}");
-
-	include_once(frontier_load_form("frontier_list.php"));
 		
-	}  
+	$tmp_edit_link = '<a href='.get_permalink().$concat.'task=edit&postid='.$preview_post->ID.'>'.__("Edit Post", "frontier-post").'</a>';
+	$tmp_list_link = '<a href='.get_permalink().'>'.__("Return to list", "frontier-post").'</a>';
+	
+	?>
+	
+	<hr>
+	
+	<div class="frontier_post_preview_title"><center> <h1>Preview Post</center></h1></center></div>
+	<div class="frontier_post_preview_status">
+	<center><?php echo $tmp_edit_link.'&nbsp&nbsp('.__("status", "frontier_post").'='.$preview_post->post_status.'&nbsp&nbsp'.$tmp_list_link; ?></center></div>'
+	<hr>
+	<h1><?php $preview_post->post_title; ?></h1><br>
+	<?php echo $tmp_content; ?>
+	
+<?php	
+ 
 ?>

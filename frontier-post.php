@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 2.8.5
+Version: 3.0.0
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "2.8.5"); 
+define('FRONTIER_POST_VERSION', "3.0.0"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_DEBUG', false);
 
@@ -34,8 +34,6 @@ include("include/frontier_approvals_widget.php");
 include("include/frontier_new_category_post_widget.php");
 
 add_action("init","frontier_get_user_role"); 
-//add_action("init","frontier_posting_form_submit", 1); 
-//add_action("init","frontier_execute_delete_post");  
 
  
 function get_file_extension($file_name)

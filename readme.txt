@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1
-Stable tag: 2.6.1
+Stable tag: 3.0.0
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -46,7 +46,14 @@ Frontier Post is intentionally made simple :)
 * New in version 3.0.0
  * Multiple pages with frontier-post shortcode can be used.
  * Limit pages to one category, after add/update/delete returns to calling list page
+ * List all posts from a category (frontier_list_all_posts="true")
  * New widget to enable post creation link on category archive pages
+ * Supports external management of capabilities (tested with User Role Editor)
+ * Submit buttons can be hidden individually
+ * Title can be hidden on certain pages by adding comma separated list of page IDs
+ * Add ID column to list of categories (optional)
+ * Hide post status (optional)
+ 
 
 
 = My Posts Widget =
@@ -95,13 +102,13 @@ Let me know what you think, and if you have enhancement requests or problems let
 * You can copy the forms located in the forms directory of the plugin to your theme
  * create a subdirectory in you theme (or child theme) folder: /plugins/frontier-post/ - Example: wordpress/wp-content/themes/twentytwelve/plugins/frontier-post/
 * The custom templates is quite easy (example below is if you installed wp in the root):
- * Navigate to ./wp-content/plugins/frontier-post/forms
- * Copy frontier_form.php and frontier_list.php
+ * Navigate to ./wp-content/plugins/frontier-post/examples
+ * Copy example files
  * Navigate to ./wp.content/themes/[your active theme]/
  * check if ./wp.content/themes/[your active theme]/plugins/frontier-post/ exists, if not create it
- * Paste the 2 files to ./wp.content/themes/[your active theme]/plugins/frontier-post/
+ * Paste the files to ./wp.content/themes/[your active theme]/plugins/frontier-post/
+ * edit the files
 
-Now you can edit the 2 files to match your formatting requirements
 Be aware that the template files will be deleted on theme upgrade, so make sure you have a copy, or use a child theme 
 
 
@@ -144,32 +151,13 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 == Changelog ==
 
 
-= 2.8.5 =
-* Fixed missing custom text on submit button
-* Updated translation .po file
-
-= 2.8.4 =
-* removed more debug messages
-
-= 2.8.3 =
-* removed error log messages
-
-= 2.8.1 =
+= 3.0.0 =
 * Multiple categories can now be used in shortcode parms - use double quotes around comma separated list
-
-= 2.8.0 =
 * Re-designed page transition logic. Removed output buffering (ob_start() etc), and changed it to a flow in php.
 * Added preview page due to new transition logic not allowing redirects to standard preview page
 * Added option to hide page title for certain pages.
 * Added message on the frontend for add/update/delete - Must be enabled in settings.
-   
-
-= 2.7.8 =
-* Changed return after delete, to be a redirection to catch shortcode parameters.
-
-= 2.7.7 =
 * Tested with 4.1
-* Fixed submit button select in settings page, and moved option to advanced options
 * Added option to show IDs for categories in the admin panel list
 * Removed post status column from list posts if short code parameter: frontier_list_all_posts="true"
 * Removed count of users posts text from list posts if short code parameter: frontier_list_all_posts="true"
@@ -177,9 +165,6 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 * Fixed return from delete post, so returned to calling list page
 * New function: frontier_post_wp_editor_args to allow change of editor options
 * Call to wp_editor in frontier_form to use new function, to enable config of editor in templates
-
-
-= 2.7.6 =
 * Added hidden field post_categories to frontier_form.php to keep categories if category field is removed from form
 * Updated logic for set capabilities, and disabled capability set on plugin activate, if external management of capabilities is enabled
 * Added integration with Frontier Buttons calling function: theme_advanced_buttons1
@@ -187,21 +172,11 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 * If user has capability "delete_other_posts" (Administrators & Editors) always allow them allow them to delete posts from frontend.
 * If user has capability "edit_others_posts" (Administrators & Editors) always allow them allow them to edit posts from frontend.
 * If all posts are being displayed in frontier-list, show author instead of category
-* "Cmt" heading in frontier list replaced by comment icon as heading was confusing.
+* Cmt heading in frontier list replaced by comment icon as heading was confusing.
 * frontier_post.css will be loaded from template directory if present
-
-= 2.7.5 =
 * Added shortcode parameter [frontier-post frontier_list_all_posts="frontier_list_all_posts"] - Will list all published posts, not only from current user, can be combined with frontier_list_cat_id 
-
-= 2.7.4 =
 * Added shortcode parameter [frontier-post frontier_return_text="Save & return to category"] - Will change text on Save & Return button
-
-= 2.7.2 =
 * Added shortcode parameter [frontier-post frontier_list_cat_id=7] to allow for the list of the users post to be limited to one category
-
-
-= 2.7.1 =
-* Tested with WP 4.0.1
 * Cleaned frontier_form.php, added switch for category display type
 * Changed HTML output to functions for multi and checkbox
 * Added category in shortcode ex:  [frontier-post frontier_cat_id=7]

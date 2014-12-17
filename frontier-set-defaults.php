@@ -37,6 +37,19 @@ function frontier_post_set_defaults()
 	add_option("frontier_post_catid_list", "false");
 	add_option("frontier_default_editor", "full" );
 	add_option("frontier_default_cat_select", "checkbox" );
+	
+	update_option("frontier_post_catid_list", "" );
+	update_option("frontier_post_hide_status", "false"  );
+	update_option("frontier_post_show_msg", "false"  );
+	
+	update_option("frontier_post_editor_lines", 300);
+	update_option("frontier_post_hide_title_ids", ""  );
+	
+	
+	update_option("frontier_default_status", "publish" );
+	update_option("frontier_default_editor",  "full"  );
+	update_option("frontier_default_cat_select",  "checkbox"  );
+				
 
 	add_option("frontier_post_submit_buttons", array('save' => 'true', 'savereturn' => 'true', 'preview' => 'true', 'cancel' => 'true' ));
 				
