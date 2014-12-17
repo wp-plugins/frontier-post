@@ -2,32 +2,38 @@
 /*
 Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
-Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
+Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 2.6.1
+Version: 3.0.0
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "2.6.1"); 
+define('FRONTIER_POST_VERSION', "3.0.0"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
-
+define('FRONTIER_POST_DEBUG', false);
 
 //session_start();
 
 include("include/frontier_post_defaults.php");
 include("include/frontier_post_validation.php");
+include("include/frontier_post_util.php");
+include("include/frontier_email_notify.php");
 
 include("frontier-list-posts.php");
 include("frontier-submit-form.php");
 include("frontier-delete-post.php");
 include("frontier-set-defaults.php");
 include("frontier-add-edit.php");
+include("frontier-preview-post.php");
+
 
 //widgets	
 include("include/frontier_my_posts_widget.php");
 include("include/frontier_approvals_widget.php");
+include("include/frontier_new_category_post_widget.php");
 
+add_action("init","frontier_get_user_role"); 
 
  
 function get_file_extension($file_name)
@@ -41,7 +47,7 @@ function frontier_user_posts($atts)
 		global $wp_roles;
 		global $current_user;
 		
-		ob_start();
+		//ob_start();
     
     
         if(is_user_logged_in())
@@ -50,46 +56,68 @@ function frontier_user_posts($atts)
 				{
 				return;         
 				}
-            if(isset($_GET['task']))
-				{
-				$post_task = $_GET['task'];
-				}
-			else
-				{
-				$post_task = "notaskset";
-				}
+            
+			$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
+			$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";
 			
-			//Get shortcode parms
-			extract( shortcode_atts( array (
-				'frontier_mode' => 'none',
-				'frontier_parent_cat_id' => 0
-				), $atts ) );	
-				
-			//error_log("frontier_mode: ".$frontier_mode);
-			//error_log("frontier_cat_id: ".$frontier_cat_id);
+			$frontier_post_shortcode_parms = shortcode_atts( array (
+				'frontier_mode' 			=> 'none',
+				'frontier_parent_cat_id' 	=> 0,
+				'frontier_cat_id' 			=> 0,
+				'frontier_list_cat_id' 		=> 0,
+				'frontier_list_all_posts'	=> 'false',
+				'frontier_return_text'		=> __("Save & Return", "frontier-post")
+				), $atts );
+			
+			
+			
+			//If Category parsed from widget assign it instead of category from shortcode
+			if ( isset($_GET['frontier_new_cat_widget']) && $_GET['frontier_new_cat_widget'] == "true" )
+				{
+				$_REQUEST['frontier_new_cat_widget'] = "true";
+				$frontier_post_shortcode_parms['frontier_cat_id'] = isset($_GET['frontier_cat_id']) ? $_GET['frontier_cat_id'] : 0;
+				}
+			//Change Categories to array
+			$frontier_post_shortcode_parms['frontier_cat_id'] = explode(",", $frontier_post_shortcode_parms['frontier_cat_id']);
+			$frontier_post_shortcode_parms['frontier_list_cat_id'] = explode(",", $frontier_post_shortcode_parms['frontier_list_cat_id']);
+			
+			
+			//fp_log($frontier_post_shortcode_parms['frontier_cat_id']);
+			//fp_log($frontier_post_shortcode_parms);
+			
+			extract($frontier_post_shortcode_parms);
 			
 			// if mode is add, go directly to show form - enables use directly on several pages
 			if ($frontier_mode == "add")
 				$post_task = "new";
 			
-			$_REQUEST['task'] 		= $post_task;
-			$_REQUEST['parent_cat']	= $frontier_parent_cat_id;
+			
 			
             switch( $post_task )
 				{
                 case 'new':
-					frontier_post_add_edit();
+					if ( $post_action == "wpfrtp_save_post" )
+						frontier_posting_form_submit($frontier_post_shortcode_parms);
+					else	
+						frontier_post_add_edit($frontier_post_shortcode_parms);
 					break;
-                case 'edit':
-                    frontier_post_add_edit();
-                    break;
-                case 'delete':
-                    frontier_delete_post();
-                    frontier_user_post_list();
-                    break;    
-                case '':
+                
+				case 'edit':
+                    if ( $post_action == "wpfrtp_save_post" )
+						frontier_posting_form_submit($frontier_post_shortcode_parms);
+					else	
+						frontier_post_add_edit($frontier_post_shortcode_parms);
+				    break;
+				
+				case 'delete':
+					if ( $post_action == "wpfrtp_delete_post" )
+						frontier_execute_delete_post($frontier_post_shortcode_parms);
+					else	
+						frontier_prepare_delete_post($frontier_post_shortcode_parms);
+				    break;    
+                
                 default:
-                    frontier_user_post_list();
+                    frontier_user_post_list($frontier_post_shortcode_parms);
                     break;
 				} 
 			}
@@ -106,14 +134,18 @@ function frontier_user_posts($atts)
 					
 				echo "------<br><br>";
 			}
-
-			$data = ob_get_contents();
-        ob_clean();
-        return $data;
+		
+		
     }
 
 
 register_activation_hook( __FILE__ , 'frontier_post_set_defaults');
+	
+function frontier_template_dir()
+	{
+ 	// get frontier dir in theme or child-theme	
+	return get_stylesheet_directory().'plugins/frontier-post/';		
+	}	
 	
 function frontier_load_form($frontier_form_name)
 	{
@@ -128,6 +160,24 @@ function frontier_load_form($frontier_form_name)
 	//error_log("Form: ".$located);	
 	return $located;		
 	}
+
+// Load css from plugin form directory in theme if exists	
+function frontier_enqueue_scripts()
+	{
+ 	// Check if css is located in theme or child-theme
+	$located = locate_template(array('plugins/frontier-post/frontier-post.css'), false, true);
+	
+	if(!$located )
+		{
+		// if not found in theme folders, load native fronpier form
+		$located = plugins_url('frontier-post/frontier-post.css');
+		}
+
+	wp_enqueue_style('frontierpost', $located);
+	} 
+
+add_action("wp_enqueue_scripts","frontier_enqueue_scripts");  
+
 	
 function frontier_get_user_role() 
 	{
@@ -142,108 +192,26 @@ include('settings-menu.php');
 
 
 //Link for Frontier add post	
-function frontier_post_add_link() 
+function frontier_post_add_link($tmp_p_id = null, $tmp_cat_id = null) 
 	{
 	$url = '';
 	$concat= get_option("permalink_structure")?"?":"&";    
-	//set the permalink for the page itself
-	$frontier_permalink = get_permalink(get_option('frontier_post_page_id'));
+	//set the permalink for the page itself if not parsed
+	if ( !isset($tmp_p_id) )
+		$tmp_p_id = get_option('frontier_post_page_id');
+	
+	$frontier_permalink = get_permalink($tmp_p_id);
 	$url = $frontier_permalink.$concat."task=new";
+	if ( isset($tmp_cat_id) && $tmp_cat_id > 0 )
+		$url = $url."&frontier_cat_id=".$tmp_cat_id;
+	
 	return $url;
 	} 	
 
-
-function frontier_enqueue_scripts()
-	{
-	wp_enqueue_style('frontierpost',plugins_url('frontier-post/frontier-post.css'));
-	} 
-
-add_action("wp_enqueue_scripts","frontier_enqueue_scripts");  
-
-
-add_action("init","frontier_get_user_role"); 
-add_action("init","frontier_posting_form_submit"); 
-add_action("init","frontier_delete_post");  
-
-
-// Send email when a post changes status to pending
-function frontier_email_on_transition(  $new_status, $old_status, $post ) 
-	{
-	
-    if( $post->post_type !== 'post' )
-        return;    //Don't touch anything that's not a post (i.e. ignore links and attachments and whatnot )
-
-			
-    //If some variety of a draft is being published, dispatch an email
-    if(  $old_status != 'pending'  && $new_status == 'pending' && get_option("frontier_post_mail_to_approve", "false") == "true") 
-		{
-		$author_name	= get_the_author_meta( 'display_name', $post->post_author );
-        $to      		= get_option("frontier_post_mail_address") ? get_option("frontier_post_mail_address") : get_settings("admin_email");
-        $subject 		= __("Post for approval from", "frontier-post").": ".$author_name ." (".get_bloginfo( "name" ).")";
-        $body    		= 		__("Post for approval from", "frontier-post").": ".$author_name ." (".get_bloginfo( "name" ).")"."\r\n\r\n";
-		$body    		= $body."Title:: ".$post->post_title."\r\n\r\n";
-		$body    		= $body."Link to approvals: ".site_url('/wp-admin/edit.php?post_status=pending&post_type=post')."\r\n\r\n";
-
-		//error_log('sending email: '.$subject.' To: '.$to);
-		
-        if( !wp_mail($to, $subject, $body ) ) 
-			error_log(__("Message delivery failed - Recipient: (", "frontier-post").$to.")");
-			
-		}
-		
-	if(  $old_status == 'pending'  && $new_status == 'publish' && get_option("frontier_post_mail_approved", "false") == "true"  )
-		{
-		if ( $post->post_author == get_current_user_id() )
-			return; // no reason to send email if current user is able to publish :)
-		
-		$to      		= get_the_author_meta( 'email', $post->post_author );
-        $subject 		= __("Your post has been approved", "frontier-post")." (".get_bloginfo( "name" ).")";
-        $body    		= __("Your post has been approved", "frontier-post").": ".$post->title ." (".get_bloginfo( "name" ).")"."\r\n\r\n";
-		$body    		= $body."Title:: ".$post->post_title."\r\n\r\n";
-		
-		//error_log('sending email: '.$subject.' To: '.$to);
-		
-        if( !wp_mail($to, $subject, $body ) ) 
-			error_log(__("Message delivery failed - Recipient: (", "frontier-post").$to.")");
-		
-		}
-	}
-
-
-add_action('transition_post_status', 'frontier_email_on_transition', 10, 3);
-
-
-
-// WP editor tinyMCE has been changed, and wont work - New plugin Frontier Buttons should be used instead
-global $wp_version;
-if ($wp_version >= "3.9")
-	{
-	update_option("frontier_post_mce_custom", "false");
-	}
-
-// Load tinymce plugins if enabled in frontier settings.
-$frontier_post_mce_custom = get_option("frontier_post_mce_custom", "false");
-	
-if ($frontier_post_mce_custom == "true") 
-	add_filter('mce_external_plugins', 'frontier_tinymce_plugins');
-else
-	remove_filter('mce_external_plugins', 'frontier_tinymce_plugins');
-
-function frontier_tinymce_plugins () 
-	{
-	//$plugins = array('emotions', 'table', 'searchreplace', 'wordcount');
-	$plugins = array('emotions', 'table', 'searchreplace');
-	$plugins_array = array();
-	//Build the response - the key is the plugin name, value is the URL to the plugin JS
-	foreach ($plugins as $plugin ) 
-		{
-		$plugins_array[ $plugin ] = plugins_url('tinymce/', __FILE__) . $plugin . '/editor_plugin.js';
-		}
-	return $plugins_array;
-	}
-
-	
+//*******************************************************************************************	
 // Hide admin bar for user role based on settings
+//*******************************************************************************************
+
 function frontier_admin_bar()
 	{
 	if (!current_user_can( 'frontier_post_show_admin_bar' ))
@@ -252,8 +220,10 @@ function frontier_admin_bar()
 		show_admin_bar(true);
 	}
 add_action("init","frontier_admin_bar");  
-	
-//error_log("Log message : ");
+
+//*******************************************************************************************
+// Redirect standard link for edit post from backend (admin interface) to frontend
+//*******************************************************************************************
 
 function frontier_edit_post_link( $url, $post_id ) 
 	{
@@ -275,6 +245,73 @@ function frontier_edit_post_link( $url, $post_id )
         }
 		return $url;
     }
+
+add_filter( 'get_edit_post_link', 'frontier_edit_post_link', 10, 2 );
+
+//***********************************************************************************
+//* Hide page title on specific pages - Only activate filter if there is any pages to hide (perfomance)
+//***********************************************************************************	
+
+
+function frontier_post_hide_title($fp_tmp_title, $fp_tmp_id = 0)
+	{
+	$fp_tmp_id = (int) $fp_tmp_id;
+	
+	// only execute and hide title if id been parsed, if it is a page and if the page is in the list of pages where title should be hidden.... 
+	if ( $fp_tmp_id > 0 && is_page($fp_tmp_id))
+		{
+		//fp_log("ID: ".$fp_tmp_id." Is singular: ".is_singular()." Title: ".$fp_tmp_title);
+	
+		$fp_tmp_id_list = explode(",", get_option("frontier_post_hide_title_ids", ""));
+		if (in_array($fp_tmp_id, $fp_tmp_id_list) )
+			{
+			$fp_tmp_title = "";
+			}
+		}
+	return $fp_tmp_title;
+	}
+	
+$fp_tmp_id_list = explode(",", get_option("frontier_post_hide_title_ids", ""));
+
+if ( (count($fp_tmp_id_list) > 0) && ( (int) $fp_tmp_id_list[0] > 0) )
+	add_filter("the_title", "frontier_post_hide_title", 99, 2);
+	
+//***********************************************************************************
+//* Add Id to Category list
+//***********************************************************************************	
+
+if ( get_option("frontier_post_catid_list", "false") == "true" )
+	{
+	function frontier_add_categoryid_list($columns) 
+		{
+		$tmp = array( "cat_id" => "ID" );
+		$columns = array_merge($columns, $tmp);
+		//$columns['catID'] = __('ID');
+		return $columns;
+		}
+
+	function frontier_add_categoryid_row( $value, $name, $cat_id )
+		{
+		if( $name == 'cat_id' ) 
+			echo $cat_id;
+		}
+
+	function frontier_post_cat_column_width()	
+		{
+		// Tags page, exit earlier
+		if( $_GET['taxonomy'] != 'category' )
+			return;
+		echo '<style>.column-cat_id {width:5%}</style>';
+		}
+		
+	add_filter( 'manage_edit-category_columns', 'frontier_add_categoryid_list' );
+	add_filter( 'manage_category_custom_column', 'frontier_add_categoryid_row', 10, 3 );
+	add_action( 'admin_head-edit-tags.php', 'frontier_post_cat_column_width' );
+	}
+	
+//***********************************************************************************
+//* Post media fixes
+//***********************************************************************************	
 
 function frontier_media_fix( $post_id ) 
 	{
@@ -298,7 +335,6 @@ function frontier_media_fix_filter( $settings, $post )
 	global $frontier_post_id;
 	
     $settings['post']['id'] = $frontier_post_id;
-    //$settings['post']['nonce'] = wp_create_nonce( 'update-post_' . $frontier_post_id );
 	
 	return $settings;
 	} 	
@@ -313,13 +349,9 @@ function frontier_post_init()
 	
 add_action('plugins_loaded', 'frontier_post_init');
 
-add_filter( 'get_edit_post_link', 'frontier_edit_post_link', 10, 2 );
+
 add_action('admin_menu', 'frontier_post_settings_menu');
 
 add_shortcode("frontier-post","frontier_user_posts");
-//add_shortcode("frontier-post-add","frontier_post_add_edit");
 
-
-//post_status_fix - Removed in version 1.6.1
-//add_shortcode("frontier-status-fix","frontier_status_fix");
 ?>
