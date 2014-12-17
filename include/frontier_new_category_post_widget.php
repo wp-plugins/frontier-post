@@ -68,7 +68,7 @@ class frontier_new_category_posts_widget extends WP_Widget
 		<?php 
 		//echo "Category: ";
 		//echo $tmp_cat_name."(".$tmp_cat_id.")";
-		echo '<p><center><a href="'.frontier_post_add_link().'&returncategory=true&frontier_cat_id_from_catpage='.$tmp_cat_id.'">'.$tmp_link_name.'</a></center></p>';
+		echo '<p><center><a href="'.frontier_post_add_link(null, $tmp_cat_id).'&frontier_new_cat_widget=true'.'">'.$tmp_link_name.'</a></center></p>';
 		?>
 		</div>
 		<?php
