@@ -150,6 +150,8 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+= 3.0.1 =
+* Fixed issue with Save and preview - Call changed to: include_once(frontier_load_form("frontier_post_preview_form.php"))
 
 = 3.0.0 =
 * Multiple categories can now be used in shortcode parms - use double quotes around comma separated list

@@ -15,7 +15,7 @@ function  frontier_preview_post($tmp_post_id = 0)
 	$tmp_content = apply_filters( 'the_content', $preview_post->post_content );
 	$tmp_content = str_replace( ']]>', ']]&gt;', $tmp_content );
 	
-	include_once(frontier_post_preview_form("frontier_list.php"));
+	include_once(frontier_load_form("frontier_post_preview_form.php"));
 		
 	}  
 ?>
