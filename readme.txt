@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
