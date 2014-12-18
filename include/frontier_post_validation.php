@@ -19,61 +19,56 @@ function frontier_can_add()
 	}	
 	
 	
-function frontier_can_edit($tmp_post_date, $tmp_comments_cnt)
+function frontier_can_edit($tmp_post)
 	{
+	$cur_user 		= wp_get_current_user();
+	
 	$tmp_can_do = true;
+	
+	
+	if ( frontier_post_age($tmp_post->post_date) > get_option('frontier_post_edit_max_age') )
+		$tmp_can_do = false;
+	
+	if ( (( (int) $tmp_post->comment_count) > 0) && ( (get_option("frontier_post_edit_w_comments") != "true") ))
+		$tmp_can_do = false;
+	
+	// If user has capability "edit_others_posts" (Administrators & Editors) always allow them allow them to edit post.
+	if ( !current_user_can( 'edit_others_posts' ) )
+		$tmp_can_do = true;
+	
 	if ( !current_user_can( 'frontier_post_can_edit' ) )
 		$tmp_can_do = false;
-		
-	if ( frontier_post_age($tmp_post_date) > get_option('frontier_post_edit_max_age') )
-		$tmp_can_do = false;
-	
-	if ( (( (int) $tmp_comments_cnt) > 0) && ( (get_option("frontier_post_edit_w_comments") != "true") ))
-		$tmp_can_do = false;
 	
 	return $tmp_can_do;
 	
 	}	
 
-function frontier_can_delete($tmp_post_date, $tmp_comments_cnt)
+function frontier_can_delete($tmp_post)
 	{
+	$cur_user 		= wp_get_current_user();
 	
 	$tmp_can_do = true;
-	if ( !current_user_can( 'frontier_post_can_delete' ) )
+	
+	if( $cur_user->ID != $tmp_post->post_author )
 		$tmp_can_do = false;
 		
-	if ( frontier_post_age($tmp_post_date) > get_option('frontier_post_delete_max_age') )
+	if ( frontier_post_age($tmp_post->post_date) > get_option('frontier_post_delete_max_age') )
 		$tmp_can_do = false;
 	
-	if ( ( (int) $tmp_comments_cnt) > 0 && ( (get_option("frontier_post_del_w_comments") != "true") ))
+	if ( ( (int) $tmp_post->comment_count) > 0 && ( (get_option("frontier_post_del_w_comments") != "true") ))
+		$tmp_can_do = false;
+	
+	// If user has capability "delete_other_posts" (Administrators & Editors) always allow them allow them to delete post.
+	if ( !current_user_can( 'delete_other_posts' ) )
+		$tmp_can_do = true;
+	
+	if ( !current_user_can( 'frontier_post_can_delete' ) )
 		$tmp_can_do = false;
 	
 	
 	return $tmp_can_do;
 	
 	}	
-
-function frontier_tax_list($tmp_tax_name, $exclude_list)
-	{
-	$tmp_tax_list 		= array();
-	$parent_tax			= 0;
-	$level_sep			= "-- ";
 	
-	foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_tax, 'exclude' => $exclude_list, 'show_count' => true)) as $tax1) :
-			$tmp = Array('cat_ID' => $tax1->cat_ID, 'cat_name' => $tax1->cat_name);
-			array_push($tmp_tax_list, $tmp);
-			foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax1->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax2) :
-				$tmp = Array('cat_ID' => $tax2->cat_ID, 'cat_name' => $level_sep.$tax2->cat_name);
-				array_push($tmp_tax_list, $tmp);
-				foreach ( get_categories(array('hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax2->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax3) :
-					$tmp = Array('cat_ID' => $tax3->cat_ID, 'cat_name' => $level_sep.$level_sep.$tax3->cat_name);
-					array_push($tmp_tax_list, $tmp);
-				endforeach; // Level 3
-			endforeach; // Level 2
-		endforeach; //Level 1
-	
-	return $tmp_tax_list;
-	}
-
 
 ?>

@@ -38,6 +38,16 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 	delete_option("frontier_post_show_login");
 	delete_option("frontier_post_change_status");
 	delete_option("frontier_default_status");
+	delete_option("frontier_post_external_cap");
+	delete_option("frontier_default_editor");
+	delete_option("frontier_default_cat_select");
+	delete_option("frontier_post_catid_list");
+	delete_option("frontier_post_hide_status");
+	delete_option("frontier_post_show_msg");
+	delete_option("frontier_post_editor_lines");
+	delete_option("frontier_post_hide_title_ids");
+	 
+	
 	//delete_option("frontier_post_use_draft");
 	
 	foreach( $roles as $key => $item )
