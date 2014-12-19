@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -149,6 +149,13 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+
+= 3.0.2 =
+* Fixed issue with users being able to publish without necessary capability
+* Fixed: Allow users with wordpress standard capability (Admins & editors) edit_other_posts to edit other users post from frontend
+* Fixed: Allow users with wordpress standard capability Admins & editors) delete_other_posts to delete other users post from frontend
+
 
 = 3.0.1 =
 * Fixed issue with Save and preview - Call changed to: include_once(frontier_load_form("frontier_post_preview_form.php"))

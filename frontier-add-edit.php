@@ -5,8 +5,9 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	global $current_user;
 	$user_can_edit_this_post = false;
 	require_once(ABSPATH . '/wp-admin/includes/post.php');
+	//Get Frontier Post settings
 	
-	//fp_log("From widget (add) ?: ".(isset($_GET['frontier_new_cat_widget']) ? "true" : "false"));
+	$fp_options 		= get_option('frontier_post_options', array() );
 	
 	if (!is_user_logged_in())
 		{
@@ -38,6 +39,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 					{
 					$thispost = get_default_post_to_edit( "post", true );
 					$thispost->post_author = $current_user->ID;
+					$thispost->post_status = get_option("frontier_default_status", "publish");
 					}
 				$_REQUEST['task']="new";
 				$tmp_task_new = true;
@@ -64,8 +66,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		//include_once("include/frontier_post_defaults.php");
 		
 		
-		//Get Frontier Post settings
-		$fp_options 		= get_option('frontier_post_options', array() );
+		
 		
 		//get users role:
 		$users_role 		= frontier_get_user_role();
@@ -101,7 +102,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 		// Remove publish status from array if not allowed
 		if (!current_user_can( 'frontier_post_can_publish' ))
-			unset($status_list['publish']);
+			unset($tmp_status_list['publish']);
 			
 		
 		// Set default status if new post - Check if the default status is in the allowed statuses, and if so set the default status
@@ -112,9 +113,19 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 			
 		$status_list 		= array();
 		$tmp_post_status 	= $thispost->post_status ? $thispost->post_status : $tmp_default_status;
+		
+		//error_log("Post Status: ".$tmp_post_status);
+		//error_log("Post Status: ".$tmp_post_status);
+		//error_log(print_r($tmp_status_list, true));
+		
+		// if The deafult status is not in the list, set default status to the first in the list
+		if ( !in_array($tmp_post_status, array_keys($tmp_status_list)) )
+			$tmp_post_status = current(array_keys($tmp_status_list));
 
+		//error_log("Post Status: ".$tmp_post_status);
+		
 		// Check if user is allowed to edit the status, if not set the array to only hold the current value
-		if (get_option("frontier_post_change_status", "false") != "true")
+		if ( (get_option("frontier_post_change_status", "false") != "true") && ($tmp_task_new != true) && $tmp_post_status == ("publish") )
 			{
 			$post_status_name = $tmp_status_list[$tmp_post_status];
 			$status_list[$tmp_post_status] = $post_status_name;
@@ -127,6 +138,10 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 			{
 			$status_list = $tmp_status_list;
 			}
+		
+		//error_log(print_r($tmp_status_list, true));
+		//error_log(print_r($status_list, true));
+		
 		
 		//**************************************************************************************************
 		// -- Setup wp_editor layout

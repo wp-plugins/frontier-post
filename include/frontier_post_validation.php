@@ -12,7 +12,7 @@ function frontier_can_add()
 	{
 		$tmp_can_do = false;
 		if ( current_user_can( 'frontier_post_can_add' ) )
-		$tmp_can_do = true;
+			$tmp_can_do = true;
 	
 		return $tmp_can_do;
 	
@@ -25,6 +25,8 @@ function frontier_can_edit($tmp_post)
 	
 	$tmp_can_do = true;
 	
+	if( $cur_user->ID != $tmp_post->post_author )
+		$tmp_can_do = false;
 	
 	if ( frontier_post_age($tmp_post->post_date) > get_option('frontier_post_edit_max_age') )
 		$tmp_can_do = false;
@@ -33,7 +35,7 @@ function frontier_can_edit($tmp_post)
 		$tmp_can_do = false;
 	
 	// If user has capability "edit_others_posts" (Administrators & Editors) always allow them allow them to edit post.
-	if ( !current_user_can( 'edit_others_posts' ) )
+	if ( current_user_can( 'edit_others_posts' ) )
 		$tmp_can_do = true;
 	
 	if ( !current_user_can( 'frontier_post_can_edit' ) )
@@ -59,7 +61,7 @@ function frontier_can_delete($tmp_post)
 		$tmp_can_do = false;
 	
 	// If user has capability "delete_other_posts" (Administrators & Editors) always allow them allow them to delete post.
-	if ( !current_user_can( 'delete_other_posts' ) )
+	if ( current_user_can( 'delete_other_posts' ) )
 		$tmp_can_do = true;
 	
 	if ( !current_user_can( 'frontier_post_can_delete' ) )
