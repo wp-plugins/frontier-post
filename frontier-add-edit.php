@@ -2,9 +2,15 @@
 
 function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	{
-	global $current_user;
-	$user_can_edit_this_post = false;
 	require_once(ABSPATH . '/wp-admin/includes/post.php');
+	global $current_user;
+	
+	$fps_access_check_msg 		= "";
+	$user_can_edit_this_post 	= false;
+	
+	//Reset access message
+	$fps_access_check_msg = "";
+	
 	//Get Frontier Post settings
 	
 	$fp_options 		= get_option('frontier_post_options', array() );
@@ -32,7 +38,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 			}
 		else
 			{
-			if ( frontier_can_add() == true )
+			if ( frontier_can_add($fps_access_check_msg) == true )
 				{
 				$user_can_edit_this_post = true;
 				if ( empty($thispost->ID) )
@@ -51,26 +57,15 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	
 	
 	
-	// Do not proceed if user is not able to edit
+	// Do not proceed with all the processing if user is not able to add/edit
 	if ( $user_can_edit_this_post == true )	
 		{
 		// Get vars from shortcode 
 		extract($frontier_post_shortcode_parms);
-		
-		//fp_log("fp cat id add/edit: ");
-		//fp_log($frontier_cat_id);
-		
 		$concat= get_option("permalink_structure")?"?":"&";
-		
-		    
-		//include_once("include/frontier_post_defaults.php");
-		
-		
-		
-		
+	
 		//get users role:
 		$users_role 		= frontier_get_user_role();
-		
 		
 		//******************************************************************************************
 		// Set defaults, so post can be saved without errors
@@ -114,33 +109,12 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		$status_list 		= array();
 		$tmp_post_status 	= $thispost->post_status ? $thispost->post_status : $tmp_default_status;
 		
-		//error_log("Post Status: ".$tmp_post_status);
-		//error_log("Post Status: ".$tmp_post_status);
-		//error_log(print_r($tmp_status_list, true));
-		
 		// if The deafult status is not in the list, set default status to the first in the list
 		if ( !in_array($tmp_post_status, array_keys($tmp_status_list)) )
 			$tmp_post_status = current(array_keys($tmp_status_list));
 
-		//error_log("Post Status: ".$tmp_post_status);
+		$status_list = $tmp_status_list;
 		
-		// Check if user is allowed to edit the status, if not set the array to only hold the current value
-		if ( (get_option("frontier_post_change_status", "false") != "true") && ($tmp_task_new != true) && $tmp_post_status == ("publish") )
-			{
-			$post_status_name = $tmp_status_list[$tmp_post_status];
-			$status_list[$tmp_post_status] = $post_status_name;
-			
-			// If status is published and user is not allowed to change status, edit of post cant be allowed 
-			if ( ($tmp_task_new != true) && $tmp_post_status == "publish" )
-				$user_can_edit_this_post = false;
-			}
-		else
-			{
-			$status_list = $tmp_status_list;
-			}
-		
-		//error_log(print_r($tmp_status_list, true));
-		//error_log(print_r($status_list, true));
 		
 		
 		//**************************************************************************************************
@@ -176,8 +150,6 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 		$default_category			= $fp_options[$users_role]['default_category'] ? $fp_options[$users_role]['default_category'] : get_option("default_category"); 
 		
-		//fp_log("set cats on add/edit");
-		//fp_log($frontier_cat_id);
 		// set default category, if new and category parsed from shortcode, 
 		if ( $tmp_task_new  )
 			{
@@ -197,19 +169,13 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		// Set variable for hidden field, if category field is removed from the form
 			$cats_selected_txt = implode(',', $cats_selected);
 		
-		//fp_log("set cats on add/edit - task, new:".$tmp_task_new." Cats selected");
-		//fp_log($cats_selected);
 		
 		// Build list of categories (3 levels)
 		if ( ($category_type == "multi") || ($category_type == "checkbox") )
 			{
-					
 			$catlist 		= array();
 			$catlist 		= frontier_tax_list("category", get_option("frontier_post_excl_cats", ''), $frontier_parent_cat_id );
 			}
-		
-		
-		
 		
 		// Set tags
 		if ( current_user_can( 'frontier_post_tags_edit' )  )
@@ -231,20 +197,25 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 		$frontier_use_feat_img = get_option("frontier_post_show_feat_img", "false");
 		
-		if ($user_can_edit_this_post)
-			{
-			include_once(frontier_load_form("frontier_post_form.php"));	
-			}
-		
-		else
-			{
-			if ( $tmp_task_new == true )
-				_e("You are not allowed to add new posts, sorry....", "frontier-post");
-			else
-				_e("You are not allowed to edit this post !","frontier-post");
-			}
-
 		} // end if OK to Edit
+		
+		
+	if ($user_can_edit_this_post)
+		{
+		include_once(frontier_load_form("frontier_post_form.php"));	
+		}
+		
+	else
+		{
+		// Echo reason why user cant add/edit post.
+		echo $fps_access_check_msg;
+		
+		//Reset message once displayed
+		$fps_access_check_msg = "";
+		
+		}
+
+		
 	} // end function
 
 

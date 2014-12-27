@@ -27,8 +27,8 @@ function frontier_prepare_delete_post($frontier_post_shortcode_parms = array())
 						<input type="hidden" name="action" value="wpfrtp_delete_post"> 
 						<input type="hidden" name="task" value="delete">
 						<input type="hidden" name="postid" id="postid" value="<?php if(isset($thispost->ID)) echo $thispost->ID; ?>">
-						<?php wp_nonce_field( 'frontier_delete_post' ); ?>
-						
+						<?php wp_nonce_field( 'frontier_delete_post', 'frontier_delete_post_'.$thispost->ID ); ?>
+		
 						<tr><td>
 						<center>
 						<button class="button" type="submit" name="submit_delete" 		id="submit_delete" 	value="deletego"><?php _e("Delete post", "frontier-post"); ?></button>
@@ -83,9 +83,9 @@ function frontier_execute_delete_post($frontier_post_shortcode_parms = array())
 	
     if( ($post_action == "wpfrtp_delete_post") && ($postid !=0) )
 		{
-		if ( !wp_verify_nonce( $_REQUEST['_wpnonce'], 'frontier_delete_post' ) )
+		if ( !wp_verify_nonce( $_POST['frontier_delete_post_'.$_POST['postid']], 'frontier_delete_post' ) )
 			{
-			wp_die(__(" Security violation - Please contact your webmaster", "frontier-post"));
+			wp_die(__("Security violation (Nonce check) - Please contact your Wordpress administrator", "frontier-post"));
 			}
 		
 		

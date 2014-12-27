@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1
-Stable tag: 3.0.2
+Stable tag: 3.0.5
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -53,6 +53,7 @@ Frontier Post is intentionally made simple :)
  * Title can be hidden on certain pages by adding comma separated list of page IDs
  * Add ID column to list of categories (optional)
  * Hide post status (optional)
+ * frontier-post.css can be placed in template (child theme dir - See FAQ), allowing for customm css rules.
  
 
 
@@ -150,6 +151,14 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+= 3.0.5 =
+* Changed _wpnonce name and action to frontier post specific to resolve possible conflict
+* Added "add_args" => false  to pagination var in frontier_list_form.php due to wp 4.1 bug (trac ticket 30831) 
+* Added div tags to columns in frontier_list_form.php to allow custom css rules
+* Updated frontier_cann_add, frontier_can_edit & frontier_can_delete functions to ensure access works correctly
+* Added shortcode parameters: frontier_list_text_before & frontier_edit_text_before to display text on forms before shortcode output
+* Updated example forms accordingly
+* Fixed loading of css if placed in active theme dir (your-active-theme/plugins/frontier-post/)
 
 = 3.0.2 =
 * Fixed issue with users being able to publish without necessary capability

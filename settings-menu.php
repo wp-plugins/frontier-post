@@ -618,6 +618,14 @@ function frontier_post_settings_page()
 				<td></td>
 				<td align="left"><pre>frontier_return_text="Publish"</pre></td>
 				<td align="left"><?php _e('Will change text on submit button to Publish', 'frontier-post'); ?></td>
+			</tr><tr>
+				<td></td>
+				<td align="left"><pre>frontier_list_text_before="Text to display"</pre></td>
+				<td align="left"><?php _e('Will output the text in the top of the list form', 'frontier-post'); ?></td>
+			</tr><tr>
+				<td></td>
+				<td align="left"><pre>frontier_edit_text_before="Text to display"</pre></td>
+				<td align="left"><?php _e('Will output the text in the top of the Add/edit form', 'frontier-post'); ?></td>
 			
 			</tr>
 		</table>

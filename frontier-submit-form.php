@@ -9,12 +9,11 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 	//$tmp_txt = isset($_GET['frontier_new_cat_widget']) ? "true" : "false";
 	//fp_log("From widget (submit) ?: ".(isset($_GET['frontier_new_cat_widget']) ? "true" : "false"));
 	
-	if(isset($_POST['action'])&&$_POST['action']=="wpfrtp_save_post")
+	if(isset($_POST['action'])&& $_POST['action']=="wpfrtp_save_post")
 		{
-		
-		if ( !wp_verify_nonce( $_REQUEST['_wpnonce'], 'frontier_add_edit_post' ) )
+		if ( !wp_verify_nonce( $_POST['frontier_add_edit_post_'.$_POST['postid']], 'frontier_add_edit_post'  ) )
 			{
-			wp_die(__(" Security violation - Please contact your webmaster", "frontier-post"));
+			wp_die(__("Security violation (Nonce check) - Please contact your Wordpress administrator", "frontier-post"));
 			}
 		
         if($_POST['user_post_title'])

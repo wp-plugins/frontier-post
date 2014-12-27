@@ -4,6 +4,11 @@ $concat= get_option("permalink_structure")?"?":"&";
 //set the permalink for the page itself
 $frontier_permalink = get_permalink();
 
+//Display before text from shortcode
+if ( strlen($frontier_list_text_before) > 1 )
+	echo '<div id="frontier_list_text_before">'.$frontier_list_text_before.'</div>';
+
+
 //Display message
 frontier_post_output_msg();
 
@@ -19,7 +24,7 @@ if (frontier_can_add() )
 			<th class="frontier-menu" >&nbsp;</th>
 		</tr>
 	</table>
-	</br>
+
 <?php
 	
 	} // if can_add
@@ -40,16 +45,16 @@ if( $user_posts->found_posts > 0 )
  
 	<thead>
 		<tr>
-			<th><?php _e("Date", "frontier-post"); ?></th>
-			<th><?php _e("Title", "frontier-post"); ?></th>	
+			<th class="frontier-list-posts-date"><?php _e("Date", "frontier-post"); ?></th>
+			<th class="frontier-list-posts-title"><?php _e("Title", "frontier-post"); ?></th>	
 			<?php
 			// do not show Status if list all posts, as all are published
 			if ( $frontier_list_all_posts != "true" )
-				echo "<th>".__("Status", "frontier-post")."</th>";
+				echo '<th  class="frontier-list-posts-status">'.__("Status", "frontier-post").'</th>';
 			?>
-			<th><?php echo $cat_author_heading ?></th>
-			<th><?php echo frontier_get_comment_icon(); ?></th> <!--number of comments-->
-			<th><?php _e("Action", "frontier-post"); ?></th>
+			<th class="frontier-list-posts-category"><?php echo $cat_author_heading ?></th>
+			<th class="frontier-list-posts-cmt"><?php echo frontier_get_comment_icon(); ?></th> <!--number of comments-->
+			<th class="frontier-list-posts-action"><?php _e("Action", "frontier-post"); ?></th>
 		</tr>
 	</thead> 
 	<tbody>
@@ -59,11 +64,11 @@ if( $user_posts->found_posts > 0 )
 			$user_posts->the_post();
 	?>
 			<tr>
-				<td><?php echo mysql2date('Y-m-d', $post->post_date); ?></td>
-				<td>
+				<td class="frontier-list-posts-date"><?php echo mysql2date('Y-m-d', $post->post_date); ?></td>
+				<td class="frontier-list-posts-title">
 				<?php if ($post->post_status == "publish")
 						{ ?>
-						<a href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a>
+						<a  id="frontier-list-posts-title-link href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a>
 				<?php	} 
 					else
 						{
@@ -75,14 +80,16 @@ if( $user_posts->found_posts > 0 )
 				if ( $frontier_list_all_posts != "true" )
 					echo "<td>".( isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status )."</td>";
 				?>
-				<td><?php  
+				<?php  
 					// If post for all users is viewed, show author instead of category
 					if ($frontier_list_all_posts == "true" )
 						{
+						echo '<td class="frontier-list-posts-author">';
 						echo get_the_author_meta( 'display_name', $post	->author);
 						}
 					else
 						{
+						echo '<td class="frontier-list-posts-category">';
 						// List categories
 						$categories=get_the_category( $post->ID );
 						$cnt = 0;
@@ -95,20 +102,20 @@ if( $user_posts->found_posts > 0 )
 						endforeach;
 						}
 				?></td>
-				<td><?php  echo $post->comment_count;?></td>
-				<td>
+				<td class="frontier-list-posts-cmt"><?php  echo $post->comment_count;?></td>
+				<td class="frontier-list-posts-action">
 					<?php
 						if (frontier_can_edit($post) == true)
 							{
 								?>
-									<a href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>"><?php _e("Edit", "frontier-post") ?></a>&nbsp;&nbsp;
+									<a id="frontier-list-posts-edit-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>"><?php _e("Edit", "frontier-post") ?></a>&nbsp;&nbsp;
 								<?php
 							}
 												
 						if (frontier_can_delete($post) == true)
 							{
 								?>
-									<a href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>" ><?php _e("Delete", "frontier-post") ?></a>
+									<a id="frontier-list-posts-delete-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>" ><?php _e("Delete", "frontier-post") ?></a>
 								<?php
 							}
 						
@@ -117,7 +124,7 @@ if( $user_posts->found_posts > 0 )
 							$tmp_post_link = site_url();
 							$tmp_post_link = $tmp_post_link."/?p=".$post->ID."&preview=true"
 							?>
-							<a href="<?php echo $tmp_post_link;?>" target="_blank"><?php _e("Preview","frontier-post") ?></a>
+							<a id="frontier-list-posts-preview-link" href="<?php echo $tmp_post_link;?>" target="_blank"><?php _e("Preview","frontier-post") ?></a>
 							<?php		
 							} 
 
@@ -139,7 +146,8 @@ if( $user_posts->found_posts > 0 )
 				'prev_text' => __( '&laquo;', 'frontier-post' ),
 				'next_text' => __( '&raquo;', 'frontier-post' ),
 				'total' => $user_posts->max_num_pages,
-				'current' => $pagenum
+				'current' => $pagenum,
+				'add_args' => false  //due to wp 4.1 bug (trac ticket 30831)
 				) 
 			);
 

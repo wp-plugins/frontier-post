@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.0.2
+Version: 3.0.5
 Author URI: http://wordpress.org/extend/plugins/frontier-post/
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.0.2"); 
+define('FRONTIER_POST_VERSION', "3.0.5"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_DEBUG', false);
 
@@ -66,6 +66,9 @@ function frontier_user_posts($atts)
 				'frontier_cat_id' 			=> 0,
 				'frontier_list_cat_id' 		=> 0,
 				'frontier_list_all_posts'	=> 'false',
+				'frontier_list_text_before'	=> '',
+				'frontier_edit_text_before'	=> '',
+				'frontier_myid'				=> get_the_id(),
 				'frontier_return_text'		=> __("Save & Return", "frontier-post")
 				), $atts );
 			
@@ -83,7 +86,7 @@ function frontier_user_posts($atts)
 			
 			
 			//fp_log($frontier_post_shortcode_parms['frontier_cat_id']);
-			//fp_log($frontier_post_shortcode_parms);
+			//error_log(print_r($frontier_post_shortcode_parms,true));
 			
 			extract($frontier_post_shortcode_parms);
 			
@@ -165,14 +168,19 @@ function frontier_load_form($frontier_form_name)
 function frontier_enqueue_scripts()
 	{
  	// Check if css is located in theme or child-theme
-	$located = locate_template(array('plugins/frontier-post/frontier-post.css'), false, true);
+	$located = locate_template(array('plugins/frontier-post/frontier-post.css'), false, false);
 	
-	if(!$located )
+	
+	if($located )
 		{
-		// if not found in theme folders, load native fronpier form
+		$located = get_stylesheet_directory_uri().'/plugins/frontier-post/frontier-post.css';
+		}
+	else
+		{
+		// if not found in theme folders, load native frontier form
 		$located = plugins_url('frontier-post/frontier-post.css');
 		}
-
+	//error_log($located);
 	wp_enqueue_style('frontierpost', $located);
 	} 
 

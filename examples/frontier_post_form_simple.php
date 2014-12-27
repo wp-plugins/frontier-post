@@ -1,5 +1,8 @@
 <?php
 
+if ( strlen($frontier_edit_text_before) > 1 )
+	echo '<div id="frontier_edit_text_before">'.$frontier_edit_text_before.'</div>';
+
 frontier_post_output_msg();
 ?>	
 	<div class="frontier_post_form"> 
@@ -12,7 +15,7 @@ frontier_post_output_msg();
 		<input type="hidden" name="home" value="<?php the_permalink(); ?>" > 
 		<input type="hidden" name="action" value="wpfrtp_save_post"> 
 		<input type="hidden" name="task" value="<?php echo $_REQUEST['task'];?>">
-		<?php wp_nonce_field( 'frontier_add_edit_post' ); ?>
+		<?php wp_nonce_field( 'frontier_add_edit_post', 'frontier_add_edit_post_'.$thispost->ID ); ?>
 		<!-- Keep selected categories if no category field on form -->
 		<input  type="hidden" name="post_categories" value="<?php echo $cats_selected_txt ;?>">
 	<tr>
