@@ -1,14 +1,30 @@
 <?php
 
-function frontier_posting_form_submit()
+function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 	{
-    global $current_user;
-	//get_currentuserinfo();	
-			
-    if(isset($_POST['action'])&&$_POST['action']=="wpfrtp_save_post")
+    extract($frontier_post_shortcode_parms);		
+    
+	//fp_log("fp cat id Submit: ".($frontier_cat_id ? $frontier_cat_id : "Unknown"));
+	
+	//$tmp_txt = isset($_GET['frontier_new_cat_widget']) ? "true" : "false";
+	//fp_log("From widget (submit) ?: ".(isset($_GET['frontier_new_cat_widget']) ? "true" : "false"));
+	
+	if(isset($_POST['action'])&& $_POST['action']=="wpfrtp_save_post")
 		{
+		if ( !wp_verify_nonce( $_POST['frontier_add_edit_post_'.$_POST['postid']], 'frontier_add_edit_post'  ) )
+			{
+			wp_die(__("Security violation (Nonce check) - Please contact your Wordpress administrator", "frontier-post"));
+			}
+		
         if($_POST['user_post_title'])
 			{
+			
+			if ( isset($_REQUEST['task']) && ($_REQUEST['task'] == "new") )
+				$tmp_task_new = true;
+			else	
+				$tmp_task_new = false;
+				
+			//fp_log("New post ? : ".$tmp_task_new);
 			
 			if(isset($_POST['post_status']))
 				$post_status = $_POST['post_status'];
@@ -26,36 +42,67 @@ function frontier_posting_form_submit()
 				$tmp_content = __("No content", "frontier-post");
 			
 			$tmp_excerpt = isset( $_POST['user_post_excerpt']) ? trim($_POST['user_post_excerpt'] ) : null;
-
-			$saved_options 		= get_option('frontier_post_options', array() );
-			$users_role 		= frontier_get_user_role();
-			$category_type 		= $saved_options[$users_role]['category'] ? $saved_options[$users_role]['category'] : "multi"; 
-			$default_category	= $saved_options[$users_role]['default_category'] ? $saved_options[$users_role]['default_category'] : get_option("default_category"); 
 			
-			// test checkbox category
-			//$zzz = $_POST['check_list'];
-			//error_log("Checlist");
-			//error_log(print_r($zzz, true));
-			 
+			$fp_options 	= get_option('frontier_post_options', array() );
+			$users_role 	= frontier_get_user_role();
+			
+			//****************************************************************************************************
+			// Manage Categories
+			//****************************************************************************************************
+			$category_type 		= $fp_options[$users_role]['category'] ? $fp_options[$users_role]['category'] : "multi"; 
+			$default_category	= $fp_options[$users_role]['default_category'] ? $fp_options[$users_role]['default_category'] : get_option("default_category"); 
 			
 			if ( ($category_type == "multi") || ($category_type == "checkbox") )
-				{
-				//$tmp_categorymulti = $_POST['check_list'];
-				$tmp_categorymulti = $_POST['categorymulti'];
-				}
+				$tmp_categorymulti = ( isset($_POST['categorymulti']) ? $_POST['categorymulti'] : array() );
+			
 			if ($category_type == "single")
 				{
 				if(isset($_POST['cat']))
 					{
 					$tmp_category = $_POST['cat'];
-					//error_log("Category from form: ".$tmp_category);
 					$tmp_categorymulti = array($tmp_category);
 					}
 				}
-				
+			
+			// if no category returned from entry form, check for hidden field, if this is empty set default category 
 			if ((!isset($tmp_categorymulti)) || (count($tmp_categorymulti)==0))
-				$tmp_categorymulti = array($default_category);
-				
+				{
+				$tmp_categorymulti = ( isset($_POST['post_categories']) ? explode(',', $_POST['post_categories']) : array());
+				$tmp_categorymulti = ((count($tmp_categorymulti) > 0) ? $tmp_categorymulti : array($default_category));
+				}
+			
+			
+			//****************************************************************************************************
+			// Update post
+			//****************************************************************************************************
+			
+			
+			$tmp_post = array(
+            	 'post_title' 		=> $tmp_title,
+				 'post_status' 		=> $post_status,
+                 'post_content' 	=> $tmp_content,				 
+                 'post_category' 	=> $tmp_categorymulti,
+				 'post_excerpt' 	=> $tmp_excerpt
+				);
+			
+			
+			$postid = $_REQUEST['postid'];
+			
+			if( empty($postid) )
+				{
+				$tmp_post = array_merge($tmp_post, array('post_type' => 'post'));
+				$postid = wp_insert_post( $tmp_post );
+				}
+			else
+				{
+				$tmp_post = array_merge($tmp_post, array('ID' => $postid));
+				wp_update_post( $tmp_post );
+				}
+			
+			//****************************************************************************************************
+			// Tags
+			//****************************************************************************************************
+			
 			$taglist = array();
 			if (isset( $_POST['user_post_tag1']))
 				array_push($taglist, $_POST['user_post_tag1']);
@@ -64,128 +111,60 @@ function frontier_posting_form_submit()
 			if (isset( $_POST['user_post_tag3']))
 				array_push($taglist, $_POST['user_post_tag3']);
 			
-			
-            $my_post = array(
-                 'post_title' 		=> $tmp_title,
-				 'post_status' 		=> $post_status,
-                 'post_content' 	=> $tmp_content,				 
-                 'post_category' 	=> $tmp_categorymulti,
-				 'post_excerpt' 	=> $tmp_excerpt,
-				);
-				
-			$postid= $_REQUEST['postid'];
-			if( empty($postid) )
-				{
-                // Insert the post into the database
-                $postid = wp_insert_post( $my_post );
-				}
-			else
-				{
-				// update the post into the database   
-				$my_post['ID']=$postid;
-				wp_update_post( $my_post ); 
-				}
-			
-			
-			// Set tags
 			if ( current_user_can( 'frontier_post_tags_edit' ) )
 				wp_set_post_tags($postid, $taglist);
-				
+
+			if ( $tmp_task_new == true )
+				frontier_post_set_msg(__("Post added", "frontier-post").": ".$tmp_title);
+			else	
+				frontier_post_set_msg(__("Post updated", "frontier-post").": ".$tmp_title);
 			
+			$my_post = get_post($postid);
+			
+			} // end if user_post_title
+		
+			$tmp_return = isset($_POST['user_post_submit']) ? $_POST['user_post_submit'] : "savereturn";
+			
+			//If save, set task to edit
+			if ( $tmp_return == "save" )
+				{
+				$_REQUEST['task'] = "edit";
+				$_REQUEST['postid'] = $postid;
+				}
+			// if shortcode frontier_mode=add, return to add form instead of list
+			if ( $frontier_mode == "add" && $tmp_return == "savereturn")
+				$tmp_return = "add";
+				
+			//fp_log("Frontier_mode: ".$frontier_mode);
+			//fp_log("return: ".$tmp_return);
 	
-			$upload_dir = wp_upload_dir();
-			
-			if(isset( $_POST['filename'] ))
+			switch( $tmp_return )
 				{
+				case 'preview':
+                    frontier_preview_post($postid);
+                    break;
 				
-				$filenames= $_POST['filename'];
+                case 'add':
+					frontier_post_add_edit($frontier_post_shortcode_parms);
+					break;
 				
-				// Attach the files uploaded to the post
-				if(is_array($filenames))
-					{
-					foreach($filenames as $value)
-						{
-						$wp_filetype = wp_check_filetype(basename($value), null );
-						$attachment = array(
-							'post_mime_type' => $wp_filetype['type'],
-							'post_title' => preg_replace('/\.[^.]+$/', ' ', basename($value)),
-							'post_content' => '',
-							'guid' => $upload_dir['url']."/".$value,
-							'post_status' => 'inherit'
-							);
-						$attach_id = wp_insert_attachment( $attachment, $value, $postid );
-						if (!has_post_thumbnail( $postid ))
-							set_post_thumbnail( $postid, $attach_id );
-						}
-					}    
-				}
-/*
-			//If no Featured Image (Thumbnail)
-			if (!has_post_thumbnail($postid))  
-				{
-				//, set the first image as featured image 
-				$attached_image = get_children( array("post_parent" => $postid, "post_type" => "attachment", "post_mime_type" => "image", "numberposts" => 1) );
-				if ($attached_image) 
-					{
-					foreach ($attached_image as $attachment_id => $attachment) 
-						{
-						set_post_thumbnail($postid, $attachment_id);
-						}
-					}
-				else
-					{
-					// If no image linked to the postgGet image ids (images in the content from the image gallery) and set the first as featured image
-					$inlineImages = array(); 
-					preg_match_all( '/wp-image-([^"]*)"/i', $tmp_content, $inlineImages ) ;
-					if ( count($inlineImages>0) )
-						set_post_thumbnail($postid, $inlineImages [1][0]);
-					}
-				}
-				
-				// Testing:
-				$used_images 	= array(); 
-				$used_image_ids	= array();
-				preg_match_all( '/wp-image-([^"]*)"/i', $tmp_content, $used_images ) ;
-				if ( count($used_images [1])>0 )
-					{
-					foreach ($used_images [1] as $tmp_image_id)
-						{
-						// remove trailing /
-						$tmp_image_id = substr($tmp_image_id, 0, -1);
-						array_unshift($used_image_ids, $tmp_image_id);
-						}
-					}
-				error_log(print_r($used_images, true));
-				error_log(print_r($used_image_ids, true));
-*/				
-				
-			}
-			
-		$concat= get_option("permalink_structure")?"?":"&";		
+                case 'savereturn':
+					frontier_user_post_list($frontier_post_shortcode_parms);
+					break;
+					
+                case 'save':
+                    frontier_post_add_edit($frontier_post_shortcode_parms);
+                    break;
+					
+                
+                default:
+                    frontier_user_post_list($frontier_post_shortcode_parms);
+                    break;
+				} 
 		
-		if (isset($_POST['user_post_preview']))
-			{
-			header("location: ".site_url()."/?p=".$postid."&preview=true");
-			die();
-			}
-		else
-			{
-			if (isset($_POST['user_post_save']))
-				{
-				$hdrloc = "location: ".get_permalink(get_option('frontier_post_page_id')).$concat."task=edit&postid=".$postid;
-				//error_log("Header: ".$hdrloc ? $hdrloc : "?");
-				header($hdrloc);
-				die();
-				}
-				else
-				{
-				header("location: ".get_permalink(get_option('frontier_post_page_id')));
-				die();
-				}
-			}
 		
-        }
-	}
+        } // end isset post
+	} // end function frontier_posting_form_submit
 
 
 ?>
