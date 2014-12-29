@@ -1,0 +1,460 @@
+# Copyright (C) 2013 Frontier Post
+# This file is distributed under the same license as the Frontier Post package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Frontier Post 1.6.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
+"POT-Creation-Date: 2013-08-12 21:08:14+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-08-15 01:18+0100\n"
+"Last-Translator: Tomasz Bednarek <bednarek.tomasz@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: forms/frontier_form.php:16
+#: forms/frontier_list.php:97
+msgid "Preview"
+msgstr "Podgląd"
+
+#: forms/frontier_form.php:204
+#: forms/frontier_list.php:36
+#: include/frontier_approvals_widget.php:153
+#: include/frontier_my_posts_widget.php:270
+msgid "Title"
+msgstr "Tytuł"
+
+#: forms/frontier_form.php:208
+#: forms/frontier_list.php:37
+msgid "Status"
+msgstr "Status"
+
+#: forms/frontier_form.php:246
+#: forms/frontier_list.php:38
+#: settings-menu.php:266
+msgid "Category"
+msgstr "Kategoria"
+
+#: forms/frontier_form.php:251
+msgid "Tags"
+msgstr "Tagi"
+
+#: forms/frontier_form.php:279
+msgid "Select category, multible can be selected using ctrl key"
+msgstr "Wybierz kategorię. Możesz wybrać kilka używając ctrl."
+
+#: forms/frontier_form.php:289
+#: forms/frontier_form.php:290
+#: forms/frontier_form.php:291
+msgid "Enter tag here"
+msgstr "Tutaj wpisz tag"
+
+#: forms/frontier_form.php:305
+msgid "Excerpt"
+msgstr "Wypis"
+
+#: forms/frontier_form.php:311
+msgid "Save"
+msgstr "Zapisz"
+
+#: forms/frontier_form.php:312
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: forms/frontier_form.php:324
+msgid "You are not allowed to edit this post !"
+msgstr "Nie masz uprawnień, aby edytować ten wpis !"
+
+#: forms/frontier_list.php:15
+#: include/frontier_my_posts_widget.php:227
+msgid "Create New Post"
+msgstr "Stwórz Nowy Wpis"
+
+#: forms/frontier_list.php:35
+msgid "Date"
+msgstr "Data"
+
+#: forms/frontier_list.php:39
+msgid "Cmt"
+msgstr "Koment."
+
+#: forms/frontier_list.php:40
+msgid "Action"
+msgstr "Działanie"
+
+#: forms/frontier_list.php:81
+msgid "Edit"
+msgstr "Edytuj"
+
+#: forms/frontier_list.php:88
+msgid "Are you sure you want to delete this post?"
+msgstr "Czy na pewno chcesz usunąć ten wpis?"
+
+#: forms/frontier_list.php:88
+msgid "Delete"
+msgstr "Usuń"
+
+#: forms/frontier_list.php:116
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: forms/frontier_list.php:117
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: forms/frontier_list.php:127
+msgid "Number of posts already created by you: "
+msgstr "Liczba wpisów stworzona przez ciebie:"
+
+#: forms/frontier_list.php:133
+msgid "Sorry, you do not have any posts (yet)"
+msgstr "Nie masz (jeszcze) żadnych wpisów"
+
+#: frontier-post.php:65
+msgid "No Title"
+msgstr "Brak tytułu"
+
+#: frontier-post.php:71
+msgid "No content"
+msgstr "Brak treści"
+
+#: frontier-post.php:244
+msgid "Please log in !"
+msgstr "Zaloguj się !"
+
+#: include/frontier_approvals_widget.php:16
+msgid "My approvals"
+msgstr "Moje zatwierdzenia wpisów"
+
+#: include/frontier_approvals_widget.php:22
+msgid "You have no approvals pending"
+msgstr "Brak wpisów oczekujących na przegląd"
+
+#: include/frontier_approvals_widget.php:27
+msgid "List number of posts and comments for approval"
+msgstr "Lista wpisów i komentarzy oczekujących na przegląd"
+
+#: include/frontier_approvals_widget.php:46
+msgid "draft posts"
+msgstr "szkice"
+
+#: include/frontier_approvals_widget.php:57
+msgid "posts to be approved"
+msgstr "wpisy do zatwierdzenia"
+
+#: include/frontier_approvals_widget.php:68
+msgid "comments to be approved"
+msgstr "komentarze do zatwierdzenia"
+
+#: include/frontier_approvals_widget.php:79
+msgid "spam comments"
+msgstr "komentarze typu spam"
+
+#: include/frontier_approvals_widget.php:157
+msgid "Show posts pending approval ?"
+msgstr "Wyświetlić wpisy oczekujące na przegląd?"
+
+#: include/frontier_approvals_widget.php:162
+msgid "Show number of draft posts ?"
+msgstr "Wyświetlić liczbę szkiców?"
+
+#: include/frontier_approvals_widget.php:167
+msgid "Show comments pending approval ?"
+msgstr "Wyświetlić komentarze oczekujące na przegląd?"
+
+#: include/frontier_approvals_widget.php:172
+msgid "Show comments marked as spam ?"
+msgstr "Wyświetlić wpisy oznaczone jako spam?"
+
+#: include/frontier_my_posts_widget.php:16
+msgid "My posts"
+msgstr "Moje wpisy"
+
+#: include/frontier_my_posts_widget.php:27
+#: include/frontier_my_posts_widget.php:324
+msgid "You have no posts"
+msgstr "Nie masz żadnych wpisów"
+
+#: include/frontier_my_posts_widget.php:40
+msgid "Dont show date"
+msgstr "Ukryj datę"
+
+#: include/frontier_my_posts_widget.php:44
+msgid "Only posts"
+msgstr "Tylko wpisy"
+
+#: include/frontier_my_posts_widget.php:45
+msgid "Posts & comments "
+msgstr "Wpisy & komentarze"
+
+#: include/frontier_my_posts_widget.php:46
+msgid "Posts and comments excerpt"
+msgstr "Wpisy i wypisy komentarzy"
+
+#: include/frontier_my_posts_widget.php:50
+msgid "List posts of current user (author)"
+msgstr "Lista wpisów obecnego użytkownika (autora)"
+
+#: include/frontier_my_posts_widget.php:234
+msgid "Your have published: "
+msgstr "Dodałeś: "
+
+#: include/frontier_my_posts_widget.php:234
+msgid "posts"
+msgstr "wpisów"
+
+#: include/frontier_my_posts_widget.php:274
+msgid "Post date format"
+msgstr "Format czasu i daty wpisu"
+
+#: include/frontier_my_posts_widget.php:284
+msgid "Show comments"
+msgstr "Pokaż komentarze"
+
+#: include/frontier_my_posts_widget.php:295
+msgid "Comment date format"
+msgstr "Format czasu i daty komentarza"
+
+#: include/frontier_my_posts_widget.php:305
+msgid "Number of posts & comments"
+msgstr "Liczba wpisów & komentarzy"
+
+#: include/frontier_my_posts_widget.php:309
+msgid "Length of comment excerpt"
+msgstr "Długość wypisu komentarza"
+
+#: include/frontier_my_posts_widget.php:313
+msgid "Show Add Post link ?"
+msgstr "Wyświetlić \"Dodaj Wpis\"?"
+
+#: include/frontier_my_posts_widget.php:318
+msgid "Show Post Count ?"
+msgstr "Wyświetlić liczbę wpisów?"
+
+#: include/frontier_my_posts_widget.php:323
+msgid "No post text"
+msgstr "Brak treści"
+
+#: include/frontier_post_defaults.php:15
+msgid "Full Editor"
+msgstr "Full Edytor"
+
+#: include/frontier_post_defaults.php:15
+msgid "Minimal Visual"
+msgstr "Tylko Wizualny"
+
+#: include/frontier_post_defaults.php:15
+msgid "Minimal-Html"
+msgstr "Tylko Html"
+
+#: include/frontier_post_defaults.php:15
+msgid "Text Only"
+msgstr "Tylko tekst"
+
+#: include/frontier_post_defaults.php:16
+msgid "Multi select"
+msgstr "Lista wyboru"
+
+#: include/frontier_post_defaults.php:16
+msgid "Single select"
+msgstr "Wybór jednej"
+
+#: include/frontier_post_defaults.php:16
+msgid "Hide"
+msgstr "Ukryj"
+
+#: settings-menu.php:20
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Nie masz uprawnień do zobaczenia tej strony."
+
+#: settings-menu.php:60
+msgid "Frontend Author"
+msgstr "Autor Frontend"
+
+#: settings-menu.php:125
+msgid "Settings saved."
+msgstr "Ustawienia zapisano."
+
+#: settings-menu.php:143
+msgid "Frontier Post Settings"
+msgstr "Ustawienia Frontier Post"
+
+#: settings-menu.php:149
+msgid "Allow edit of posts with comments"
+msgstr "Pozwól na edycję wpisów z komentarzami"
+
+#: settings-menu.php:151
+msgid "Max age in days to allow edit of post"
+msgstr "Maksymalna liczba dni na edycję wpisu"
+
+#: settings-menu.php:154
+msgid "Allow deletion of posts with comments"
+msgstr "Pozwól na usunięcie wpisów z komentarzami"
+
+#: settings-menu.php:156
+msgid "Max age in days to allow delete of post"
+msgstr "Maksymalna liczba dni na usunięcie wpisu"
+
+#: settings-menu.php:159
+msgid "Number of post per page"
+msgstr "Liczba wpisów na stronie"
+
+#: settings-menu.php:161
+msgid "Page containing [frontier-post] shortcode:"
+msgstr "Strona zawierająca kod [frontier-post]:"
+
+#: settings-menu.php:164
+msgid "None"
+msgstr "Żaden"
+
+#: settings-menu.php:173
+msgid "Capabilities by user role"
+msgstr "Uprawnienia według roli użytkownika"
+
+#: settings-menu.php:176
+#: settings-menu.php:261
+msgid "Role"
+msgstr "Rola"
+
+#: settings-menu.php:177
+msgid "Can Add"
+msgstr "Może Dodać"
+
+#: settings-menu.php:178
+msgid "Can Edit"
+msgstr "Może Edytować"
+
+#: settings-menu.php:179
+msgid "Can Publish"
+msgstr "Może Opublikować"
+
+#: settings-menu.php:180
+msgid "Allow Drafts"
+msgstr "Pozwól na szkice"
+
+#: settings-menu.php:181
+msgid "Can Delete"
+msgstr "Może Usunąć"
+
+#: settings-menu.php:182
+msgid "Frontier Edit"
+msgstr "Frontier Edycja"
+
+#: settings-menu.php:183
+msgid "Show admin bar"
+msgstr "Pokazuj pasek admina"
+
+#: settings-menu.php:235
+#: settings-menu.php:346
+msgid "NA"
+msgstr "Nie dotyczy"
+
+#: settings-menu.php:258
+msgid "Editor options"
+msgstr "Ustawienia edytora"
+
+#: settings-menu.php:262
+msgid "Edit Excerpt"
+msgstr "Edytuj Wypis"
+
+#: settings-menu.php:263
+msgid "Edit Tags"
+msgstr "Edytuj Tagi"
+
+#: settings-menu.php:264
+msgid "Media Upload"
+msgstr "Dodaj Media"
+
+#: settings-menu.php:265
+msgid "Editor Type"
+msgstr "Typ Edytora"
+
+#: settings-menu.php:267
+msgid "Default Category"
+msgstr "Kategoria Domyślna"
+
+#: settings-menu.php:360
+#: settings-menu.php:411
+msgid "Save Changes"
+msgstr "Zapisz Zmiany"
+
+#: settings-menu.php:363
+msgid "Advanced Settings - BETA"
+msgstr "Zaawansowane ustawienia - BETA"
+
+#: settings-menu.php:367
+msgid "Add Frontier Author user role:"
+msgstr "Dodaj użytkownika z rolą \"Autor Frontend\":"
+
+#: settings-menu.php:369
+msgid "Adds a new role: Frontend Author to Wordpress"
+msgstr "Dodaje nową rolę: Autor Frontend do Wordpress"
+
+#: settings-menu.php:371
+msgid "Use custom editor buttons:"
+msgstr "Użyj wybranych przycisków edytora"
+
+#: settings-menu.php:373
+msgid "Control the buttons showed in the editor (only in frontend)"
+msgstr "Wybierz, które przyciski będą dostępne w edytorze (tylko dla front-end)"
+
+#: settings-menu.php:374
+msgid "Additional info: FAQ on plugin site"
+msgstr "Dodatkowe informacje: FAQ na stronie wtyczki"
+
+#: settings-menu.php:377
+#: settings-menu.php:380
+#: settings-menu.php:383
+#: settings-menu.php:386
+msgid "Custom button row"
+msgstr "Ustawienia dla rzędu "
+
+#: settings-menu.php:392
+msgid "Suggested buttons"
+msgstr "Polecane przyciski"
+
+#: settings-menu.php:393
+#: settings-menu.php:394
+#: settings-menu.php:395
+msgid "Row"
+msgstr "Rząd"
+
+#: settings-menu.php:400
+msgid "Notice"
+msgstr "Komentarz"
+
+#: settings-menu.php:401
+msgid "- Media upload is not available to Contributors and Subscribers by Wordpress capabilities"
+msgstr "- Dodawanie plików multimedialnych nie jest dostępne dla Współpracowników i Subskrybentów (domyślnie dla Wordpress)"
+
+#: settings-menu.php:402
+msgid "- Wordpress standard rolemodel does not allow Contributors and Subscribers to add/edit/delete posts, but you can bypass this above"
+msgstr "- Domyślnie Wordpress nie pozwala Współpracownikom i Subskrybentom dodać/edytować/usunąć wpis, ale tu możesz to zmienić"
+
+#: settings-menu.php:403
+msgid "- Frontier Edit means that if a user selects the dit link on a post, Frontier will be used to edit instead of backend"
+msgstr "- Edytor Frontier pozwala na edycję wpisów bezpośrednio na stronie internetowej (front-end)"
+
+#: settings-menu.php:404
+msgid "-    - This is only if selected from frontend, if edit from backend, backend interface will be used"
+msgstr "-    - Wtyczka działa tylko jeśli użytkownik naciśnie edytuj na stronie. Możliwość edycji w interfejsie back-end oczywiście wciąż pozostaje"
+
+#. Plugin Name of the plugin/theme
+msgid "Frontier Post"
+msgstr "Frontier Post"
+
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.6.1)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.6.1)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/frontier-post/"
+msgstr "http://wordpress.org/extend/plugins/frontier-post/"
+
+#. Description of the plugin/theme
+msgid "Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget"
+msgstr "Prosty, szybki & bezpieczny sposób na dodawanie, edycję i usuwanie wpisów bezpośrednio na stronie internetowej (frontend)"
+
+#. Author of the plugin/theme
+msgid "finnj"
+msgstr "finnj"
+

@@ -1,0 +1,340 @@
+# Copyright (C) 2013 Frontier Post
+# This file is distributed under the same license as the Frontier Post package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Frontier Post 1.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/frontier-post\n"
+"POT-Creation-Date: 2013-04-17 18:46:43+00:00\n"
+"PO-Revision-Date: 2013-04-21 22:16+0200\n"
+"Last-Translator: finnj\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#: forms/frontier_form.php:113 forms/frontier_list.php:36
+#: include/frontier_approvals_widget.php:151
+#: include/frontier_my_posts_widget.php:251
+msgid "Title"
+msgstr "Заголовок"
+
+#: forms/frontier_form.php:117 forms/frontier_list.php:37
+msgid "Status"
+msgstr "Статус"
+
+#: forms/frontier_form.php:138 forms/frontier_list.php:38
+msgid "Category"
+msgstr "Категория"
+
+#: forms/frontier_form.php:141
+msgid "Tags"
+msgstr "Тэги"
+
+#: forms/frontier_form.php:158
+msgid "Select category, multible can be selected using ctrl key"
+msgstr "Выберите категорию, используйте Ctrl для выбора нескольких"
+
+#: forms/frontier_form.php:163 forms/frontier_form.php:164
+#: forms/frontier_form.php:165
+msgid "Enter tag here"
+msgstr "Введите теги"
+
+#: forms/frontier_form.php:182
+msgid "Excerpt"
+msgstr "Кратко"
+
+#: forms/frontier_form.php:188
+msgid "Save"
+msgstr "Сохранить"
+
+#: forms/frontier_form.php:189
+msgid "Cancel"
+msgstr "Отменить"
+
+#: forms/frontier_form.php:201
+msgid "You are not allowed to edit this post !"
+msgstr "У Вас нет разрешений изменять этот пост !"
+
+#: forms/frontier_list.php:15 include/frontier_my_posts_widget.php:220
+msgid "Create New Post"
+msgstr "Нажмите для создания нового поста"
+
+#: forms/frontier_list.php:35
+msgid "Date"
+msgstr "Дата"
+
+#: forms/frontier_list.php:39
+msgid "Cmt"
+msgstr "Кмт."
+
+#: forms/frontier_list.php:40
+msgid "Action"
+msgstr "Действие"
+
+#: forms/frontier_list.php:78
+msgid "Are you sure you want to delete this post?"
+msgstr "Вы точно хотите удалить этот пост ?"
+
+#: forms/frontier_list.php:96
+msgid "&laquo;"
+msgstr ""
+
+#: forms/frontier_list.php:97
+msgid "&raquo;"
+msgstr ""
+
+#: forms/frontier_list.php:111
+msgid "Sorry, you do not have any posts (yet)"
+msgstr "Извините, у Вас пока нет постов"
+
+#: frontier-post.php:215
+msgid "Please log in !"
+msgstr "Пожалуйста, зайдите на сайт !"
+
+#: include/frontier_approvals_widget.php:16
+msgid "My approvals"
+msgstr "Мои утверждения"
+
+#: include/frontier_approvals_widget.php:22
+msgid "You have no approvals pending"
+msgstr "У вас нет утверждений в ожидании"
+
+#: include/frontier_approvals_widget.php:27
+msgid "List number of posts and comments for approval"
+msgstr "Список постов и коментариев для утверждения"
+
+#: include/frontier_approvals_widget.php:46
+msgid "draft posts"
+msgstr "Черновики"
+
+#: include/frontier_approvals_widget.php:57
+msgid "posts to be approved"
+msgstr "Посты, требующие утверждения"
+
+#: include/frontier_approvals_widget.php:68
+msgid "comments to be approved"
+msgstr "Комментарии, требующие утверждения"
+
+#: include/frontier_approvals_widget.php:79
+msgid "spam comments"
+msgstr "Спам"
+
+#: include/frontier_approvals_widget.php:155
+msgid "Show posts pending approval ?"
+msgstr "Показать посты ожидающие утверждения ?"
+
+#: include/frontier_approvals_widget.php:160
+msgid "Show number of draft posts ?"
+msgstr "Показать количество черновиков ?"
+
+#: include/frontier_approvals_widget.php:165
+msgid "Show comments pending approval ?"
+msgstr "Показать комментарии ожидающие утверждения ?"
+
+#: include/frontier_approvals_widget.php:170
+msgid "Show comments marked as spam ?"
+msgstr "Показать комментарии, отмеченные как спам?"
+
+#: include/frontier_my_posts_widget.php:16
+msgid "My posts"
+msgstr "Мои посты"
+
+#: include/frontier_my_posts_widget.php:27
+#: include/frontier_my_posts_widget.php:300
+msgid "You have no posts"
+msgstr "У Вакс нет постов"
+
+#: include/frontier_my_posts_widget.php:39
+msgid "Dont show date"
+msgstr "Не показывать дату"
+
+#: include/frontier_my_posts_widget.php:43
+msgid "Only posts"
+msgstr "Только посты"
+
+#: include/frontier_my_posts_widget.php:44
+msgid "Posts & comments "
+msgstr "Посты и комментарии"
+
+#: include/frontier_my_posts_widget.php:45
+msgid "Posts and comments excerpt"
+msgstr "Отрывки из постов и комментариев"
+
+#: include/frontier_my_posts_widget.php:49
+msgid "List posts of current user (author)"
+msgstr "Список постов текущего автора"
+
+#: include/frontier_my_posts_widget.php:255
+msgid "Post date format"
+msgstr "Формат даты поста"
+
+#: include/frontier_my_posts_widget.php:265
+msgid "Show comments"
+msgstr "Показать комментарии"
+
+#: include/frontier_my_posts_widget.php:276
+msgid "Comment date format"
+msgstr "Формат даты комментариев"
+
+#: include/frontier_my_posts_widget.php:286
+msgid "Number of posts & comments"
+msgstr "Количество постов и комментариев"
+
+#: include/frontier_my_posts_widget.php:290
+msgid "Length of comment excerpt"
+msgstr "Длина отрывка комментария"
+
+#: include/frontier_my_posts_widget.php:294
+msgid "Show Add Post link ?"
+msgstr "Показать ссылку Создать рецепт ?"
+
+#: include/frontier_my_posts_widget.php:299
+msgid "No post text"
+msgstr "Нет текста в посте"
+
+#: settings-menu.php:19
+msgid "You do not have sufficient permissions to access this page."
+msgstr "У Вас нет разрешений для доступа к этой странице"
+
+#: settings-menu.php:85
+msgid "Settings saved."
+msgstr "Настройки сохранены"
+
+#: settings-menu.php:108
+msgid "Max age in days to allow edit of post:"
+msgstr "В течение скольки дней можно редактировать пост:"
+
+#: settings-menu.php:111
+msgid "Allow edit of posts with comments:"
+msgstr "Разрешить редактировать пост с комментариями:"
+
+#: settings-menu.php:114
+msgid "Max age in days to allow delete of post:"
+msgstr "В течение скольки дней можно удалять пост:"
+
+#: settings-menu.php:117
+msgid "Allow deletion of posts with comments:"
+msgstr "Разрешить удаление поста с комментариями:"
+
+#: settings-menu.php:120
+msgid "Number of post per page:"
+msgstr "Количество постов на странице"
+
+#: settings-menu.php:123
+msgid "Page containing [frontier-post] shortcode:"
+msgstr "На какой станице размещен код [frontier-post]:"
+
+#: settings-menu.php:126
+msgid "None"
+msgstr "Ничего"
+
+#: settings-menu.php:135
+msgid "Capabilities by user role"
+msgstr "Возможности группы"
+
+#: settings-menu.php:138
+msgid "Role"
+msgstr "Группа"
+
+#: settings-menu.php:139
+msgid "Can Add"
+msgstr "Можно добавить"
+
+#: settings-menu.php:140
+msgid "Can Edit"
+msgstr "Можно редактировать"
+
+#: settings-menu.php:141
+msgid "Can Publish"
+msgstr "Можно публиковать"
+
+#: settings-menu.php:142
+msgid "Can Delete"
+msgstr "Можно удалять"
+
+#: settings-menu.php:143
+msgid "Edit Excerpt"
+msgstr "Редактировать отрывок"
+
+#: settings-menu.php:144
+msgid "Edit Tags"
+msgstr "Редактировать теги"
+
+#: settings-menu.php:145
+msgid "Frontier Edit"
+msgstr "Титульное редактирование"
+
+#: settings-menu.php:188
+msgid "NA"
+msgstr "НД"
+
+#: settings-menu.php:207
+msgid ""
+"- Media upload is not available to Contributors and Subscribers by Wordpress "
+"capabilities"
+msgstr "- Запрещено загружать мультимедиа"
+
+#: settings-menu.php:208
+#, fuzzy
+msgid ""
+"- Wordpress standard rolemodel does not allow Contributors and Subscribers "
+"to add/edit/delete posts, but you can bypass this above"
+msgstr ""
+"- Wordpress std. rolle rettigheder tillader ikke Biddragydere (Contributers) "
+"og Abbonenter (Subscribers) at oprette/rette/slette indlæg, dette kan "
+"overstyres herover."
+
+#: settings-menu.php:209
+msgid ""
+"- Frontier Edit means that if a user selects the dit link on a post, "
+"Frontier will be used to edit instead of backend"
+msgstr ""
+"- Титульное редактирование значит, что редактирование будет происходить "
+"прямо с сайта"
+
+#: settings-menu.php:210
+msgid ""
+"-    - This is only if selected from frontend, if edit from backend, backend "
+"interface will be used"
+msgstr "-    - Используется только при редактировании с титула"
+
+#: settings-menu.php:216
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#. Plugin Name of the plugin/theme
+msgid "Frontier Post"
+msgstr "Титульная статья"
+
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.3)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (Frontier Post 1.3)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/frontier-post/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Fast, easy & secure Front End management of posts. Add, Edit, Delete posts "
+"from frontend - My Posts Widget"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "finnj"
+msgstr ""
+
+#~ msgid "No posts"
+#~ msgstr "Ingen Indlæg"
+
+#~ msgid ""
+#~ "- In wp 3.5.0 media upload fails due to a bug, existing media can be "
+#~ "selected"
+#~ msgstr ""
+#~ "- I WP 3.5.0 fejler upload p.g.a. WP bug, eksisterende media kan vælges."
+
+#~ msgid "Submit"
+#~ msgstr "Send"
+
+#~ msgid "Add new post"
+#~ msgstr "Opret nyt indlæg"
