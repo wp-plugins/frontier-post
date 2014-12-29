@@ -169,14 +169,16 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		// Set variable for hidden field, if category field is removed from the form
 			$cats_selected_txt = implode(',', $cats_selected);
 		
+		// Set categories to be excluded
+		$frontier_post_excl_cats	= get_option("frontier_post_excl_cats", '');
 		
 		// Build list of categories (3 levels)
 		if ( ($category_type == "multi") || ($category_type == "checkbox") )
 			{
 			$catlist 		= array();
-			$catlist 		= frontier_tax_list("category", get_option("frontier_post_excl_cats", ''), $frontier_parent_cat_id );
-			}
-		
+			$catlist 		= frontier_tax_list("category", $frontier_post_excl_cats, $frontier_parent_cat_id );
+			}	
+			
 		// Set tags
 		if ( current_user_can( 'frontier_post_tags_edit' )  )
 			{

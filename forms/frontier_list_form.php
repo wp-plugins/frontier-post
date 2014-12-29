@@ -68,7 +68,7 @@ if( $user_posts->found_posts > 0 )
 				<td class="frontier-list-posts-title">
 				<?php if ($post->post_status == "publish")
 						{ ?>
-						<a  id="frontier-list-posts-title-link href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a>
+						<a  id="frontier-list-posts-title-link" href="<?php echo post_permalink($post->ID);?>"><?php echo $post->post_title;?></a>
 				<?php	} 
 					else
 						{

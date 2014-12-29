@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1
-Stable tag: 3.0.5
+Stable tag: 3.0.6
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -150,6 +150,10 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+= 3.0.6 =
+* Fixed link to post on frontier_list_form, missing double quotes
+* Fixed single category dropdown did not respect excluded categories.
 
 = 3.0.5 =
 * Changed _wpnonce name and action to frontier post specific to resolve possible conflict

@@ -95,7 +95,7 @@ frontier_post_output_msg();
 			
 				case "single":
 					echo '<td class="frontier_border" width="50%">';
-					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'child_of' => $parent_category, 'orderby' => 'name', 'selected' => $cats_selected[0], 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
+					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'child_of' => $frontier_parent_cat_id, 'orderby' => 'name', 'selected' => $cats_selected[0], 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
 					break;
 			
 				case "multi":
