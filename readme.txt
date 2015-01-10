@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1
-Stable tag: 3.0.6
+Stable tag: 3.0.7
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -13,12 +13,18 @@ Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts fro
 
 WordPress Frontier Post Plugin enables simple full featured management of standard posts from frontend for all user roles.
 
-Related plugins: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
+Related plugins: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/) [Frontier Set Featured plugin ](http://wordpress.org/plugins/frontier-set-featured/) 
 
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
 Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.
 
 Frontier Post is intentionally made simple :)
+
+= Coming soon =
+* Support for
+ * Custom Post Types
+ * Taxonomies (including custom taxonomies)
+ * Custom Fields (Will require that you can manage Wordpress actions and filters)
 
 = Usage = 
 * Short-code [frontier-post] in a page content after install and activation of the plugin
@@ -150,6 +156,10 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+
+= 3.0.6 =
+* Fixed capability messages not showing
 
 = 3.0.6 =
 * Fixed link to post on frontier_list_form, missing double quotes

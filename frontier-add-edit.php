@@ -210,6 +210,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	else
 		{
 		// Echo reason why user cant add/edit post.
+		global $fps_access_check_msg;
 		echo $fps_access_check_msg;
 		
 		//Reset message once displayed
