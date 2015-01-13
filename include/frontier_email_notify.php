@@ -9,10 +9,10 @@ function frontier_email_on_transition(  $new_status, $old_status, $post )
 
 			
     //If some variety of a draft is being published, dispatch an email
-    if(  $old_status != 'pending'  && $new_status == 'pending' && get_option("frontier_post_mail_to_approve", "false") == "true") 
+    if(  $old_status != 'pending'  && $new_status == 'pending' && fp_get_option("fps_mail_to_approve", "false") == "true") 
 		{
 		$author_name	= get_the_author_meta( 'display_name', $post->post_author );
-        $to      		= get_option("frontier_post_mail_address") ? get_option("frontier_post_mail_address") : get_settings("admin_email");
+        $to      		= get_option("frontier_post_mail_address") ? fp_get_option("fps_mail_address") : get_settings("admin_email");
         $subject 		= __("Post for approval from", "frontier-post").": ".$author_name ." (".get_bloginfo( "name" ).")";
         $body    		= 		__("Post for approval from", "frontier-post").": ".$author_name ." (".get_bloginfo( "name" ).")"."\r\n\r\n";
 		$body    		= $body."Title:: ".$post->post_title."\r\n\r\n";
@@ -25,7 +25,7 @@ function frontier_email_on_transition(  $new_status, $old_status, $post )
 			
 		}
 		
-	if(  $old_status == 'pending'  && $new_status == 'publish' && get_option("frontier_post_mail_approved", "false") == "true"  )
+	if(  $old_status == 'pending'  && $new_status == 'publish' && fp_get_option("fps_mail_approved", "false") == "true"  )
 		{
 		if ( $post->post_author == get_current_user_id() )
 			return; // no reason to send email if current user is able to publish :)

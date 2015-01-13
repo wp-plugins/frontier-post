@@ -68,8 +68,8 @@ th.frontier-menu {
 	width: 33%;
 }
 .frontier-tax-box {
-	border:2px solid #ccc;
-	height: 132px; 
+	border:1px solid #ccc;
+	height: 150px; 
 	overflow-y: scroll; 
 }
 
@@ -80,3 +80,47 @@ th.frontier-menu {
 #frontier_edit_text_before {
 	font-weight: bold !important;
 }
+
+th.frontier-list-posts {
+	font-weight: bold !important;
+}
+
+
+fieldset.frontier_post_fieldset  {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1.25em;
+  padding: .250em;
+  vertical-align: top !important;
+}
+
+fieldset.frontier_post_fieldset legend {
+  margin: 0;
+  padding: 0;
+  margin-left: 20px;
+  font-weight: bold;
+  vertical-align: top !important;
+} 
+
+fieldset.frontier_post_fieldset_tax  {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1.25em;
+  padding: .250em;
+}
+
+td.frontier_tax  {  
+	border: 0 !important;
+	vertical-align: top !important;
+
+td.frontier-post-tags  {  
+	border: 1 !important;
+	vertical-align: top !important;
+
+td.frontier_frontier_featured_image  {  
+	border: 0 !important;
+	vertical-align: top !important;
+}
+
+	
+

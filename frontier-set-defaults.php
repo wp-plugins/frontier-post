@@ -3,9 +3,14 @@
 
 function frontier_post_set_defaults()
 	{
-	include("include/frontier_post_defaults.php");
+	include(FRONTIER_POST_DIR."include/frontier_post_defaults.php");	
+	include(FRONTIER_POST_DIR."admin/frontier-post-convert-options.php");
 	//error_log("Setting Frontier Post application Defaults ");
 	
+	// run the migration (until beta is over)
+	fps_cnv_general_options();
+	
+	/*
 	global $wpdb;
 	global $wp_roles;
 	global $tmp_cap_list;
@@ -136,7 +141,10 @@ function frontier_post_set_defaults()
 		update_option('frontier_post_options', $saved_options);
 		//error_log(var_dump($saved_options));
 
-		
+	*/
+	
+	
+	
 	// Check if page containing [frontier-post] exists already, else create it
 	$tmp_id = $wpdb->get_var(
 		"SELECT id 
@@ -166,6 +174,8 @@ function frontier_post_set_defaults()
 	
 	// Set version
 	update_option("frontier_post_version", FRONTIER_POST_VERSION);
+	
+	
 	
 	} // end function
 
