@@ -9,16 +9,31 @@ function frontier_post_age($tmp_post_date)
 	}
 	
 
-function frontier_can_add()
+function frontier_can_add($tmp_post_type = "post")
 	{
-		global $fps_access_check_msg;
+	global $fps_access_check_msg;
+	$tmp_can_do = true;
+	
+	if ( !current_user_can( 'frontier_post_can_add' ) )
+		{
 		$tmp_can_do = false;
-		if ( current_user_can( 'frontier_post_can_add' ) )
-			{
-			$tmp_can_do = true;
-			$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to add new post")."<br>";
-			}
-			
+		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to add new posts", "frontier-post")."<br>";
+		}
+	
+	// check if it is an allowed posttype
+	if ( !fp_check_post_type($tmp_post_type) )
+		{
+		$tmp_can_do = false;
+		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to add new", "frontier-post").": ".fp_get_posttype_label($tmp_post_type)."<br>";
+		}
+	
+	// Always allow the boss 
+	if ( current_user_can( 'administrator' ) )
+		{
+		$tmp_can_do = true;
+		$fps_access_check_msg = "";
+		}
+		
 		return $tmp_can_do;
 	
 	}	
@@ -46,31 +61,41 @@ function frontier_can_edit($tmp_post)
 		}
 	
 	// Check that the age of the post is below the Frontier Post setting
-	if ( frontier_post_age($tmp_post->post_date) > get_option('frontier_post_edit_max_age') )
+	if ( frontier_post_age($tmp_post->post_date) > fp_get_option_int('fps_edit_max_age') )
 		{
 		$tmp_can_do = false;
-		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit post older than: ", "frontier-post").get_option('frontier_post_edit_max_age')." ".__("days", "frontier-post")."<br>";
+		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit post older than: ", "frontier-post").fp_get_option_int('fps_edit_max_age')." ".__("days", "frontier-post")."<br>";
 		}
 	
 	// Check that user is allowed to edit posts that already has comments
-	if ( (( (int) $tmp_post->comment_count) > 0) && ( (get_option("frontier_post_edit_w_comments") != "true") ))
+	if ( (intval($tmp_post->comment_count) > 0) && !fp_get_option_bool("fps_edit_w_comments") )
 		{
 		$tmp_can_do = false;
 		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit post that already has comments", "frontier-post")."<br>";
 		}
 	
 	// Check if user is allowed to edit a post that is already published
-	if ( (get_option("frontier_post_change_status", "false") != "true") && ($tmp_post->post_status == "publish") )
+	if ( !fp_get_option("fps_change_status") && ($tmp_post->post_status == "publish") )
 		{
 		$tmp_can_do = false;
 		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit post that is published", "frontier-post")."<br>";
 		}
-		
-	// Always allow the boss to edit posts
+	
+	// check if it is an allowed posttype
+	if ( !fp_check_post_type($tmp_post->post_type) )
+		{
+		$tmp_can_do = false;
+		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit", "frontier-post").": ".fp_get_posttype_label($tmp_post->post_type)."<br>";
+		}
+	
+	// Always allow the boss 
 	if ( current_user_can( 'administrator' ) )
+		{
 		$tmp_can_do = true;
-	
-	
+		$fps_access_check_msg = "";
+		}
+		
+	//$fps_access_check_msg = $fps_access_check_msg."Just testing<br>";
 	return $tmp_can_do;
 	
 	}	
@@ -97,7 +122,7 @@ function frontier_can_delete($tmp_post)
 		
 	
 	// Check that the age of the post is below the Frontier Post setting
-	if ( frontier_post_age($tmp_post->post_date) > get_option('frontier_post_delete_max_age') )
+	if ( frontier_post_age($tmp_post->post_date) > fp_get_option_int('fps_delete_max_age') )
 		{
 		$tmp_can_do = false;
 		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to delete post older than: ", "frontier-post").get_option('frontier_post_delete_max_age')." ".__("days", "frontier-post")."<br>";
@@ -105,17 +130,26 @@ function frontier_can_delete($tmp_post)
 
 
 	// Check that user is allowed to delete posts that already has comments	
-	if ( ( (int) $tmp_post->comment_count) > 0 && ( (get_option("frontier_post_del_w_comments") != "true") ))
+	if ( ( (int) $tmp_post->comment_count) > 0 && ( !fp_get_option_bool("fps_del_w_comments") ))
 		{
 		$tmp_can_do = false;
 		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to deelete post that already has comments", "frontier-post")."<br>";
 		}	
 	
-	// Always allow the boss to edit posts
+	// check if it is an allowed posttype
+	if ( !fp_check_post_type($tmp_post->post_type) )
+		{
+		$tmp_can_do = false;
+		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to delete", "frontier-post").": ".fp_get_posttype_label($tmp_post->post_type)."<br>";
+		}
+	
+	
+	// Always allow the boss 
 	if ( current_user_can( 'administrator' ) )
+		{
 		$tmp_can_do = true;
-	
-	
+		$fps_access_check_msg = "";
+		}
 	
 	
 	return $tmp_can_do;

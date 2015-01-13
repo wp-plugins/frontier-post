@@ -4,16 +4,19 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.0.6
-Author URI: http://wordpress.org/extend/plugins/frontier-post/
+Version: 3.2.1-beta
+Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.0.6"); 
+define('FRONTIER_POST_VERSION', "3.2.1-beta"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
+define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
 define('FRONTIER_POST_DEBUG', false);
 
-//session_start();
+define('FRONTIER_POST_SETTINGS_OPTION_NAME', "frontier_post_general_options");
+define('FRONTIER_POST_CAPABILITY_OPTION_NAME', "frontier_post_capabilities");
+
 
 include("include/frontier_post_defaults.php");
 include("include/frontier_post_validation.php");
@@ -26,6 +29,10 @@ include("frontier-delete-post.php");
 include("frontier-set-defaults.php");
 include("frontier-add-edit.php");
 include("frontier-preview-post.php");
+
+// Settings menu
+//include('settings-menu.php');
+include('frontier-post-admin.php');
 
 
 //widgets	
@@ -48,28 +55,39 @@ function frontier_user_posts($atts)
 		global $current_user;
 		
 		//ob_start();
-    
+    	/*
+    	error_log("Page: ".is_page(get_the_id()));
+    	error_log("single: ".is_single());
+    	error_log("single with ID: ".is_single(get_the_id()));
+    	*/
     
         if(is_user_logged_in())
 			{  
-            if(!(is_single()||is_page())) 
+            //if( (!is_single()) || (!is_page(get_the_id())) ) 
+            if ( !is_page(get_the_id()) )
 				{
+				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post").'</h1></center>');
 				return;         
 				}
             
+            //error_log("Page: ".is_page(get_the_id()));
 			$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
 			$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";
 			
 			$frontier_post_shortcode_parms = shortcode_atts( array (
-				'frontier_mode' 			=> 'none',
-				'frontier_parent_cat_id' 	=> 0,
-				'frontier_cat_id' 			=> 0,
-				'frontier_list_cat_id' 		=> 0,
-				'frontier_list_all_posts'	=> 'false',
-				'frontier_list_text_before'	=> '',
-				'frontier_edit_text_before'	=> '',
-				'frontier_myid'				=> get_the_id(),
-				'frontier_return_text'		=> __("Save & Return", "frontier-post")
+				'frontier_mode' 				=> 'none',
+				'frontier_parent_cat_id' 		=> 0,
+				'frontier_cat_id' 				=> 0,
+				'frontier_list_cat_id' 			=> 0,
+				'frontier_list_all_posts'		=> 'false',
+				'frontier_list_text_before'		=> '',
+				'frontier_edit_text_before'		=> '',
+				'frontier_myid'					=> get_the_id(),
+				'frontier_return_text'			=> __("Save & Return", "frontier-post"),
+				'frontier_add_post_type'		=> 'post',
+				'frontier_list_post_types'		=> 'post',
+				'frontier_custom_tax'			=> '',
+				'frontier_custom_tax_layout'	=> ''
 				), $atts );
 			
 			
@@ -80,9 +98,33 @@ function frontier_user_posts($atts)
 				$_REQUEST['frontier_new_cat_widget'] = "true";
 				$frontier_post_shortcode_parms['frontier_cat_id'] = isset($_GET['frontier_cat_id']) ? $_GET['frontier_cat_id'] : 0;
 				}
+				
 			//Change Categories to array
-			$frontier_post_shortcode_parms['frontier_cat_id'] = explode(",", $frontier_post_shortcode_parms['frontier_cat_id']);
-			$frontier_post_shortcode_parms['frontier_list_cat_id'] = explode(",", $frontier_post_shortcode_parms['frontier_list_cat_id']);
+			if ($frontier_post_shortcode_parms['frontier_cat_id'] > " ")
+				$frontier_post_shortcode_parms['frontier_cat_id'] = explode(",", $frontier_post_shortcode_parms['frontier_cat_id']);
+			else
+				$frontier_post_shortcode_parms['frontier_cat_id'] = array();
+				
+			if ($frontier_post_shortcode_parms['frontier_list_cat_id'] > " ")
+				$frontier_post_shortcode_parms['frontier_list_cat_id'] = explode(",", $frontier_post_shortcode_parms['frontier_list_cat_id']);
+			else
+				$frontier_post_shortcode_parms['frontier_list_cat_id'] = array();
+			//Change list post types to array
+			if ($frontier_post_shortcode_parms['frontier_list_post_types']  > " ")
+				$frontier_post_shortcode_parms['frontier_list_post_types'] = explode(",", $frontier_post_shortcode_parms['frontier_list_post_types']);
+			else
+				$frontier_post_shortcode_parms['frontier_list_post_types']  = array('post');
+			
+			//Change list of custom taxonomies to array
+			if ($frontier_post_shortcode_parms['frontier_custom_tax'] > " ")
+				$frontier_post_shortcode_parms['frontier_custom_tax'] =  explode(",", $frontier_post_shortcode_parms['frontier_custom_tax']);
+			else
+				$frontier_post_shortcode_parms['frontier_custom_tax'] = array();	
+			
+			if ($frontier_post_shortcode_parms['frontier_custom_tax_layout'] > " ") 
+				$frontier_post_shortcode_parms['frontier_custom_tax_layout'] = explode(",", $frontier_post_shortcode_parms['frontier_custom_tax_layout']);
+			else		
+				$frontier_post_shortcode_parms['frontier_custom_tax_layout'] = array();
 			
 			
 			//fp_log($frontier_post_shortcode_parms['frontier_cat_id']);
@@ -127,7 +169,7 @@ function frontier_user_posts($atts)
 			else
 			{
 				echo "<br>---- ";
-				$frontier_show_login = get_option("frontier_post_show_login", "false");
+				$frontier_show_login = fp_get_option("fps_show_login", "false");
 				//echo "Show login: ".$frontier_show_login."<br>";
 				if ($frontier_show_login == "true" )
 					echo __("Please log in !", "frontier-post")." <a href=".wp_login_url()."?redirect_to=".get_permalink(get_option('frontier_post_page_id')).">".__("Login Page", "frontier-post")."</a>  ";
@@ -195,8 +237,6 @@ function frontier_get_user_role()
 	return $user_role ? $user_role : 'unkown';
 	}
 	
-	
-include('settings-menu.php');
 
 
 //Link for Frontier add post	
@@ -206,7 +246,7 @@ function frontier_post_add_link($tmp_p_id = null, $tmp_cat_id = null)
 	$concat= get_option("permalink_structure")?"?":"&";    
 	//set the permalink for the page itself if not parsed
 	if ( !isset($tmp_p_id) )
-		$tmp_p_id = get_option('frontier_post_page_id');
+		$tmp_p_id = fp_get_option('fps_page_id');
 	
 	$frontier_permalink = get_permalink($tmp_p_id);
 	$url = $frontier_permalink.$concat."task=new";
@@ -235,7 +275,10 @@ add_action("init","frontier_admin_bar");
 
 function frontier_edit_post_link( $url, $post_id ) 
 	{
-	if ( is_admin() || (get_post_type($post_id) != 'post') ) // Administrator in admin dashboard, dont change url and only change for type = post
+	
+	
+	// Redirect to frontier post unless is called from admin panel or it is a post type not allowed in frontier post
+	if ( is_admin() || !fp_check_post_type(get_post_type($post_id)) )
 		{
 			return $url;
 		}
@@ -243,7 +286,7 @@ function frontier_edit_post_link( $url, $post_id )
 		{
 			if ( current_user_can( 'frontier_post_redir_edit' )	)
 				{
-					$frontier_edit_page = (int) get_option('frontier_post_page_id');
+					$frontier_edit_page = (int) fp_get_option('fps_page_id');
 					$url = '';
 					$concat= get_option("permalink_structure")?"?":"&";    
 					//set the permalink for the page itself
@@ -270,7 +313,7 @@ function frontier_post_hide_title($fp_tmp_title, $fp_tmp_id = 0)
 		{
 		//fp_log("ID: ".$fp_tmp_id." Is singular: ".is_singular()." Title: ".$fp_tmp_title);
 	
-		$fp_tmp_id_list = explode(",", get_option("frontier_post_hide_title_ids", ""));
+		$fp_tmp_id_list = explode(",", fp_get_option("fps_hide_title_ids", ""));
 		if (in_array($fp_tmp_id, $fp_tmp_id_list) )
 			{
 			$fp_tmp_title = "";
@@ -279,7 +322,7 @@ function frontier_post_hide_title($fp_tmp_title, $fp_tmp_id = 0)
 	return $fp_tmp_title;
 	}
 	
-$fp_tmp_id_list = explode(",", get_option("frontier_post_hide_title_ids", ""));
+$fp_tmp_id_list = explode(",", fp_get_option("fps_hide_title_ids", ""));
 
 if ( (count($fp_tmp_id_list) > 0) && ( (int) $fp_tmp_id_list[0] > 0) )
 	add_filter("the_title", "frontier_post_hide_title", 99, 2);
@@ -288,7 +331,7 @@ if ( (count($fp_tmp_id_list) > 0) && ( (int) $fp_tmp_id_list[0] > 0) )
 //* Add Id to Category list
 //***********************************************************************************	
 
-if ( get_option("frontier_post_catid_list", "false") == "true" )
+if ( fp_get_option("fps_catid_list", "false") == "true" )
 	{
 	function frontier_add_categoryid_list($columns) 
 		{

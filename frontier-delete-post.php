@@ -31,7 +31,7 @@ function frontier_prepare_delete_post($frontier_post_shortcode_parms = array())
 		
 						<tr><td>
 						<center>
-						<button class="button" type="submit" name="submit_delete" 		id="submit_delete" 	value="deletego"><?php _e("Delete post", "frontier-post"); ?></button>
+						<button class="button" type="submit" name="submit_delete" 		id="submit_delete" 	value="deletego"><?php _e("Delete", "frontier-post"); ?></button>
 						<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
 						</center>
 						</td></tr>

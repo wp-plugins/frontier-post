@@ -4,6 +4,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	{
 	require_once(ABSPATH . '/wp-admin/includes/post.php');
 	global $current_user;
+	//error_log(print_r($frontier_post_shortcode_parms, true));	
 	
 	$fps_access_check_msg 		= "";
 	$user_can_edit_this_post 	= false;
@@ -11,9 +12,16 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	//Reset access message
 	$fps_access_check_msg = "";
 	
-	//Get Frontier Post settings
+	//Get Frontier Post capabilities
+	$fp_capabilities	= frontier_post_get_capabilities();
 	
-	$fp_options 		= get_option('frontier_post_options', array() );
+	//$fp_settings		= frontier_post_get_settings()
+	
+	// Get vars from shortcode 
+	extract($frontier_post_shortcode_parms);
+	
+	//error_log("After extract -----> ");
+	//error_log(print_r($frontier_post_shortcode_parms, true));		
 	
 	if (!is_user_logged_in())
 		{
@@ -32,26 +40,29 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 			{
 			$thispost			= get_post($_REQUEST['postid']);
 			$user_post_excerpt	= get_post_meta($thispost->ID, "user_post_excerpt");
-			$tmp_task_new = false;
+			$tmp_task_new 		= false;
 			if ( frontier_can_edit($thispost) == true )
 				$user_can_edit_this_post = true;
 			}
 		else
 			{
-			if ( frontier_can_add($fps_access_check_msg) == true )
+			$tmp_post_type	= post_type_exists($frontier_add_post_type) ? $frontier_add_post_type : 'post';
+			if ( frontier_can_add($tmp_post_type) == true )
 				{
-				$user_can_edit_this_post = true;
 				if ( empty($thispost->ID) )
-					{
-					$thispost = get_default_post_to_edit( "post", true );
-					$thispost->post_author = $current_user->ID;
-					$thispost->post_status = get_option("frontier_default_status", "publish");
+					{					
+					$thispost 				= get_default_post_to_edit( "$tmp_post_type", true );
+					$thispost->post_author 	= $current_user->ID;
+					$thispost->post_type	= $tmp_post_type;
+					echo "New post for edit: ".$thispost->ID."<br>";
 					}
 				$_REQUEST['task']="new";
 				$tmp_task_new = true;
+				$user_can_edit_this_post = true;
+				
 				}
 			}
-			$post_id = $thispost->ID;
+			
 		}
 		
 	
@@ -60,8 +71,9 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	// Do not proceed with all the processing if user is not able to add/edit
 	if ( $user_can_edit_this_post == true )	
 		{
-		// Get vars from shortcode 
-		extract($frontier_post_shortcode_parms);
+		
+		$post_id = $thispost->ID;
+		
 		$concat= get_option("permalink_structure")?"?":"&";
 	
 		//get users role:
@@ -95,13 +107,18 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		if (!current_user_can('frontier_post_can_draft'))
 			unset($tmp_status_list['draft']);
 		
+		// Remove pending status from array if user is not allowed to use pending status or if it is a page we are editing
+		if ( !current_user_can('frontier_post_can_pending') || ($thispost->post_type == 'page') )
+			unset($tmp_status_list['pending']);
+		
+		
 		// Remove publish status from array if not allowed
 		if (!current_user_can( 'frontier_post_can_publish' ))
 			unset($tmp_status_list['publish']);
 			
 		
 		// Set default status if new post - Check if the default status is in the allowed statuses, and if so set the default status
-		$tmp_default_status 	= get_option("frontier_default_status", "publish");
+		$tmp_default_status 	= fp_get_option("fps_default_status", "publish");
 		
 		if ( ($tmp_task_new == true) && array_key_exists($tmp_default_status , $tmp_status_list))
 			$thispost->post_status	= $tmp_default_status;
@@ -128,13 +145,13 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 		// If capabilities is managed from other plugin, use default setting for all profiles
 		if ( get_option("frontier_post_external_cap", "false") == "true" )
-			$editor_type 				= get_option("frontier_default_editor", "full");
+			$editor_type 				= fp_get_option("fps_default_editor", "full");
 		else
-			$editor_type 				= $fp_options[$users_role]['editor'] ? $fp_options[$users_role]['editor'] : "full"; 
+			$editor_type 				= $fp_capabilities[$users_role]['fps_role_editor_type'] ? $fp_capabilities[$users_role]['fps_role_editor_type'] : "full"; 
 		
 		$editor_layout		 		= array('dfw' => false, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
 		$frontier_media_button		= current_user_can( 'frontier_post_can_media' ) ? current_user_can( 'frontier_post_can_media' ) : false;
-		$frontier_editor_lines 		= get_option('frontier_post_editor_lines', 300);
+		$frontier_editor_lines 		= fp_get_option_int('fps_editor_lines', 300);
 		
 		// Call to wp_editor in done in entry form
 		
@@ -142,45 +159,64 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		// Setup category	
 		//************************************************************************
 		
-		// If capabilities is managed from other plugin, use default setting for all profiles
-		if ( get_option("frontier_post_external_cap", "false") == "true" )
-			$category_type 			= get_option("frontier_default_cat_select", "multi");
-		else
-			$category_type 			= $fp_options[$users_role]['category'] ? $fp_options[$users_role]['category'] : "multi"; 
-		
-		$default_category			= $fp_options[$users_role]['default_category'] ? $fp_options[$users_role]['default_category'] : get_option("default_category"); 
-		
-		// set default category, if new and category parsed from shortcode, 
-		if ( $tmp_task_new  )
+		// Do not manage categories for page
+		if ( $thispost->post_type != 'page' )
 			{
-			$cats_selected = $frontier_cat_id;
-			if ( $frontier_cat_id[0] > 0 )
-				$default_category =  $frontier_cat_id[0];
-			}
-		else
-			{
-			$cats_selected	= $thispost->post_category;
-			}
 		
-		// if no category selected (from post), insert default category
-		if (empty($cats_selected[0]))
-			$cats_selected[0] = $default_category;
+			// If capabilities is managed from other plugin, use default setting for all profiles
+			if ( fp_get_option("fps_external_cap", "false") == "true" )
+				$category_type 			= fp_get_option("fps_default_cat_select", "multi");
+			else
+				$category_type 			= $fp_capabilities[$users_role]['fps_role_category_layout'] ? $fp_capabilities[$users_role]['fps_role_category_layout'] : "multi"; 
+	
 		
-		// Set variable for hidden field, if category field is removed from the form
+			// Dont setup categories for pages
+			if ( $thispost->post_type == 'page' )
+				{
+				$cats_selected = array();
+				}
+			else
+				{
+			
+				$default_category			= $fp_capabilities[$users_role]['fps_role_default_category'] ? $fp_capabilities[$users_role]['fps_role_default_category'] : get_option("default_category"); 
+		
+				// set default category, if new and category parsed from shortcode, 
+				if ( $tmp_task_new  )
+					{
+					$cats_selected = $frontier_cat_id;
+					if ( count($frontier_cat_id) > 0 && $frontier_cat_id[0] > 0 )
+						$default_category =  $frontier_cat_id[0];
+					}
+				else
+					{
+					$cats_selected	= $thispost->post_category;
+					}
+		
+				// if no category selected (from post), insert default category
+				if (empty($cats_selected[0]))
+					$cats_selected[0] = $default_category;
+		
+				}
+			
+			// Set variable for hidden field, if category field is removed from the form
 			$cats_selected_txt = implode(',', $cats_selected);
 		
-		// Set categories to be excluded
-		$frontier_post_excl_cats	= get_option("frontier_post_excl_cats", '');
-		
-		// Build list of categories (3 levels)
-		if ( ($category_type == "multi") || ($category_type == "checkbox") )
-			{
-			$catlist 		= array();
-			$catlist 		= frontier_tax_list("category", $frontier_post_excl_cats, $frontier_parent_cat_id );
-			}	
 			
-		// Set tags
-		if ( current_user_can( 'frontier_post_tags_edit' )  )
+			// Build list of categories (3 levels)
+			if ( ($category_type == "multi") || ($category_type == "checkbox") )
+				{
+				$catlist 		= array();
+				$catlist 		= frontier_tax_list("category", fp_get_option("fps_excl_cats", ''), $frontier_parent_cat_id );
+				}
+			
+			} // end exclude categories for pages
+		
+		
+		//***************************************************************************************
+		//* Set tags
+		//***************************************************************************************
+		
+		if ( current_user_can( 'frontier_post_tags_edit' ) && ($thispost->post_type != 'page') )
 			{
 			$taglist = array();
 			if (isset($thispost->ID))
@@ -195,22 +231,30 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 				}
 			}
 		
-		$hide_post_status = ( get_option("frontier_post_hide_status", "false") == "true" ) ? true : false;
+		$hide_post_status = ( fp_get_option("fps_hide_status", "false") == "true" ) ? true : false;
 		
-		$frontier_use_feat_img = get_option("frontier_post_show_feat_img", "false");
+		$frontier_use_feat_img = fp_get_option("fps_show_feat_img", "false");
 		
 		} // end if OK to Edit
 		
 		
 	if ($user_can_edit_this_post)
 		{
-		include_once(frontier_load_form("frontier_post_form.php"));	
+		//include_once(frontier_load_form("frontier_post_form.php"));
+		if ( fp_get_option_bool('fps_use_tax_form') )
+			include_once(frontier_load_form("frontier_post_tax_form.php"));	
+		else
+			include_once(frontier_load_form("frontier_post_form.php"));
 		}
 		
 	else
 		{
 		// Echo reason why user cant add/edit post.
-		echo $fps_access_check_msg;
+		global $fps_access_check_msg;
+		if ( empty($fps_access_check_msg) || ($fps_access_check_msg < " ") )
+			echo __("You are not allowed to edit this post, sorry ", "frontier-post");
+		else
+			echo "<br>".$fps_access_check_msg;
 		
 		//Reset message once displayed
 		$fps_access_check_msg = "";

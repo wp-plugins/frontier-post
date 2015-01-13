@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1
-Stable tag: 3.0.6
+Stable tag: 3.0.7
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
@@ -151,9 +151,27 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+= 3.2.1-beta
+* Fixed admin menu name duplication
+* Fixed post validation error
+
+= 3.2.0-beta
+* NEW: Support for custom taxonomies (no coding necessary)
+* NEW: Support for custom post types (no coding necessary)
+* NEW: Support for custom fields using filters and actions.
+* Settings has be re-organized
+
+= 3.0.7 =
+* Fixed capability messages not showing
+
 = 3.0.6 =
 * Fixed link to post on frontier_list_form, missing double quotes
 * Fixed single category dropdown did not respect excluded categories.
+
+= 3.0.5 =
+* Support for custom post types in lists, and in forms using template forms, no support for custom fields. 
+* Added 2 new shortcode parameters: frontier_add_post_type & frontier_list_post_types
+ * Example usage: [frontier-post frontier_add_post_type="page" frontier_list_post_types="post,page"]
 
 = 3.0.5 =
 * Changed _wpnonce name and action to frontier post specific to resolve possible conflict
