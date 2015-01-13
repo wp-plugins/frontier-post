@@ -401,7 +401,7 @@ function frontier_post_init()
 add_action('plugins_loaded', 'frontier_post_init');
 
 
-add_action('admin_menu', 'frontier_post_settings_menu');
+//add_action('admin_menu', 'frontier_post_settings_menu');
 
 add_shortcode("frontier-post","frontier_user_posts");
 
