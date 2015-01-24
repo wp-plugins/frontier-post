@@ -187,7 +187,7 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 					}
 				}	
 			} // end do not manage taxonomies for pages
-		error_log("------- END saving tax ------");
+		//error_log("------- END saving tax ------");
 		//****************************************************************************************************
 		// End updating post
 		//****************************************************************************************************

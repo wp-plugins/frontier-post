@@ -54,7 +54,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 					$thispost 				= get_default_post_to_edit( "$tmp_post_type", true );
 					$thispost->post_author 	= $current_user->ID;
 					$thispost->post_type	= $tmp_post_type;
-					echo "New post for edit: ".$thispost->ID."<br>";
+					//echo "New post for edit: ".$thispost->ID."<br>";
 					}
 				$_REQUEST['task']="new";
 				$tmp_task_new = true;

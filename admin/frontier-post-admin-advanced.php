@@ -61,7 +61,7 @@ function frontier_post_admin_page_advanced()
 		//error_log(print_r($fps_save_general_options, true));
 
 		// Put an settings updated message on the screen
-		echo '<div class="updated"><p><strong>'.__('Settings saved.', 'frontier-post' ).'</strong></p></div>';
+		echo '<div class="updated"><p><strong>'.__("Settings saved.", 'frontier-post' ).'</strong></p></div>';
 				
 		} // end save settngs
 		
