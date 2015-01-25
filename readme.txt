@@ -3,7 +3,7 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Danish
 Requires at least: 3.4.0
-Tested up to: 4.1
+Tested up to: 4.1.0
 Stable tag: 3.0.7
 License: GPL v3 or later
  
@@ -150,6 +150,21 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 
 == Changelog ==
+
+
+= 3.2.5-beta
+* Added new formfiles, that wasnt included in 3.2.5-beta
+
+= 3.2.5-beta
+* Added select of form in advanced option (standard/simple/old)
+* Changed css to support fieldset in safari and chrome
+
+= 3.2.3-beta
+* Restrict frontier-post shortcode to pages
+
+= 3.2.2-beta
+* Re-introduced output buffering
+* updated frontier_post_tax_form.php with float left fieldsets
 
 = 3.2.1-beta
 * Fixed admin menu name duplication
