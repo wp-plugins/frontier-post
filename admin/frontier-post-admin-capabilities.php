@@ -95,11 +95,17 @@ function frontier_post_admin_page_capabilities()
 
 				update_option(FRONTIER_POST_CAPABILITY_OPTION_NAME, $saved_capabilities);
 				
+				// Put an settings updated message on the screen
+				echo '<div class="updated"><p><strong>'.__("Settings saved.", 'frontier-post' ).'</strong></p></div>';
+		
 				// Set Wordpress capabilities
 				frontier_post_set_cap();
-				
+				// Put an settings updated message on the screen
+				echo '<div class="updated"><p><strong>'.__("Capabilities set.", 'frontier-post' ).'</strong></p></div>';
+		
 				} // End external managed capabilities
-				error_log(print_r($saved_capabilities, true));
+				
+				
 		} // end update options
 	
 	

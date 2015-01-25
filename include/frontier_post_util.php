@@ -87,12 +87,12 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 			{
 			
 			case "single":
-				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected, 'hierarchical' => true, 'show_count' => true)); 
+				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected, 'hierarchical' => true, 'show_count' => true, 'class' => 'frontier_post_dropdown')); 
 				break;
 		
 			case "multi":
-				echo frontier_post_tax_multi($tmp_tax_list , $tmp_selected, $tmp_input_field_name, $tmp_field_name, 8);
-				echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+				echo frontier_post_tax_multi($tmp_tax_list , $tmp_selected, $tmp_input_field_name, $tmp_field_name, 10);
+				//echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
 				break;
 
 			case "checkbox":
@@ -118,7 +118,7 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 //Build html multiselect dropdown for taxonomies
 Function frontier_post_tax_multi($tmp_cat_list, $tmp_selected, $tmp_name, $tmp_id, $tmp_size)
 	{
-	$tmp_html = '<select name="'.$tmp_name.'" id="'.$tmp_id.'" multiple="multiple" size="'.$tmp_size.'">';
+	$tmp_html = '<select class="frontier_post_dropdown" name="'.$tmp_name.'" id="'.$tmp_id.'" multiple="multiple" size="'.$tmp_size.'">';
 	
 	foreach ( $tmp_cat_list as $taxid => $taxname) :
 		$tmp_html = $tmp_html.'<option value="'.$taxid.'"'; 
@@ -262,7 +262,7 @@ function fp_check_post_type($tmp_post_type)
 function fp_get_posttype_label($tmp_pt_name)
 	{
 	$tmp_pt = get_post_type_object($tmp_pt_name);
-	error_log(print_r($tmp_pt,true));
+	//error_log(print_r($tmp_pt,true));
 	return $tmp_pt->label;
 	}
 

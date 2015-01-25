@@ -32,6 +32,13 @@ $frontier_author_role_name	  = "frontier-author";
 
 $frontier_default_submit = array('save' => 'true', 'savereturn' => 'true', 'preview' => 'true', 'cancel' => 'true' );
 
+$frontier_post_forms = array(
+	'standard'	=> __("Standard Form (with Taxonomies)", "frontier-post"),
+	'simple'	=> __("Simpel Form (only title, status, content & submit)", "frontier-post"),
+	'old'		=> __("Old Form (for backwards compatibility", "frontier-post")
+	);
+
+
 $fp_capability_list 	= array(
 	'frontier_post_can_add' 		=> __("Can Add", "frontier-post"), 	
 	'frontier_post_can_edit' 		=> __("Can Edit", "frontier-post"), 	
@@ -103,7 +110,8 @@ $fp_role_option_list 	= array(
 		'fps_allow_custom_post_type',
 		'fps_custom_post_type_list',
 		'fps_use_tax_form',
-		'fps_keep_options_uninstall'	
+		'fps_keep_options_uninstall',
+		'fps_default_form'
 		);
 		
 		
@@ -142,7 +150,8 @@ $fp_role_option_list 	= array(
 		'fps_allow_custom_post_type'	=> "false",
 		'fps_custom_post_type_list'		=> "",
 		'fps_use_tax_form'				=> "false",
-		'fps_keep_options_uninstall'	=> "false"
+		'fps_keep_options_uninstall'	=> "false",
+		'fps_default_form'				=> "standard"
 		
 		);
 
