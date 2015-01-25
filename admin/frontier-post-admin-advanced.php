@@ -61,7 +61,7 @@ function frontier_post_admin_page_advanced()
 		//error_log(print_r($fps_save_general_options, true));
 
 		// Put an settings updated message on the screen
-		echo '<div class="updated"><p><strong>'.__('Settings saved.', 'frontier-post' ).'</strong></p></div>';
+		echo '<div class="updated"><p><strong>'.__("Settings saved.", 'frontier-post' ).'</strong></p></div>';
 				
 		} // end save settngs
 		
@@ -103,22 +103,8 @@ function frontier_post_admin_page_advanced()
 		echo '<table border="1" cellspacing="0" cellpadding="2">';
 				
 			echo "<tr>";
-				echo "<td>".__("Set Capabilities externally", "frontier-post")."</td>";
-				fps_html_field("fps_external_cap", 'checkbox', $fps_general_options, true);
-				echo '<td>'.__("If checked capabilities will be managed from external plugin ex.: User Role Editor", "frontier-post").'</td>';
-			echo "</tr><tr>";
-			if ( fp_get_option_bool("fps_external_cap") )
-				{
-				echo "<td>".__("Default Editor", "frontier-post")."</td>";
-				fps_html_field("fps_default_editor", 'select', $fps_general_options, true, 1, array_flip($editor_types) );
-				echo "</tr><tr>";	
-				echo "<td>".__("Default category select", "frontier-post")."</td>";
-				fps_html_field("fps_default_cat_select", 'select', $fps_general_options, true, 1, array_flip($category_types) );
-				echo "</tr><tr>";
-				}
-			echo "</tr><tr>";
+			
 				
-			echo "</tr><tr>";
 				echo "<td>".__("Add Frontier Author user role", "frontier-post")."</td>";
 				fps_html_field("fps_author_role", 'checkbox', $fps_general_options, true, 1);
 				echo "<td>".__("Adds a new role: Frontend Author to Wordpress", "frontier-post")."</td>";
@@ -139,9 +125,11 @@ function frontier_post_admin_page_advanced()
 				echo "<td>".__("If this is checked, the Frontier Settings will not be deleted on uninstall", "frontier-post")."</td>";
 			
 			echo "</tr><tr>";
-				echo "<td>".__("Use Taxonomy input form", "frontier-post")."</td>";
-				fps_html_field("fps_use_tax_form", 'checkbox', $fps_general_options, true, 1);
-				echo "<td>".__("Use new taxonomy input form that supports taxonomies without coding", "frontier-post"),": frontier_tax_form.php"."</td>";
+				echo "<td>".__("Input form", "frontier-post")."</td>";
+				echo "<td></td>";
+				fps_html_field("fps_default_form", 'select', $fps_general_options, true, 1, $frontier_post_forms );
+				//fps_html_field("fps_use_tax_form", 'checkbox', $fps_general_options, true, 1);
+				//echo "<td>".__("Use new taxonomy input form that supports taxonomies without coding", "frontier-post"),": frontier_tax_form.php"."</td>";
 
 			
 			echo "</tr><tr>";
@@ -170,19 +158,7 @@ function frontier_post_admin_page_advanced()
 				fps_html_field("fps_mail_approved", 'checkbox', $fps_general_options, true);
 				
 		
-			echo "</tr><tr>";
-				echo "<td>".__("Template directory", "frontier-post")."</td>";
-				echo "<td></td>";
-				echo "<td>";
-					echo frontier_template_dir();  
-					// check if frontuier post templates are used
-					if (locate_template(array('plugins/frontier-post/'."frontier_form.php"), false, true))
-						echo "<br /><strong> frontier_form.php ".__("exists in the template directory", "fontier-post")."</strong>";
-					if (locate_template(array('plugins/frontier-post/'."frontier_list.php"), false, true))
-						echo "<br /><strong> frontier_list.php ".__("exists in the template directory", "fontier-post")."</strong>";					
-					if (locate_template(array('plugins/frontier-post/'."frontier_post.css"), false, true))
-						echo "<br /><strong> frontier_post.css ".__("exists in the template directory", "fontier-post")."</strong>";					
-				echo "</td>";
+			
 	
 		echo "</tr><tr>";
 				echo "<td>".__("Allow Custom Taxonomies", "frontier-post")."</td>";
@@ -202,22 +178,40 @@ function frontier_post_admin_page_advanced()
 		
 		echo "</tr><tr>";
 				echo "<td>".__("Allowed Post Types", "frontier-post")."</td>";
-				//fps_html_field("fps_allow_custom_post_type", 'checkbox', $fps_general_options, true);
 				echo "<td></td>";
-				//if ( true || fp_get_option_bool("fps_allow_custom_post_type") )
-				//	{
-					echo "<td><strong>".__("Post Types", "frontier-post").":</strong><br>";
-					echo fps_checkbox_select_field("fps_custom_post_type_list[]", $fps_general_options["fps_custom_post_type_list"], fp_get_post_type_list())."</td>";
-				//	}
-		/*
+				echo "<td><strong>".__("Post Types", "frontier-post").":</strong><br>";
+				echo fps_checkbox_select_field("fps_custom_post_type_list[]", $fps_general_options["fps_custom_post_type_list"], fp_get_post_type_list())."</td>";
+		
 		echo "</tr><tr>";
-				echo "<td>".__("Allowed taxonomies", "frontier-post")."</td>";
+				echo "<td>".__("Template directory", "frontier-post")."</td>";
 				echo "<td></td>";
-				$fp_taxonomy_list = fp_get_tax_list();
-				echo "<td>".fps_checkbox_select_field("fps_custom_tax_list[]", $fps_general_options["fps_custom_tax_list"], $fp_taxonomy_list)."</td>";
-				//echo "<td>".frontier_post_tax_checkbox($fp_taxonomy_list ,$fps_general_options["fps_custom_tax_list"], "fps_custom_tax_list", "fps_custom_tax_list")."<td>";
-		*/		
-	
+				echo "<td>";
+					echo frontier_template_dir();  
+					// check if frontuier post templates are used
+					if (locate_template(array('plugins/frontier-post/'."frontier_form.php"), false, true))
+						echo "<br /><strong> frontier_form.php ".__("exists in the template directory", "fontier-post")."</strong>";
+					if (locate_template(array('plugins/frontier-post/'."frontier_list.php"), false, true))
+						echo "<br /><strong> frontier_list.php ".__("exists in the template directory", "fontier-post")."</strong>";					
+					if (locate_template(array('plugins/frontier-post/'."frontier_post.css"), false, true))
+						echo "<br /><strong> frontier_post.css ".__("exists in the template directory", "fontier-post")."</strong>";					
+				echo "</td>";
+				
+		echo "</tr><tr>";
+			echo "<td>".__("Set Capabilities externally", "frontier-post")."</td>";
+				fps_html_field("fps_external_cap", 'checkbox', $fps_general_options, true);
+				echo '<td>'.__("If checked capabilities will be managed from external plugin ex.: User Role Editor", "frontier-post").'</td>';
+			echo "</tr><tr>";
+			if ( fp_get_option_bool("fps_external_cap") )
+				{
+				echo "<td>".__("Default Editor", "frontier-post")."</td>";
+				fps_html_field("fps_default_editor", 'select', $fps_general_options, true, 1, array_flip($editor_types) );
+				echo "</tr><tr>";	
+				echo "<td>".__("Default category select", "frontier-post")."</td>";
+				fps_html_field("fps_default_cat_select", 'select', $fps_general_options, true, 1, array_flip($category_types) );
+				echo "</tr><tr>";
+				}
+			
+		
 		echo '</tr></table>';
 	
 		echo '<p class="submit"><input type="submit" name="Submit" class="button-primary" value="'.__('Save Changes').'"></p>';

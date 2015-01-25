@@ -151,6 +151,18 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+
+= 3.2.5-beta
+* Added select of form in advanced option (standard/simple/old)
+* Changed css to support fieldset in safari and chrome
+
+= 3.2.3-beta
+* Restrict frontier-post shortcode to pages
+
+= 3.2.2-beta
+* Re-introduced output buffering
+* updated frontier_post_tax_form.php with float left fieldsets
+
 = 3.2.1-beta
 * Fixed admin menu name duplication
 * Fixed post validation error

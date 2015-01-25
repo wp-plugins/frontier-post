@@ -58,18 +58,23 @@ echo "FB exists: ".function_exists('frontier_buttons_full_buttons')."<br>";
 		<!-- Keep selected categories if no category field on form -->
 		<input  type="hidden" name="post_categories" value="<?php echo $cats_selected_txt ;?>">
 		<table class="frontier-post-taxonomies"><tbody><tr>
-		<fieldset class="frontier_post_fieldset">
+		<td class="frontier_no_border">
+		<fieldset id="frontier_post_fieldset_title" class="frontier_post_fieldset">
 			<legend><?php _e("Title", "frontier-post"); ?></legend>
-			<input class="frontier-formtitle"  placeholder="Enter title here" type="text" value="<?php if(!empty($thispost->post_title))echo $thispost->post_title;?>" name="user_post_title" id="user_post_title" >			
+			<input class="frontier-formtitle"  placeholder="Enter title here" type="text" value="<?php if(!empty($thispost->post_title))echo $thispost->post_title;?>" name="user_post_title" id="fp_title" >			
+		</fieldset>
+		<fieldset id="frontier_post_fieldset_status" class="frontier_post_fieldset">
+			<legend><?php _e("Status", "frontier-post"); ?></legend>
+		
 			<?php if ( $hide_post_status )
 					{
 					echo '<input type="hidden" id="post_status" name="post_status" value="'.$thispost->post_status.'"  >';
 					}
 				  else
 					{
-					echo ' '.__("Status", "frontier-post").': '; 
+					//echo ' '.__("Status", "frontier-post").': '; 
 					?> 
-					<select  id="post_status" name="post_status" >
+					<select  class="frontier_post_dropdown" id="post_status" name="post_status" >
 						<?php foreach($status_list as $key => $value) : ?>   
 							<option value='<?php echo $key ?>' <?php echo ( $key == $tmp_post_status) ? "selected='selected'" : ' ';?>>
 								<?php echo $value; ?>
@@ -78,6 +83,7 @@ echo "FB exists: ".function_exists('frontier_buttons_full_buttons')."<br>";
 					</select>
 				<?php } ?>	
 		</fieldset>
+		</td></tr><tr><td class="frontier_no_border">
 		<fieldset class="frontier_post_fieldset">
 			<legend><?php _e("Content", "frontier-post"); ?></legend>	
 			<div id="frontier_editor_field"> 
@@ -87,6 +93,7 @@ echo "FB exists: ".function_exists('frontier_buttons_full_buttons')."<br>";
 			?>
 			</div>
 		</fieldset>
+		</td></tr>
 		<?php
 		
 		
@@ -99,8 +106,8 @@ echo "FB exists: ".function_exists('frontier_buttons_full_buttons')."<br>";
 		$tax_list 			= $frontier_custom_tax;
 		$tax_layout_list 	= fp_get_tax_layout($frontier_custom_tax, $frontier_custom_tax_layout);
 		
-		
-		echo '<table class="frontier-post-taxonomies"><tbody><tr>';
+		echo '<tr><td class="frontier_no_border">';
+		//echo '<table class="frontier-post-taxonomies"><tbody><tr>';
 		foreach ( $tax_layout_list as $tmp_tax_name => $tmp_tax_layout) 
 			{
 			if ($tmp_tax_layout != "hide")
@@ -109,43 +116,44 @@ echo "FB exists: ".function_exists('frontier_buttons_full_buttons')."<br>";
 				if ($tmp_tax_name != 'category')
 					$cats_selected = wp_get_post_terms($thispost->ID, $tmp_tax_name, array("fields" => "ids"));;
 				
-				echo '<td class="frontier-post-tax">';
+				//echo '<td class="frontier-post-tax">';
 				echo '<fieldset class="frontier_post_fieldset_tax">';
 				echo '<legend>'.fp_get_tax_label($tmp_tax_name).'</legend>';
-				echo '<div class="frontier-tax-box">';
+				//echo '<div class="frontier-tax-box">';
 				frontier_tax_input($thispost->ID, $tmp_tax_name, $tmp_tax_layout, $cats_selected, $frontier_post_shortcode_parms);
-				echo '</div>';
-				echo '</td>';
+				//echo '</div>';
+				//echo '</td>';
 				echo '</fieldset>';
 				echo PHP_EOL;
 				}
 			}
-		echo '</tr></tbody></table>';
+		//echo '</tr></tbody></table>';
 		
 		
 		if ( current_user_can( 'frontier_post_tags_edit' ) || fp_get_option_bool("fps_show_feat_img") )
 			{
-			echo '<table class="frontier-post-taxonomies"><tbody><tr>';
+			//echo '<table class="frontier-post-taxonomies"><tbody><tr>';
 			
 		
 			if ( current_user_can( 'frontier_post_tags_edit' ) )
 				{ ?>
-				<td class="frontier-post-tags">
+				<!--<td class="frontier-post-tags">-->
 				
-				<fieldset class="frontier_post_fieldset">
+				<fieldset class="frontier_post_fieldset_tax">
 					<legend><?php _e("Tags", "frontier-post"); ?></legend>
-					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[0]))echo $taglist[0];?>" name="user_post_tag1" id="user_post_tag" >
-					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[1]))echo $taglist[1];?>" name="user_post_tag2" id="user_post_tag" >
+					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[0]))echo $taglist[0];?>" name="user_post_tag1" id="user_post_tag" ><br>	
+					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[1]))echo $taglist[1];?>" name="user_post_tag2" id="user_post_tag" ><br>	
 					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[2]))echo $taglist[2];?>" name="user_post_tag3" id="user_post_tag" >
-				</fieldset></td>
+				</fieldset>
+				<!--</td>-->
 			<?php } 
 		
 			if ( fp_get_option_bool("fps_show_feat_img") )
 				{
 				?>
-				<td class="frontier_featured_image">
+				<!--<td class="frontier_featured_image">-->
 				
-				<fieldset class="frontier_post_fieldset">
+				<fieldset class="frontier_post_fieldset_tax">
 				<legend><?php _e("Featured image", "frontier-post"); ?></legend>
 				<?php
 				$FeatImgLinkHTML = '<a title="Select featured Image" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.'" id="set-post-thumbnail" class="thickbox">';
@@ -155,20 +163,25 @@ echo "FB exists: ".function_exists('frontier_buttons_full_buttons')."<br>";
 				$FeatImgLinkHTML = $FeatImgLinkHTML.__("Select featured image", "frontier-post").'</a>';
 		
 				echo $FeatImgLinkHTML."<br>";
-				_e("Featured image (or new featured image) not visible until post is saved", "frontier-post");
-				echo '</fieldset></td>';
+				echo '<div id="frontier_post_featured_image_txt">'.__("Not updated until post is saved", "frontier-post").'</div>';
+				echo '</fieldset>';
+				//echo '</td>';
 				}
-			echo '</tr></tbody></table>';
+			//echo '</tr></tbody></table>';
 			}
 			
 		if ( current_user_can( 'frontier_post_exerpt_edit' ) )
 				{ ?>
-				<fieldset class="frontier_post_fieldset">
-					<label><?php _e("Excerpt", "frontier-post")?>:</label>
+				<fieldset class="frontier_post_fieldset_excerpt">
+					<legend><?php _e("Excerpt", "frontier-post")?>:</legend>
 					<textarea name="user_post_excerpt" id="user_post_excerpt"  cols="8" rows="2"><?php if(!empty($thispost->post_excerpt))echo $thispost->post_excerpt;?></textarea>
 				</fieldset>
 				
-		<?php 	} ?>
+		<?php 	} 
+		
+			echo '</td></tr><tr><td class="frontier_no_border">';
+		
+		?>
 		
 		
 		
@@ -193,7 +206,8 @@ echo "FB exists: ".function_exists('frontier_buttons_full_buttons')."<br>";
 			<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
 			<?php } ?>
 		</fieldset>
-	
+		
+		</td></tr></table>
 	</form> 
 	
 	</div> <!-- ending div -->  
