@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.3.0
+Version: 3.3.1
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.3.0"); 
+define('FRONTIER_POST_VERSION', "3.3.1"); 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
 define('FRONTIER_POST_DEBUG', false);
@@ -22,6 +22,9 @@ include("include/frontier_post_defaults.php");
 include("include/frontier_post_validation.php");
 include("include/frontier_post_util.php");
 include("include/frontier_email_notify.php");
+
+include('admin/frontier-post-admin-util.php');
+	
 
 include("frontier-list-posts.php");
 include("frontier-submit-form.php");
@@ -65,7 +68,6 @@ if ( is_admin() )
 	// Upgrade old versions, but dont run upgrade if fresh install
 	if ( ($fp_last_upgrade != '0.0.0') && version_compare($fp_last_upgrade, '3.1.0') < 0)
 		{
-		include(FRONTIER_POST_DIR."/admin/frontier-post-admin-util.php");
 		include(FRONTIER_POST_DIR."/admin/frontier-post-convert-options.php");
 		// run the migration 
 		fps_cnv_general_options();
@@ -78,7 +80,6 @@ if ( is_admin() )
 	// Update defaults, but dont if fresh install - Must be the activation trigger
 	if ( ($fp_version != '0.0.0') && version_compare($fp_version, 'FRONTIER_POST_VERSION') < 0)
 		{
-		include(FRONTIER_POST_DIR."/admin/frontier-post-admin-util.php");
 		fp_post_set_defaults();
 		}
 	}

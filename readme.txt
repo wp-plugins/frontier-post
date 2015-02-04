@@ -153,6 +153,9 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+= 3.3.1 =
+* Fixed activation issue
+
 = 3.3.0 =
 * Added custom login text under advanced option
 * Changed to use get_stylesheet_directory_uri() instead of bloginfo functions that is manipulated by WPML

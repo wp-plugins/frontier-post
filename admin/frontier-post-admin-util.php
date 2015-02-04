@@ -8,7 +8,7 @@ Admin Utilities for Frontier Post plugin
 // Load default values for new options (inserts settings that doesnt exists, does not update existing)
 function fp_post_set_defaults()
 	{
-	require(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
+	include(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
 	
 	$fps_save_general_options 	= frontier_post_get_settings();
 	$tmp_option_list 			= array_keys($fps_general_defaults);
@@ -25,7 +25,7 @@ function fp_post_set_defaults()
 function frontier_post_set_cap()
 		{
 		
-		require(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
+		include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
 		
 
 		$fps_saved_capabilities = frontier_post_get_capabilities();

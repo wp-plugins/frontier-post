@@ -10,8 +10,7 @@ function frontier_post_set_defaults()
 	if (!defined('FRONTIER_POST_CAPABILITY_OPTION_NAME'))
 		define('FRONTIER_POST_CAPABILITY_OPTION_NAME', "frontier_post_capabilities");
 	
-	require(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
-	require(FRONTIER_POST_DIR.'/admin/frontier-post-admin-util.php');
+	include(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
 	
 	
 
@@ -24,7 +23,7 @@ function frontier_post_set_defaults()
 	// Upgrade old versions, but dont run upgrade if fresh install
 	if ( ($fp_last_upgrade != '0.0.0') && version_compare($fp_last_upgrade, '3.3.0') < 0)
 		{
-		require(FRONTIER_POST_DIR.'/admin/frontier-post-convert-options.php');
+		include(FRONTIER_POST_DIR.'/admin/frontier-post-convert-options.php');
 		fps_cnv_general_options(true);
 		$fp_upgrade_msg = 'Frontier Post - Settings upgraded from version: '.$fp_last_upgrade.' to version: '.FRONTIER_POST_VERSION;
 		//error_log('Ugrading');

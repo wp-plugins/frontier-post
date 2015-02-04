@@ -5,7 +5,6 @@ function fps_cnv_general_options($suppress_output = false)
 	// Move values from old single options to new array based options
 	
 	include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
-	include(FRONTIER_POST_DIR."/admin/frontier-post-admin-util.php");
 		
 
 	$frontier_submit_buttons = get_option("frontier_post_submit_buttons", array('save' => 'true', 'savereturn' => 'true', 'preview' => 'true', 'cancel' => 'true' ));
