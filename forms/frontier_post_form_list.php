@@ -1,5 +1,17 @@
 <?php 
 
+//test comment icon
+	/*
+	echo "<hr>";
+	$theme_icon 	= get_template_directory_uri()."/images/comments.png";
+	$frontier_icon	= get_stylesheet_directory_uri()."/plugins/frontier-post/comments.png";
+	$wp_icon		= includes_url()."/images/wlw/wp-comments.png";
+	echo "Theme Icon: get_template_directory_uri() -->".$theme_icon."/plugins/frontier-post/comments.png"." | icon: <img src='".$theme_icon."'></img>"."<br>";
+	echo "Child theme Icon: get_stylesheet_directory_uri() -->".$frontier_icon." | icon: <img src='".$frontier_icon."'></img>"."<br>";
+	echo "WP Icon: includes_url() -->".$wp_icon." | icon: <img src='".$wp_icon."'></img>"."<br>";
+	echo "<hr>";
+	*/
+	
 $concat= get_option("permalink_structure")?"?":"&";    
 //set the permalink for the page itself
 $frontier_permalink = get_permalink();

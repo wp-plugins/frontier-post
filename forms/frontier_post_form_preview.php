@@ -4,7 +4,7 @@
 
 		
 	$tmp_edit_link = '<a href='.get_permalink().$concat.'task=edit&postid='.$preview_post->ID.'>'.__("Edit Post", "frontier-post").'</a>';
-	$tmp_list_link = '<a href='.get_permalink().'>'.__("Return to list", "frontier-post").'</a>';
+	$tmp_list_link = '<a href='.get_permalink().'>'.__("Return", "frontier-post").'</a>';
 	
 	?>
 	
