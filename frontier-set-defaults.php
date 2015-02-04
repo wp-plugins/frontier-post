@@ -10,8 +10,8 @@ function frontier_post_set_defaults()
 	if (!defined('FRONTIER_POST_CAPABILITY_OPTION_NAME'))
 		define('FRONTIER_POST_CAPABILITY_OPTION_NAME', "frontier_post_capabilities");
 	
-	require(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
-	require(FRONTIER_POST_DIR.'/admin/frontier-post-admin-util.php');
+	include(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
+	include(FRONTIER_POST_DIR.'/admin/frontier-post-admin-util.php');
 	
 	
 
