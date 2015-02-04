@@ -13,8 +13,8 @@ function frontier_post_admin_page_general()
 	if (!current_user_can('manage_options'))
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	
-	include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
-	include(FRONTIER_POST_DIR."/admin/frontier_post_admin_util.php");
+	require(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
+	require(FRONTIER_POST_DIR."/admin/frontier-post-admin-util.php");
 	
 	//include("../include/frontier_post_defaults.php");
 		
