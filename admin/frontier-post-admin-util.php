@@ -3,10 +3,24 @@
 Admin Utilities for Frontier Post plugin
 */
 
-//***************************************************************************
-//* Functions for admin menu html output
-//***************************************************************************
 
+
+// Load default values for new options (inserts settings that doesnt exists, does not update existing)
+function fp_post_set_defaults()
+	{
+	include(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
+	
+	$fps_save_general_options 	= frontier_post_get_settings();
+	$tmp_option_list 			= array_keys($fps_general_defaults);
+		
+	foreach($tmp_option_list as $tmp_option_name)
+		{
+		if ( !key_exists($tmp_option_name, $fps_save_general_options) )
+			$fps_save_general_options[$tmp_option_name] = $fps_general_defaults[$tmp_option_name];			
+		}
+	$fps_save_general_options['fps_frontier_post_version'] 	= FRONTIER_POST_VERSION;				
+	update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
+	}
 
 function frontier_post_set_cap()
 		{
@@ -53,6 +67,9 @@ function frontier_post_set_cap()
 		
 		} //end frontier_post_set_cap() funtion 
 
+//***************************************************************************
+//* Functions for admin menu html output
+//***************************************************************************
 
 
 // generates html output for checkbox field
