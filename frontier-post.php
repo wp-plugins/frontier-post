@@ -4,14 +4,25 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.2.1-beta
+Version: 3.3.2
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.2.1-beta"); 
+define('FRONTIER_POST_VERSION', "3.3.2"); 
+
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
+define('FRONTIER_POST_TEMPLATE_DIR', get_stylesheet_directory().'/plugins/frontier-post')	; //an absolute path to this directory
+define('FRONTIER_POST_TEMPLATE_URL', get_stylesheet_directory_uri().'/plugins/frontier-post/'); //url path to the template directory
+
+/*
+error_log("FRONTIER_POST_DIR: ".FRONTIER_POST_DIR);
+error_log("FRONTIER_POST_URL: ".FRONTIER_POST_URL);
+error_log("FRONTIER_POST_TEMPLATE_DIR: ".FRONTIER_POST_TEMPLATE_DIR);
+error_log("FRONTIER_POST_TEMPLATE_URL: ".FRONTIER_POST_TEMPLATE_URL);
+*/
+
 define('FRONTIER_POST_DEBUG', false);
 
 define('FRONTIER_POST_SETTINGS_OPTION_NAME', "frontier_post_general_options");
@@ -22,6 +33,9 @@ include("include/frontier_post_defaults.php");
 include("include/frontier_post_validation.php");
 include("include/frontier_post_util.php");
 include("include/frontier_email_notify.php");
+
+include('admin/frontier-post-admin-util.php');
+	
 
 include("frontier-list-posts.php");
 include("frontier-submit-form.php");
@@ -42,38 +56,75 @@ include("include/frontier_new_category_post_widget.php");
 
 add_action("init","frontier_get_user_role"); 
 
- 
+/*
 function get_file_extension($file_name)
 	{
           return substr(strrchr($file_name,'.'),1);
 	}
-  
+*/
+
+//**********************************************************************************
+// Check upgrade
+//
+//**********************************************************************************
+
+
+
+if ( is_admin() )
+	{
+	//error_log(print_r(frontier_post_get_capabilities(), true));
+	
+	$fp_last_upgrade = fp_get_option('fps_options_migrated_version', get_option("frontier_post_version", '0.0.0'));
+
+	// Upgrade old versions, but dont run upgrade if fresh install
+	if ( ($fp_last_upgrade != '0.0.0') && version_compare($fp_last_upgrade, '3.1.0') < 0)
+		{
+		include(FRONTIER_POST_DIR."/admin/frontier-post-convert-options.php");
+		// run the migration 
+		fps_cnv_general_options();
+		
+		}
+	
+	// Normal version update to capture new settings etc
+	$fp_version = fp_get_option('fps_frontier_post_version', '0.0.0');
+
+	// Update defaults, but dont if fresh install - Must be the activation trigger
+	if ( ($fp_version != '0.0.0') && version_compare($fp_version, 'FRONTIER_POST_VERSION') < 0)
+		{
+		fp_post_set_defaults();
+		}
+	}
+//**********************************************************************************
+// Main program
+//
+//**********************************************************************************
+ 
 
 function frontier_user_posts($atts)
 	{    
-		global $wp_roles;
-		global $current_user;
-		
-		//ob_start();
-    	/*
-    	error_log("Page: ".is_page(get_the_id()));
-    	error_log("single: ".is_single());
-    	error_log("single with ID: ".is_single(get_the_id()));
-    	*/
-    
-        if(is_user_logged_in())
+	global $wp_roles;
+	global $current_user;
+	global $post;
+	
+	
+
+	if ( has_shortcode( $post->post_content, 'frontier-post') && ($post->post_type == 'page') )
+		{
+		if( is_user_logged_in() )
 			{  
-            //if( (!is_single()) || (!is_page(get_the_id())) ) 
-            if ( !is_page(get_the_id()) )
+			//if( (!is_single()) || (!is_page(get_the_id())) ) 
+			//error_log("Called from page id: ".get_the_id());
+		
+		
+			if ( !is_page(get_the_id()) )
 				{
 				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post").'</h1></center>');
 				return;         
 				}
-            
-            //error_log("Page: ".is_page(get_the_id()));
+		
 			$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
 			$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";
-			
+		
 			$frontier_post_shortcode_parms = shortcode_atts( array (
 				'frontier_mode' 				=> 'none',
 				'frontier_parent_cat_id' 		=> 0,
@@ -89,99 +140,88 @@ function frontier_user_posts($atts)
 				'frontier_custom_tax'			=> '',
 				'frontier_custom_tax_layout'	=> ''
 				), $atts );
-			
-			
-			
+		
+		
+		
 			//If Category parsed from widget assign it instead of category from shortcode
 			if ( isset($_GET['frontier_new_cat_widget']) && $_GET['frontier_new_cat_widget'] == "true" )
 				{
 				$_REQUEST['frontier_new_cat_widget'] = "true";
 				$frontier_post_shortcode_parms['frontier_cat_id'] = isset($_GET['frontier_cat_id']) ? $_GET['frontier_cat_id'] : 0;
 				}
-				
+			
 			//Change Categories to array
-			if ($frontier_post_shortcode_parms['frontier_cat_id'] > " ")
-				$frontier_post_shortcode_parms['frontier_cat_id'] = explode(",", $frontier_post_shortcode_parms['frontier_cat_id']);
-			else
-				$frontier_post_shortcode_parms['frontier_cat_id'] = array();
-				
-			if ($frontier_post_shortcode_parms['frontier_list_cat_id'] > " ")
-				$frontier_post_shortcode_parms['frontier_list_cat_id'] = explode(",", $frontier_post_shortcode_parms['frontier_list_cat_id']);
-			else
-				$frontier_post_shortcode_parms['frontier_list_cat_id'] = array();
-			//Change list post types to array
-			if ($frontier_post_shortcode_parms['frontier_list_post_types']  > " ")
-				$frontier_post_shortcode_parms['frontier_list_post_types'] = explode(",", $frontier_post_shortcode_parms['frontier_list_post_types']);
-			else
-				$frontier_post_shortcode_parms['frontier_list_post_types']  = array('post');
-			
-			//Change list of custom taxonomies to array
-			if ($frontier_post_shortcode_parms['frontier_custom_tax'] > " ")
-				$frontier_post_shortcode_parms['frontier_custom_tax'] =  explode(",", $frontier_post_shortcode_parms['frontier_custom_tax']);
-			else
-				$frontier_post_shortcode_parms['frontier_custom_tax'] = array();	
-			
-			if ($frontier_post_shortcode_parms['frontier_custom_tax_layout'] > " ") 
-				$frontier_post_shortcode_parms['frontier_custom_tax_layout'] = explode(",", $frontier_post_shortcode_parms['frontier_custom_tax_layout']);
-			else		
-				$frontier_post_shortcode_parms['frontier_custom_tax_layout'] = array();
-			
+			$frontier_post_shortcode_parms['frontier_cat_id'] = fp_list2array($frontier_post_shortcode_parms['frontier_cat_id']);
+			$frontier_post_shortcode_parms['frontier_list_cat_id'] = fp_list2array($frontier_post_shortcode_parms['frontier_list_cat_id']);
+			$frontier_post_shortcode_parms['frontier_list_post_types'] = fp_list2array($frontier_post_shortcode_parms['frontier_list_post_types']);
+			$frontier_post_shortcode_parms['frontier_custom_tax'] = fp_list2array($frontier_post_shortcode_parms['frontier_custom_tax']);
+			$frontier_post_shortcode_parms['frontier_custom_tax_layout'] = fp_list2array($frontier_post_shortcode_parms['frontier_custom_tax_layout']);
+		
+		
 			
 			//fp_log($frontier_post_shortcode_parms['frontier_cat_id']);
 			//error_log(print_r($frontier_post_shortcode_parms,true));
-			
+		
 			extract($frontier_post_shortcode_parms);
-			
+		
 			// if mode is add, go directly to show form - enables use directly on several pages
 			if ($frontier_mode == "add")
 				$post_task = "new";
-			
-			
-			
-            switch( $post_task )
+		
+		
+			ob_start();
+		
+			switch( $post_task )
 				{
-                case 'new':
+				case 'new':
 					if ( $post_action == "wpfrtp_save_post" )
 						frontier_posting_form_submit($frontier_post_shortcode_parms);
 					else	
 						frontier_post_add_edit($frontier_post_shortcode_parms);
 					break;
-                
+			
 				case 'edit':
-                    if ( $post_action == "wpfrtp_save_post" )
+					if ( $post_action == "wpfrtp_save_post" )
 						frontier_posting_form_submit($frontier_post_shortcode_parms);
 					else	
 						frontier_post_add_edit($frontier_post_shortcode_parms);
-				    break;
-				
+					break;
+			
 				case 'delete':
 					if ( $post_action == "wpfrtp_delete_post" )
 						frontier_execute_delete_post($frontier_post_shortcode_parms);
 					else	
 						frontier_prepare_delete_post($frontier_post_shortcode_parms);
-				    break;    
-                
-                default:
-                    frontier_user_post_list($frontier_post_shortcode_parms);
-                    break;
-				} 
+					break;    
+			
+				default:
+					frontier_user_post_list($frontier_post_shortcode_parms);
+					break;
+				}
+
+			//return content to shortcode for output
+			$fp_content = ob_get_contents();
+			ob_end_clean();
+			return $fp_content;
 			}
 			else
 			{
-				echo "<br>---- ";
-				$frontier_show_login = fp_get_option("fps_show_login", "false");
-				//echo "Show login: ".$frontier_show_login."<br>";
-				if ($frontier_show_login == "true" )
-					echo __("Please log in !", "frontier-post")." <a href=".wp_login_url()."?redirect_to=".get_permalink(get_option('frontier_post_page_id')).">".__("Login Page", "frontier-post")."</a>  ";
-					//echo __("Please log in !", "frontier-post")."&nbsp;<a href=".wp_login_url().">".__("Login Page", "frontier-post")."</a>&nbsp;&nbsp;";
-				else
-					_e("Please log in !", "frontier-post");
-					
-				echo "------<br><br>";
-			}
-		
-		
-    }
+			echo fp_login_text();
+			} // user_logged_in
+		}
+		else
+		{
+			//Shortcode called from post, not allowed
+			if ( is_singular() )
+				{
+				// Only show warning if single post
+				echo '<br><div id="frontier-post-alert">frontier-post shortcode '.__("not allowed in posts, only pages !", "frontier-post").'</div><br>';
+				return;
+				}
+		} // has_shortcode
+	
+	
+    } // end function frontier_user_posts
 
 
 register_activation_hook( __FILE__ , 'frontier_post_set_defaults');
@@ -189,13 +229,13 @@ register_activation_hook( __FILE__ , 'frontier_post_set_defaults');
 function frontier_template_dir()
 	{
  	// get frontier dir in theme or child-theme	
-	return get_stylesheet_directory().'plugins/frontier-post/';		
+	return get_stylesheet_directory().'/plugins/frontier-post/';		
 	}	
 	
 function frontier_load_form($frontier_form_name)
 	{
  	// Check if template is located in theme or child-theme
-	$located = locate_template(array('plugins/frontier-post/'.$frontier_form_name), false, true);
+	$located = locate_template(array('/plugins/frontier-post/'.$frontier_form_name), false, true);
 	
 	if(!$located )
 		{

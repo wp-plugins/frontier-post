@@ -21,7 +21,7 @@ function frontier_post_admin_menu()
 	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - General Settings', 'Frontier Post Settings', 'manage_options', 'frontier_admin_menu', 'frontier_post_admin_page_general'); 
 	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - Capabilties & Rolebased settings', 'Frontier Post Capabilities', 'manage_options', 'frontier_post_admin_capabilities', 'frontier_post_admin_page_capabilities'); 
 	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - Advanced Settings', 'Frontier Post Advanced', 'manage_options', 'frontier_post_admin_advanced', 'frontier_post_admin_page_advanced'); 
-	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - Convert Settings', 'Frontier Post Convert', 'manage_options', 'frontier_post_admin_convert_settings', 'frontier_post_admin_convert'); 
+	//add_submenu_page( 'frontier_admin_menu', 'Frontier Post - Convert Settings', 'Frontier Post Convert', 'manage_options', 'frontier_post_admin_convert_settings', 'frontier_post_admin_convert'); 
 	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - List Capabilities', 'List Capabilities', 'manage_options', 'frontier_post_admin_list_capabilities', 'frontier_post_admin_list_cap'); 
 	
 	/*
@@ -105,6 +105,20 @@ function frontier_post_admin_list_cap()
 			}
 		echo '<hr>';
 		}	
+	
+	echo '<hr>';
+	echo '<h2>List frontier options</strong></h2>';
+	global $wpdb;
+	
+	$fp_sql 	= "SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'frontier_post%';";
+	$fp_options = $wpdb->get_col($fp_sql);
+	//error_log(print_r($fp_options, true));
+	
+	foreach ($fp_options as $option)
+		{
+		echo $option.'<br>';
+		}
+	echo '<hr>';
 	
 	} // end function frontier_admin_page_main
 	

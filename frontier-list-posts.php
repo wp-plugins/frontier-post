@@ -47,7 +47,7 @@ function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 	$user_posts 	= new WP_Query( $args );
 	//error_log(print_r("Last SQL-Query: {$user_posts->request}", true));
 
-	include_once(frontier_load_form("frontier_list_form.php"));
+	include_once(frontier_load_form("frontier_post_form_list.php"));
 		
 	}  
 ?>
