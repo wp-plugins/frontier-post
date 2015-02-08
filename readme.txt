@@ -153,6 +153,11 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 == Changelog ==
 
+
+= 3.3.2 =
+* Allowed categories only worked for dropdown, now fixed for all field types.
+
+
 = 3.3.1 =
 * Fixed activation issue
 

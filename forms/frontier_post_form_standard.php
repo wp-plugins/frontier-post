@@ -81,7 +81,7 @@ if ( strlen($frontier_edit_text_before) > 1 )
 			
 			//echo '<td class="frontier-post-tax">';
 			echo '<fieldset class="frontier_post_fieldset_tax">';
-			echo '<legend>'.fp_get_tax_label($tmp_tax_name).'</legend>';
+			echo '<legend class="frontier_post_legend_tax" >'.fp_get_tax_label($tmp_tax_name).'</legend>';
 			//echo '<div class="frontier-tax-box">';
 			frontier_tax_input($thispost->ID, $tmp_tax_name, $tmp_tax_layout, $cats_selected, $frontier_post_shortcode_parms);
 			//echo '</div>';

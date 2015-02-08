@@ -20,6 +20,8 @@ function frontier_tax_list($tmp_tax_name = "category", $exclude_list = array(), 
 		$tmp_layout_list['category'] = $fp_capabilities[frontier_get_user_role()]['fps_role_category_layout'] ? $fp_capabilities[frontier_get_user_role()]['fps_role_category_layout'] : "multi";
 		$cat_incl 					 = fp_list2array($fp_capabilities[frontier_get_user_role()]['fps_role_allowed_categories']);
 		
+		//echo "<hr>Included categories: ".print_r($cat_incl, true)."<hr>";
+		
 		// if allowed categories is set and valid, disregard parent category and excluded categories
 		if ( count($cat_incl) > 0 )
 			{
@@ -40,11 +42,11 @@ function frontier_tax_list($tmp_tax_name = "category", $exclude_list = array(), 
 		}
 	else	
 		{	
-		foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_tax, 'exclude' => $exclude_list, 'show_count' => true)) as $tax1) :
+		foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_tax, 'exclude' => $exclude_list, 'include' => $cat_incl_txt, 'show_count' => true)) as $tax1) :
 			$tmp_tax_list[$tax1->cat_ID] = $tax1->cat_name;
-			foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax1->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax2) :
+			foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax1->cat_ID, 'exclude' => $exclude_list, 'include' => $cat_incl_txt, 'show_count' => true)) as $tax2) :
 				$tmp_tax_list[$tax2->cat_ID] = $level_sep.$tax2->cat_name;
-				foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax2->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax3) :
+				foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax2->cat_ID, 'exclude' => $exclude_list, 'include' => $cat_incl_txt, 'show_count' => true)) as $tax3) :
 					$tmp_tax_list[$tax3->cat_ID] = $level_sep.$level_sep.$tax3->cat_name;
 				endforeach; // Level 3
 			endforeach; // Level 2
@@ -225,7 +227,12 @@ function frontier_post_output_msg()
 // Return list of post types
 function fp_get_post_type_list()
 		{
-		return get_post_types(array('public'   => true));
+		$tmp_pt_array = get_post_types(array('public'   => true));
+		//error_log(print_r($tmp_pt_array,true));
+		if (array_key_exists('attachment', $tmp_pt_array))
+			unset($tmp_pt_array['attachment']);	
+			
+		return $tmp_pt_array;
 		}
 
 
@@ -381,12 +388,12 @@ function fp_get_tax_label_singular($tmp_tax_name)
 
 function frontier_get_comment_icon()
 	{
-	
 	// first Frontier Post template folder
-	$comment_icon				= get_stylesheet_directory()."/plugins/frontier-post/comments.png";
+	$comment_icon				= FRONTIER_POST_TEMPLATE_DIR.'/comments.png';
+	//error_log("Comments: ".$comment_icon);
 	if (file_exists($comment_icon))
 		{
-		$comment_icon_html			= "<img src='".get_stylesheet_directory_uri()."/plugins/frontier-post/comments.png'></img>";
+		$comment_icon_html			= '<img src="'.FRONTIER_POST_TEMPLATE_URL.'comments.png"></img>';
 		}
 	else
 		{

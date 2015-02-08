@@ -37,7 +37,7 @@ if (frontier_can_add() )
 	<table class="frontier-menu" >
 		<tr class="frontier-menu">
 			<th class="frontier-menu" >&nbsp;</th>
-			<th class="frontier-menu" ><a href='<?php echo frontier_post_add_link($tmp_p_id) ?>'><?php echo __("Create New", "frontier-post")." ".fp_get_posttype_label_singular($frontier_add_post_type); ?></a></th>
+			<th class="frontier-menu" ><a id="frontier-post-add-new-link" href='<?php echo frontier_post_add_link($tmp_p_id) ?>'><?php echo __("Create New", "frontier-post")." ".fp_get_posttype_label_singular($frontier_add_post_type); ?></a></th>
 			<th class="frontier-menu" >&nbsp;</th>
 		</tr>
 	</table>

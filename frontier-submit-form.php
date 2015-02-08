@@ -150,8 +150,6 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		// Taxonomies
 		//****************************************************************************************************
 		
-		//error_log("Saving tax for: ".$tmp_title." - Post Type: ".$tmp_post_type );
-		//error_log(print_r($frontier_custom_tax, true));
 			
 		
 		// Do not manage taxonomies for page

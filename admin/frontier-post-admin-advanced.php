@@ -167,11 +167,6 @@ function frontier_post_admin_page_advanced()
 				fps_html_field("fps_default_tax_select", 'select', $fps_general_options, true, 1, array_flip($category_types) );
 				
 		
-		echo "</tr><tr>";
-				echo "<td>".__("Allowed Post Types", "frontier-post")."</td>";
-				echo "<td></td>";
-				echo "<td><strong>".__("Post Types", "frontier-post").":</strong><br>";
-				echo fps_checkbox_select_field("fps_custom_post_type_list[]", $fps_general_options["fps_custom_post_type_list"], fp_get_post_type_list())."</td>";
 		
 		echo "</tr><tr>";
 				echo "<td>".__("Send email to Admins on post to approve", "frontier-post")."</td>";
@@ -197,12 +192,26 @@ function frontier_post_admin_page_advanced()
 				echo "<td>";
 					echo frontier_template_dir();  
 					// check if frontuier post templates are used
-					if (locate_template(array('plugins/frontier-post/'."frontier_form.php"), false, true))
-						echo "<br /><strong> frontier_form.php ".__("exists in the template directory", "fontier-post")."</strong>";
-					if (locate_template(array('plugins/frontier-post/'."frontier_list.php"), false, true))
-						echo "<br /><strong> frontier_list.php ".__("exists in the template directory", "fontier-post")."</strong>";					
-					if (locate_template(array('plugins/frontier-post/'."frontier_post.css"), false, true))
-						echo "<br /><strong> frontier_post.css ".__("exists in the template directory", "fontier-post")."</strong>";					
+					if (locate_template(array('/plugins/frontier-post/'."frontier_post_form_standard.php"), false, true))
+						echo "<br /><strong><font color='red'> frontier_post_form_standard.php </font> ".__("exists in the template directory", "fontier-post")."</strong>";
+					
+					if (locate_template(array('/plugins/frontier-post/'."frontier_post_form_old.php"), false, true))
+						echo "<br /><strong><font color='red'> frontier_post_form_old.php </font> ".__("exists in the template directory", "fontier-post")."</strong>";
+					
+					if (locate_template(array('/plugins/frontier-post/'."frontier_post_form_simple.php"), false, true))
+						echo "<br /><strong><font color='red'> frontier_post_form_simple.php </font> ".__("exists in the template directory", "fontier-post")."</strong>";
+					
+					if (locate_template(array('/plugins/frontier-post/'."frontier_post_form_list.php"), false, true))
+						echo "<br /><strong><font color='red'> frontier_post_form_list.php </font> ".__("exists in the template directory", "fontier-post")."</strong>";
+					
+					if (locate_template(array('/plugins/frontier-post/'."frontier_post_form_page.php"), false, true))
+						echo "<br /><strong><font color='red'> frontier_post_form_page.php </font> ".__("exists in the template directory", "fontier-post")."</strong>";
+					
+					if (locate_template(array('/plugins/frontier-post/'."frontier_post_form_preview.php"), false, true))
+						echo "<br /><strong><font color='red'> frontier_post_form_preview.php </font> ".__("exists in the template directory", "fontier-post")."</strong>";
+					
+					if (locate_template(array('/plugins/frontier-post/'."frontier-post.css"), false, true))
+						echo "<br /><strong><font color='red'> frontier-post.css </font>".__("exists in the template directory", "fontier-post")."</strong>";					
 				echo "</td>";
 				
 		echo "</tr><tr>";

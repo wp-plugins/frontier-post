@@ -89,7 +89,9 @@ $fp_role_option_list 	= array(
 		'fps_submit_savereturn',
 		'fps_submit_preview',
 		'fps_submit_cancel',
-		'fps_change_status'
+		'fps_change_status',
+		'fps_allow_custom_post_type',
+		
 		);
 		
 		
@@ -110,7 +112,6 @@ $fp_role_option_list 	= array(
 		'fps_allow_custom_tax',
 		'fps_custom_tax_list',
 		'fps_default_tax_select',
-		'fps_allow_custom_post_type',
 		'fps_custom_post_type_list',
 		'fps_use_tax_form',
 		'fps_keep_options_uninstall',

@@ -151,7 +151,13 @@ function frontier_post_admin_page_general()
 				echo '&nbsp;|&nbsp'.__("Save & Preview", "frontier-post").'&nbsp;'.fps_checkbox_field("fps_submit_preview", $fps_general_options['fps_submit_preview']);
 				echo '&nbsp;|&nbsp'.__("Cancel", "frontier-post").'&nbsp;'.fps_checkbox_field("fps_submit_cancel", $fps_general_options['fps_submit_cancel']);
 				echo "</td>";
-				
+			
+			echo "</tr><tr>";
+				echo "<td>".__("Allowed Post Types", "frontier-post")."</td>";
+				echo "<td></td>";
+				echo "<td><strong>".__("Post Types", "frontier-post").":</strong><br>";
+				echo fps_checkbox_select_field("fps_custom_post_type_list[]", $fps_general_options["fps_custom_post_type_list"], fp_get_post_type_list())."</td>";
+		
 			
 			echo "</tr><tr>";
 				echo "<td>".__("Exclude categories", "frontier-post")."</td>";

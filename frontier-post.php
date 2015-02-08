@@ -4,14 +4,25 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.3.1
+Version: 3.3.2
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.3.1"); 
+define('FRONTIER_POST_VERSION', "3.3.2"); 
+
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
+define('FRONTIER_POST_TEMPLATE_DIR', get_stylesheet_directory().'/plugins/frontier-post')	; //an absolute path to this directory
+define('FRONTIER_POST_TEMPLATE_URL', get_stylesheet_directory_uri().'/plugins/frontier-post/'); //url path to the template directory
+
+/*
+error_log("FRONTIER_POST_DIR: ".FRONTIER_POST_DIR);
+error_log("FRONTIER_POST_URL: ".FRONTIER_POST_URL);
+error_log("FRONTIER_POST_TEMPLATE_DIR: ".FRONTIER_POST_TEMPLATE_DIR);
+error_log("FRONTIER_POST_TEMPLATE_URL: ".FRONTIER_POST_TEMPLATE_URL);
+*/
+
 define('FRONTIER_POST_DEBUG', false);
 
 define('FRONTIER_POST_SETTINGS_OPTION_NAME', "frontier_post_general_options");
@@ -218,13 +229,13 @@ register_activation_hook( __FILE__ , 'frontier_post_set_defaults');
 function frontier_template_dir()
 	{
  	// get frontier dir in theme or child-theme	
-	return get_stylesheet_directory().'plugins/frontier-post/';		
+	return get_stylesheet_directory().'/plugins/frontier-post/';		
 	}	
 	
 function frontier_load_form($frontier_form_name)
 	{
  	// Check if template is located in theme or child-theme
-	$located = locate_template(array('plugins/frontier-post/'.$frontier_form_name), false, true);
+	$located = locate_template(array('/plugins/frontier-post/'.$frontier_form_name), false, true);
 	
 	if(!$located )
 		{
