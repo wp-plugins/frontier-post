@@ -90,7 +90,7 @@ $fp_role_option_list 	= array(
 		'fps_submit_preview',
 		'fps_submit_cancel',
 		'fps_change_status',
-		'fps_allow_custom_post_type',
+		'fps_custom_post_type_list',
 		
 		);
 		
@@ -112,7 +112,6 @@ $fp_role_option_list 	= array(
 		'fps_allow_custom_tax',
 		'fps_custom_tax_list',
 		'fps_default_tax_select',
-		'fps_custom_post_type_list',
 		'fps_use_tax_form',
 		'fps_keep_options_uninstall',
 		'fps_default_form',
@@ -154,7 +153,7 @@ $fp_role_option_list 	= array(
 		'fps_custom_tax_list'			=> "",
 		'fps_default_tax_select'		=> "radio",
 		'fps_allow_custom_post_type'	=> "false",
-		'fps_custom_post_type_list'		=> "",
+		'fps_custom_post_type_list'		=> "post",
 		'fps_use_tax_form'				=> "false",
 		'fps_keep_options_uninstall'	=> "false",
 		'fps_default_form'				=> "standard",
