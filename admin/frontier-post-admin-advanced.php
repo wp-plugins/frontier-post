@@ -57,8 +57,7 @@ function frontier_post_admin_page_advanced()
 		
 		
 		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
-		//error_log(print_r($fps_save_general_options, true));
-
+		
 		// Put an settings updated message on the screen
 		echo '<div class="updated"><p><strong>'.__("Settings saved.", 'frontier-post' ).'</strong></p></div>';
 				
@@ -76,19 +75,6 @@ function frontier_post_admin_page_advanced()
 	// Load settings from options	
 	$fps_general_options		= frontier_post_get_settings();
 	
-	//echo "External cap".$fps_general_options["fps_external_cap"]."<br>";
-	//echo "External cap bool".fp_get_option_bool("fps_external_cap")."<br>";
-	/*
-	$tmp_value = "true";
-	$tmp_bool_array = array('true', 'True', 'TRUE', 'yes', 'Yes', 'y', 'Y', '1','on', 'On', 'ON', true, 1);
-	if ( in_array($tmp_value, $tmp_bool_array, true) )
-		{
-		echo "True<br>";
-		echo in_array($tmp_value, $tmp_bool_array, true);
-		}
-	else
-		echo "False";
-	*/	
 	
 	
 	echo '<div class="wrap">';
@@ -123,9 +109,7 @@ function frontier_post_admin_page_advanced()
 			echo "<td>".__("Input form", "frontier-post")."</td>";
 			echo "<td></td>";
 			fps_html_field("fps_default_form", 'select', $fps_general_options, true, 1, $frontier_post_forms );
-			//fps_html_field("fps_use_tax_form", 'checkbox', $fps_general_options, true, 1);
-			//echo "<td>".__("Use new taxonomy input form that supports taxonomies without coding", "frontier-post"),": frontier_tax_form.php"."</td>";
-
+			
 		
 		echo "</tr><tr>";
 			echo "<td>".__("Height of editor", "frontier-post")."</td>";
@@ -154,12 +138,8 @@ function frontier_post_admin_page_advanced()
 		echo "</tr><tr>";
 				echo "<td>".__("Allow Custom Taxonomies", "frontier-post")."</td>";
 				echo "<td></td>";
-				//fps_html_field("fps_allow_custom_tax", 'checkbox', $fps_general_options, true);
-				//if ( fp_get_option_bool("fps_allow_custom_tax") )
-				//	{
 					echo "<td><strong>".__("Taxonomies", "frontier-post").":</strong><br>";
 					echo fps_checkbox_select_field("fps_custom_tax_list[]", $fps_general_options["fps_custom_tax_list"], fp_get_tax_list())."</td>";
-				//	}
 				
 		echo "</tr><tr>";
 				echo "<td>".__("Default Taxonomy layout", "frontier-post")."</td>";

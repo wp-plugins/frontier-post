@@ -15,8 +15,6 @@ function frontier_post_set_defaults()
 	
 
 	
-	//error_log("Setting Frontier Post application Defaults ");
-	
 	$fp_last_upgrade = fp_get_option('fps_options_migrated_version', get_option("frontier_post_version", '0.0.0'));
 	
 	
@@ -26,13 +24,9 @@ function frontier_post_set_defaults()
 		include(FRONTIER_POST_DIR.'/admin/frontier-post-convert-options.php');
 		fps_cnv_general_options(true);
 		$fp_upgrade_msg = 'Frontier Post - Settings upgraded from version: '.$fp_last_upgrade.' to version: '.FRONTIER_POST_VERSION;
-		//error_log('Ugrading');
-		//echo '<div class="updated"><p><strong>'.$fp_upgrade_msg.'</strong></p></div>';
 		}
 	else
 		{
-		
-		//error_log('Fresh install');
 		
 		//******************************************************************************
 		// add settings if not already there
@@ -183,7 +177,6 @@ function frontier_post_set_defaults()
 				
 		// Insert the page into the database
         $tmp_id = wp_insert_post( $my_page );
-		//print_r("</br>Create page - tmp id: ".$tmp_id."</br>");
 		// save page id
 		$fps_save_general_options 								= frontier_post_get_settings();
 		$fps_save_general_options['fps_page_id'] 				= $tmp_id;			

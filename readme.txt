@@ -1,30 +1,28 @@
 === Frontier Post ===
 Contributors: finnj
 Donate link: 
-Tags: frontend, frontend post, frontend edit, frontier, post widget, posts, widget, Taxonomy, Danish
+Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1.0
-Stable tag: 3.0.7
+Stable tag: 3.3.5
 License: GPL v3 or later
  
-Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget
+Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
   
 == Description ==
 
 WordPress Frontier Post Plugin enables simple full featured management of standard posts from frontend for all user roles.
 
-Related plugins: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
+Related plugins: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/) |  [Frontier Set Featured plugin ](http://wordpress.org/plugins/frontier-set-featured/) 
 
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
 Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.
 
-Frontier Post is intentionally made simple :)
+Frontier Post is intentionally made simple - But it is highly configuable if you want to extend it :)
 
 = Usage = 
-* Short-code [frontier-post] in a page content after install and activation of the plugin
-* Short code parameters (check settings page):
- * frontier_mode: Option to set frontier_mode=add using this parameter will enable to show add form directly in page - Usage: [frontier-post frontier_mode=add]
- * frontier_parent_cat_id: Option only to show child categories of the parent category in dropdowns - Usage: [frontier-post frontier_parent_cat_id=7]
+* Short-code [frontier-post] in a page content after install and activation of the plugin - Then review settings and capabilities
+* Short code parameters  [http://wpfrontier.com/frontier-post-shortcodes/](http://wpfrontier.com/frontier-post-shortcodes/)
 
 = Main Features =
 * Create posts with media directly from frontend
@@ -35,24 +33,23 @@ Frontier Post is intentionally made simple :)
 * My Approvals Widget
 * Capabilities are aligned with Wordpress standard.
 * Excerpts editable (Optional)
-* Edit Categories (dropdown or multiselect)
+* Edit Categories (dropdown, multiselect, checkbox or radio button)
 * Default category per role
+* Allowed categories per role
+* Widget to enable post creation link on category archive pages
 * Tags (Optional)
-* Supports Wordpress Post Status Transitions
+* Supports Wordpress Post Status Transitions (draft, pending, private & publish)
 * Customizable editor layout using: [Frontier Buttons plugin](http://wordpress.org/plugins/frontier-buttons/)
 * Disable Admin bar per role (Optional)
 * User defined templates for forms
 * Users must be logged in to post
 * Multiple pages with frontier-post shortcode can be used.
-* Limit pages to one category, after add/update/delete returns to calling list page
-* List all posts from a category (frontier_list_all_posts="true")
-* New widget to enable post creation link on category archive pages
 * Supports external management of capabilities (tested with User Role Editor)
 * Title can be hidden on certain pages by adding comma separated list of page IDs
 * Add ID column to list of categories (optional)
 * Hide post status (optional)
-* frontier-post.css can be placed in template (child theme dir - See FAQ), allowing for customm css rules.
-* New in version 3.3.0
+* frontier-post.css can be placed in template (child theme dir - [See here](http://wpfrontier.com/frontier-post-templates-css/) ), allowing for customm css rules.
+* New in version 3.3.x
  * Support for taxonomies
  * Custom Post Types
  * New Form Layout
@@ -88,60 +85,14 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Installation ==
 
-1. Upload `frontier-post` to the `/wp-content/plugins/`  directory or search for Frontier Post from add plugin.
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Add a page with the shortcode: [frontier-post] in the content (will be added during activation)
-4. Add the page to your menu
-5: Update Frontier Post settings 
+1. [Install plugin](http://www.wpbeginner.com/beginners-guide/step-by-step-guide-to-install-a-wordpress-plugin-for-beginners/)
+2. Activate the plugin
+3. Place page "My Posts" (Created on activation) in the menu.
+4: Review (and update) Frontier Post settings & capabilities
 
 == Frequently Asked Questions ==
 
-= Known Issues and limitations =
-* Custom Fields: Only with Templates, Filters and actions
-* If limited administrator access is selected for a profile in Theme My Login, media uploads will fail for this profile.
-* If you hide page title for certain pages, the title will also be hidden in the breadcrumbs
-
-= Template Forms =
-* You can copy the forms located in the forms directory of the plugin to your theme
- * create a subdirectory in you theme (or child theme) folder: /plugins/frontier-post/ - Example: wordpress/wp-content/themes/twentytwelve/plugins/frontier-post/
-* The custom templates is quite easy (example below is if you installed wp in the root):
- * Navigate to ./wp-content/plugins/frontier-post/forms
- * Copy form php files
- * Navigate to ./wp.content/themes/[your active theme]/
- * check if ./wp.content/themes/[your active theme]/plugins/frontier-post/ exists, if not create it
- * Paste the files to ./wp.content/themes/[your active theme]/plugins/frontier-post/
- * edit the files
-
-Be aware that the template files will be deleted on theme upgrade, so make sure you have a copy, or use a child theme 
-
-
-= Editor =
-* From version 3.9 an onwards, you need to use separate pluging: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
-
-= Widgets =
-* Widgets are not cached as content is based on current logged in user. 
-* Widget queries are index optimized, but queries will execute each time they are shown.
-* Might have a performance impact on large blogs with high activity.
- * Consider not to place widgets on front page.
-* If you experience performance issues with widgets, create a support issue (preferably with suggestions to remedy this :) )
-
-
-= Testing =
-* Frontier post is mainly tested with:
-* Wordpress 4.1
- * [Suffusion Theme](http://wordpress.org/extend/themes/suffusion/)
- * and sometimes with twenty thirteen theme...
-* iPad & iPhone: Safari & Chrome - Windows 7: IE9, Firefox & Chrome
-
-= Translations =
-* Please post a link in support to translation files and I will include them in next release.
-
- = Cleanup =
-* On deactivation: no cleanup.
-* On deletion options are deleted, and role capabilities are removed.
-* If you accidental delete the frontier-post plugin folder, you should:
- * Delete all options starting with frontier_post
- * Remove all capabilities starting with frontier
+[http://wpfrontier.com/frontier-post-faq/](http://wpfrontier.com/frontier-post-faq/)
 
 
 == Screenshots ==
@@ -150,48 +101,27 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 2. Add/Edit post form 
 3. Frontier Post settings
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
+5. Frontier Post capabilities
+6. Frontier Post advanced settings
 
 == Changelog ==
 
-
-= 3.3.2 =
-* Allowed categories only worked for dropdown, now fixed for all field types.
-
-
-= 3.3.1 =
-* Fixed activation issue
-
-= 3.3.0 =
+= 3.3.5 =
+* NEW: Support for custom taxonomies (no coding necessary)
+* NEW: Support for custom post types (no coding necessary)
+* NEW: Support for custom fields using template forms, filters and actions.
+* Settings has be re-organized
 * Added custom login text under advanced option
 * Changed to use get_stylesheet_directory_uri() instead of bloginfo functions that is manipulated by WPML
 * Moved tags, featured image & excerpt to fieldset layout in new form
 * Migration of old settings added
 * Activation script updated
 * Uninstall script update - clean up of old entries on options table
-
-= 3.2.7-beta
-* Added new formfiles, that wasnt included in 3.2.5-beta
-
-= 3.2.5-beta
 * Added select of form in advanced option (standard/simple/old)
 * Changed css to support fieldset in safari and chrome
-
-= 3.2.3-beta
 * Restrict frontier-post shortcode to pages
-
-= 3.2.2-beta
 * Re-introduced output buffering
 * updated frontier_post_tax_form.php with float left fieldsets
-
-= 3.2.1-beta
-* Fixed admin menu name duplication
-* Fixed post validation error
-
-= 3.2.0-beta
-* NEW: Support for custom taxonomies (no coding necessary)
-* NEW: Support for custom post types (no coding necessary)
-* NEW: Support for custom fields using template forms, filters and actions.
-* Settings has be re-organized
 
 = 3.0.7 =
 * Fixed capability messages not showing
@@ -392,4 +322,5 @@ Be aware that the template files will be deleted on theme upgrade, so make sure 
 
 
 == Upgrade Notice ==
-None
+
+If you are upgrading to version > 3.3.x, then please test as settings and forms has been changed.

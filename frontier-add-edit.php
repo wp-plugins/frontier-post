@@ -4,7 +4,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	{
 	require_once(ABSPATH . '/wp-admin/includes/post.php');
 	global $current_user;
-	//error_log(print_r($frontier_post_shortcode_parms, true));	
+	
 	
 	$fps_access_check_msg 		= "";
 	$user_can_edit_this_post 	= false;
@@ -20,8 +20,6 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	// Get vars from shortcode 
 	extract($frontier_post_shortcode_parms);
 	
-	//error_log("After extract -----> ");
-	//error_log(print_r($frontier_post_shortcode_parms, true));		
 	
 	if (!is_user_logged_in())
 		{
@@ -228,7 +226,6 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 	if ($user_can_edit_this_post)
 		{
-		//include_once(frontier_load_form("frontier_post_form.php"));
 		
 		$fp_form = fp_get_option("fps_default_form", "standard");
 		

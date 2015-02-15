@@ -4,24 +4,18 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.3.2
+Version: 3.3.5
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.3.2"); 
+define('FRONTIER_POST_VERSION', "3.3.5"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
-define('FRONTIER_POST_TEMPLATE_DIR', get_stylesheet_directory().'/plugins/frontier-post')	; //an absolute path to this directory
+define('FRONTIER_POST_TEMPLATE_DIR', get_stylesheet_directory().'/plugins/frontier-post')	; //an absolute path to the template directory
 define('FRONTIER_POST_TEMPLATE_URL', get_stylesheet_directory_uri().'/plugins/frontier-post/'); //url path to the template directory
 
-/*
-error_log("FRONTIER_POST_DIR: ".FRONTIER_POST_DIR);
-error_log("FRONTIER_POST_URL: ".FRONTIER_POST_URL);
-error_log("FRONTIER_POST_TEMPLATE_DIR: ".FRONTIER_POST_TEMPLATE_DIR);
-error_log("FRONTIER_POST_TEMPLATE_URL: ".FRONTIER_POST_TEMPLATE_URL);
-*/
 
 define('FRONTIER_POST_DEBUG', false);
 
@@ -45,7 +39,6 @@ include("frontier-add-edit.php");
 include("frontier-preview-post.php");
 
 // Settings menu
-//include('settings-menu.php');
 include('frontier-post-admin.php');
 
 
@@ -56,12 +49,6 @@ include("include/frontier_new_category_post_widget.php");
 
 add_action("init","frontier_get_user_role"); 
 
-/*
-function get_file_extension($file_name)
-	{
-          return substr(strrchr($file_name,'.'),1);
-	}
-*/
 
 //**********************************************************************************
 // Check upgrade
@@ -72,7 +59,6 @@ function get_file_extension($file_name)
 
 if ( is_admin() )
 	{
-	//error_log(print_r(frontier_post_get_capabilities(), true));
 	
 	$fp_last_upgrade = fp_get_option('fps_options_migrated_version', get_option("frontier_post_version", '0.0.0'));
 
@@ -112,10 +98,7 @@ function frontier_user_posts($atts)
 		{
 		if( is_user_logged_in() )
 			{  
-			//if( (!is_single()) || (!is_page(get_the_id())) ) 
-			//error_log("Called from page id: ".get_the_id());
-		
-		
+			
 			if ( !is_page(get_the_id()) )
 				{
 				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post").'</h1></center>');
@@ -156,11 +139,6 @@ function frontier_user_posts($atts)
 			$frontier_post_shortcode_parms['frontier_list_post_types'] = fp_list2array($frontier_post_shortcode_parms['frontier_list_post_types']);
 			$frontier_post_shortcode_parms['frontier_custom_tax'] = fp_list2array($frontier_post_shortcode_parms['frontier_custom_tax']);
 			$frontier_post_shortcode_parms['frontier_custom_tax_layout'] = fp_list2array($frontier_post_shortcode_parms['frontier_custom_tax_layout']);
-		
-		
-			
-			//fp_log($frontier_post_shortcode_parms['frontier_cat_id']);
-			//error_log(print_r($frontier_post_shortcode_parms,true));
 		
 			extract($frontier_post_shortcode_parms);
 		
@@ -242,7 +220,7 @@ function frontier_load_form($frontier_form_name)
 		// if not found in theme folders, load native fronpier form
 		$located = FRONTIER_POST_DIR."/forms/".$frontier_form_name;
 		}
-	//error_log("Form: ".$located);	
+	
 	return $located;		
 	}
 
@@ -262,7 +240,7 @@ function frontier_enqueue_scripts()
 		// if not found in theme folders, load native frontier form
 		$located = plugins_url('frontier-post/frontier-post.css');
 		}
-	//error_log($located);
+	
 	wp_enqueue_style('frontierpost', $located);
 	} 
 
@@ -351,7 +329,6 @@ function frontier_post_hide_title($fp_tmp_title, $fp_tmp_id = 0)
 	// only execute and hide title if id been parsed, if it is a page and if the page is in the list of pages where title should be hidden.... 
 	if ( $fp_tmp_id > 0 && is_page($fp_tmp_id))
 		{
-		//fp_log("ID: ".$fp_tmp_id." Is singular: ".is_singular()." Title: ".$fp_tmp_title);
 	
 		$fp_tmp_id_list = explode(",", fp_get_option("fps_hide_title_ids", ""));
 		if (in_array($fp_tmp_id, $fp_tmp_id_list) )
@@ -440,8 +417,6 @@ function frontier_post_init()
 	
 add_action('plugins_loaded', 'frontier_post_init');
 
-
-//add_action('admin_menu', 'frontier_post_settings_menu');
 
 add_shortcode("frontier-post","frontier_user_posts");
 

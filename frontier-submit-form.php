@@ -7,11 +7,6 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
     //Get Frontier Post capabilities
 	$fp_capabilities	= frontier_post_get_capabilities();
 	
-	//fp_log("fp cat id Submit: ".($frontier_cat_id ? $frontier_cat_id : "Unknown"));
-	
-	//$tmp_txt = isset($_GET['frontier_new_cat_widget']) ? "true" : "false";
-	//fp_log("From widget (submit) ?: ".(isset($_GET['frontier_new_cat_widget']) ? "true" : "false"));
-	
 	if(isset($_POST['action'])&& $_POST['action']=="wpfrtp_save_post")
 		{
 		if ( !wp_verify_nonce( $_POST['frontier_add_edit_post_'.$_POST['postid']], 'frontier_add_edit_post'  ) )

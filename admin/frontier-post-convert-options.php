@@ -39,10 +39,7 @@ function fps_cnv_general_options($suppress_output = false)
 		'fps_submit_cancel'				=> $frontier_submit_buttons['cancel']
 		);
 		
-		//error_log(print_r($cnv_table,true));
 		
-		//$fps_save_general_options = get_option("frontier_general_options", array());
-	
 		$fps_save_general_options['fps_frontier_post_version'] 	= FRONTIER_POST_VERSION;
 		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $cnv_table);
 		
@@ -68,7 +65,6 @@ function fps_cnv_general_options($suppress_output = false)
 		foreach( $roles as $key => $item ) 
 			{
 			$xrole = get_role($key);
-			//$xrole_caps = $xrole->capabilities;
 			
 			if ( !array_key_exists($key, $saved_capabilities) )
 				$saved_capabilities[$key] = array(); 
@@ -123,8 +119,7 @@ function fps_cnv_general_options($suppress_output = false)
 			} // roles
 			
 		// Save options
-		//error_log("saving options");
-
+		
 		update_option(FRONTIER_POST_CAPABILITY_OPTION_NAME, $saved_capabilities);
 		
 		// Set Wordpress capabilities
@@ -138,7 +133,6 @@ function fps_cnv_general_options($suppress_output = false)
 		
 		$fp_last_upgrade = fp_get_option('fps_options_migrated_version', get_option("frontier_post_version", '0.0.0'));
 		$fp_upgrade_msg = 'Frontier Post - Settings upgraded from version: '.$fp_last_upgrade.' to version: '.FRONTIER_POST_VERSION;
-		//error_log($fp_upgrade_msg);
 		if (!$suppress_output)
 			{
 			echo '<div class="updated"><p><strong>'.$fp_upgrade_msg.'</strong></p></div>';

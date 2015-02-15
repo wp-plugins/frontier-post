@@ -45,11 +45,7 @@ function frontier_post_admin_page_general()
 			}
 		
 		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
-		//error_log(print_r($fps_save_general_options, true));
 		
-		//echo "<br>";
-		//echo print_r($fps_save_general_options, true);
-		//echo "<br>";
 		
 		// Put an settings updated message on the screen
 		echo '<div class="updated"><p><strong>'.__('Settings saved.', 'frontier-post' ).'</strong></p></div>';
@@ -62,14 +58,8 @@ function frontier_post_admin_page_general()
 	
 	$fps_general_options		= frontier_post_get_settings();
 	
-	//error_log(print_r($fps_general_options, true));
-	
 	$fps_post_status_list 		= get_post_statuses();
 	
-	//error_log(print_r($fps_post_status_list, true));
-	
-	//error_log(print_r($ttt, true));
-		
 	
 		
 	echo '<div class="wrap">';

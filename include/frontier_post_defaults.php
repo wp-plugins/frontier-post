@@ -32,7 +32,9 @@ $frontier_author_role_name	  = "frontier-author";
 
 $frontier_default_submit = array('save' => 'true', 'savereturn' => 'true', 'preview' => 'true', 'cancel' => 'true' );
 
-$frontier_default_login_txt = __("Please log in !", "frontier-post").'&nbsp;<a href="'.wp_login_url().'">'.__("Login Page", "frontier-post").'</a>';
+//$frontier_default_login_txt = __("Please log in !", "frontier-post").'&nbsp;<a href="'.wp_login_url().'">'.__("Login Page", "frontier-post").'</a>';
+$frontier_default_login_txt = '<a href="'.wp_login_url().'">'.__("Please log in !", "frontier-post").'</a>';
+	
 	
 
 $frontier_post_forms = array(

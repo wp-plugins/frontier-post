@@ -112,7 +112,7 @@ function frontier_post_admin_list_cap()
 	
 	$fp_sql 	= "SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'frontier_post%';";
 	$fp_options = $wpdb->get_col($fp_sql);
-	//error_log(print_r($fp_options, true));
+	
 	
 	foreach ($fp_options as $option)
 		{

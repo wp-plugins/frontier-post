@@ -130,11 +130,6 @@ fieldset.frontier_post_fieldset legend {
 	float: left !important;
 }
 
-/*
-fieldset.frontier_post_fieldset_single {
-	float: left;
-}
-*/
 
 fieldset.frontier_post_fieldset_tax  {
   margin: 5px !important;
@@ -166,7 +161,7 @@ fieldset.frontier_post_fieldset_excerpt  {
 
 #user_post_excerpt {
 	height: 140px !important;
-	width: 230px !important;
+	width: 200px !important;
 }
 
 td.frontier_tax  {  

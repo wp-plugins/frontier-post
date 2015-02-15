@@ -86,12 +86,9 @@ function frontier_post_admin_page_capabilities()
 						
 						} //caps
 					
-						//error_log(print_r($saved_capabilities[$key], true));
 					} // roles
 					
-				// Save options
-				//error_log("saving options");
-
+				
 				update_option(FRONTIER_POST_CAPABILITY_OPTION_NAME, $saved_capabilities);
 				
 				// Put an settings updated message on the screen
@@ -159,8 +156,6 @@ function frontier_post_admin_page_capabilities()
 				if (!is_array($tmp_role_settings))
 					$tmp_role_settings = array();
 					
-				error_log("Role capabilities & settings ------------------------------>".$key);
-				error_log(print_r($tmp_role_settings,true));
 				
 				foreach($fp_capability_list as $tmp_cap => $tmp_cap_name)
 					{
@@ -271,7 +266,7 @@ function frontier_post_admin_page_capabilities()
 						break;
 						
 						case 'fps_role_allowed_categories':
-							//error_log("role: ".$key." value: ".$tmp_value);
+
 							if ($tmp_value == "false")
 								$tmp_value = "";
 							echo '<input type="text" name="'.$tmp_name.'" value="'.$tmp_value.'">';		
