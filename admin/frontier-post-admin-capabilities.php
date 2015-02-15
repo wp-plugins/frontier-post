@@ -14,7 +14,6 @@ function frontier_post_admin_page_capabilities()
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	
 	include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
-	include(FRONTIER_POST_DIR."/admin/frontier_post_admin_util.php");
 	
 	//include("../include/frontier_post_defaults.php");
 		
@@ -87,19 +86,22 @@ function frontier_post_admin_page_capabilities()
 						
 						} //caps
 					
-						//error_log(print_r($saved_capabilities[$key], true));
 					} // roles
 					
-				// Save options
-				//error_log("saving options");
-
+				
 				update_option(FRONTIER_POST_CAPABILITY_OPTION_NAME, $saved_capabilities);
 				
+				// Put an settings updated message on the screen
+				echo '<div class="updated"><p><strong>'.__("Settings saved.", 'frontier-post' ).'</strong></p></div>';
+		
 				// Set Wordpress capabilities
 				frontier_post_set_cap();
-				
+				// Put an settings updated message on the screen
+				echo '<div class="updated"><p><strong>'.__("Capabilities set.", 'frontier-post' ).'</strong></p></div>';
+		
 				} // End external managed capabilities
-				error_log(print_r($saved_capabilities, true));
+				
+				
 		} // end update options
 	
 	
@@ -150,7 +152,10 @@ function frontier_post_admin_page_capabilities()
 				if ( !array_key_exists($key, $saved_capabilities) )
 					$saved_capabilities[$key] = array();
 				
-				$tmp_role_settings 	= $saved_capabilities[$key];
+				$tmp_role_settings 	=  $saved_capabilities[$key];
+				if (!is_array($tmp_role_settings))
+					$tmp_role_settings = array();
+					
 				
 				foreach($fp_capability_list as $tmp_cap => $tmp_cap_name)
 					{
@@ -211,6 +216,10 @@ function frontier_post_admin_page_capabilities()
 				
 				$tmp_role_options = $saved_capabilities[$key];
 				
+				if (!is_array($tmp_role_options))
+					$tmp_role_options = array();
+					
+				
 				foreach($fp_role_option_list as $tmp_role_option => $tmp_role_option_name)
 					{
 					$tmp_name		= $key.'_'.$tmp_role_option;
@@ -257,7 +266,7 @@ function frontier_post_admin_page_capabilities()
 						break;
 						
 						case 'fps_role_allowed_categories':
-							//error_log("role: ".$key." value: ".$tmp_value);
+
 							if ($tmp_value == "false")
 								$tmp_value = "";
 							echo '<input type="text" name="'.$tmp_name.'" value="'.$tmp_value.'">';		

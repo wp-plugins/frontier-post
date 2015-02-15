@@ -4,7 +4,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	{
 	require_once(ABSPATH . '/wp-admin/includes/post.php');
 	global $current_user;
-	//error_log(print_r($frontier_post_shortcode_parms, true));	
+	
 	
 	$fps_access_check_msg 		= "";
 	$user_can_edit_this_post 	= false;
@@ -20,18 +20,10 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	// Get vars from shortcode 
 	extract($frontier_post_shortcode_parms);
 	
-	//error_log("After extract -----> ");
-	//error_log(print_r($frontier_post_shortcode_parms, true));		
 	
 	if (!is_user_logged_in())
 		{
-			echo "<br>---- ";
-			if (get_option("frontier_post_show_login", "false") == "true" )
-				echo __("Please log in !", "frontier-post")."&nbsp;<a href=".wp_login_url().">".__("Login Page", "frontier-post")."</a>&nbsp;&nbsp;";
-			else
-				_e("Please log in !", "frontier-post");
-					
-			echo "------<br><br>";
+			echo fp_login_text();
 		}
 	else	
 		{
@@ -54,7 +46,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 					$thispost 				= get_default_post_to_edit( "$tmp_post_type", true );
 					$thispost->post_author 	= $current_user->ID;
 					$thispost->post_type	= $tmp_post_type;
-					echo "New post for edit: ".$thispost->ID."<br>";
+					//echo "New post for edit: ".$thispost->ID."<br>";
 					}
 				$_REQUEST['task']="new";
 				$tmp_task_new = true;
@@ -170,37 +162,25 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 				$category_type 			= $fp_capabilities[$users_role]['fps_role_category_layout'] ? $fp_capabilities[$users_role]['fps_role_category_layout'] : "multi"; 
 	
 		
-			// Dont setup categories for pages
-			if ( $thispost->post_type == 'page' )
+			$default_category			= $fp_capabilities[$users_role]['fps_role_default_category'] ? $fp_capabilities[$users_role]['fps_role_default_category'] : get_option("default_category"); 
+	
+			// set default category, if new and category parsed from shortcode, 
+			if ( $tmp_task_new  )
 				{
-				$cats_selected = array();
+				$cats_selected = $frontier_cat_id;
+				if ( count($frontier_cat_id) > 0 && $frontier_cat_id[0] > 0 )
+					$default_category =  $frontier_cat_id[0];
 				}
 			else
 				{
-			
-				$default_category			= $fp_capabilities[$users_role]['fps_role_default_category'] ? $fp_capabilities[$users_role]['fps_role_default_category'] : get_option("default_category"); 
-		
-				// set default category, if new and category parsed from shortcode, 
-				if ( $tmp_task_new  )
-					{
-					$cats_selected = $frontier_cat_id;
-					if ( count($frontier_cat_id) > 0 && $frontier_cat_id[0] > 0 )
-						$default_category =  $frontier_cat_id[0];
-					}
-				else
-					{
-					$cats_selected	= $thispost->post_category;
-					}
-		
-				// if no category selected (from post), insert default category
-				if (empty($cats_selected[0]))
-					$cats_selected[0] = $default_category;
-		
+				$cats_selected	= $thispost->post_category;
 				}
+	
+			// if no category selected (from post), insert default category
+			if (empty($cats_selected[0]))
+				$cats_selected[0] = $default_category;
 			
-			// Set variable for hidden field, if category field is removed from the form
-			$cats_selected_txt = implode(',', $cats_selected);
-		
+			
 			
 			// Build list of categories (3 levels)
 			if ( ($category_type == "multi") || ($category_type == "checkbox") )
@@ -208,8 +188,14 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 				$catlist 		= array();
 				$catlist 		= frontier_tax_list("category", fp_get_option("fps_excl_cats", ''), $frontier_parent_cat_id );
 				}
-			
+			}	
+		else
+			{
+			$cats_selected = array();
 			} // end exclude categories for pages
+		
+			// Set variable for hidden field, if category field is removed from the form
+			$cats_selected_txt = implode(',', $cats_selected);
 		
 		
 		//***************************************************************************************
@@ -240,11 +226,39 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 	if ($user_can_edit_this_post)
 		{
-		//include_once(frontier_load_form("frontier_post_form.php"));
-		if ( fp_get_option_bool('fps_use_tax_form') )
-			include_once(frontier_load_form("frontier_post_tax_form.php"));	
-		else
-			include_once(frontier_load_form("frontier_post_form.php"));
+		
+		$fp_form = fp_get_option("fps_default_form", "standard");
+		
+		if ($thispost->post_type == 'page')
+			$fp_form = "page";
+		
+		//echo "Form: ".$fp_form."<br>";
+		
+		switch($fp_form)
+			{
+			case "standard":
+				include(frontier_load_form("frontier_post_form_standard.php"));	
+				break;
+			
+			case "old":
+				include(frontier_load_form("frontier_post_form_old.php"));	
+				break;
+			
+			case "simple":
+				include(frontier_load_form("frontier_post_form_simple.php"));
+				break;
+			
+			case "page":
+				include(frontier_load_form("frontier_post_form_page.php"));	
+				break;
+			
+			default:
+				include(frontier_load_form("frontier_post_form_standard.php"));	
+				break;
+			
+			
+			}
+		
 		}
 		
 	else

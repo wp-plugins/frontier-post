@@ -3,10 +3,24 @@
 Admin Utilities for Frontier Post plugin
 */
 
-//***************************************************************************
-//* Functions for admin menu html output
-//***************************************************************************
 
+
+// Load default values for new options (inserts settings that doesnt exists, does not update existing)
+function fp_post_set_defaults()
+	{
+	include(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
+	
+	$fps_save_general_options 	= frontier_post_get_settings();
+	$tmp_option_list 			= array_keys($fps_general_defaults);
+		
+	foreach($tmp_option_list as $tmp_option_name)
+		{
+		if ( !key_exists($tmp_option_name, $fps_save_general_options) )
+			$fps_save_general_options[$tmp_option_name] = $fps_general_defaults[$tmp_option_name];			
+		}
+	$fps_save_general_options['fps_frontier_post_version'] 	= FRONTIER_POST_VERSION;				
+	update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
+	}
 
 function frontier_post_set_cap()
 		{
@@ -33,7 +47,7 @@ function frontier_post_set_cap()
 				// Check that the name is a capability (not editor or category) 
 				if ( array_key_exists($fps_cap_name, $fp_capability_list) == true )
 					{
-					//error_log("Found");
+					
 					if ( $tmp_value == "true" )
 						$xrole->add_cap( $tmp_cap );
 					else
@@ -43,7 +57,7 @@ function frontier_post_set_cap()
 					}
 				else
 					{
-					//error_log("NOT Found");
+					
 					}
 				}// end tmp_caplist
 				
@@ -53,6 +67,9 @@ function frontier_post_set_cap()
 		
 		} //end frontier_post_set_cap() funtion 
 
+//***************************************************************************
+//* Functions for admin menu html output
+//***************************************************************************
 
 
 // generates html output for checkbox field
@@ -112,9 +129,9 @@ function fps_text_field($tmp_name, $tmp_current_value, $tmp_size = 0)
 	else	 
 		 $tmp_size_txt = '';
 	
-	//error_log("Name: ".$tmp_name." - Current value: ".$tmp_current_value);
+	
 	$tmp_html = '<input type="text" name="'.$tmp_name.'" id="'.$tmp_name.'" value="'.$tmp_current_value.'" '.$tmp_size_txt.'>';
-	//error_log("html: ".$tmp_html);
+	
 	return $tmp_html;
 	}
 
@@ -139,16 +156,16 @@ Function fps_checkbox_select_field($tmp_name, $tmp_current_value, $tmp_list)
 	if ( !is_array($tmp_current_value) )
 		$tmp_current_value = array($tmp_current_value);
 	
-	//error_log(print_r($tmp_current_value, true));
+	
 	foreach($tmp_list as $key => $value) :  
-		//error_log($key.": ".in_array($key, $tmp_current_value));
+		
 	
 		$tmp_html = $tmp_html.'<input type="checkbox" ';
 		$tmp_html = $tmp_html.' name="'.$tmp_name.'" id="'.$tmp_name.'" ';
 		$tmp_html = $tmp_html.' value="'.$key.'"'; 
 		if ( in_array($key, $tmp_current_value) )
 			{
-			//error_log("Selected");
+			
 			$tmp_html = $tmp_html.' checked="checked"';
 			}
 		$tmp_html = $tmp_html.'>'.$value.'<br />';	

@@ -95,6 +95,13 @@ function frontier_can_edit($tmp_post)
 		$fps_access_check_msg = "";
 		}
 		
+	// Last check, PRIVATE posts can only be edited by the author
+	if( ($cur_user->ID != $tmp_post->post_author) && ($tmp_post->post_status == "private") )
+		{
+		$tmp_can_do = false;
+		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit PRIVATE post from another user", "frontier-post")."<br>";
+		}
+	
 	//$fps_access_check_msg = $fps_access_check_msg."Just testing<br>";
 	return $tmp_can_do;
 	
@@ -150,6 +157,14 @@ function frontier_can_delete($tmp_post)
 		$tmp_can_do = true;
 		$fps_access_check_msg = "";
 		}
+		
+	// Last check, PRIVATE posts can only be deleted by the author
+	if( ($cur_user->ID != $tmp_post->post_author) && ($tmp_post->post_status == "private") )
+		{
+		$tmp_can_do = false;
+		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to delete PRIVATE post from another user", "frontier-post")."<br>";
+		}
+	
 	
 	
 	return $tmp_can_do;

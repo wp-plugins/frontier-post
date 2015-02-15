@@ -1,11 +1,10 @@
 <?php
 
-function fps_cnv_general_options()
+function fps_cnv_general_options($suppress_output = false)
 	{
 	// Move values from old single options to new array based options
 	
 	include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
-	include(FRONTIER_POST_DIR."/admin/frontier_post_admin_util.php");
 		
 
 	$frontier_submit_buttons = get_option("frontier_post_submit_buttons", array('save' => 'true', 'savereturn' => 'true', 'preview' => 'true', 'cancel' => 'true' ));
@@ -40,29 +39,16 @@ function fps_cnv_general_options()
 		'fps_submit_cancel'				=> $frontier_submit_buttons['cancel']
 		);
 		
-		//error_log(print_r($cnv_table,true));
 		
-		//$fps_save_general_options = get_option("frontier_general_options", array());
-	
+		$fps_save_general_options['fps_frontier_post_version'] 	= FRONTIER_POST_VERSION;
 		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $cnv_table);
 		
-		// Load default values for new options
-		$fps_save_general_options 	= frontier_post_get_settings();
-		$tmp_option_list 			= array_keys($fps_general_defaults);
-		
-		foreach($tmp_option_list as $tmp_option_name)
-			{
-			if ( !key_exists($tmp_option_name, $fps_save_general_options) )
-				$fps_save_general_options[$tmp_option_name] = $fps_general_defaults[$tmp_option_name];	
-				
-			//$fps_save_general_options[$tmp_option_name] = isset($_POST[$tmp_option_name]) ? $_POST[$tmp_option_name] : "";
-			//echo "Saving. ".$tmp_option_name." - Value: ".$fps_save_general_options[$tmp_option_name]."<br>";
-			}
-		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
+		//Update default values for settings that doesnt exists. 
+		fp_post_set_defaults();
 
 		// Rolebased settings
 		
-		$old_capabilities 		= get_option('frontier_post_options');
+		$old_capabilities 		= get_option('frontier_post_options',array());
 		$wp_roles				= new WP_Roles();
 		$roles 	  				= $wp_roles->get_names();
 		
@@ -72,14 +58,13 @@ function fps_cnv_general_options()
 		
 		$saved_capabilities 	= frontier_post_get_capabilities();
 		
-		$old_capabilities 		= get_option('frontier_post_options');
+	
 		
 		
 		// Loop through the roles
 		foreach( $roles as $key => $item ) 
 			{
 			$xrole = get_role($key);
-			//$xrole_caps = $xrole->capabilities;
 			
 			if ( !array_key_exists($key, $saved_capabilities) )
 				$saved_capabilities[$key] = array(); 
@@ -134,8 +119,7 @@ function fps_cnv_general_options()
 			} // roles
 			
 		// Save options
-		//error_log("saving options");
-
+		
 		update_option(FRONTIER_POST_CAPABILITY_OPTION_NAME, $saved_capabilities);
 		
 		// Set Wordpress capabilities
@@ -147,8 +131,15 @@ function fps_cnv_general_options()
 		$fps_general_options['fps_options_migrated_version'] = FRONTIER_POST_VERSION;
 		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_general_options);
 		
-		// Put an settings updated message on the screen
-		echo '<div class="updated"><p><strong>frontier Post - Capabilities migrated</strong></p></div>';
+		$fp_last_upgrade = fp_get_option('fps_options_migrated_version', get_option("frontier_post_version", '0.0.0'));
+		$fp_upgrade_msg = 'Frontier Post - Settings upgraded from version: '.$fp_last_upgrade.' to version: '.FRONTIER_POST_VERSION;
+		if (!$suppress_output)
+			{
+			echo '<div class="updated"><p><strong>'.$fp_upgrade_msg.'</strong></p></div>';
+			}
+		
+		// Finally delete frontier_post_version
+		delete_option("frontier_post_version");
 		
 	}
 

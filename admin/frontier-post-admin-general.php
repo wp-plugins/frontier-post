@@ -13,8 +13,7 @@ function frontier_post_admin_page_general()
 	if (!current_user_can('manage_options'))
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	
-	include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
-	include(FRONTIER_POST_DIR."/admin/frontier_post_admin_util.php");
+	require(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
 	
 	//include("../include/frontier_post_defaults.php");
 		
@@ -46,11 +45,7 @@ function frontier_post_admin_page_general()
 			}
 		
 		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
-		//error_log(print_r($fps_save_general_options, true));
 		
-		//echo "<br>";
-		//echo print_r($fps_save_general_options, true);
-		//echo "<br>";
 		
 		// Put an settings updated message on the screen
 		echo '<div class="updated"><p><strong>'.__('Settings saved.', 'frontier-post' ).'</strong></p></div>';
@@ -63,14 +58,8 @@ function frontier_post_admin_page_general()
 	
 	$fps_general_options		= frontier_post_get_settings();
 	
-	//error_log(print_r($fps_general_options, true));
-	
 	$fps_post_status_list 		= get_post_statuses();
 	
-	//error_log(print_r($fps_post_status_list, true));
-	
-	//error_log(print_r($ttt, true));
-		
 	
 		
 	echo '<div class="wrap">';
@@ -152,7 +141,13 @@ function frontier_post_admin_page_general()
 				echo '&nbsp;|&nbsp'.__("Save & Preview", "frontier-post").'&nbsp;'.fps_checkbox_field("fps_submit_preview", $fps_general_options['fps_submit_preview']);
 				echo '&nbsp;|&nbsp'.__("Cancel", "frontier-post").'&nbsp;'.fps_checkbox_field("fps_submit_cancel", $fps_general_options['fps_submit_cancel']);
 				echo "</td>";
-				
+			
+			echo "</tr><tr>";
+				echo "<td>".__("Allowed Post Types", "frontier-post")."</td>";
+				echo "<td></td>";
+				echo "<td><strong>".__("Post Types", "frontier-post").":</strong><br>";
+				echo fps_checkbox_select_field("fps_custom_post_type_list[]", $fps_general_options["fps_custom_post_type_list"], fp_get_post_type_list())."</td>";
+		
 			
 			echo "</tr><tr>";
 				echo "<td>".__("Exclude categories", "frontier-post")."</td>";

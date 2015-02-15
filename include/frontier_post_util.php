@@ -9,16 +9,19 @@ Utilities for Frontier Post plugin
 function frontier_tax_list($tmp_tax_name = "category", $exclude_list = array(), $parent_tax = 0, $force_simple = false	)
 	{
 	$tmp_tax_list 		= array();
-	$level_sep			= "-- ";
+	$level_sep			= " - ";
 	$cat_incl_txt		= "";
 	
 	$fp_capabilities 			 = frontier_post_get_capabilities();
+	
+	
 	
 	// special for categories to respect settings for category
 	if ($tmp_tax_name == 'category')
 		{
 		$tmp_layout_list['category'] = $fp_capabilities[frontier_get_user_role()]['fps_role_category_layout'] ? $fp_capabilities[frontier_get_user_role()]['fps_role_category_layout'] : "multi";
 		$cat_incl 					 = fp_list2array($fp_capabilities[frontier_get_user_role()]['fps_role_allowed_categories']);
+		
 		
 		// if allowed categories is set and valid, disregard parent category and excluded categories
 		if ( count($cat_incl) > 0 )
@@ -28,11 +31,9 @@ function frontier_tax_list($tmp_tax_name = "category", $exclude_list = array(), 
 			$parent_tax			= 0;
 			}
 		}
-	//error_log("Allowed categories");
-	//error_log(print_r($cat_incl, true));
 	
 	//Just return simple list if parent category or allowed categories is set 
-	if ( ($force_simple) || ($cat_incl_txt <= " ") || ($parent_tax > 0) )
+	if ( (($force_simple) || ($cat_incl_txt >= " ") || ($parent_tax > 0)) )
 		{
 		foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_tax, 'include' => $cat_incl_txt, 'show_count' => true)) as $tax1) :
 			$tmp_tax_list[$tax1->cat_ID] = $tax1->cat_name;
@@ -40,17 +41,17 @@ function frontier_tax_list($tmp_tax_name = "category", $exclude_list = array(), 
 		}
 	else	
 		{	
-		foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_tax, 'exclude' => $exclude_list, 'show_count' => true)) as $tax1) :
+		foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_tax, 'exclude' => $exclude_list, 'include' => $cat_incl_txt, 'show_count' => true)) as $tax1) :
 			$tmp_tax_list[$tax1->cat_ID] = $tax1->cat_name;
-			foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax1->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax2) :
+			foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax1->cat_ID, 'exclude' => $exclude_list, 'include' => $cat_incl_txt, 'show_count' => true)) as $tax2) :
 				$tmp_tax_list[$tax2->cat_ID] = $level_sep.$tax2->cat_name;
-				foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax2->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax3) :
+				foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax2->cat_ID, 'exclude' => $exclude_list, 'include' => $cat_incl_txt, 'show_count' => true)) as $tax3) :
 					$tmp_tax_list[$tax3->cat_ID] = $level_sep.$level_sep.$tax3->cat_name;
 				endforeach; // Level 3
 			endforeach; // Level 2
 		endforeach; //Level 1
 		}
-	//error_log(print_r($tmp_tax_list, true));
+	
 		
 	return $tmp_tax_list;
 	}
@@ -87,12 +88,12 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 			{
 			
 			case "single":
-				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected, 'hierarchical' => true, 'show_count' => true)); 
+				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected, 'hierarchical' => true, 'show_count' => true, 'class' => 'frontier_post_dropdown')); 
 				break;
 		
 			case "multi":
-				echo frontier_post_tax_multi($tmp_tax_list , $tmp_selected, $tmp_input_field_name, $tmp_field_name, 8);
-				echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+				echo frontier_post_tax_multi($tmp_tax_list , $tmp_selected, $tmp_input_field_name, $tmp_field_name, 10);
+				//echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
 				break;
 
 			case "checkbox":
@@ -118,7 +119,7 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 //Build html multiselect dropdown for taxonomies
 Function frontier_post_tax_multi($tmp_cat_list, $tmp_selected, $tmp_name, $tmp_id, $tmp_size)
 	{
-	$tmp_html = '<select name="'.$tmp_name.'" id="'.$tmp_id.'" multiple="multiple" size="'.$tmp_size.'">';
+	$tmp_html = '<select class="frontier_post_dropdown" name="'.$tmp_name.'" id="'.$tmp_id.'" multiple="multiple" size="'.$tmp_size.'">';
 	
 	foreach ( $tmp_cat_list as $taxid => $taxname) :
 		$tmp_html = $tmp_html.'<option value="'.$taxid.'"'; 
@@ -225,7 +226,11 @@ function frontier_post_output_msg()
 // Return list of post types
 function fp_get_post_type_list()
 		{
-		return get_post_types(array('public'   => true));
+		$tmp_pt_array = get_post_types(array('public'   => true));
+		if (array_key_exists('attachment', $tmp_pt_array))
+			unset($tmp_pt_array['attachment']);	
+			
+		return $tmp_pt_array;
 		}
 
 
@@ -262,7 +267,6 @@ function fp_check_post_type($tmp_post_type)
 function fp_get_posttype_label($tmp_pt_name)
 	{
 	$tmp_pt = get_post_type_object($tmp_pt_name);
-	error_log(print_r($tmp_pt,true));
 	return $tmp_pt->label;
 	}
 
@@ -371,35 +375,34 @@ function fp_get_tax_label_singular($tmp_tax_name)
 
 //********************************************************************************
 // get comment icon for the list
+// 1: Look in the frontier post template folder
+// 2: if not found look in the active theme (not child theme)
+// 3: Fall back, standard wordpress comment icon
 //********************************************************************************
 
 
 
 function frontier_get_comment_icon()
 	{
-	
-	
-	$comment_icon			= TEMPLATEPATH."/images/comments.png";
-		
-	//print_r("Comment icon: ".$comment_icon);
-	
-	
+	// first Frontier Post template folder
+	$comment_icon				= FRONTIER_POST_TEMPLATE_DIR.'/comments.png';
 	if (file_exists($comment_icon))
 		{
-		$comment_icon_html	= "<img src='".get_bloginfo('template_directory')."/images/comments.png'></img>";
+		$comment_icon_html			= '<img src="'.FRONTIER_POST_TEMPLATE_URL.'comments.png"></img>';
 		}
 	else
 		{
-		$comment_icon		= ABSPATH."/wp-includes/images/wlw/wp-comments.png";
+		// Then the theme (not child theme folder)
+		$comment_icon				= get_template_directory()."/images/comments.png";
 		// if no icon in theme, check wp-includes, and if it isnt the use a space
 		if (file_exists($comment_icon))
 			{
-			$comment_icon_html	= "<img src='".get_bloginfo('url')."/wp-includes/images/wlw/wp-comments.png'></img>";
+			$comment_icon_html			= "<img src='".get_template_directory_uri()."/images/comments.png'></img>";
 			}
 		else
 			{
-			// use the one from this plugin
-			$comment_icon_html	= FRONTIER_POST_URL.'/include/comments.png';
+			// Fallback, the standard wp comment icon
+			$comment_icon_html	= "<img src='".includes_url()."images/wlw/wp-comments.png'></img>";
 			}
 		}	
 	return $comment_icon_html;
@@ -415,8 +418,6 @@ function frontier_post_get_capabilities()
 	if ( count($fps_capabilities) == 0 )
 		error_log("Unable to load frontier_post_capabilities or empty");
 	
-	//error_log("Loading capabilities");
-	//error_log(print_r($fps_capabilities, true));
 	return $fps_capabilities;
 	}
 
@@ -424,12 +425,12 @@ function frontier_post_get_settings()
 	{
 	$fps_settings = get_option(FRONTIER_POST_SETTINGS_OPTION_NAME, array() );
 	if ( count($fps_settings) == 0 )
-		error_log("Unable to load frontier_post_general_options or empty");
+		$fps_settings = array();
 		
 	return $fps_settings;
 	}
 
-function fp_get_option($tmp_option_name, $tmp_default = null)
+function fp_get_option($tmp_option_name, $tmp_default = '')
 	{
 	$fp_settings = frontier_post_get_settings();
 	
@@ -437,7 +438,6 @@ function fp_get_option($tmp_option_name, $tmp_default = null)
 		return $fp_settings[$tmp_option_name];
 	else
 		{
-		error_log($tmp_option_name." not present in frontier_post_general_options");
 		return $tmp_default;
 		}
 	}
@@ -450,7 +450,6 @@ function fp_get_option_int($tmp_option_name, $tmp_default = 0)
 		return intval($fp_settings[$tmp_option_name]);
 	else
 		{
-		error_log($tmp_option_name." not present in frontier_post_general_options");
 		return intval($tmp_default);
 		}
 	}
@@ -472,8 +471,6 @@ function fp_get_option_bool($tmp_option_name)
 	if ( array_key_exists($tmp_option_name, $fp_settings) )
 		{
 		$tmp_value = ($fp_settings[$tmp_option_name] ? $fp_settings[$tmp_option_name] : "false");
-		//$tmp_value = "true";
-		//error_log("from fp_get_option_bool: ".$tmp_value);
 		if ( in_array($tmp_value, array('true', 'True', 'TRUE', 'yes', 'Yes', 'y', 'Y', '1','on', 'On', 'ON', true, 1), true) )
 			return true;
 		else
@@ -481,7 +478,6 @@ function fp_get_option_bool($tmp_option_name)
 		}
 	else
 		{
-		error_log($tmp_option_name." not present in frontier_post_general_options");
 		return false;
 		}
 	}
@@ -514,10 +510,35 @@ function frontier_post_wp_editor_args($editor_type = "full", $media_button = tru
 	if ($editor_type == "text")	
 		$editor_layout = array_merge($editor_layout, array('quicktags' => false, 'tinymce' =>false));
 	
-	//error_log(print_r($editor_layout, true));
+	
 	return $editor_layout;
 	}
 
+
+function fp_login_text()
+	{
+	if (fp_get_option_bool('fps_use_custom_login_txt', false))
+		{
+		$out = fp_get_option('fps_custom_login_txt', __("Please log in !", "frontier-post"));
+		}
+	else
+		{
+		include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
+		$out  = '';
+		$out .= "<br>---- ";
+		if (fp_get_option_bool("fps_show_login", false) )
+				{
+				$out .= $frontier_default_login_txt;
+				}
+			else
+				{
+				$out .= __("Please log in !", "frontier-post");
+				}	
+		$out .=  " ------<br><br>";
+		}
+	return '<div id="frontier-post-login-msg">'.stripslashes($out).'</div>';	
+	
+	}
 
 
 function fp_list2array($tmp_list)

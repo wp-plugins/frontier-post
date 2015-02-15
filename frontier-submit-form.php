@@ -7,11 +7,6 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
     //Get Frontier Post capabilities
 	$fp_capabilities	= frontier_post_get_capabilities();
 	
-	//fp_log("fp cat id Submit: ".($frontier_cat_id ? $frontier_cat_id : "Unknown"));
-	
-	//$tmp_txt = isset($_GET['frontier_new_cat_widget']) ? "true" : "false";
-	//fp_log("From widget (submit) ?: ".(isset($_GET['frontier_new_cat_widget']) ? "true" : "false"));
-	
 	if(isset($_POST['action'])&& $_POST['action']=="wpfrtp_save_post")
 		{
 		if ( !wp_verify_nonce( $_POST['frontier_add_edit_post_'.$_POST['postid']], 'frontier_add_edit_post'  ) )
@@ -108,6 +103,7 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		
 		//****************************************************************************************************
 		// Apply filter before update of post 
+		// filter:			frontier_post_pre_update
 		// $tmp_post 		Array that holds the updated fields 
 		// $tmp_task_new  	Equals true if the user is adding a post
 		// $_POST			Input form			
@@ -149,58 +145,38 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		// Taxonomies
 		//****************************************************************************************************
 		
-		//error_log("Saving tax for: ".$tmp_title." - Post Type: ".$tmp_post_type );
-		//error_log(print_r($frontier_custom_tax, true));
 			
 		
 		// Do not manage taxonomies for page
 		if ( $tmp_post_type != 'page' )
 			{
-			//$fp_taxonomy_list = array('group' => 'groupmulti[]');
-			//
-			//$frontier_custom_tax = array('group');
-			//error_log("Start looping taxs");
-			//error_log(print_r($frontier_custom_tax, true));
-			// get list of taxonomies from shortcode, get values and update them
 			foreach ( $frontier_custom_tax as $tmp_tax_name ) 
 				{
-				//error_log($tmp_tax_name);
-				//error_log("Tax name: ".$tmp_tax_name);
 				if ( !empty($tmp_tax_name) && ($tmp_tax_name != 'category') )
 					{
-					//error_log(frontier_tax_field_name($tmp_tax_name));
-					//error_log(print_r($_POST[frontier_tax_field_name($tmp_tax_name)], true));
 					$tmp_field_name = frontier_tax_field_name($tmp_tax_name);
-					//error_log("Saving tax for: ".$tmp_field_name);
 					$tmp_value = isset($_POST[$tmp_field_name]) ? $_POST[$tmp_field_name] : array();
 					if ( is_array($tmp_value) )
 						$tmp_tax_selected = $tmp_value;
 					else
 						$tmp_tax_selected = array($tmp_value);
 				
-					//error_log(print_r($tmp_tax_selected, true));
 					wp_set_post_terms( $postid, $tmp_tax_selected, $tmp_tax_name );
-					
-					
-					//error_log(print_r($tmp_tax_selected, true));
-
+	
 					}
 				}	
 			} // end do not manage taxonomies for pages
-		error_log("------- END saving tax ------");
+	
 		//****************************************************************************************************
 		// End updating post
 		//****************************************************************************************************
-		
-		//error_log("---------Post variable: ---------------");
-		//error_log(print_r($_POST, true));
-			
-		
+				
 		//Get the updated post
 		$my_post = get_post($postid);
 		
 		//****************************************************************************************************
-		// Do action 
+		// Avtion fires after add/update of post, and after taxonomies are updated
+		// Do action 		frontier_post_post_save
 		// $my_post 		Post object for the post just updated 
 		// $tmp_task_new  	Equals true if the user is adding a post
 		// $_POST			Input form			

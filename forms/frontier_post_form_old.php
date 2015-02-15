@@ -5,66 +5,20 @@ if ( strlen($frontier_edit_text_before) > 1 )
 	echo '<div id="frontier_edit_text_before">'.$frontier_edit_text_before.'</div>';
 
 //echo 'postid: '.$thispost->ID;
-//error_log(print_r(get_post_types(array('public' => true)), true));
-
-//error_log(print_r($thispost, true));
-//error_log(print_r(get_post_custom($thispost->ID), true));
-//error_log(print_r(get_post_meta($thispost->ID), true));
-//error_log(print_r(get_post_types(),true));
-//error_log(print_r(get_taxonomies(array('public'   => true, '_builtin' => false)));
-//error_log(print_r(get_taxonomies(array('public'   => true)), true) );
-//error_log("exclude_cats: ".$frontier_post_excl_cats);
-
-//echo "Post_ type: ".$thispost->post_type."<br>";
-
 
 frontier_post_output_msg();
-
-//***************************************************************************************
-//* Get Custom taxonomy: groups
-//***************************************************************************************
-
-//$tax_group_selected = wp_get_post_terms( $thispost->ID, 'group', array("fields" => "ids"));
-//error_log(print_r($tax_group_selected, true));
-//$frontier_custom_tax = array('group');
-
-// get list of taxonomies from shortcode ($frontier_custom_tax), get values from the db and store them in array, and extract them as variables
-/*
-error_log(print_r($frontier_custom_tax, true));
-$fp_tax_db_values = array();
-foreach ( $frontier_custom_tax as $tmp_tax_name ) 
-	{
-	if ( !empty($tmp_tax_name) )
-		{
-		error_log(frontier_tax_field_name($tmp_tax_name));
-		$tmp_value 			= wp_get_post_terms( $thispost->ID, $tmp_tax_name, array("fields" => "ids"));
-		// Set the field name as array key
-		$fp_tax_db_values[frontier_tax_field_name($tmp_tax_name)] 	= $tmp_value; 
-		}
-	}	
-error_log(print_r($fp_tax_db_values, true));
-*/
-
-//***************************************************************************************
-//* Start form
-//***************************************************************************************
-
-
 ?>	
 	<div class="frontier_post_form"> 
-
+	
 	<table >
 	<tbody>
 	<form action="" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >
-		<!-- Leave hidden fields in form as they are used in the control of the shortcode abilities -->
-		<input type="hidden" name="postid" id="postid" value="<?php if(isset($thispost->ID)) echo $thispost->ID; ?>">
-		<input type="hidden" name="posttype" id="posttype" value="<?php echo (isset($thispost->post_type) ? $thispost->post_type : 'post'); ?>">
-		<input type="hidden" name="home" value="<?php the_permalink(); ?>" > 
-		<input type="hidden" name="action" value="wpfrtp_save_post"> 
-		<input type="hidden" name="task" value="<?php echo $_REQUEST['task'];?>">
-		<?php wp_nonce_field( 'frontier_add_edit_post', 'frontier_add_edit_post_'.$thispost->ID ); ?>
-		<!-- Keep selected categories if no category field on form -->
-		<input  type="hidden" name="post_categories" value="<?php echo $cats_selected_txt ;?>">
+	<?php
+	// do not remove this include, as it holds the hidden fields necessary for the logic to work
+	include(FRONTIER_POST_DIR."/forms/frontier_post_form_header.php");	
+	
+	wp_nonce_field( 'frontier_add_edit_post', 'frontier_add_edit_post_'.$thispost->ID ); 
+	?>
 	<tr>
 		<td>
 			<table><tbody>
@@ -136,11 +90,24 @@ error_log(print_r($fp_tax_db_values, true));
 				{
 				case "hide":
 					break;
+			
+				default:
+					echo '<td class="frontier_border" width="50%"><div class="frontier-tax-box">';
+					frontier_tax_input($thispost->ID, 'category', $category_type, $cats_selected,  $frontier_post_shortcode_parms);
+					echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+					echo '</td>';
+					break;
 				
-				/*
+				}
+			/* Old code
+			switch ($category_type) 
+				{
+				case "hide":
+					break;
+			
 				case "single":
 					echo '<td class="frontier_border" width="50%">';
-					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'categorymulti[]', 'child_of' => $frontier_parent_cat_id, 'orderby' => 'name', 'selected' => $cats_selected[0], 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
+					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'child_of' => $frontier_parent_cat_id, 'orderby' => 'name', 'selected' => $cats_selected[0], 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
 					break;
 			
 				case "multi":
@@ -156,14 +123,6 @@ error_log(print_r($fp_tax_db_values, true));
 					echo '</td>';
 					break;
 				
-				case "radio":
-					echo '<td class="frontier_border" width="50%"><div class="frontier-tax-box">';
-					echo frontier_post_tax_radio($catlist, $cats_selected, "categorymulti[]", "frontier_categorymulti");
-					echo '</td>';
-					break;
-				
-				
-				
 				case "readonly":
 					echo '<td class="frontier_border" width="50%">';
 					foreach ( $cats_selected as $category1) :
@@ -171,17 +130,11 @@ error_log(print_r($fp_tax_db_values, true));
 					endforeach;
 					echo '</td>';
 					break;
-				*/
-				
-				default:
-					echo '<td class="frontier_border" width="50%"><div class="frontier-tax-box">';
-					frontier_tax_input($thispost->ID, 'category', $category_type, $cats_selected,  $frontier_post_shortcode_parms);
-					echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
-					echo '</td>';
-					break;
 					
+				default:
+					break;
 				}
-			
+			*/
 				
 				?>
 				
@@ -192,34 +145,7 @@ error_log(print_r($fp_tax_db_values, true));
 					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[1]))echo $taglist[1];?>" name="user_post_tag2" id="user_post_tag" ></br>
 					<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[2]))echo $taglist[2];?>" name="user_post_tag3" id="user_post_tag" ></br>
 				</td>
-			<?php } 
-			
-			echo "</tr><tr>";
-			
-			//frontier_tax_input($thispost->ID, $frontier_custom_tax, 'checkbox');
-			
-			/*
-			echo '<td class="frontier_border" width="50%">';
-			echo '<strong>Group:</strong><br><div class="frontier-tax-box">'; 
-			// setup list of groups (Custom taxonomy)
-
-			$tmp_tax_name	= "group";
-			$tmp_tax_list 	= frontier_tax_list($tmp_tax_name);
-			$tmp_field_name = "fp_tax_"."group"."[]";
-			echo frontier_post_tax_checkbox($tmp_tax_list, $tax_group_selected, $tmp_field_name, $tmp_field_name);
-			echo '</td>';
-			
-			echo '<td class="frontier_border" width="50%">';
-			echo '<strong>Group:</strong><br><div class="frontier-tax-box">'; 
-			// setup list of groups (Custom taxonomy)
-
-			$tmp_tax_name	= "group";
-			$tmp_tax_list 	= frontier_tax_list($tmp_tax_name);
-			$tmp_field_name = "fp_tax_"."group"."[]";
-			echo frontier_post_tax_checkbox($tmp_tax_list, $tax_group_selected, $tmp_field_name, $tmp_field_name);
-			echo '</td>';
-			*/
-			?>
+			<?php } ?>
 		
 			
 		</tr>
@@ -238,7 +164,7 @@ error_log(print_r($fp_tax_db_values, true));
 				</td>
 				</tr><tr>
 		<?php 	} 
-		if ( fp_get_option_bool("fps_show_feat_img") )
+		if (get_option("frontier_post_show_feat_img", "false") == "true")
 			{
 		?>
 		<th class="frontier_heading" width="50%"><?php _e("Featured image", "frontier-post"); ?></th>
@@ -262,21 +188,22 @@ error_log(print_r($fp_tax_db_values, true));
 		<td>
 			<?php
 			
+			$frontier_submit_buttons			= get_option("frontier_post_submit_buttons", array('save' => 'true', 'savereturn' => 'true', 'preview' => 'true', 'cancel' => 'true' ) );
 			
 			
-			if ( fp_get_option_bool("fps_submit_save") )
+			if ( $frontier_submit_buttons['save'] == "true" )
 			{ ?>
 				<button class="button" type="submit" name="user_post_submit" 		id="user_post_save" 	value="save"><?php _e("Save", "frontier-post"); ?></button>
 			<?php }
-			if ( fp_get_option_bool("fps_submit_savereturn") )
+			if ( $frontier_submit_buttons['savereturn'] == "true" )
 			{ ?>
 				<button class="button" type="submit" name="user_post_submit" 	id="user_post_submit" 	value="savereturn"><?php echo $frontier_return_text; ?></button>
 			<?php }
-			if ( fp_get_option_bool("fps_submit_preview") )
+			if ( $frontier_submit_buttons['preview'] == "true" )
 			{ ?>
 				<button class="button" type="submit" name="user_post_submit" 	id="user_post_preview" 	value="preview"><?php _e("Save & Preview", "frontier-post"); ?></button>
 			<?php } 
-			if ( fp_get_option_bool("fps_submit_cancel") )
+			if ( $frontier_submit_buttons['cancel'] == "true" )
 			{ ?>
 			<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
 			<?php } ?>
