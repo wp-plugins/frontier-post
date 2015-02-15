@@ -4,6 +4,7 @@
 function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 	{
 	extract($frontier_post_shortcode_parms);
+	 
 	
 	global $post;
 	global $current_user;
@@ -11,15 +12,12 @@ function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 
 	$tmp_p_id = get_the_id();
 	
-	//fp_log("fp cat id List: ".($frontier_cat_id ? $frontier_cat_id : "Unknown"));
-	//fp_log("fp cat id List test: ".(isset($fp_cat_id) ? $fp_cat_id : "Unknown"));		
-	//fp_log($frontier_post_shortcode_parms);		
 	
 	$pagenum	= isset( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
-	$ppp		= (int) get_option('frontier_post_ppp',5);
+	$ppp		= (int) fp_get_option('fps_ppp',5);
 
 	$args = array(
-			'post_type' 		=> 'post',
+			'post_type' 		=> $frontier_list_post_types,
 			'post_status' 		=> 'draft, pending, publish, private',
 			'order'				=> 'DESC',
 			'orderby' 			=> 'post_date', 
@@ -38,13 +36,10 @@ function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 	else
 		$args["author"] = $current_user->ID;
 	
-	//("List_posts");
-	//fp_log($args);
 	
 	$user_posts 	= new WP_Query( $args );
-	//print_r("Last SQL-Query: {$user_posts->request}");
 
-	include_once(frontier_load_form("frontier_list_form.php"));
+	include_once(frontier_load_form("frontier_post_form_list.php"));
 		
 	}  
 ?>

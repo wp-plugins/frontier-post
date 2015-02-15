@@ -10,65 +10,121 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 	exit ();
 	}
 	
-	global $wpdb;
+	//********************* Warning *************************
+	//
+	//Do not use functions from the plugin itself
+	//
+	//*******************************************************
+	
+	//******************************************************************************
+	// Remove options if not to keep
+	//******************************************************************************
+	
+	$fp_settings 	= get_option('frontier_post_general_options', array());
+	$fp_keep		= array_key_exists('fps_keep_options_uninstall', $fp_settings) ? $fp_settings['fps_keep_options_uninstall'] : "false";
+	
+	if ($fp_keep == "true")
+		{
+		echo '<div class="updated"><p><strong>'.__("Options not deleted on uninstall, as keep setting enabled", "frontier-post").'</strong></p></div>';
+		}
+	else
+		{
+		delete_option('frontier_post_general_options');
+		delete_option('frontier_post_capabilities');		
+		}
+	
+	//******************************************************************************
+	// Remove capabilities
+	//******************************************************************************
+	
 	global $wp_roles;
 	if ( !isset( $wp_roles ) )
 		$wp_roles = new WP_Roles();
-	
+
 	$roles 			= $wp_roles->get_names();
-	$tmp_cap_list	= Array('can_add', 'can_edit', 'can_publish', 'can_draft', 'can_delete', 'exerpt_edit', 'tags_edit', 'redir_edit', 'can_media');
 	
+	$tmp_cap_list	= Array(
+	'frontier_post_can_pending',
+	'frontier_post_can_add',
+	'frontier_post_can_edit',
+	'frontier_post_can_delete',
+	'frontier_post_can_publish',
+	'frontier_post_can_draft',
+	'frontier_post_can_private',
+	'frontier_post_redir_edit',
+	'frontier_post_show_admin_bar',
+	'frontier_post_tags_edit',
+	'frontier_post_can_media',
+	'frontier_post_can_page',
+	'frontier_post_exerpt_edit',
+	
+	);
 		
-	//error_log("Deleting options for Frontier Post");
-	delete_option('frontier_post_edit_max_age');
-	delete_option("frontier_post_delete_max_age");
-	delete_option("frontier_post_ppp");
-	delete_option("frontier_post_del_w_comments");
-	delete_option("frontier_post_edit_w_comments");
-	delete_option("frontier_post_page_id");
-	delete_option("frontier_post_options");
-	delete_option("frontier_post_version");
-	delete_option("frontier_post_use_draft"  );
-	delete_option("frontier_post_author_role"  );
-	delete_option("frontier_post_mce_custom");
-	delete_option("frontier_post_mail_to_approve");
-	delete_option("frontier_post_mail_approved");
-	delete_option("frontier_post_mail_address");
-	delete_option("frontier_post_show_feat_img");
-	delete_option("frontier_post_show_login");
-	delete_option("frontier_post_change_status");
-	delete_option("frontier_default_status");
-	delete_option("frontier_post_external_cap");
-	delete_option("frontier_default_editor");
-	delete_option("frontier_default_cat_select");
-	delete_option("frontier_post_catid_list");
-	delete_option("frontier_post_hide_status");
-	delete_option("frontier_post_show_msg");
-	delete_option("frontier_post_editor_lines");
-	delete_option("frontier_post_hide_title_ids");
-	 
-	
-	//delete_option("frontier_post_use_draft");
 	
 	foreach( $roles as $key => $item )
 		{
 		$xrole = get_role($key);
-					
+		
+		delete_option('frontier_post_role_'.$key);
+		
 		foreach($tmp_cap_list as $tmp_cap)
-			{
-				// delete option
-				$tmp_option_name = 'frontier_post_'.$key.'_'.$tmp_cap;
-				//error_log("Deleting option: ".$tmp_option_name);
-				delete_option($tmp_option_name);
-				// remove capability
-				$tmp_cap_name = 'frontier_post_'.$tmp_cap;
-				//error_log("Deleting option: ".$tmp_cap_name);
-				$xrole->remove_cap( $tmp_cap_name );			
+			{		
+				$xrole->remove_cap( $tmp_cap);
+						
 			} // End capabilities
 		} // End roles
+
+	
+		
+
+	// for old pre 3.1.0 version, cleanup old options
+	$fp_old_options = array(
+	
+	'frontier_post_author_role',
+	'frontier_post_catid_list',
+	'frontier_post_change_status',
+	'frontier_post_delete_max_age',
+	'frontier_post_del_w_comments',
+	'frontier_post_editor',
+	'frontier_post_editor_lines',
+	'frontier_post_edit_max_age',
+	'frontier_post_edit_w_comments',
+	'frontier_post_excl_cats',
+	'frontier_post_external_cap',
+	'frontier_post_hide_status',
+	'frontier_post_hide_title_ids',
+	'frontier_post_mail_address',
+	'frontier_post_mail_approved',
+	'frontier_post_mail_to_approve',
+	'frontier_post_mce_button',
+	'frontier_post_mce_custom',
+	'frontier_post_options',
+	'frontier_post_page_id',
+	'frontier_post_ppp',
+	'frontier_post_role_administrator',
+	'frontier_post_role_author',
+	'frontier_post_role_contributor',
+	'frontier_post_role_editor',
+	'frontier_post_role_pending',
+	'frontier_post_role_subscriber',
+	'frontier_post_show_feat_img',
+	'frontier_post_show_login',
+	'frontier_post_show_msg',
+	'frontier_post_submit_buttons',
+	'frontier_post_use_draft',
+	
+	);
+	
+	// This one waits
+	// frontier_post_version
 	
 	
+	foreach ($fp_old_options as $option_name)
+		{
+		delete_option($option_name);
+		}
 	
+	// ** End Clean up old options
 
 
 ?>

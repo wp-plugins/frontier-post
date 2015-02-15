@@ -9,18 +9,16 @@ if ( strlen($frontier_edit_text_before) > 1 )
 frontier_post_output_msg();
 ?>	
 	<div class="frontier_post_form"> 
-
+	
 	<table >
 	<tbody>
 	<form action="" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >
-		<!-- Leave hidden fields in form as they are used in the control of the shortcode abilities -->
-		<input type="hidden" name="postid" id="postid" value="<?php if(isset($thispost->ID)) echo $thispost->ID; ?>">
-		<input type="hidden" name="home" value="<?php the_permalink(); ?>" > 
-		<input type="hidden" name="action" value="wpfrtp_save_post"> 
-		<input type="hidden" name="task" value="<?php echo $_REQUEST['task'];?>">
-		<?php wp_nonce_field( 'frontier_add_edit_post', 'frontier_add_edit_post_'.$thispost->ID ); ?>
-		<!-- Keep selected categories if no category field on form -->
-		<input  type="hidden" name="post_categories" value="<?php echo $cats_selected_txt ;?>">
+	<?php
+	// do not remove this include, as it holds the hidden fields necessary for the logic to work
+	include(FRONTIER_POST_DIR."/forms/frontier_post_form_header.php");	
+	
+	wp_nonce_field( 'frontier_add_edit_post', 'frontier_add_edit_post_'.$thispost->ID ); 
+	?>
 	<tr>
 		<td>
 			<table><tbody>
@@ -93,6 +91,20 @@ frontier_post_output_msg();
 				case "hide":
 					break;
 			
+				default:
+					echo '<td class="frontier_border" width="50%"><div class="frontier-tax-box">';
+					frontier_tax_input($thispost->ID, 'category', $category_type, $cats_selected,  $frontier_post_shortcode_parms);
+					echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+					echo '</td>';
+					break;
+				
+				}
+			/* Old code
+			switch ($category_type) 
+				{
+				case "hide":
+					break;
+			
 				case "single":
 					echo '<td class="frontier_border" width="50%">';
 					wp_dropdown_categories(array('id'=>'cat', 'hide_empty' => 0, 'name' => 'cat', 'child_of' => $frontier_parent_cat_id, 'orderby' => 'name', 'selected' => $cats_selected[0], 'hierarchical' => true, 'exclude' => $frontier_post_excl_cats, 'show_count' => true)); 
@@ -122,7 +134,7 @@ frontier_post_output_msg();
 				default:
 					break;
 				}
-			
+			*/
 				
 				?>
 				
