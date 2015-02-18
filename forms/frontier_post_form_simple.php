@@ -25,7 +25,7 @@ echo '<form action="" method="post" name="frontier_post" id="frontier_post" enct
 	<td class="frontier_no_border">
 	<fieldset id="frontier_post_fieldset_title" class="frontier_post_fieldset">
 		<legend><?php _e("Title", "frontier-post"); ?></legend>
-		<input class="frontier-formtitle"  placeholder="Enter title here" type="text" value="<?php if(!empty($thispost->post_title))echo $thispost->post_title;?>" name="user_post_title" id="fp_title" >			
+		<input class="frontier-formtitle"  placeholder="<?php _e('Enter title here', 'frontier-post'); ?>" type="text" value="<?php if(!empty($thispost->post_title))echo $thispost->post_title;?>" name="user_post_title" id="fp_title" >			
 	</fieldset>
 	<fieldset id="frontier_post_fieldset_status" class="frontier_post_fieldset">
 		<legend><?php _e("Status", "frontier-post"); ?></legend>

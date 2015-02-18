@@ -74,6 +74,7 @@ if( $user_posts->found_posts > 0 )
 			<th class="frontier-list-posts" id="frontier-list-posts-action"><?php _e("Action", "frontier-post"); ?></th>
 		</tr>
 	</thead> 
+	<!--</div>-->
 	<tbody>
 	<?php 
 	while ($user_posts->have_posts()) 

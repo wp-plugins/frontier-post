@@ -10,8 +10,6 @@ frontier_post_output_msg();
 ?>	
 	<div class="frontier_post_form"> 
 	
-	<table >
-	<tbody>
 	<form action="" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >
 	<?php
 	// do not remove this include, as it holds the hidden fields necessary for the logic to work
@@ -19,13 +17,16 @@ frontier_post_output_msg();
 	
 	wp_nonce_field( 'frontier_add_edit_post', 'frontier_add_edit_post_'.$thispost->ID ); 
 	?>
+	<table >
+	<tbody>
+	
 	<tr>
 		<td>
 			<table><tbody>
 			<tr>
 				<td class="frontier_no_border">
 					<?php _e("Title", "frontier-post");?>:&nbsp;
-					<input class="frontier-formtitle"  placeholder="Enter title here" type="text" value="<?php if(!empty($thispost->post_title))echo $thispost->post_title;?>" name="user_post_title" id="user_post_title" >			
+					<input class="frontier-formtitle"  placeholder="<?php _e('Enter title here', 'frontier-post'); ?>" type="text" value="<?php if(!empty($thispost->post_title))echo $thispost->post_title;?>" name="user_post_title" id="fp_title" >				
 				</td>
 			<?php if ( $hide_post_status )
 					{
