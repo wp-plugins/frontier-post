@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1.0
-Stable tag: 3.3.5
+Stable tag: 3.3.6
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
@@ -105,6 +105,11 @@ Let me know what you think, and if you have enhancement requests or problems let
 6. Frontier Post advanced settings
 
 == Changelog ==
+
+
+= 3.3.6 =
+* Added to translation, po file updated
+* Missing /div added in  frontier_post_form_list.php file
 
 = 3.3.5 =
 * NEW: Support for custom taxonomies (no coding necessary)
