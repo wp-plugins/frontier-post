@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish
 Requires at least: 3.4.0
 Tested up to: 4.1.1
-Stable tag: 3.3.7
+Stable tag: 3.3.8
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
@@ -107,7 +107,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 3.3.7 =
+= 3.3.8 =
 * Turkish translation added, thanks: nelanbunet
 * Tested up to: 4.1.1
 
