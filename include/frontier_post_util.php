@@ -125,7 +125,7 @@ Function frontier_post_tax_multi($tmp_cat_list, $tmp_selected, $tmp_name, $tmp_i
 		$tmp_html = $tmp_html.'<option value="'.$taxid.'"'; 
 		if ( $tmp_selected && in_array( $taxid, $tmp_selected ) ) 
 			{ 
-			$tmp_html = $tmp_html.'selected="selected"'; 
+			$tmp_html = $tmp_html.' selected="selected"'; 
 			}
 		$tmp_html = $tmp_html.'>'.$taxname.'</option>';
 	endforeach;
@@ -146,7 +146,7 @@ Function frontier_post_tax_checkbox($tmp_cat_list, $tmp_selected, $tmp_name, $tm
 		$tmp_html = $tmp_html.' value="'.$taxid.'"'; 
 		if ( $tmp_selected && in_array( $taxid, $tmp_selected ) ) 
 			{ 
-			$tmp_html = $tmp_html.'checked="checked"'; 
+			$tmp_html = $tmp_html.' checked="checked"'; 
 			}
 		$tmp_html = $tmp_html.'>'.$taxname.'<br>'.PHP_EOL;
 		endforeach;
@@ -166,7 +166,7 @@ Function frontier_post_tax_radio($tmp_cat_list, $tmp_selected, $tmp_name, $tmp_i
 		$tmp_html = $tmp_html.' value="'.$taxid.'"'; 
 		if ( $tmp_selected && in_array( $taxid, $tmp_selected ) ) 
 			{ 
-			$tmp_html = $tmp_html.'checked="checked"'; 
+			$tmp_html = $tmp_html.' checked="checked"'; 
 			}
 		$tmp_html = $tmp_html.'>'.$taxname.'<br />';
 		endforeach; 
@@ -208,7 +208,7 @@ function frontier_post_set_msg($tmp_msg)
 
 function frontier_post_output_msg()
 	{
-	if ( get_option("frontier_post_show_msg", "false") == "true" )
+	if ( fp_get_option_bool("fps_show_msg") )
 		{
 		$tmp_msg = isset($_REQUEST['frontier-post-msg']) ? $_REQUEST['frontier-post-msg'] : '';
 		echo '<div class="frontier_post_msg">'.$tmp_msg.'</div>';
