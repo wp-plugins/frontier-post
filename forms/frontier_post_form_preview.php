@@ -1,6 +1,10 @@
 <?php
 
 
+//Display message
+frontier_post_output_msg();
+
+
 
 		
 	$tmp_edit_link = '<a href='.get_permalink().$concat.'task=edit&postid='.$preview_post->ID.'>'.__("Edit Post", "frontier-post").'</a>';

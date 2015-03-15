@@ -1,5 +1,7 @@
 <?php
 
+//Display message
+frontier_post_output_msg();
 
 if ( strlen($frontier_edit_text_before) > 1 )
 	echo '<div id="frontier_edit_text_before">'.$frontier_edit_text_before.'</div>';

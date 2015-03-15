@@ -6,6 +6,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	global $current_user;
 	
 	
+	
 	$fps_access_check_msg 		= "";
 	$user_can_edit_this_post 	= false;
 	

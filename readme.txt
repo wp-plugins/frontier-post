@@ -1,10 +1,10 @@
 === Frontier Post ===
 Contributors: finnj
 Donate link: 
-Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish
+Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish,
 Requires at least: 3.4.0
-Tested up to: 4.1.0
-Stable tag: 3.3.6
+Tested up to: 4.1.1
+Stable tag: 3.4.0
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
@@ -19,10 +19,6 @@ Intention of the Frontier Post plugin is to enable front end posting and editing
 Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.
 
 Frontier Post is intentionally made simple - But it is highly configuable if you want to extend it :)
-
-= Usage = 
-* Short-code [frontier-post] in a page content after install and activation of the plugin - Then review settings and capabilities
-* Short code parameters  [http://wpfrontier.com/frontier-post-shortcodes/](http://wpfrontier.com/frontier-post-shortcodes/)
 
 = Main Features =
 * Create posts with media directly from frontend
@@ -72,8 +68,15 @@ Frontier Post is intentionally made simple - But it is highly configuable if you
  * Number of comments marked as spam
 
 
+= Usage = 
+* Short-code [frontier-post] in a page content after install and activation of the plugin - Then review settings and capabilities
+* Short code parameters  [http://wpfrontier.com/frontier-post-shortcodes/](http://wpfrontier.com/frontier-post-shortcodes/)
+
+
 = Translations =
 * Danish
+* German (tomcatchriss)
+* Turkish (nelanbunet)
 * Russian (samaks)
 * Chinese (beezeeking)
 * Spanish (Hasmin)
@@ -106,6 +109,24 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+
+= 3.4.0 =
+* Added  add/update/delete message also when just saving post.
+* German translation added, thanks: tomcatchriss
+* frontier_post_output_msg() added to following forms to display message on add/update:
+ * frontier_post_form_standard.php
+ * frontier_post_form_page.php
+ * frontier_post_form_simple.php
+ * frontier_post_form_old.php
+ * frontier_post_form_preview.php
+* New advanced seeting to disable control of admin bar (disable control if conflict with other plugin)
+
+= 3.3.9 =
+* Fixed: add/update/delete was not displayed even if Show add/update/delete messages was checked.
+
+= 3.3.8 =
+* Turkish translation added, thanks: nelanbunet
+* Tested up to: 4.1.1
 
 = 3.3.6 =
 * Added to translation, po file updated

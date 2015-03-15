@@ -1,0 +1,846 @@
+# Copyright (C) 2015 Frontier Post
+# This file is distributed under the same license as the Frontier Post package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Frontier Post 3.3.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/frontier-post\n"
+"POT-Creation-Date: 2015-02-08 09:17:11+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-02-16 02:49+0200\n"
+"Last-Translator: Metin Orak <orakmetin@gmail.com>\n"
+"Language-Team: nelanbu.net <yonetici@nelanbu.net>\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: Turkish\n"
+
+#: admin/frontier-post-admin-advanced.php:14
+#: admin/frontier-post-admin-capabilities.php:14
+#: admin/frontier-post-admin-general.php:14 frontier-post-admin.php:49
+#: frontier-post-admin.php:67 frontier-post-admin.php:79
+#: frontier-post-admin.php:130
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:31 frontier-delete-post.php:88
+#: frontier-submit-form.php:19
+msgid ""
+"Security violation (Nonce check) - Please contact your Wordpress "
+"administrator"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:63
+#: admin/frontier-post-admin-capabilities.php:98
+#: admin/frontier-post-admin-general.php:55
+msgid "Settings saved."
+msgstr "Ayarlar kaydedildi."
+
+#: admin/frontier-post-admin-advanced.php:96
+msgid "Frontier Post Advanced Settings"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:107
+msgid "Add Frontier Author user role"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:109
+msgid "Adds a new role: Frontend Author to Wordpress"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:112
+msgid "Show ID in category list"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:114
+msgid ""
+"If checked ID column will be added to the standard category list in admin "
+"panel"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:117
+msgid "Hide post status"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:119
+msgid "Hide the post status on the entry form"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:123
+msgid "Input form"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:131
+msgid "Height of editor"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:136
+msgid "Custom login text"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:140
+msgid "This text (and link) is displayed when a user is required to login"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:141
+#: include/frontier_post_defaults.php:35 include/frontier_post_util.php:528
+#: include/frontier_post_util.php:537
+msgid "Please log in !"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:141
+#: include/frontier_post_defaults.php:35
+msgid "Login Page"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:146
+msgid "Hide title on these pages"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:150
+#: admin/frontier-post-admin-general.php:161
+msgid "comma separated list of IDs"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:155
+msgid "Allow Custom Taxonomies"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:160
+msgid "Taxonomies"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:165
+msgid "Default Taxonomy layout"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:171
+msgid "Allowed Post Types"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:173
+msgid "Post Types"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:177
+msgid "Send email to Admins on post to approve"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:181
+msgid "Approver email (ex: name1@domain.xx, name2@domain.xx)"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:185
+msgid "Send email to author when post is approved"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:190
+msgid "Keep Frontier Post settings on uninstall"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:192
+msgid ""
+"If this is checked, the Frontier Settings will not be deleted on uninstall"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:195
+msgid "Template directory"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:201
+#: admin/frontier-post-admin-advanced.php:203
+#: admin/frontier-post-admin-advanced.php:205
+msgid "exists in the template directory"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:209
+msgid "Set Capabilities externally"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:211
+msgid ""
+"If checked capabilities will be managed from external plugin ex.: User Role "
+"Editor"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:215
+msgid "Default Editor"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:218
+msgid "Default category select"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:226
+#: admin/frontier-post-admin-capabilities.php:293
+#: admin/frontier-post-admin-general.php:170
+msgid "Save Changes"
+msgstr "Değişiklikler Kaydedildi"
+
+#: admin/frontier-post-admin-capabilities.php:103
+msgid "Capabilities set."
+msgstr ""
+
+#: admin/frontier-post-admin-capabilities.php:114
+msgid "Frontier Post - Capabilities & Role based settings"
+msgstr ""
+
+#: admin/frontier-post-admin-capabilities.php:125
+msgid "Capabilities managed externally"
+msgstr ""
+
+#: admin/frontier-post-admin-capabilities.php:131
+msgid "Capabilities by user role"
+msgstr ""
+
+#: admin/frontier-post-admin-capabilities.php:133
+#: admin/frontier-post-admin-capabilities.php:196
+msgid "Role"
+msgstr ""
+
+#: admin/frontier-post-admin-capabilities.php:194
+msgid "Role based settings"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:77
+msgid "Frontier Post Settings"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:84
+msgid "Allow edit of posts with comments"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:86
+msgid "Max age in days to allow edit of post"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:90
+msgid "Allow deletion of posts with comments"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:92
+msgid "Max age in days to allow delete of post"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:96
+msgid "Number of post per page"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:98
+msgid "Page containing [frontier-post] shortcode"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:100
+#: include/frontier_post_util.php:182
+msgid "None"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:105
+msgid "Default status for new posts"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:123
+msgid "Additional options"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:126
+msgid "Allow users to change status from Published"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:128
+msgid "Once published users can change status back to draft/pending"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:131
+msgid "Use featured image"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:133
+msgid "Enables selection of featured image from frontend form "
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:136
+msgid "Show link to login page"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:138
+msgid "Shows link to wp-login.php after text: Please login"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:141
+msgid "Show add/update/delete messages"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:143
+msgid ""
+"Show message on the form confirming a post has been added/updated/deleted"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:146
+msgid "Show submit buttons on post edit form"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:149 forms/frontier_post_form.php:269
+#: forms/frontier_post_form_old.php:167 forms/frontier_post_form_page.php:116
+#: forms/frontier_post_form_standard.php:157
+msgid "Save"
+msgstr "Kaydet"
+
+#: admin/frontier-post-admin-general.php:150 frontier-post.php:126
+msgid "Save & Return"
+msgstr "Kaydet & Geri Dön"
+
+#: admin/frontier-post-admin-general.php:151 forms/frontier_post_form.php:277
+#: forms/frontier_post_form_old.php:175 forms/frontier_post_form_page.php:124
+#: forms/frontier_post_form_standard.php:165
+msgid "Save & Preview"
+msgstr "Kaydet & Önizle"
+
+#: admin/frontier-post-admin-general.php:152 forms/frontier_post_form.php:281
+#: forms/frontier_post_form_old.php:179 forms/frontier_post_form_page.php:128
+#: forms/frontier_post_form_standard.php:169 frontier-delete-post.php:35
+msgid "Cancel"
+msgstr "İptal et"
+
+#: admin/frontier-post-admin-general.php:157
+msgid "Exclude categories"
+msgstr ""
+
+#: forms/frontier_post_form.php:73 forms/frontier_post_form_list.php:66
+#: forms/frontier_post_form_old.php:28 forms/frontier_post_form_page.php:27
+#: forms/frontier_post_form_simple.php:27
+#: forms/frontier_post_form_standard.php:26
+#: include/frontier_approvals_widget.php:163
+#: include/frontier_my_posts_widget.php:278
+#: include/frontier_new_category_post_widget.php:112
+msgid "Title"
+msgstr "Başlık"
+
+#: forms/frontier_post_form.php:84 forms/frontier_post_form_list.php:70
+#: forms/frontier_post_form_old.php:40 forms/frontier_post_form_page.php:31
+#: forms/frontier_post_form_simple.php:31
+#: forms/frontier_post_form_standard.php:30
+msgid "Status"
+msgstr "Durum"
+
+#: forms/frontier_post_form.php:113 forms/frontier_post_form_old.php:69
+#: forms/frontier_post_form_page.php:56 forms/frontier_post_form_simple.php:61
+#: forms/frontier_post_form_standard.php:55
+msgid "Word count: %s"
+msgstr ""
+
+#: forms/frontier_post_form.php:123 forms/frontier_post_form_list.php:58
+#: forms/frontier_post_form_old.php:78
+msgid "Category"
+msgstr "Kategori"
+
+#: forms/frontier_post_form.php:128 forms/frontier_post_form_old.php:83
+#: forms/frontier_post_form_standard.php:106
+msgid "Tags"
+msgstr "Etiketler"
+
+#: forms/frontier_post_form.php:179 forms/frontier_post_form_old.php:100
+msgid "Select category, multible can be selected using ctrl key"
+msgstr ""
+
+#: forms/frontier_post_form.php:191 forms/frontier_post_form.php:192
+#: forms/frontier_post_form.php:193 forms/frontier_post_form_old.php:112
+#: forms/frontier_post_form_old.php:113 forms/frontier_post_form_old.php:114
+#: forms/frontier_post_form_standard.php:107
+#: forms/frontier_post_form_standard.php:108
+#: forms/frontier_post_form_standard.php:109
+msgid "Enter tag here"
+msgstr "Buraya bir etiket girin"
+
+#: forms/frontier_post_form.php:236 forms/frontier_post_form_old.php:134
+#: forms/frontier_post_form_page.php:95
+#: forms/frontier_post_form_standard.php:139
+msgid "Excerpt"
+msgstr ""
+
+#: forms/frontier_post_form.php:244 forms/frontier_post_form_old.php:142
+#: forms/frontier_post_form_page.php:76
+#: forms/frontier_post_form_standard.php:120
+msgid "Featured image"
+msgstr "Birincil resim"
+
+#: forms/frontier_post_form.php:252 forms/frontier_post_form_old.php:150
+#: forms/frontier_post_form_page.php:82
+#: forms/frontier_post_form_standard.php:126
+msgid "Select featured image"
+msgstr "Yazınız için bir ana resim seçiniz"
+
+#: forms/frontier_post_form.php:255 forms/frontier_post_form_old.php:153
+msgid "Featured image (or new featured image) not visible until post is saved"
+msgstr ""
+
+#: forms/frontier_post_form_list.php:40
+msgid "Create New"
+msgstr "Yeni"
+
+#: forms/frontier_post_form_list.php:56
+msgid "Author"
+msgstr "Yazar"
+
+#: forms/frontier_post_form_list.php:65
+msgid "Date"
+msgstr "Tarih"
+
+#: forms/frontier_post_form_list.php:74
+msgid "Action"
+msgstr "Eylem"
+
+#: forms/frontier_post_form_list.php:128
+msgid "Edit"
+msgstr "Düzenle"
+
+#: forms/frontier_post_form_list.php:135 frontier-delete-post.php:34
+msgid "Delete"
+msgstr "Sil"
+
+#: forms/frontier_post_form_list.php:144
+msgid "Preview"
+msgstr "Önizle"
+
+#: forms/frontier_post_form_list.php:163
+msgid "&laquo;"
+msgstr ""
+
+#: forms/frontier_post_form_list.php:164
+msgid "&raquo;"
+msgstr ""
+
+#: forms/frontier_post_form_list.php:176
+msgid "Number of posts already created by you: "
+msgstr "Yazdığınız yazıların sayısı:"
+
+#: forms/frontier_post_form_list.php:182
+msgid "Sorry, you do not have any posts (yet)"
+msgstr "Üzgünüz, henüz yazınız yok"
+
+#: forms/frontier_post_form_page.php:52 forms/frontier_post_form_simple.php:57
+#: forms/frontier_post_form_standard.php:51
+msgid "Content"
+msgstr "İçerik"
+
+#: forms/frontier_post_form_page.php:85
+#: forms/frontier_post_form_standard.php:129
+msgid "Not updated until post is saved"
+msgstr "Yazı kaydedilmeyene kadar resim güncellenmez"
+
+#: forms/frontier_post_form_page.php:111
+#: forms/frontier_post_form_simple.php:51
+#: forms/frontier_post_form_standard.php:152
+msgid "Actions"
+msgstr "Eylemler"
+
+#: forms/frontier_post_form_preview.php:6
+msgid "Edit Post"
+msgstr "Yazıyı Düzenle"
+
+#: forms/frontier_post_form_preview.php:7
+msgid "Return"
+msgstr "Geri Dön"
+
+#: forms/frontier_post_form_preview.php:15
+msgid "status"
+msgstr "durum"
+
+#: frontier-add-edit.php:272
+msgid "You are not allowed to edit this post, sorry "
+msgstr ""
+
+#: frontier-delete-post.php:100
+msgid "Post deleted"
+msgstr "Yazı Silindi"
+
+#: frontier-post-admin.php:148
+msgid "Convert options from previous format"
+msgstr ""
+
+#: frontier-post-admin.php:153
+msgid "Convert options"
+msgstr ""
+
+#: frontier-post.php:110
+msgid "frontier-post Shortcode only allowed in pages"
+msgstr ""
+
+#: frontier-post.php:207
+msgid "not allowed in posts, only pages !"
+msgstr ""
+
+#: frontier-set-defaults.php:176
+msgid "My Posts"
+msgstr "Yazılarım"
+
+#: frontier-submit-form.php:41
+msgid "No Title"
+msgstr "Başlık Yok"
+
+#: frontier-submit-form.php:47
+msgid "No content"
+msgstr "İçerik Yok"
+
+#: frontier-submit-form.php:144
+msgid "Post added"
+msgstr "Yazı gönderildi"
+
+#: frontier-submit-form.php:146
+msgid "Post updated"
+msgstr "Yazu güncellendi"
+
+#: frontier-submit-form.php:236
+msgid "Error - Unable to save post"
+msgstr "Hata - Yazı kaydedilemeyecek durumda"
+
+#: include/frontier_approvals_widget.php:16
+msgid "My approvals"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:22
+msgid "You have no approvals pending"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:27
+msgid "List number of posts and comments for approval"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:48
+msgid "draft posts"
+msgstr "taslak yazılar"
+
+#: include/frontier_approvals_widget.php:59
+msgid "posts to be approved"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:70
+msgid "comments to be approved"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:81
+msgid "spam comments"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:167
+msgid "Show posts pending approval ?"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:172
+msgid "Show number of draft posts ?"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:177
+msgid "Show comments pending approval ?"
+msgstr ""
+
+#: include/frontier_approvals_widget.php:182
+msgid "Show comments marked as spam ?"
+msgstr ""
+
+#: include/frontier_email_notify.php:16 include/frontier_email_notify.php:17
+msgid "Post for approval from"
+msgstr ""
+
+#: include/frontier_email_notify.php:24 include/frontier_email_notify.php:41
+msgid "Message delivery failed - Recipient: ("
+msgstr ""
+
+#: include/frontier_email_notify.php:34 include/frontier_email_notify.php:35
+msgid "Your post has been approved"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:16
+msgid "My posts"
+msgstr "Yazılarım"
+
+#: include/frontier_my_posts_widget.php:27
+#: include/frontier_my_posts_widget.php:332
+msgid "You have no posts"
+msgstr "Hiç yazınız yok"
+
+#: include/frontier_my_posts_widget.php:40
+msgid "Dont show date"
+msgstr "Tarihi gösterme"
+
+#: include/frontier_my_posts_widget.php:44
+msgid "Only posts"
+msgstr "Sadece yazılar"
+
+#: include/frontier_my_posts_widget.php:45
+msgid "Posts & comments "
+msgstr "Yazılar & yorumlar"
+
+#: include/frontier_my_posts_widget.php:46
+msgid "Posts and comments excerpt"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:50
+msgid "List posts of current user (author)"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:227
+msgid "Create New Post"
+msgstr "Yeni Yazı Oluştur"
+
+#: include/frontier_my_posts_widget.php:234
+msgid "Your have published: "
+msgstr "Sizin yayınladığınız:"
+
+#: include/frontier_my_posts_widget.php:234
+msgid "posts"
+msgstr "yazılar"
+
+#: include/frontier_my_posts_widget.php:282
+msgid "Post date format"
+msgstr "Yazı tarihi şekli"
+
+#: include/frontier_my_posts_widget.php:292
+msgid "Show comments"
+msgstr "Yorumları göster"
+
+#: include/frontier_my_posts_widget.php:303
+msgid "Comment date format"
+msgstr "Yorum tarihi şekli"
+
+#: include/frontier_my_posts_widget.php:313
+msgid "Number of posts & comments"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:317
+msgid "Length of comment excerpt"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:321
+msgid "Show Add Post link ?"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:326
+msgid "Show Post Count ?"
+msgstr ""
+
+#: include/frontier_my_posts_widget.php:331
+msgid "No post text"
+msgstr ""
+
+#: include/frontier_new_category_post_widget.php:16
+msgid "New post from #category#"
+msgstr ""
+
+#: include/frontier_new_category_post_widget.php:17
+msgid "Create "
+msgstr "Oluştur"
+
+#: include/frontier_new_category_post_widget.php:17
+msgid " post"
+msgstr " yazı"
+
+#: include/frontier_new_category_post_widget.php:26
+msgid "Add new post from category"
+msgstr ""
+
+#: include/frontier_new_category_post_widget.php:114
+msgid "Link text"
+msgstr "Bağlantı metni"
+
+#: include/frontier_post_defaults.php:16
+msgid "Full Editor"
+msgstr ""
+
+#: include/frontier_post_defaults.php:16
+msgid "Minimal Visual"
+msgstr ""
+
+#: include/frontier_post_defaults.php:16
+msgid "Minimal-Html"
+msgstr ""
+
+#: include/frontier_post_defaults.php:16
+msgid "Text Only"
+msgstr ""
+
+#: include/frontier_post_defaults.php:17
+msgid "Multi select"
+msgstr ""
+
+#: include/frontier_post_defaults.php:17
+msgid "Radio Button"
+msgstr ""
+
+#: include/frontier_post_defaults.php:17
+msgid "Checkbox"
+msgstr ""
+
+#: include/frontier_post_defaults.php:17
+msgid "Single select"
+msgstr ""
+
+#: include/frontier_post_defaults.php:17
+msgid "Hide"
+msgstr ""
+
+#: include/frontier_post_defaults.php:17
+msgid "Read only"
+msgstr ""
+
+#: include/frontier_post_defaults.php:39
+msgid "Standard Form (with Taxonomies)"
+msgstr ""
+
+#: include/frontier_post_defaults.php:40
+msgid "Simpel Form (only title, status, content & submit)"
+msgstr ""
+
+#: include/frontier_post_defaults.php:41
+msgid "Old Form (for backwards compatibility"
+msgstr ""
+
+#: include/frontier_post_defaults.php:46
+msgid "Can Add"
+msgstr ""
+
+#: include/frontier_post_defaults.php:47
+msgid "Can Edit"
+msgstr ""
+
+#: include/frontier_post_defaults.php:48
+msgid "Can Delete"
+msgstr ""
+
+#: include/frontier_post_defaults.php:49
+msgid "Can Publish"
+msgstr ""
+
+#: include/frontier_post_defaults.php:50
+msgid "Can Drafts"
+msgstr ""
+
+#: include/frontier_post_defaults.php:51
+msgid "Can Pending"
+msgstr ""
+
+#: include/frontier_post_defaults.php:52
+msgid "Private Posts"
+msgstr ""
+
+#: include/frontier_post_defaults.php:53
+msgid "Frontier Edit"
+msgstr ""
+
+#: include/frontier_post_defaults.php:54
+msgid "Show admin bar"
+msgstr ""
+
+#: include/frontier_post_defaults.php:55
+msgid "Edit Excerpt"
+msgstr ""
+
+#: include/frontier_post_defaults.php:56
+msgid "Edit Tags"
+msgstr ""
+
+#: include/frontier_post_defaults.php:57
+msgid "Media Upload"
+msgstr ""
+
+#: include/frontier_post_defaults.php:58
+msgid "Can Pages"
+msgstr ""
+
+#: include/frontier_post_defaults.php:62
+msgid "Editor Type"
+msgstr ""
+
+#: include/frontier_post_defaults.php:63
+msgid "Category Layout"
+msgstr ""
+
+#: include/frontier_post_defaults.php:64
+msgid "Default Category"
+msgstr ""
+
+#: include/frontier_post_defaults.php:65
+msgid "Allowed Categories"
+msgstr ""
+
+#: include/frontier_post_validation.php:20
+msgid "You are not allowed to add new posts"
+msgstr ""
+
+#: include/frontier_post_validation.php:27
+msgid "You are not allowed to add new"
+msgstr ""
+
+#: include/frontier_post_validation.php:53
+msgid "You are not allowed to edit posts"
+msgstr ""
+
+#: include/frontier_post_validation.php:60
+msgid "You are not allowed to edit post from another user"
+msgstr ""
+
+#: include/frontier_post_validation.php:67
+msgid "You are not allowed to edit post older than: "
+msgstr ""
+
+#: include/frontier_post_validation.php:67
+#: include/frontier_post_validation.php:128
+msgid "days"
+msgstr ""
+
+#: include/frontier_post_validation.php:74
+msgid "You are not allowed to edit post that already has comments"
+msgstr ""
+
+#: include/frontier_post_validation.php:81
+msgid "You are not allowed to edit post that is published"
+msgstr ""
+
+#: include/frontier_post_validation.php:88
+msgid "You are not allowed to edit"
+msgstr ""
+
+#: include/frontier_post_validation.php:113
+msgid "You are not allowed to delete posts"
+msgstr ""
+
+#: include/frontier_post_validation.php:120
+msgid "You are not allowed to delete post from another user"
+msgstr ""
+
+#: include/frontier_post_validation.php:128
+msgid "You are not allowed to delete post older than: "
+msgstr ""
+
+#: include/frontier_post_validation.php:136
+msgid "You are not allowed to deelete post that already has comments"
+msgstr ""
+
+#: include/frontier_post_validation.php:143
+msgid "You are not allowed to delete"
+msgstr ""
+
+#: uninstall.php:28
+msgid "Options not deleted on uninstall, as keep setting enabled"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Frontier Post"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/frontier-post/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts "
+"from frontend - My Posts Widget."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "finnj"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://wpfrontier.com"
+msgstr ""
