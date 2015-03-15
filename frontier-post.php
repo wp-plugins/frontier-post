@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.3.9
+Version: 3.4.0
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.3.9"); 
+define('FRONTIER_POST_VERSION', "3.4.0"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -104,6 +104,9 @@ function frontier_user_posts($atts)
 				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post").'</h1></center>');
 				return;         
 				}
+			
+			//error_log("Custom tax from settings ----->");
+			//error_log(print_r(fp_get_option_array("fps_custom_tax_list"), true));
 		
 			$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
 			$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";
@@ -280,10 +283,15 @@ function frontier_post_add_link($tmp_p_id = null, $tmp_cat_id = null)
 
 function frontier_admin_bar()
 	{
-	if (!current_user_can( 'frontier_post_show_admin_bar' ))
-		show_admin_bar(false);
-	else
-		show_admin_bar(true);
+	$tmp_fp_settings = get_option("frontier_post_general_options", array());
+	// check if enable/disable adminbar functionality has been disabled for all users
+	if (array_key_exists("fps_disable_abar_ctrl", $tmp_fp_settings) && $tmp_fp_settings["fps_disable_abar_ctrl"] != "true")
+		{
+		if (!current_user_can( 'frontier_post_show_admin_bar' ))
+			show_admin_bar(false);
+		else
+			show_admin_bar(true);
+		}
 	}
 add_action("init","frontier_admin_bar");  
 

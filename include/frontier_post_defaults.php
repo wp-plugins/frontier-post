@@ -118,7 +118,8 @@ $fp_role_option_list 	= array(
 		'fps_keep_options_uninstall',
 		'fps_default_form',
 		'fps_use_custom_login_txt', 
-		'fps_custom_login_txt'
+		'fps_custom_login_txt',
+		'fps_disable_abar_ctrl',
 		);
 		
 	
@@ -160,7 +161,8 @@ $fp_role_option_list 	= array(
 		'fps_keep_options_uninstall'	=> "false",
 		'fps_default_form'				=> "standard",
 		'fps_custom_login_txt'			=> $frontier_default_login_txt,
-		'fps_use_custom_login_txt' 		=> "false"
+		'fps_use_custom_login_txt' 		=> "false",
+		'fps_disable_abar_ctrl'			=> "false",
 		
 		);
 

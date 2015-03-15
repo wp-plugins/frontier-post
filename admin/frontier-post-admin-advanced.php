@@ -160,7 +160,11 @@ function frontier_post_admin_page_advanced()
 				echo "<td>".__("Send email to author when post is approved", "frontier-post")."</td>";
 				fps_html_field("fps_mail_approved", 'checkbox', $fps_general_options, true);
 				
-		
+		echo "</tr><tr>";
+				echo "<td>".__("Disable control of Admin Bar", "frontier-post")."</td>";
+				fps_html_field("fps_disable_abar_ctrl", 'checkbox', $fps_general_options, true, 1);
+				echo "<td>".__("If this is checked, frontier post will not enable/disable the admin bar (Check this if another plugin is enabling/disabling the admin bar to avoid conflict)", "frontier-post")."</td>";
+			
 		echo "</tr><tr>";
 				echo "<td>".__("Keep Frontier Post settings on uninstall", "frontier-post")."</td>";
 				fps_html_field("fps_keep_options_uninstall", 'checkbox', $fps_general_options, true, 1);

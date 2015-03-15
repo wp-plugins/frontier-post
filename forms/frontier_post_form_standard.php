@@ -1,8 +1,13 @@
 <?php
 
 
+//Display message
+frontier_post_output_msg();
+
+
 if ( strlen($frontier_edit_text_before) > 1 )
 	echo '<div id="frontier_edit_text_before">'.$frontier_edit_text_before.'</div>';
+
 
 
 //***************************************************************************************
@@ -68,8 +73,16 @@ if ( strlen($frontier_edit_text_before) > 1 )
 	//$tax_list = array("category", "group", "article-type");
 	$tax_list 			= $frontier_custom_tax;
 	$tax_layout_list 	= fp_get_tax_layout($frontier_custom_tax, $frontier_custom_tax_layout);
+	/*
+	error_log("Tax list ---->");
+	error_log(print_r($tax_list ,true));
 	
+	error_log("tax layout list---->");
+	error_log(print_r($tax_layout_list,true));
+	
+	*/
 	echo '<tr><td class="frontier_no_border">';
+	
 	//echo '<table class="frontier-post-taxonomies"><tbody><tr>';
 	foreach ( $tax_layout_list as $tmp_tax_name => $tmp_tax_layout) 
 		{
