@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.4.0
+Version: 3.4.1
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.4.0"); 
+define('FRONTIER_POST_VERSION', "3.4.1"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -285,7 +285,7 @@ function frontier_admin_bar()
 	{
 	$tmp_fp_settings = get_option("frontier_post_general_options", array());
 	// check if enable/disable adminbar functionality has been disabled for all users
-	if (array_key_exists("fps_disable_abar_ctrl", $tmp_fp_settings) && $tmp_fp_settings["fps_disable_abar_ctrl"] != "true")
+	if (!array_key_exists("fps_disable_abar_ctrl", $tmp_fp_settings) || $tmp_fp_settings["fps_disable_abar_ctrl"] != "true")
 		{
 		if (!current_user_can( 'frontier_post_show_admin_bar' ))
 			show_admin_bar(false);
