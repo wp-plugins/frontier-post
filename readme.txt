@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish,
 Requires at least: 3.4.0
 Tested up to: 4.1.1
-Stable tag: 3.4.0
+Stable tag: 3.4.1
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
@@ -109,6 +109,8 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+= 3.4.1 =
+* Fixed issue where admin bar was shown until advanced settings were saved
 
 = 3.4.0 =
 * Added  add/update/delete message also when just saving post.
