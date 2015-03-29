@@ -117,7 +117,8 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		// $_POST			Input form			
 		//****************************************************************************************************
 		
-		apply_filters( 'frontier_post_pre_update', $tmp_post, $tmp_task_new, $_POST );
+		$tmp_post = apply_filters( 'frontier_post_pre_update', $tmp_post, $tmp_task_new, $_POST );
+		
 		
 		wp_update_post( $tmp_post );
 		
