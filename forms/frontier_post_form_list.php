@@ -70,7 +70,7 @@ if( $user_posts->found_posts > 0 )
 				echo '<th class="frontier-list-posts" id="frontier-list-posts-status">'.__("Status", "frontier-post").'</th>';
 			?>
 			<th class="frontier-list-posts" id="frontier-list-posts-category"><?php echo $cat_author_heading ?></th>
-			<th class="frontier-list-posts" id="frontier-list-posts-cmt"><?php echo frontier_get_comment_icon(); ?></th> <!--number of comments-->
+			<th class="frontier-list-posts" id="frontier-list-posts-cmt"><?php echo frontier_get_icon('comments'); ?></th> <!--number of comments-->
 			<th class="frontier-list-posts" id="frontier-list-posts-action"><?php _e("Action", "frontier-post"); ?></th>
 		</tr>
 	</thead> 
@@ -125,27 +125,54 @@ if( $user_posts->found_posts > 0 )
 					<?php
 						if (frontier_can_edit($post) == true)
 							{
+							if ($fp_show_icons)
+								{
+								?>
+									<a class="frontier-list-posts" id="frontier-list-posts-edit-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>"><?php echo frontier_get_icon('edit') ?></a>&nbsp;&nbsp;
+								<?php
+								}
+							else
+								{
 								?>
 									<a class="frontier-list-posts" id="frontier-list-posts-edit-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>"><?php _e("Edit", "frontier-post") ?></a>&nbsp;&nbsp;
 								<?php
+								}
 							}
 												
 						if (frontier_can_delete($post) == true)
 							{
+							if ($fp_show_icons)
+								{
+								?>
+									<a class="frontier-list-posts" id="frontier-list-posts-delete-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>" ><?php echo frontier_get_icon('delete'); ?></a>
+								<?php
+								}
+							else
+								{
 								?>
 									<a class="frontier-list-posts" id="frontier-list-posts-delete-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>" ><?php _e("Delete", "frontier-post") ?></a>
 								<?php
+								}
 							}
-						
+							
 						if ($post->post_status != "publish")
 							{ 
 							$tmp_post_link = site_url();
-							$tmp_post_link = $tmp_post_link."/?p=".$post->ID."&preview=true"
-							?>
-							<a class="frontier-list-posts" id="frontier-list-posts-preview-link" href="<?php echo $tmp_post_link;?>" target="_blank"><?php _e("Preview","frontier-post") ?></a>
-							<?php		
-							} 
-
+							$tmp_post_link = $tmp_post_link."/?p=".$post->ID."&preview=true";
+							if ($fp_show_icons)
+								{
+								?>
+									<a class="frontier-list-posts" id="frontier-list-posts-preview-link" href="<?php echo $tmp_post_link;?>" target="_blank"><?php echo frontier_get_icon('view'); ?></a>
+							<?php
+								}
+							else
+								{
+								?>
+									<a class="frontier-list-posts" id="frontier-list-posts-preview-link" href="<?php echo $tmp_post_link;?>" target="_blank"><?php _e("Preview","frontier-post") ?></a>
+								<?php
+								}
+							}
+							
 					?>
 					&nbsp;
 				</td>

@@ -5,7 +5,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	require_once(ABSPATH . '/wp-admin/includes/post.php');
 	global $current_user;
 	
-	
+	//add_thickbox();
 	
 	$fps_access_check_msg 		= "";
 	$user_can_edit_this_post 	= false;

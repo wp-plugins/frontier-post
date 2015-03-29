@@ -133,6 +133,16 @@ function frontier_post_admin_page_general()
 				echo "<td>".__("Show message on the form confirming a post has been added/updated/deleted", "frontier-post")."</td>";
 			
 			echo "</tr><tr>";
+				echo "<td>".__("Show edit/delete/view icons in list", "frontier-post")."</td>";
+				fps_html_field("fps_use_icons", 'checkbox', $fps_general_options, true, 1);
+				$tmptext = "<td>".__("Show icons instead of text for edit/delete/view in list", "frontier-post");
+				$tmptext .="&nbsp".'<img height="12px" src="'.FRONTIER_POST_URL.'/images/edit.png'.'"></img>';
+				$tmptext .="&nbsp".'<img height="12px" src="'.FRONTIER_POST_URL.'/images/delete.png'.'"></img>';
+				$tmptext .="&nbsp".'<img height="12px" src="'.FRONTIER_POST_URL.'/images/view.png'.'"></img>';
+				$tmptext .="</td>";
+				echo $tmptext;
+			
+			echo "</tr><tr>";
 				echo "<td>".__("Show submit buttons on post edit form", "frontier-post")."</td>";
 				echo "<td></td>";
 				echo '<td>';

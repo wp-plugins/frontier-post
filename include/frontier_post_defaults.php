@@ -93,6 +93,7 @@ $fp_role_option_list 	= array(
 		'fps_submit_cancel',
 		'fps_change_status',
 		'fps_custom_post_type_list',
+		'fps_use_icons',
 		
 		);
 		
@@ -163,6 +164,7 @@ $fp_role_option_list 	= array(
 		'fps_custom_login_txt'			=> $frontier_default_login_txt,
 		'fps_use_custom_login_txt' 		=> "false",
 		'fps_disable_abar_ctrl'			=> "false",
+		'fps_use_icons'					=> "false",
 		
 		);
 

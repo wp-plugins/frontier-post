@@ -32,15 +32,23 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		$postid = $_POST['postid'];
 		
 		$tmp_title 	= trim( $_POST['user_post_title'] );
-		if ( empty( $tmp_title ) ) 
+		// check empty title, and set status to draft if status is empty
+		if ( empty( $tmp_title ) )
+			{
 			$tmp_title = __("No Title", "frontier-post");
-		
+			$post_status = 'draft';
+			frontier_post_set_msg(__("Warning", "frontier-post").": ".__("Title was empty", "frontier-post")." - ".__("Post status set to draft", "frontier-post"));
+			}
 		$tmp_title = trim( strip_tags( $tmp_title ));
 	
 		$tmp_content = trim( $_POST['user_post_desc'] );
 		if ( empty( $tmp_content ) ) 
+			{
 			$tmp_content = __("No content", "frontier-post");
-		
+			$post_status = 'draft';
+			frontier_post_set_msg(__("Warning", "frontier-post").": ".__("Content was empty", "frontier-post")." - ".__("Post status set to draft", "frontier-post"));
+			}
+			
 		$tmp_excerpt = isset( $_POST['user_post_excerpt']) ? trim($_POST['user_post_excerpt'] ) : null;
 		
 		$users_role 	= frontier_get_user_role();
@@ -175,7 +183,7 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		$my_post = get_post($postid);
 		
 		//****************************************************************************************************
-		// Avtion fires after add/update of post, and after taxonomies are updated
+		// Action fires after add/update of post, and after taxonomies are updated
 		// Do action 		frontier_post_post_save
 		// $my_post 		Post object for the post just updated 
 		// $tmp_task_new  	Equals true if the user is adding a post

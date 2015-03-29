@@ -371,7 +371,35 @@ function fp_get_tax_label_singular($tmp_tax_name)
 	return $tmp_tax->labels->singular_name;
 	}
 
+//********************************************************************************
+// get icon img url
+// 1: Look in the frontier post template folder
+// 2: if not found get the default one from /frontier-post/images
+//********************************************************************************
 
+
+
+function frontier_get_icon($tmp_icon)
+	{
+	// first Frontier Post template folder
+	$return_icon				= FRONTIER_POST_TEMPLATE_DIR.'/'.$tmp_icon.'.png';
+	
+	//error_log($return_icon);
+	
+	if (file_exists($return_icon))
+		{
+		//error_log($return_icon);
+		$return_icon_html			= '<img id="frontier-post-list-icon-'.$tmp_icon.'" class="frontier-post-list-icon" src="'.FRONTIER_POST_TEMPLATE_URL.$tmp_icon.'.png'.'"></img>';
+		//error_log($return_icon_html);
+		
+		}
+	else
+		{
+		// then the default icon from plugin
+		$return_icon_html			= '<img id="frontier-post-list-icon-'.$tmp_icon.'" class="frontier-post-list-icon" src="'.FRONTIER_POST_URL.'/images/'.$tmp_icon.'.png'.'"></img>';
+		}	
+	return $return_icon_html;
+	}
 
 //********************************************************************************
 // get comment icon for the list
@@ -543,11 +571,17 @@ function fp_login_text()
 
 function fp_list2array($tmp_list)
 	{
-	if ($tmp_list > " ")
-		$tmp_array = explode(",", $tmp_list);
+	if (is_array($tmp_list))
+		{
+		$tmp_array = $tmp_list;
+		}
 	else
-		$tmp_array = array();
-		
+		{
+		if ($tmp_list > " ")
+			$tmp_array = explode(",", $tmp_list);
+		else
+			$tmp_array = array();
+		}		
 	return $tmp_array;
 	}
 

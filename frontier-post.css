@@ -1,5 +1,5 @@
 /* ------------------
- styling for front-end posts
+ styling for Frontier Post
    ------------------   */
 
 #user_post_title {
@@ -68,6 +68,15 @@ th.frontier_heading  {
 table.frontier-list {
 	width: 90%;
 	border: 0;
+}
+	
+
+#frontier-post-list-icon-comments {
+    height: 24px !important;
+}
+
+.frontier-post-list-icon {
+    height: 12px !important;
 }
 
 .frontier-menu {
@@ -167,15 +176,26 @@ fieldset.frontier_post_fieldset_excerpt  {
 td.frontier_tax  {  
 	border: 0 !important;
 	vertical-align: top !important;
+}
 
 td.frontier-post-tags  {  
 	border: 1 !important;
 	vertical-align: top !important;
+}
 
 td.frontier_frontier_featured_image  {  
 	border: 0 !important;
 	vertical-align: top !important;
 }
 
-	
+.frontier-post-taxonomies {
+	width: 98% !important;
+}
 
+#frontier-post-list-icon-comments {
+    height: 24px !important;
+}
+
+.frontier-post-list-icon {
+    height: 12px !important;
+}
