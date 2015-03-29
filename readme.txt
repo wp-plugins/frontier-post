@@ -109,6 +109,15 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+= 3.4.3 =
+* Added icons for edit/delete/view in list view. Must be enabled in general settings. Own icons can be placed in template folder.
+* Changes to frontier-post.css
+ * Fixed issue where entries in frontier-post.css wasn't closed properly
+ * added: frontier-post-taxonomies
+ * added: frontier-post-list-icon-comments
+ * added: frontier-post-list-icon
+* Validation: Set status to draft if title or content is empty. 
+
 = 3.4.1 =
 * Fixed issue where admin bar was shown until advanced settings were saved
 
