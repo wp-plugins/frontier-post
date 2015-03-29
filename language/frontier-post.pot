@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Frontier Post package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Frontier Post 3.3.5\n"
+"Project-Id-Version: Frontier Post 3.4.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/frontier-post\n"
-"POT-Creation-Date: 2015-02-18 18:28:45+00:00\n"
+"POT-Creation-Date: 2015-03-29 15:49:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -80,8 +80,8 @@ msgid "This text (and link) is displayed when a user is required to login"
 msgstr ""
 
 #: admin/frontier-post-admin-advanced.php:125
-#: include/frontier_post_defaults.php:36 include/frontier_post_util.php:522
-#: include/frontier_post_util.php:535
+#: include/frontier_post_defaults.php:36 include/frontier_post_util.php:550
+#: include/frontier_post_util.php:563
 msgid "Please log in !"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgid "Hide title on these pages"
 msgstr ""
 
 #: admin/frontier-post-admin-advanced.php:134
-#: admin/frontier-post-admin-general.php:157
+#: admin/frontier-post-admin-general.php:167
 msgid "comma separated list of IDs"
 msgstr ""
 
@@ -122,50 +122,61 @@ msgstr ""
 msgid "Send email to author when post is approved"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:165
+#: admin/frontier-post-admin-advanced.php:164
+msgid "Disable control of Admin Bar"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:166
+msgid ""
+"If this is checked, frontier post will not enable/disable the admin bar "
+"(Check this if another plugin is enabling/disabling the admin bar to avoid "
+"conflict)"
+msgstr ""
+
+#: admin/frontier-post-admin-advanced.php:169
 msgid "Keep Frontier Post settings on uninstall"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:167
+#: admin/frontier-post-admin-advanced.php:171
 msgid ""
 "If this is checked, the Frontier Settings will not be deleted on uninstall"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:170
+#: admin/frontier-post-admin-advanced.php:174
 msgid "Template directory"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:176
-#: admin/frontier-post-admin-advanced.php:179
-#: admin/frontier-post-admin-advanced.php:182
-#: admin/frontier-post-admin-advanced.php:185
-#: admin/frontier-post-admin-advanced.php:188
-#: admin/frontier-post-admin-advanced.php:191
-#: admin/frontier-post-admin-advanced.php:194
+#: admin/frontier-post-admin-advanced.php:180
+#: admin/frontier-post-admin-advanced.php:183
+#: admin/frontier-post-admin-advanced.php:186
+#: admin/frontier-post-admin-advanced.php:189
+#: admin/frontier-post-admin-advanced.php:192
+#: admin/frontier-post-admin-advanced.php:195
+#: admin/frontier-post-admin-advanced.php:198
 msgid "exists in the template directory"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:198
+#: admin/frontier-post-admin-advanced.php:202
 msgid "Set Capabilities externally"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:200
+#: admin/frontier-post-admin-advanced.php:204
 msgid ""
 "If checked capabilities will be managed from external plugin ex.: User Role "
 "Editor"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:204
+#: admin/frontier-post-admin-advanced.php:208
 msgid "Default Editor"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:207
+#: admin/frontier-post-admin-advanced.php:211
 msgid "Default category select"
 msgstr ""
 
-#: admin/frontier-post-admin-advanced.php:215
+#: admin/frontier-post-admin-advanced.php:219
 #: admin/frontier-post-admin-capabilities.php:288
-#: admin/frontier-post-admin-general.php:166
+#: admin/frontier-post-admin-general.php:176
 msgid "Save Changes"
 msgstr ""
 
@@ -268,40 +279,48 @@ msgid ""
 msgstr ""
 
 #: admin/frontier-post-admin-general.php:136
-msgid "Show submit buttons on post edit form"
+msgid "Show edit/delete/view icons in list"
 msgstr ""
 
-#: admin/frontier-post-admin-general.php:139
-#: forms/frontier_post_form_old.php:197 forms/frontier_post_form_page.php:116
-#: forms/frontier_post_form_standard.php:157
-msgid "Save"
-msgstr ""
-
-#: admin/frontier-post-admin-general.php:140 frontier-post.php:120
-msgid "Save & Return"
-msgstr ""
-
-#: admin/frontier-post-admin-general.php:141
-#: forms/frontier_post_form_old.php:205 forms/frontier_post_form_page.php:124
-#: forms/frontier_post_form_standard.php:165
-msgid "Save & Preview"
-msgstr ""
-
-#: admin/frontier-post-admin-general.php:142
-#: forms/frontier_post_form_old.php:209 forms/frontier_post_form_page.php:128
-#: forms/frontier_post_form_standard.php:169 frontier-delete-post.php:35
-msgid "Cancel"
+#: admin/frontier-post-admin-general.php:138
+msgid "Show icons instead of text for edit/delete/view in list"
 msgstr ""
 
 #: admin/frontier-post-admin-general.php:146
+msgid "Show submit buttons on post edit form"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:149
+#: forms/frontier_post_form_old.php:199 forms/frontier_post_form_page.php:118
+#: forms/frontier_post_form_standard.php:170
+msgid "Save"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:150 frontier-post.php:123
+msgid "Save & Return"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:151
+#: forms/frontier_post_form_old.php:207 forms/frontier_post_form_page.php:126
+#: forms/frontier_post_form_standard.php:178
+msgid "Save & Preview"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:152
+#: forms/frontier_post_form_old.php:211 forms/frontier_post_form_page.php:130
+#: forms/frontier_post_form_standard.php:182 frontier-delete-post.php:35
+msgid "Cancel"
+msgstr ""
+
+#: admin/frontier-post-admin-general.php:156
 msgid "Allowed Post Types"
 msgstr ""
 
-#: admin/frontier-post-admin-general.php:148
+#: admin/frontier-post-admin-general.php:158
 msgid "Post Types"
 msgstr ""
 
-#: admin/frontier-post-admin-general.php:153
+#: admin/frontier-post-admin-general.php:163
 msgid "Exclude categories"
 msgstr ""
 
@@ -313,7 +332,7 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:58 forms/frontier_post_form_old.php:78
+#: forms/frontier_post_form_list.php:58 forms/frontier_post_form_old.php:80
 msgid "Category"
 msgstr ""
 
@@ -321,18 +340,18 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:66 forms/frontier_post_form_old.php:28
-#: forms/frontier_post_form_page.php:27 forms/frontier_post_form_simple.php:27
-#: forms/frontier_post_form_standard.php:26
+#: forms/frontier_post_form_list.php:66 forms/frontier_post_form_old.php:30
+#: forms/frontier_post_form_page.php:29 forms/frontier_post_form_simple.php:29
+#: forms/frontier_post_form_standard.php:31
 #: include/frontier_approvals_widget.php:163
 #: include/frontier_my_posts_widget.php:278
 #: include/frontier_new_category_post_widget.php:112
 msgid "Title"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:70 forms/frontier_post_form_old.php:39
-#: forms/frontier_post_form_page.php:31 forms/frontier_post_form_simple.php:31
-#: forms/frontier_post_form_standard.php:30
+#: forms/frontier_post_form_list.php:70 forms/frontier_post_form_old.php:41
+#: forms/frontier_post_form_page.php:33 forms/frontier_post_form_simple.php:33
+#: forms/frontier_post_form_standard.php:35
 msgid "Status"
 msgstr ""
 
@@ -340,110 +359,110 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:129
+#: forms/frontier_post_form_list.php:137
 msgid "Edit"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:136 frontier-delete-post.php:34
+#: forms/frontier_post_form_list.php:153 frontier-delete-post.php:34
 msgid "Delete"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:145
+#: forms/frontier_post_form_list.php:171
 msgid "Preview"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:164
+#: forms/frontier_post_form_list.php:191
 msgid "&laquo;"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:165
+#: forms/frontier_post_form_list.php:192
 msgid "&raquo;"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:177
+#: forms/frontier_post_form_list.php:204
 msgid "Number of posts already created by you: "
 msgstr ""
 
-#: forms/frontier_post_form_list.php:183
+#: forms/frontier_post_form_list.php:210
 msgid "Sorry, you do not have any posts (yet)"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:29 forms/frontier_post_form_simple.php:28
-#: forms/frontier_post_form_standard.php:27
+#: forms/frontier_post_form_old.php:31 forms/frontier_post_form_simple.php:30
+#: forms/frontier_post_form_standard.php:32
 msgid "Enter title here"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:68 forms/frontier_post_form_page.php:56
-#: forms/frontier_post_form_simple.php:61
-#: forms/frontier_post_form_standard.php:55
+#: forms/frontier_post_form_old.php:70 forms/frontier_post_form_page.php:58
+#: forms/frontier_post_form_simple.php:63
+#: forms/frontier_post_form_standard.php:60
 msgid "Word count: %s"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:83
-#: forms/frontier_post_form_standard.php:106
+#: forms/frontier_post_form_old.php:85
+#: forms/frontier_post_form_standard.php:119
 msgid "Tags"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:98
+#: forms/frontier_post_form_old.php:100
 msgid "Select category, multible can be selected using ctrl key"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:145 forms/frontier_post_form_old.php:146
-#: forms/frontier_post_form_old.php:147
-#: forms/frontier_post_form_standard.php:107
-#: forms/frontier_post_form_standard.php:108
-#: forms/frontier_post_form_standard.php:109
+#: forms/frontier_post_form_old.php:147 forms/frontier_post_form_old.php:148
+#: forms/frontier_post_form_old.php:149
+#: forms/frontier_post_form_standard.php:120
+#: forms/frontier_post_form_standard.php:121
+#: forms/frontier_post_form_standard.php:122
 msgid "Enter tag here"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:163 forms/frontier_post_form_page.php:95
-#: forms/frontier_post_form_standard.php:139
+#: forms/frontier_post_form_old.php:165 forms/frontier_post_form_page.php:97
+#: forms/frontier_post_form_standard.php:152
 msgid "Excerpt"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:171 forms/frontier_post_form_page.php:76
-#: forms/frontier_post_form_standard.php:120
+#: forms/frontier_post_form_old.php:173 forms/frontier_post_form_page.php:78
+#: forms/frontier_post_form_standard.php:133
 msgid "Featured image"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:179 forms/frontier_post_form_page.php:82
-#: forms/frontier_post_form_standard.php:126
+#: forms/frontier_post_form_old.php:181 forms/frontier_post_form_page.php:84
+#: forms/frontier_post_form_standard.php:139
 msgid "Select featured image"
 msgstr ""
 
-#: forms/frontier_post_form_old.php:182
+#: forms/frontier_post_form_old.php:184
 msgid "Featured image (or new featured image) not visible until post is saved"
 msgstr ""
 
-#: forms/frontier_post_form_page.php:52 forms/frontier_post_form_simple.php:57
-#: forms/frontier_post_form_standard.php:51
+#: forms/frontier_post_form_page.php:54 forms/frontier_post_form_simple.php:59
+#: forms/frontier_post_form_standard.php:56
 msgid "Content"
 msgstr ""
 
-#: forms/frontier_post_form_page.php:85
-#: forms/frontier_post_form_standard.php:129
+#: forms/frontier_post_form_page.php:87
+#: forms/frontier_post_form_standard.php:142
 msgid "Not updated until post is saved"
 msgstr ""
 
-#: forms/frontier_post_form_page.php:111
-#: forms/frontier_post_form_simple.php:51
-#: forms/frontier_post_form_standard.php:152
+#: forms/frontier_post_form_page.php:113
+#: forms/frontier_post_form_simple.php:53
+#: forms/frontier_post_form_standard.php:165
 msgid "Actions"
 msgstr ""
 
-#: forms/frontier_post_form_preview.php:6
+#: forms/frontier_post_form_preview.php:10
 msgid "Edit Post"
 msgstr ""
 
-#: forms/frontier_post_form_preview.php:7
+#: forms/frontier_post_form_preview.php:11
 msgid "Return"
 msgstr ""
 
-#: forms/frontier_post_form_preview.php:15
+#: forms/frontier_post_form_preview.php:19
 msgid "status"
 msgstr ""
 
-#: frontier-add-edit.php:269
+#: frontier-add-edit.php:270
 msgid "You are not allowed to edit this post, sorry "
 msgstr ""
 
@@ -463,7 +482,7 @@ msgstr ""
 msgid "frontier-post Shortcode only allowed in pages"
 msgstr ""
 
-#: frontier-post.php:196
+#: frontier-post.php:200
 msgid "not allowed in posts, only pages !"
 msgstr ""
 
@@ -471,23 +490,39 @@ msgstr ""
 msgid "My Posts"
 msgstr ""
 
-#: frontier-submit-form.php:36
+#: frontier-submit-form.php:38
 msgid "No Title"
 msgstr ""
 
-#: frontier-submit-form.php:42
+#: frontier-submit-form.php:40 frontier-submit-form.php:49
+msgid "Warning"
+msgstr ""
+
+#: frontier-submit-form.php:40
+msgid "Title was empty"
+msgstr ""
+
+#: frontier-submit-form.php:40 frontier-submit-form.php:49
+msgid "Post status set to draft"
+msgstr ""
+
+#: frontier-submit-form.php:47
 msgid "No content"
 msgstr ""
 
-#: frontier-submit-form.php:139
+#: frontier-submit-form.php:49
+msgid "Content was empty"
+msgstr ""
+
+#: frontier-submit-form.php:147
 msgid "Post added"
 msgstr ""
 
-#: frontier-submit-form.php:141
+#: frontier-submit-form.php:149
 msgid "Post updated"
 msgstr ""
 
-#: frontier-submit-form.php:229
+#: frontier-submit-form.php:237
 msgid "Error - Unable to save post"
 msgstr ""
 
