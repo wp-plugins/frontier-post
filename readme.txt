@@ -3,8 +3,8 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish,
 Requires at least: 3.4.0
-Tested up to: 4.1.1
-Stable tag: 3.4.1
+Tested up to: 4.2
+Stable tag: 3.4.5
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
