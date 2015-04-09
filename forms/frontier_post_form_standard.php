@@ -112,17 +112,17 @@ if ( strlen($frontier_edit_text_before) > 1 )
 		
 	
 		if ( current_user_can( 'frontier_post_tags_edit' ) )
-			{ ?>
-			<!--<td class="frontier-post-tags">-->
-			
-			<fieldset class="frontier_post_fieldset_tax">
-				<legend><?php _e("Tags", "frontier-post"); ?></legend>
-				<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[0]))echo $taglist[0];?>" name="user_post_tag1" id="user_post_tag" ><br>	
-				<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[1]))echo $taglist[1];?>" name="user_post_tag2" id="user_post_tag" ><br>	
-				<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[2]))echo $taglist[2];?>" name="user_post_tag3" id="user_post_tag" >
-			</fieldset>
-			<!--</td>-->
-		<?php } 
+			{ 
+			echo '<fieldset class="frontier_post_fieldset_tax">';
+			echo '<legend>'.__("Tags", "frontier-post").'</legend>';
+			for ($i=0; $i<$fp_tag_count; $i++)
+				{
+				$tmp_tag = isset($taglist[$i]) ? fp_tag_transform($taglist[$i]) : "";
+				//$tmp_tag = array_key_exists($i, $taglist) ? fp_tag_transform($taglist[$i]) : "";
+				echo '<input placeholder="'.__("Enter tag here", "frontier-post").'" type="text" value="'.$tmp_tag.'" name="user_post_tag'.$i.'" id="user_post_tag"><br>';	
+				}
+			echo '</fieldset>';
+			} 
 	
 		if ( fp_get_option_bool("fps_show_feat_img") )
 			{
@@ -155,7 +155,19 @@ if ( strlen($frontier_edit_text_before) > 1 )
 			
 	<?php 	} 
 	
-		echo '</td></tr><tr><td class="frontier_no_border">';
+		echo '</td></tr>';
+		
+		//****************************************************************************************************
+		// Action fires just before the submit buttons
+		// Do action 		frontier_post_form_standard
+		// $thispost 		Post object for the post  
+		// $tmp_task_new  	Equals true if the user is adding a post
+		//****************************************************************************************************
+		
+		do_action('frontier_post_form_standard', $thispost, $tmp_task_new);
+		
+		
+		echo '<tr><td class="frontier_no_border">';
 	
 	?>
 	

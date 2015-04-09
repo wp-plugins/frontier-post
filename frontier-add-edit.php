@@ -203,6 +203,8 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		//* Set tags
 		//***************************************************************************************
 		
+		$fp_tag_count	= fp_get_option_int("fps_tag_count",3);
+		
 		if ( current_user_can( 'frontier_post_tags_edit' ) && ($thispost->post_type != 'page') )
 			{
 			$taglist = array();

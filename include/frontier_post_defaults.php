@@ -11,6 +11,8 @@ Default values for Frontier Post plugin
 $default_post_edit_max_age		= 7;
 $default_post_delete_max_age	= 3;
 
+
+
 $frontier_option_list 	= array('can_add', 'can_edit', 'can_publish', 'can_private', 'can_draft', 'can_delete',  'redir_edit', 'show_admin_bar', 'exerpt_edit', 'tags_edit',  'can_media', 'can_page', 'editor', 'category', 'default_category');
 $frontier_cap_list 		= array('frontier_post_can_add', 'frontier_post_can_edit', 'frontier_post_can_publish', 'frontier_post_can_private', 'frontier_post_can_draft', 'frontier_post_can_delete', 'frontier_post_redir_edit', 'frontier_post_show_admin_bar', 'frontier_post_exerpt_edit', 'frontier_post_tags_edit', 'frontier_post_can_media', 'frontier_post_can_page');
 $editor_types 			= array(__('Full Editor', 'frontier-post') => 'full', __('Minimal Visual', 'frontier-post') => 'minimal-visual', __('Minimal-Html', 'frontier-post') => 'minimal-html', __('Text Only', 'frontier-post') => 'text');
@@ -35,7 +37,13 @@ $frontier_default_submit = array('save' => 'true', 'savereturn' => 'true', 'prev
 //$frontier_default_login_txt = __("Please log in !", "frontier-post").'&nbsp;<a href="'.wp_login_url().'">'.__("Login Page", "frontier-post").'</a>';
 $frontier_default_login_txt = '<a href="'.wp_login_url().'">'.__("Please log in !", "frontier-post").'</a>';
 	
-	
+$fp_tag_transform_list = array(
+	'none'					=> __('No transformation', 'frontier-post'),
+	'lower'					=> __('lower case', 'frontier-post'),
+	'upper'					=> __('UPPER CASE', 'frontier-post'),
+	'ucwords'				=> __('First Letter Capitalized', 'frontier-post'),
+
+);
 
 $frontier_post_forms = array(
 	'standard'	=> __("Standard Form (with Taxonomies)", "frontier-post"),
@@ -121,6 +129,8 @@ $fp_role_option_list 	= array(
 		'fps_use_custom_login_txt', 
 		'fps_custom_login_txt',
 		'fps_disable_abar_ctrl',
+		'fps_tag_count',
+		'fps_tags_transform',
 		);
 		
 	
@@ -165,7 +175,8 @@ $fp_role_option_list 	= array(
 		'fps_use_custom_login_txt' 		=> "false",
 		'fps_disable_abar_ctrl'			=> "false",
 		'fps_use_icons'					=> "false",
-		
+		'fps_tag_count'					=> 3,
+		'fps_tags_transform'			=> "none",
 		);
 
 
