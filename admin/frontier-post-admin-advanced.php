@@ -100,6 +100,17 @@ function frontier_post_admin_page_advanced()
 			echo "<td>".__("If checked ID column will be added to the standard category list in admin panel", "frontier-post")."</td>";
 		
 		echo "</tr><tr>";
+			echo "<td>".__("Number of tags", "frontier-post")."</td>";
+			echo "<td></td>";
+			fps_html_field("fps_tag_count", 'text', $fps_general_options, true, 1);
+			echo " ".__("number of tags to edit on the input form", "frontier-post");
+			
+		echo "</tr><tr>";
+				echo "<td>".__("Tag transformation", "frontier-post")."</td>";
+				echo "<td></td>";
+				fps_html_field("fps_tags_transform", 'select', $fps_general_options, true, 1, $fp_tag_transform_list );
+			
+		echo "</tr><tr>";
 			echo "<td>".__("Hide post status", "frontier-post")."</td>";
 			fps_html_field("fps_hide_status", 'checkbox', $fps_general_options, true, 1);
 			echo "<td>".__("Hide the post status on the entry form", "frontier-post")."</td>";

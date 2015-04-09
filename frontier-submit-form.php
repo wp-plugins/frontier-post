@@ -131,18 +131,22 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		// Do not manage tags for page
 		if ( current_user_can( 'frontier_post_tags_edit' ) && $tmp_post_type != 'page' )
 			{
+			$fp_tag_count	= fp_get_option_int("fps_tag_count",3);
 			$taglist = array();
-			if (isset( $_POST['user_post_tag1']))
-				array_push($taglist, $_POST['user_post_tag1']);
-			
-			if (isset( $_POST['user_post_tag2']))
-				array_push($taglist, $_POST['user_post_tag2']);
-			
-			if (isset( $_POST['user_post_tag3']))
-				array_push($taglist, $_POST['user_post_tag3']);
-		
+			for ($i=0; $i<$fp_tag_count; $i++)
+				{
+				if (isset( $_POST['user_post_tag'.$i]))
+					{
+					array_push($taglist, fp_tag_transform($_POST['user_post_tag'.$i]));
+					}
+				}
 				wp_set_post_tags($postid, $taglist);
 			}
+
+		//****************************************************************************************************
+		// Add/Update message
+		//****************************************************************************************************
+		
 
 		if ( $tmp_task_new == true )
 			frontier_post_set_msg(__("Post added", "frontier-post").": ".$tmp_title);

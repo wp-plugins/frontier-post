@@ -586,5 +586,29 @@ function fp_list2array($tmp_list)
 	}
 
 
+//********************************************************************************
+// Transform tags lower/upper case, First letter, None
+//********************************************************************************
+
+function fp_tag_transform($tmp_tag)
+	{
+	$tmp_transform = fp_get_option('fps_tags_transform', 'none');
+	
+	switch ($tmp_transform)
+		{
+		case 'lower':
+			return strtolower(sanitize_text_field($tmp_tag));
+	
+		case 'upper':
+			return strtoupper(sanitize_text_field($tmp_tag));
+	
+		case 'ucwords':
+			return ucwords(sanitize_text_field($tmp_tag));
+	
+		default:
+			return sanitize_text_field($tmp_tag);
+		}
+	}
+
 
 ?>

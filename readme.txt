@@ -109,8 +109,11 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 3.4.3 =
+= 3.4.5 =
 * Added icons for edit/delete/view in list view. Must be enabled in general settings. Own icons can be placed in template folder.
+* Added new action: frontier_post_form_standard
+* Tags: Number of tags displayed can be set in advanced options + Tags can now be transformed (upper case/lower case/ First letter) - Advanced settings.
+ * Forms updated: frontier_post_form_standard.php
 * Changes to frontier-post.css
  * Fixed issue where entries in frontier-post.css wasn't closed properly
  * added: frontier-post-taxonomies
@@ -118,6 +121,7 @@ Let me know what you think, and if you have enhancement requests or problems let
  * added: frontier-post-list-icon
 * Validation: Set status to draft if title or content is empty.
 * pot file (translation) updated 
+* Fixed filter: frontier_post_pre_update
 
 = 3.4.1 =
 * Fixed issue where admin bar was shown until advanced settings were saved
