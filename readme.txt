@@ -109,6 +109,10 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+= 3.4.6 =
+* Widgets (My Approvals & My Posts) are now being cached for better performance.
+ * Cache time can be set (or disabled) in widget settings, default cache time: 15 minutes.
+
 = 3.4.5 =
 * Added icons for edit/delete/view in list view. Must be enabled in general settings. Own icons can be placed in template folder.
 * Added new action: frontier_post_form_standard

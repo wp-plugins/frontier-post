@@ -36,6 +36,27 @@ $frontier_default_submit = array('save' => 'true', 'savereturn' => 'true', 'prev
 
 //$frontier_default_login_txt = __("Please log in !", "frontier-post").'&nbsp;<a href="'.wp_login_url().'">'.__("Login Page", "frontier-post").'</a>';
 $frontier_default_login_txt = '<a href="'.wp_login_url().'">'.__("Please log in !", "frontier-post").'</a>';
+
+// Cache time selection
+
+	
+$fp_cache_time_list = array(
+	-1			=> __('Caching Disabled', 'frontier-post'),
+	60			=> '01 '.__('minute', 'frontier-post'),
+	3*60		=> '03 '.__('minutes', 'frontier-post'),
+	5*60		=> '05 '.__('minutes', 'frontier-post'),
+	10*60		=> '10 '.__('minutes', 'frontier-post'),
+	15*60		=> '15 '.__('minutes', 'frontier-post'),
+	30*60		=> '30 '.__('minutes', 'frontier-post'),
+	1*60*60		=> '01 '.__('hour', 'frontier-post'),
+	2*60*60		=> '02 '.__('hours', 'frontier-post'),
+	6*60*60		=> '06 '.__('hours', 'frontier-post'),
+	12*60*60	=> '12 '.__('hours', 'frontier-post'),
+	24*60*60	=> '24 '.__('hours', 'frontier-post'),
+	
+);
+
+
 	
 $fp_tag_transform_list = array(
 	'none'					=> __('No transformation', 'frontier-post'),
