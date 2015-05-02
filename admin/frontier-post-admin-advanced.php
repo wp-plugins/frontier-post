@@ -54,7 +54,8 @@ function frontier_post_admin_page_advanced()
 			*/	
 			}
 		
-		
+		if (intval($fps_save_general_options["fps_tag_count"]) == 0)
+				$fps_save_general_options["fps_tag_count"] = 3;
 		
 		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
 		
@@ -99,6 +100,19 @@ function frontier_post_admin_page_advanced()
 			fps_html_field("fps_catid_list", 'checkbox', $fps_general_options, true, 1);
 			echo "<td>".__("If checked ID column will be added to the standard category list in admin panel", "frontier-post")."</td>";
 		
+		echo "</tr><tr>";
+			echo "<td>".__("Number of tags", "frontier-post")."</td>";
+			echo "<td></td>";
+			if (intval($fps_general_options["fps_tag_count"]) == 0)
+				$fps_general_options["fps_tag_count"] = 3;
+			fps_html_field("fps_tag_count", 'text', $fps_general_options, true, 1);
+			echo " ".__("number of tags to edit on the input form", "frontier-post");
+			
+		echo "</tr><tr>";
+				echo "<td>".__("Tag transformation", "frontier-post")."</td>";
+				echo "<td></td>";
+				fps_html_field("fps_tags_transform", 'select', $fps_general_options, true, 1, $fp_tag_transform_list );
+			
 		echo "</tr><tr>";
 			echo "<td>".__("Hide post status", "frontier-post")."</td>";
 			fps_html_field("fps_hide_status", 'checkbox', $fps_general_options, true, 1);

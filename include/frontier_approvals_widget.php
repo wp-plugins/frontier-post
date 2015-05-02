@@ -19,6 +19,7 @@ class frontier_approvals_widget extends WP_Widget
 			'show_comments'		=> false,
 			'show_comment_spam'	=> true,
     		'nolistwrap' 		=> true,
+    		'fp_cache_time'		=> FRONTIER_POST_CACHE_TIME,
     		'no_approvals_text'	=> __('You have no approvals pending', 'frontier-post'),
 			);
 
@@ -34,58 +35,75 @@ class frontier_approvals_widget extends WP_Widget
 	
 	if(is_user_logged_in() && current_user_can("administrator"))
 		{
+		$instance 			= array_merge($this->defaults, $instance);
 		
-		
+		// from version 3.4.6 caching will be available, and as such changed to handle in one array.
+		$fp_cache_name		= $args['widget_id'];
+		$fp_cache_time		= $instance['fp_cache_time'];
+		$fp_cache_test		= "Cache active";
 		global $wpdb;
 		
-    	$instance 			= array_merge($this->defaults, $instance);
+    	
 	
 		//error_log(print_r($instance), true);
 	
-		if (isset( $instance['show_draft'] ) && $instance['show_draft'] == true )
+		if ( ($fp_cache_time <= 0) || (false === ($fp_wdata = get_transient($fp_cache_name))) )
 			{
-			$draft_cnt 			= $wpdb->get_var("SELECT count(id) AS draft_cnt FROM $wpdb->posts WHERE post_status = 'draft'");
-			$draft_txt			= $draft_cnt.' '.__('draft posts','frontier-post');
-			$show_draft 		= true;
-			}
-		else
-			{
-			$show_draft 		= false;
-			}
+			$fp_wdata 		= array();
+			if (isset( $instance['show_draft'] ) && $instance['show_draft'] == true )
+				{
+				$fp_wdata['draft_cnt']	= $wpdb->get_var("SELECT count(id) AS draft_cnt FROM $wpdb->posts WHERE post_status = 'draft'");
+				$fp_wdata['draft_txt']	= $fp_wdata['draft_cnt'].' '.__('draft posts','frontier-post');
+				$fp_wdata['show_draft']	= true;
+				}
+			else
+				{
+				$fp_wdata['show_draft']	= false;
+				}
 		
-		if (isset( $instance['show_pending'] ) && $instance['show_pending'] == true )
-			{
-			$pending_cnt 		= $wpdb->get_var("SELECT count(id) AS pending_cnt FROM $wpdb->posts WHERE post_status = 'pending'");
-			$pending_txt		= $pending_cnt.' '.__('posts to be approved','frontier-post');
-			$show_pending 		= true;
-			}
-		else
-			{
-			$show_pending 		= false;
-			}
+			if (isset( $instance['show_pending'] ) && $instance['show_pending'] == true )
+				{
+				$fp_wdata['pending_cnt']	= $wpdb->get_var("SELECT count(id) AS pending_cnt FROM $wpdb->posts WHERE post_status = 'pending'");
+				$fp_wdata['pending_txt']	= $fp_wdata['pending_cnt'].' '.__('posts to be approved','frontier-post');
+				$fp_wdata['show_pending']	= true;
+				}
+			else
+				{
+				$fp_wdata['show_pending']	= false;
+				}
 		
-		if (isset( $instance['show_comments'] ) && $instance['show_comments'] == true )
-			{
-			$cmt_pending_cnt	= $wpdb->get_var("SELECT count(comment_ID) AS cmt_pending_cnt FROM $wpdb->comments WHERE comment_approved = 0");
-			$cmt_pending_txt	= $cmt_pending_cnt.' '.__('comments to be approved','frontier-post');
-			$show_comments 		= true;
-			}
-		else
-			{
-			$show_comments		= false;
-			}
+			if (isset( $instance['show_comments'] ) && $instance['show_comments'] == true )
+				{
+				$fp_wdata['cmt_pending_cnt']	= $wpdb->get_var("SELECT count(comment_ID) AS cmt_pending_cnt FROM $wpdb->comments WHERE comment_approved = 0");
+				$fp_wdata['cmt_pending_txt']	= $fp_wdata['cmt_pending_cnt'].' '.__('comments to be approved','frontier-post');
+				$fp_wdata['show_comments'] 		= true;
+				}
+			else
+				{
+				$fp_wdata['show_comments']		= false;
+				}
 		
-		if (isset( $instance['show_comment_spam'] ) && $instance['show_comment_spam'] == true )
-			{
-			$cmt_spam_cnt		= $wpdb->get_var("SELECT count(comment_ID) AS cmt_pending_cnt FROM $wpdb->comments WHERE comment_approved = 'spam'");
-			$cmt_spam_txt		= $cmt_spam_cnt.' '.__('spam comments','frontier-post');
-			$show_comment_spam 	= true;
-			}
-		else
-			{
-			$show_comment_spam	= false;
-			}
-		
+			if (isset( $instance['show_comment_spam'] ) && $instance['show_comment_spam'] == true )
+				{
+				$fp_wdata['cmt_spam_cnt']		= $wpdb->get_var("SELECT count(comment_ID) AS cmt_pending_cnt FROM $wpdb->comments WHERE comment_approved = 'spam'");
+				$fp_wdata['cmt_spam_txt']		= $fp_wdata['cmt_spam_cnt'].' '.__('spam comments','frontier-post');
+				$fp_wdata['show_comment_spam'] 	= true;
+				}
+			else
+				{
+				$fp_wdata['show_comment_spam']	= false;
+				}
+			
+			if ($fp_cache_time <=0 )
+				{
+				$fp_cache_test		= "Caching disabled";				
+				}
+			else
+				{
+				$fp_cache_test		= "Cache refreshed";				
+				set_transient($fp_cache_name, $fp_wdata, $fp_cache_time); 
+				}
+			} // end caching		
 		
 		
 		echo $args['before_widget'];
@@ -103,28 +121,30 @@ class frontier_approvals_widget extends WP_Widget
 		
 		<div  class="frontier-my-post-widget">
 		<ul>
-			<?php if ($show_pending) 
+			
+			
+			<?php if ($fp_wdata['show_pending']) 
 				{ ?>
 				<li>
-					<a href="<?php echo site_url('/wp-admin/edit.php?post_status=pending&post_type=post')?>"><?php echo $pending_txt;?></a>
+					<a href="<?php echo site_url('/wp-admin/edit.php?post_status=pending&post_type=post')?>"><?php echo $fp_wdata['pending_txt'];?></a>
 				</li>
 			<?php } ?>
-			<?php if ($show_draft) 
+			<?php if ($fp_wdata['show_draft']) 
 				{ ?>
 				<li>
-					<a href="<?php echo site_url('/wp-admin/edit.php?post_status=draft&post_type=post')?>"><?php echo $draft_txt;?></a>
+					<a href="<?php echo site_url('/wp-admin/edit.php?post_status=draft&post_type=post')?>"><?php echo $fp_wdata['draft_txt'];?></a>
 				</li>
 			<?php } ?>
-			<?php if ($show_comments) 
+			<?php if ($fp_wdata['show_comments']) 
 				{ ?>
 				<li>
-					<a href="<?php echo site_url('/wp-admin/edit-comments.php?comment_status=moderated')?>"><?php echo $cmt_pending_txt;?></a>
+					<a href="<?php echo site_url('/wp-admin/edit-comments.php?comment_status=moderated')?>"><?php echo $fp_wdata['cmt_pending_txt'];?></a>
 				</li>
 			<?php } ?>
-			<?php if ($show_comment_spam) 
+			<?php if ($fp_wdata['show_comment_spam']) 
 				{ ?>
 				<li>
-					<a href="<?php echo site_url('/wp-admin/edit-comments.php?comment_status=spam')?>"><?php echo $cmt_spam_txt;?></a>
+					<a href="<?php echo site_url('/wp-admin/edit-comments.php?comment_status=spam')?>"><?php echo $fp_wdata['cmt_spam_txt'];?></a>
 				</li>
 			<?php } ?>
 		</ul>
@@ -150,6 +170,10 @@ class frontier_approvals_widget extends WP_Widget
 				}
 			}
 		//error_log("New: ".print_r($new_instance, true)." - old: ".print_r($old_instance, true));
+		
+		// empty cache
+		delete_transient($args['widget_id']);
+		
     	return $new_instance;
 		}
 
@@ -157,7 +181,7 @@ class frontier_approvals_widget extends WP_Widget
     function form($instance) 
 	{
     	$instance = array_merge($this->defaults, $instance);
-    	
+    	include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
         ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'frontier-post'); ?>: </label>
@@ -182,6 +206,25 @@ class frontier_approvals_widget extends WP_Widget
 			<label for="<?php echo $this->get_field_id('show_comment_spam'); ?>"><?php _e('Show comments marked as spam ?', 'frontier-post'); ?>: </label>
 			<input type="checkbox" id="<?php echo $this->get_field_id('show_comment_spam'); ?>" name="<?php echo $this->get_field_name('show_comment_spam'); ?>" value="true" <?php echo ($instance['show_comment_spam'] == true) ? 'checked="checked"':''; ?>/>
 		</p>
+			<label for="<?php echo $this->get_field_id('fp_cache_time'); ?>"><?php _e('Cache time ?', 'frontier-post'); ?>: </label>
+		
+		<!--$fp_cache_time_list-->
+		<?php
+			$tmp_html = '<select name="'.$this->get_field_name('fp_cache_time').'" >';
+			foreach($fp_cache_time_list as $key => $value) :    
+				$tmp_html = $tmp_html.'<option value="'.$key.'"';
+				if ( $key == $instance['fp_cache_time'] )
+					$tmp_html = $tmp_html.' selected="selected"';
+		
+				$tmp_html = $tmp_html.'>'.$value.'</option>';	
+			endforeach;
+			$tmp_html = $tmp_html.'</select>';
+			echo $tmp_html; 
+		?>
+		
+		</p>
+		
+		
 		
 		<?php 
     }

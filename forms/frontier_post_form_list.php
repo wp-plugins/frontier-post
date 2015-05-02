@@ -52,7 +52,7 @@ if( $user_posts->found_posts > 0 )
 	$tmp_status_list = get_post_statuses( );
 
 	// If post for all users is viewed, show author instead of category
-	if ($frontier_list_all_posts == "true" )
+	if ($frontier_list_all_posts == "true" || $frontier_list_pending_posts == "true")
 		$cat_author_heading = __("Author", "frontier-post");
 	else	
 		$cat_author_heading = __("Category", "frontier-post");
@@ -100,7 +100,7 @@ if( $user_posts->found_posts > 0 )
 				?>
 				<?php  
 					// If post for all users is viewed, show author instead of category
-					if ($frontier_list_all_posts == "true" )
+					if ($frontier_list_all_posts == "true" || $frontier_list_pending_posts == "true")
 						{
 						echo '<td class="frontier-list-posts" id="frontier-list-posts-author">';
 						echo get_the_author_meta( 'display_name', $post	->author);

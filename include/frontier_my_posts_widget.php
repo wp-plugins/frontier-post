@@ -28,6 +28,8 @@ class frontier_my_posts_widget extends WP_Widget
 			'show_add_post'		=> 1,
 			'show_post_count'	=> 1,
 			'excerpt_length'	=>50,
+			'fp_cache_time'		=> FRONTIER_POST_CACHE_TIME,
+    		
 			);
 
 		// dropdown of date format for posts using (mysql2date function)
@@ -82,37 +84,28 @@ class frontier_my_posts_widget extends WP_Widget
 			$show_comments 		= false;
 		
 		// Get comment icon from theme, first check local file path, if exists set tu url of icon
-		$comment_icon			= TEMPLATEPATH."/images/comments.png";
+		$comment_icon	= frontier_get_icon('comment');
 		
-		//print_r("Comment icon: ".$comment_icon);
+		// from version 3.4.6 caching will be available, and as such changed to handle in one array.
 		
-		if (isset($instance['show_post_count']) && $instance['show_post_count'] == 1 )
-			{ 
-			$tmp_post_cnt	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
-			}		
+		// cache name must contain author id as results are specific to authors
+		$fp_cache_name		= $args['widget_id'].$author;
+		$fp_cache_time		= $instance['fp_cache_time'];
+		$fp_cache_test		= "Cache active";
 		
-		if (file_exists($comment_icon))
+		if ( ($fp_cache_time <= 0) || (false === ($fp_wdata = get_transient($fp_cache_name))) )
 			{
-			$comment_icon		= "<img src='".get_bloginfo('template_directory')."/images/comments.png'></img>";
-			}
-		else
-			{
-			$comment_icon		= ABSPATH."/wp-includes/images/wlw/wp-comments.png";
-			// if no icon in theme, check wp-includes, and if it isnt the use a space
-			if (file_exists($comment_icon))
-				{
-				$comment_icon		= "<img src='".get_bloginfo('url')."/wp-includes/images/wlw/wp-comments.png'></img>";
-				}
-			else
-				{
-				$comment_icon		= "&nbsp;";
-				}
-			}	
+			$fp_wdata 			= array();
 
-		// Build sql statement	
-		if ($show_comments)
-			{
-			$tmp_sql 			=  " SELECT 
+			if (isset($instance['show_post_count']) && $instance['show_post_count'] == 1 )
+				{ 
+				$fp_wdata['tmp_post_cnt']	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
+				}		
+		
+			// Build sql statement	
+			if ($show_comments)
+				{
+				$tmp_sql = " SELECT 
 							 $wpdb->posts.ID 					AS post_id, 
 							 $wpdb->posts.post_title 			AS post_title, 
 							 $wpdb->posts.post_date 			AS post_date, 
@@ -129,21 +122,33 @@ class frontier_my_posts_widget extends WP_Widget
 								 AND $wpdb->posts.post_author 	= ".$author."
 								 ORDER BY $wpdb->posts.post_date DESC, $wpdb->comments.comment_date_gmt DESC 
 								 LIMIT ".$rec_limit;
-			}
+				}
 			else
-			{
-			$tmp_sql 		=  " SELECT $wpdb->posts.ID 	AS post_id, 
-								 $wpdb->posts.post_title 	AS post_title, 
-								 $wpdb->posts.post_date 	AS post_date 
-								 FROM $wpdb->posts 
-								 WHERE $wpdb->posts.post_author = ".$author." AND $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type = 'post'  
-								 ORDER BY $wpdb->posts.post_date DESC 
-								 LIMIT ".$rec_limit*5;
-								 // needs to multiply to account for non approved comments
-			}
+				{
+				$tmp_sql = " SELECT $wpdb->posts.ID 	AS post_id, 
+							 $wpdb->posts.post_title 	AS post_title, 
+							 $wpdb->posts.post_date 	AS post_date 
+							 FROM $wpdb->posts 
+							 WHERE $wpdb->posts.post_author = ".$author." AND $wpdb->posts.post_status = 'publish' AND $wpdb->posts.post_type = 'post'  
+							 ORDER BY $wpdb->posts.post_date DESC 
+							 LIMIT ".$rec_limit*5;
+							 // needs to multiply to account for non approved comments
+				}
 			
 			
-		$r 	= $wpdb->get_results($tmp_sql);
+			$fp_wdata['presult'] 	= $wpdb->get_results($tmp_sql);
+		
+			if ($fp_cache_time <=0 )
+				{
+				$fp_cache_test		= "Caching disabled";				
+				}
+			else
+				{
+				$fp_cache_test		= "Cache refreshed";				
+				set_transient($fp_cache_name, $fp_wdata, $fp_cache_time); 
+				} 
+		} // end caching		
+		
 		
 		echo $args['before_widget'];
     	if( !empty($instance['title']) )
@@ -163,12 +168,14 @@ class frontier_my_posts_widget extends WP_Widget
 		
 		<div  class="frontier-my-post-widget">
 		<ul>
+		
+		
 		<?php 
 		$last_post 	= 0;
 		$post_cnt	= 0;
-		if ( $r ) 
+		if ( $fp_wdata['presult'] ) 
 			{
-			foreach ( $r as $post)
+			foreach ( $fp_wdata['presult'] as $post)
 				{
 				$tmp_link = "xx";
 				if ( $last_post != $post->post_id )
@@ -230,7 +237,8 @@ class frontier_my_posts_widget extends WP_Widget
 		// Count authors posts - get_permalink(fp_get_option('fps_page_id'))
 		if (isset($instance['show_post_count']) && $instance['show_post_count'] == 1 )
 			{ 
-			$tmp_post_cnt	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
+			//$tmp_post_cnt	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
+			$tmp_post_cnt	= $fp_wdata['tmp_post_cnt'];
 			echo '<p><center><a href="'.get_permalink(fp_get_option('fps_page_id')).'">'.__("Your have published: ", "frontier-post").$tmp_post_cnt.'&nbsp;'.__("posts", "frontier-post").'</a></center></p>';
 			}		
 		
@@ -272,7 +280,8 @@ class frontier_my_posts_widget extends WP_Widget
     function form($instance) 
 	{
     	$instance = array_merge($this->defaults, $instance);
-    	
+    	include(FRONTIER_POST_DIR."/include/frontier_post_defaults.php");
+       
         ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'frontier-post'); ?>: </label>
@@ -330,6 +339,25 @@ class frontier_my_posts_widget extends WP_Widget
 		<p>
 			<label for="<?php echo $this->get_field_id('no_posts_text'); ?>"><?php _e('No post text','frontier-post'); ?>: </label>
 			<input type="text" id="<?php echo $this->get_field_id('no_posts_text'); ?>" name="<?php echo $this->get_field_name('no_posts_text'); ?>" value="<?php echo (!empty($instance['no_posts_text'])) ? $instance['no_posts_text']:__('You have no posts', 'frontier-post'); ?>" >
+		</p>
+		
+		</p>
+			<label for="<?php echo $this->get_field_id('fp_cache_time'); ?>"><?php _e('Cache time ?', 'frontier-post'); ?>: </label>
+		
+		<!--$fp_cache_time_list-->
+		<?php
+			$tmp_html = '<select name="'.$this->get_field_name('fp_cache_time').'" >';
+			foreach($fp_cache_time_list as $key => $value) :    
+				$tmp_html = $tmp_html.'<option value="'.$key.'"';
+				if ( $key == $instance['fp_cache_time'] )
+					$tmp_html = $tmp_html.' selected="selected"';
+		
+				$tmp_html = $tmp_html.'>'.$value.'</option>';	
+			endforeach;
+			$tmp_html = $tmp_html.'</select>';
+			echo $tmp_html; 
+		?>
+		
 		</p>
         <?php 
     }
