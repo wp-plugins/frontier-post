@@ -109,9 +109,10 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 3.4.6 =
+= 3.4.8 =
 * Widgets (My Approvals & My Posts) are now being cached for better performance.
  * Cache time can be set (or disabled) in widget settings, default cache time: 15 minutes.
+* Added new short code parameter: $frontier_list_pending_posts, will list post status with status = pending, only valid for editors & admins.
 
 = 3.4.5 =
 * Added icons for edit/delete/view in list view. Must be enabled in general settings. Own icons can be placed in template folder.
