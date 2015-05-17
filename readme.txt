@@ -122,7 +122,8 @@ Let me know what you think, and if you have enhancement requests or problems let
  * My approvals widget will now link to pending posts page if this is set in settings.
  * Editors & Administrators can enter moderation comments on edit form. Author of post can also enter moderation comments
  * Moderation comments are implemented using post meta data, fields are prefixed with "_" so comments won't be shown on to other users.
-* New shortcode paratmeter:'frontier_add_link_text to allow override of Create New Post link text on list form.
+* New shortcode paratmeter: frontier_add_link_text to allow override of Create New Post link text on list form.
+* Added link to documentation on settings pages
 
 = 3.4.5 =
 * Added icons for edit/delete/view in list view. Must be enabled in general settings. Own icons can be placed in template folder.

@@ -65,7 +65,8 @@ function frontier_post_admin_page_general()
 	echo '<div class="wrap">';
 	echo '<div class="frontier-admin-menu">';
 	echo '<h2>'.__("Frontier Post Settings", "frontier-post").'</h2>';
-		
+	echo '<hr>'.__("Documentation", "frontier_post").': <a href="http://wpfrontier.com/frontier-post-settings/" target="_blank">General Settings</a>';
+	echo ' - <a href="http://wpfrontier.com/frontier-post-shortcodes/" target="_blank">Shortcodes</a><hr>';	
 	echo '<form name="frontier_post_settings" method="post" action="">';
 		echo '<input type="hidden" name="frontier_isupdated_general_hidden" value="Y">';
 		echo '<table border="1" cellspacing="0" cellpadding="0">';

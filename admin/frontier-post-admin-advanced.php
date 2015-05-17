@@ -81,6 +81,7 @@ function frontier_post_admin_page_advanced()
 	echo '<div class="wrap">';
 	echo '<div class="frontier-admin-menu">';
 	echo '<h2>'.__("Frontier Post Advanced Settings", "frontier-post").'</h2>';
+	echo '<hr>'.__("Documentation", "frontier_post").': <a href="http://wpfrontier.com/frontier-post-advanced-settings/" target="_blank">Advanced settings</a><hr>';
 		
 	echo '<form name="frontier_post_settings" method="post" action="">';
 		echo '<input type="hidden" name="frontier_isupdated_advanced_hidden" value="Y">';
