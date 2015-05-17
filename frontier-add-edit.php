@@ -203,6 +203,8 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		//* Set tags
 		//***************************************************************************************
 		
+		$fp_tag_count	= fp_get_option_int("fps_tag_count",3);
+		
 		if ( current_user_can( 'frontier_post_tags_edit' ) && ($thispost->post_type != 'page') )
 			{
 			$taglist = array();
@@ -221,6 +223,15 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		$hide_post_status = ( fp_get_option("fps_hide_status", "false") == "true" ) ? true : false;
 		
 		$frontier_use_feat_img = fp_get_option("fps_show_feat_img", "false");
+		
+		//***************************************************************************************
+		//* Get post moderation fields
+		//***************************************************************************************
+		
+		if ( fp_get_option_bool("fps_use_moderation") && (current_user_can("edit_others_posts") || $current_user->ID == $thispost->post_author))
+			{
+			$fp_moderation_comments = get_post_meta( $post_id, 'FRONTIER_POST_MODERATION_TEXT', true );
+			}
 		
 		} // end if OK to Edit
 		

@@ -3,8 +3,8 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish,
 Requires at least: 3.4.0
-Tested up to: 4.1.1
-Stable tag: 3.4.1
+Tested up to: 4.2
+Stable tag: 3.5.0
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
@@ -109,8 +109,27 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 3.4.3 =
+= 3.5.0 =
+* Widgets (My Approvals & My Posts) are now being cached for better performance.
+ * Cache time can be set (or disabled) in widget settings, default cache time: 15 minutes.
+* Fixed misspelled multible to multiple
+* Cancel button: added id="frontier-post-cancel" to allow css styling
+* Changed post validation check, so check for age only is done for published posts (a user can always change peding & draft posts)
+* Post Moderation:
+ * Widget my approvals now visible for editors (in addtion to administrators (checks for capability edit_others_posts)
+ * Added new short code parameter: frontier_list_pending_posts, will list post status with status = pending, only valid for editors & admins.
+ * Link to pending posts page added to general settings
+ * My approvals widget will now link to pending posts page if this is set in settings.
+ * Editors & Administrators can enter moderation comments on edit form. Author of post can also enter moderation comments
+ * Moderation comments are implemented using post meta data, fields are prefixed with "_" so comments won't be shown on to other users.
+* New shortcode paratmeter: frontier_add_link_text to allow override of Create New Post link text on list form.
+* Added link to documentation on settings pages
+
+= 3.4.5 =
 * Added icons for edit/delete/view in list view. Must be enabled in general settings. Own icons can be placed in template folder.
+* Added new action: frontier_post_form_standard
+* Tags: Number of tags displayed can be set in advanced options + Tags can now be transformed (upper case/lower case/ First letter) - Advanced settings.
+ * Forms updated: frontier_post_form_standard.php
 * Changes to frontier-post.css
  * Fixed issue where entries in frontier-post.css wasn't closed properly
  * added: frontier-post-taxonomies
@@ -118,6 +137,7 @@ Let me know what you think, and if you have enhancement requests or problems let
  * added: frontier-post-list-icon
 * Validation: Set status to draft if title or content is empty.
 * pot file (translation) updated 
+* Fixed filter: frontier_post_pre_update
 
 = 3.4.1 =
 * Fixed issue where admin bar was shown until advanced settings were saved
