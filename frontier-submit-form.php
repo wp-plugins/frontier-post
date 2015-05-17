@@ -3,7 +3,7 @@
 function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 	{
     extract($frontier_post_shortcode_parms);		
-    
+    global $current_user;
     //Get Frontier Post capabilities
 	$fp_capabilities	= frontier_post_get_capabilities();
 	
@@ -143,6 +143,8 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 				wp_set_post_tags($postid, $taglist);
 			}
 
+		
+
 		//****************************************************************************************************
 		// Add/Update message
 		//****************************************************************************************************
@@ -186,6 +188,55 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 				
 		//Get the updated post
 		$my_post = get_post($postid);
+		
+		// Delete users cache for My Posts widget
+		fp_delete_my_posts_cache($current_user->ID);
+		
+		//***************************************************************************************
+		//* Save post moderation fields
+		//***************************************************************************************
+		
+		if ( fp_get_option_bool("fps_use_moderation") && (current_user_can("edit_others_posts") || $current_user->ID == $my_post->post_author))
+			{
+			if (isset($_POST['frontier_post_moderation_new_text']))
+				{
+				$fp_moderation_comments_new = $_POST['frontier_post_moderation_new_text'];
+				//$fp_moderation_comments_new = trim(stripslashes(strip_tags($fp_moderation_comments_new)));
+				$fp_moderation_comments_new = wp_strip_all_tags($fp_moderation_comments_new);
+				$fp_moderation_comments_new = nl2br($fp_moderation_comments_new);
+				$fp_moderation_comments_new = stripslashes($fp_moderation_comments_new);
+				$fp_moderation_comments_new = trim($fp_moderation_comments_new);
+				if (strlen($fp_moderation_comments_new) > 0)
+					{
+					global $current_user;
+					
+					$fp_moderation_comments_old = get_post_meta( $my_post->ID, 'FRONTIER_POST_MODERATION_TEXT', true );
+					$fp_moderation_comments  = current_time( 'mysql')." - ".$current_user->user_login.":<br>";
+					$fp_moderation_comments .= $fp_moderation_comments_new."<br>";
+					$fp_moderation_comments .= '<hr>'."<br>";
+					$fp_moderation_comments .= $fp_moderation_comments_old."<br>";
+					update_post_meta( $my_post->ID, 'FRONTIER_POST_MODERATION_TEXT', $fp_moderation_comments );
+					update_post_meta( $my_post->ID, 'FRONTIER_POST_MODERATION_DATE', current_time( 'mysql'));
+					update_post_meta( $my_post->ID, 'FRONTIER_POST_MODERATION_FLAG', 'true');
+					// Email author on moderation comments
+					if (isset($_POST['frontier_post_moderation_send_email']) && $_POST['frontier_post_moderation_send_email'] == "true")
+						{
+						$to      		= get_the_author_meta( 'email', $my_post->post_author );
+						$subject 		= __("Moderator has commented your pending post", "frontier-post")." (".get_bloginfo( "name" ).")";
+						$body    		= __("Moderator has commented your pending post", "frontier-post").": ".$my_post->post_title ." (".get_bloginfo( "name" ).")"."\r\n\r\n";
+						$body    		.= "Comments: ".$_POST['frontier_post_moderation_new_text']."\r\n\r\n";
+		
+		
+						if( !wp_mail($to, $subject, $body ) ) 
+							frontier_post_set_msg(__("Message delivery failed - Recipient: (", "frontier-post").$to.")");
+						}
+					}
+				}
+			
+			}
+		
+		
+		
 		
 		//****************************************************************************************************
 		// Action fires after add/update of post, and after taxonomies are updated

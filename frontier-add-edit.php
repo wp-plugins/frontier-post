@@ -224,6 +224,15 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 		$frontier_use_feat_img = fp_get_option("fps_show_feat_img", "false");
 		
+		//***************************************************************************************
+		//* Get post moderation fields
+		//***************************************************************************************
+		
+		if ( fp_get_option_bool("fps_use_moderation") && (current_user_can("edit_others_posts") || $current_user->ID == $thispost->post_author))
+			{
+			$fp_moderation_comments = get_post_meta( $post_id, 'FRONTIER_POST_MODERATION_TEXT', true );
+			}
+		
 		} // end if OK to Edit
 		
 		

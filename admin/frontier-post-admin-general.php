@@ -94,6 +94,10 @@ function frontier_post_admin_page_general()
 			echo "</tr><tr>";
 				echo "<td>".__("Default status for new posts", "frontier-post")."</td>";
 				fps_html_field("fps_default_status", 'select', $fps_general_options, true, 1, $fps_post_status_list );
+				echo "<td>".__("Page for pending posts ", "frontier-post")."</td>";
+				echo "<td>";
+					wp_dropdown_pages(array('name' => 'fps_pending_page_id', 'id'=>'fps_pending_page_id', 'dept' => 1, 'hide_empty' => 0, 'selected' => $fps_general_options['fps_pending_page_id'], 'hierarchical' => true, 'show_option_none' => __('None'))); 
+				echo "</td>";
 				
 			
 			

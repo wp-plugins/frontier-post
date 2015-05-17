@@ -33,11 +33,16 @@ echo "Label: ".fp_get_posttype_label_singular($frontier_add_post_type);
 
 if (frontier_can_add() )
 	{
+	if (strlen(trim($frontier_add_link_text))>0)
+		$tmp_add_text = $frontier_add_link_text;
+	else
+		$tmp_add_text = __("Create New", "frontier-post")." ".fp_get_posttype_label_singular($frontier_add_post_type);
+		
 ?>
 	<table class="frontier-menu" >
 		<tr class="frontier-menu">
 			<th class="frontier-menu" >&nbsp;</th>
-			<th class="frontier-menu" ><a id="frontier-post-add-new-link" href='<?php echo frontier_post_add_link($tmp_p_id) ?>'><?php echo __("Create New", "frontier-post")." ".fp_get_posttype_label_singular($frontier_add_post_type); ?></a></th>
+			<th class="frontier-menu" ><a id="frontier-post-add-new-link" href='<?php echo frontier_post_add_link($tmp_p_id) ?>'><?php echo $tmp_add_text; ?></a></th>
 			<th class="frontier-menu" >&nbsp;</th>
 		</tr>
 	</table>
@@ -96,7 +101,15 @@ if( $user_posts->found_posts > 0 )
 				</td>
 				<?php
 				if ( $frontier_list_all_posts != "true" )
-					echo '<td class="frontier-list-posts" id="" >'.( isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status ).'</td>';
+					echo '<td class="frontier-list-posts" id="" >'.( isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status );
+					// check if moderation comments
+					if ($post->post_status == "draft" || $post->post_status == "pending")
+						{
+						$tmp_flag = get_post_meta( $post->ID, 'FRONTIER_POST_MODERATION_FLAG', true );
+						if (isset($tmp_flag) && $tmp_flag == "true")
+							echo " ".frontier_get_icon('moderation');
+						}
+					echo '</td>';
 				?>
 				<?php  
 					// If post for all users is viewed, show author instead of category

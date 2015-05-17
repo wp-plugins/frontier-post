@@ -109,6 +109,7 @@ $fp_role_option_list 	= array(
 		'fps_delete_max_age', 
 		'fps_ppp', 
 		'fps_page_id', 
+		'fps_pending_page_id', 
 		'fps_del_w_comments', 
 		'fps_edit_w_comments', 
 		'fps_excl_cats', 
@@ -152,6 +153,8 @@ $fp_role_option_list 	= array(
 		'fps_disable_abar_ctrl',
 		'fps_tag_count',
 		'fps_tags_transform',
+		'fps_use_moderation',
+		'fps_mod_default_email',
 		);
 		
 	
@@ -161,6 +164,7 @@ $fp_role_option_list 	= array(
 		'fps_delete_max_age' 			=> 3,
 		'fps_ppp'						=> 25, 
 		'fps_page_id'					=> 0,
+		'fps_pending_page_id'			=> 0,
 		'fps_del_w_comments'			=> "false", 
 		'fps_edit_w_comments'			=> "false", 
 		'fps_author_role'				=> "false", 
@@ -198,6 +202,9 @@ $fp_role_option_list 	= array(
 		'fps_use_icons'					=> "false",
 		'fps_tag_count'					=> 3,
 		'fps_tags_transform'			=> "none",
+		'fps_use_moderation'			=> "false",
+		'fps_mod_default_email'			=> "false",
+		
 		);
 
 

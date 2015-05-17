@@ -158,6 +158,31 @@ if ( strlen($frontier_edit_text_before) > 1 )
 		echo '</td></tr>';
 		
 		//****************************************************************************************************
+		// post moderation
+		//****************************************************************************************************
+		
+		if ( fp_get_option_bool("fps_use_moderation") && (current_user_can("edit_others_posts") || $current_user->ID == $thispost->post_author))
+			{
+			echo '<tr><td class="frontier_no_border">';
+			echo '<fieldset class="frontier_post_fieldset_moderation">';
+			echo '<legend>'.__("Post Moderation", "frontier-post").'</legend>';
+			//Allow email to be send to author on comment update
+			if (current_user_can("edit_others_posts"))
+				echo __("Email author with moderation comments ?", "frontier-post").' '.'<input name="frontier_post_moderation_send_email" id="frontier_post_moderation_send_email" value="true"  type="checkbox"><br>';
+			
+			echo '<textarea name="frontier_post_moderation_new_text" id="frontier_post_moderation_new_text" >';
+			echo '</textarea>';
+			echo __("Previous comments", "frontier-post").':<br>';
+			echo '<hr>';
+			echo $fp_moderation_comments;
+			
+			echo '</fieldset>';
+	
+	
+			echo '</td></tr>';
+		
+			}	
+		//****************************************************************************************************
 		// Action fires just before the submit buttons
 		// Do action 		frontier_post_form_standard
 		// $thispost 		Post object for the post  
@@ -191,7 +216,7 @@ if ( strlen($frontier_edit_text_before) > 1 )
 		<?php } 
 		if ( fp_get_option_bool("fps_submit_cancel") )
 		{ ?>
-		<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
+		<input type="reset" value="<?php _e("Cancel", "frontier-post"); ?>"  name="cancel" id="frontier-post-cancel" onclick="location.href='<?php the_permalink();?>'">
 		<?php } ?>
 	</fieldset>
 	

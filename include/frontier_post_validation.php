@@ -61,7 +61,7 @@ function frontier_can_edit($tmp_post)
 		}
 	
 	// Check that the age of the post is below the Frontier Post setting
-	if ( frontier_post_age($tmp_post->post_date) > fp_get_option_int('fps_edit_max_age') )
+	if ( ($tmp_post->post_status == "publish")  && (frontier_post_age($tmp_post->post_date) > fp_get_option_int('fps_edit_max_age')) )
 		{
 		$tmp_can_do = false;
 		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit post older than: ", "frontier-post").fp_get_option_int('fps_edit_max_age')." ".__("days", "frontier-post")."<br>";

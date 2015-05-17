@@ -33,7 +33,7 @@ class frontier_approvals_widget extends WP_Widget
     function widget($args, $instance) 
 	{
 	
-	if(is_user_logged_in() && current_user_can("administrator"))
+	if(is_user_logged_in() && current_user_can("edit_others_posts"))
 		{
 		$instance 			= array_merge($this->defaults, $instance);
 		
@@ -124,9 +124,17 @@ class frontier_approvals_widget extends WP_Widget
 			
 			
 			<?php if ($fp_wdata['show_pending']) 
-				{ ?>
+				{ 
+				if (fp_get_option_int('fps_pending_page_id',0) > 0)
+					$tmp_link = get_permalink(fp_get_option('fps_pending_page_id'));
+				else
+					$tmp_link = site_url('/wp-admin/edit.php?post_status=pending&post_type=post');
+				
+				//echo ."<hr>";
+				//echo $tmp_link."<hr>";
+				?>
 				<li>
-					<a href="<?php echo site_url('/wp-admin/edit.php?post_status=pending&post_type=post')?>"><?php echo $fp_wdata['pending_txt'];?></a>
+					<a href="<?php echo $tmp_link; ?>"><?php echo $fp_wdata['pending_txt'];?></a>
 				</li>
 			<?php } ?>
 			<?php if ($fp_wdata['show_draft']) 

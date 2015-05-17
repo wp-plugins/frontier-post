@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.4.8
+Version: 3.4.9
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.4.8"); 
+define('FRONTIER_POST_VERSION', "3.4.9"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -23,6 +23,14 @@ define('FRONTIER_POST_SETTINGS_OPTION_NAME', "frontier_post_general_options");
 define('FRONTIER_POST_CAPABILITY_OPTION_NAME', "frontier_post_capabilities");
 
 define('FRONTIER_POST_CACHE_TIME', 15*60); // default cache time
+
+define('FRONTIER_POST_MODERATION_FLAG', "_fp_moderation_flag"); // field name to capture if moderation comments has been added
+define('FRONTIER_POST_MODERATION_STATUS', "_fp_moderation_status"); // field name to capture moderation status
+define('FRONTIER_POST_MODERATION_DATE', "_fp_moderation_date"); // field name to capture date of last moderation comments
+define('FRONTIER_POST_MODERATION_TEXT', "_fp_moderation_text"); // Field name of moderation comments 
+define('FRONTIER_POST_MODERATION_EMAIL', "_fp_moderation_email"); // Field name for send email on moderation.
+
+
 
 
 include("include/frontier_post_defaults.php");
@@ -124,6 +132,7 @@ function frontier_user_posts($atts)
 				'frontier_edit_text_before'		=> '',
 				'frontier_myid'					=> get_the_id(),
 				'frontier_return_text'			=> __("Save & Return", "frontier-post"),
+				'frontier_add_link_text'		=> '',
 				'frontier_add_post_type'		=> 'post',
 				'frontier_list_post_types'		=> 'post',
 				'frontier_custom_tax'			=> '',

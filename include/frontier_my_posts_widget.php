@@ -89,7 +89,7 @@ class frontier_my_posts_widget extends WP_Widget
 		// from version 3.4.6 caching will be available, and as such changed to handle in one array.
 		
 		// cache name must contain author id as results are specific to authors
-		$fp_cache_name		= $args['widget_id'].$author;
+		$fp_cache_name		= $args['widget_id']."_fpuser_".$author;
 		$fp_cache_time		= $instance['fp_cache_time'];
 		$fp_cache_test		= "Cache active";
 		

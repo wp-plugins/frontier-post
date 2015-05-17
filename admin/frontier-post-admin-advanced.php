@@ -226,7 +226,15 @@ function frontier_post_admin_page_advanced()
 				fps_html_field("fps_default_cat_select", 'select', $fps_general_options, true, 1, array_flip($category_types) );
 				echo "</tr><tr>";
 				}
-			
+		
+		// moderation
+		echo "</tr><tr>";
+			echo "<th colspan='3'>Post Moderation<th>";
+		echo "</tr><tr>";
+				echo "<td>".__("Activate post moderation", "frontier-post")."</td>";
+				fps_html_field("fps_use_moderation", 'checkbox', $fps_general_options, true, 1);
+				echo "<td>".__("If this is checked, moderation comments can be edited on the post form", "frontier-post")."</td>";
+		
 		
 		echo '</tr></table>';
 	
