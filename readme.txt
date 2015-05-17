@@ -106,6 +106,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 4. Frontier My Posts Widget: Settings, My posts, Comments & comments excerpts (with different themes)
 5. Frontier Post capabilities
 6. Frontier Post advanced settings
+7. My Approvals Widget
 
 == Changelog ==
 
