@@ -100,6 +100,26 @@ function frontier_post_admin_list_cap()
 		}
 	echo '</table>';
 	
+	
+	echo '<h2>Frontier Option values per role</strong></h2>';
+	echo '<hr>';
+	echo '<table border="1" cellpadding="2" cellspacing="4"><tr><th>key</th><th>Value</th></tr>';
+	
+	$fps_general_options		= frontier_post_get_settings();
+	
+	foreach($fps_general_options as $key => $value)
+		{
+		echo '<tr>';
+		echo '<td>'.$key.'</td>';
+		if (is_array($value))
+			echo '<td>'.print_r($value, true).'</td>';
+		else
+			echo '<td>'.$value.'</td>';
+		
+		echo '</tr>';
+		}
+	echo '</table>';
+	
 	echo '<h2>List capabilties per role</strong></h2>';
 	echo '<hr>';
 	
@@ -176,6 +196,8 @@ function frontier_post_admin_convert()
 	echo '<p class="submit"><input type="submit" name="Submit" class="button-primary" value="'.__('Convert options').'"></p>';
 	echo '</form>';
 	echo '<hr>';
+	
+	
 	
 	
 	} // end function frontier_admin_page_main

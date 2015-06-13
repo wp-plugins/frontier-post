@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.5.2
+Version: 3.5.5
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.5.2"); 
+define('FRONTIER_POST_VERSION', "3.5.5"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -69,7 +69,6 @@ add_action("init","frontier_get_user_role");
 
 if ( is_admin() )
 	{
-	
 	$fp_last_upgrade = fp_get_option('fps_options_migrated_version', get_option("frontier_post_version", '0.0.0'));
 
 	// Upgrade old versions, but dont run upgrade if fresh install
@@ -83,11 +82,27 @@ if ( is_admin() )
 	
 	// Normal version update to capture new settings etc
 	$fp_version = fp_get_option('fps_frontier_post_version', '0.0.0');
-
+	//error_log("Checking upgrade - Plugin version: ".FRONTIER_POST_VERSION." - Version in db: ".$fp_version);
+	
 	// Update defaults, but dont if fresh install - Must be the activation trigger
-	if ( ($fp_version != '0.0.0') && version_compare($fp_version, 'FRONTIER_POST_VERSION') < 0)
+	// Changed in v 3.5.2, always check for updates
+	if (  version_compare(FRONTIER_POST_VERSION, $fp_version, '>' ) )
 		{
-		fp_post_set_defaults();
+		//echo "Updating defaults from version".$fp_version." to: ".FRONTIER_POST_VERSION;
+		//error_log("Frontier Post - Updating defaults from version: ".$fp_version." to: ".FRONTIER_POST_VERSION);
+		
+		//include(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
+	
+		$fps_save_general_options 	= frontier_post_get_settings();
+		$tmp_option_list 			= array_keys($fps_general_defaults);
+		
+		foreach($tmp_option_list as $tmp_option_name)
+			{
+			if ( !key_exists($tmp_option_name, $fps_save_general_options) )
+				$fps_save_general_options[$tmp_option_name] = $fps_general_defaults[$tmp_option_name];			
+			}
+		$fps_save_general_options['fps_frontier_post_version'] 	= FRONTIER_POST_VERSION;				
+		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
 		}
 	}
 //**********************************************************************************

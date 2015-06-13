@@ -3,22 +3,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frontier Post 1.1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/frontier-post\n"
-"POT-Creation-Date: 2015-05-17 13:59:19+00:00\n"
-"PO-Revision-Date: 2015-05-17 16:00+0100\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/frontier-post\n"
+"POT-Creation-Date: 2015-06-13 12:00:08+00:00\n"
+"PO-Revision-Date: 2015-06-13 14:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: Frontier Post <LL@li.org>\n"
 "Language: da_DK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: admin/frontier-post-admin-advanced.php:14
 #: admin/frontier-post-admin-capabilities.php:14
 #: admin/frontier-post-admin-general.php:14 frontier-post-admin.php:49
 #: frontier-post-admin.php:67 frontier-post-admin.php:79
-#: frontier-post-admin.php:130
+#: frontier-post-admin.php:153
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Du har ikke tilstrækkelige rettigheder til at se denne side"
 
@@ -117,7 +117,7 @@ msgid "Hide title on these pages"
 msgstr "Skjul title på disse sider"
 
 #: admin/frontier-post-admin-advanced.php:149
-#: admin/frontier-post-admin-general.php:172
+#: admin/frontier-post-admin-general.php:178
 msgid "comma separated list of IDs"
 msgstr "Komma separeret liste af IDer"
 
@@ -216,7 +216,7 @@ msgstr ""
 
 #: admin/frontier-post-admin-advanced.php:242
 #: admin/frontier-post-admin-capabilities.php:304
-#: admin/frontier-post-admin-general.php:181
+#: admin/frontier-post-admin-general.php:187
 msgid "Save Changes"
 msgstr "Gem Ændringer"
 
@@ -341,40 +341,48 @@ msgid "Show icons instead of text for edit/delete/view in list"
 msgstr "Vi ikoner i stedet for text for rediger/slet/vis i listen"
 
 #: admin/frontier-post-admin-general.php:151
+msgid "Hide Add New Post link on list"
+msgstr "Skjul Opret Nyt Indlæg på listen"
+
+#: admin/frontier-post-admin-general.php:153
+msgid "Hide add new post on list form"
+msgstr "Skjul Opret Nyt Indlæg på list formen"
+
+#: admin/frontier-post-admin-general.php:156
 msgid "Show submit buttons on post edit form"
 msgstr "Vi submit knapper på indlægs form"
 
-#: admin/frontier-post-admin-general.php:154
+#: admin/frontier-post-admin-general.php:159
 #: forms/frontier_post_form_old.php:199 forms/frontier_post_form_page.php:118
 #: forms/frontier_post_form_standard.php:207
 msgid "Save"
 msgstr "Gem"
 
-#: admin/frontier-post-admin-general.php:155 frontier-post.php:134
+#: admin/frontier-post-admin-general.php:160 frontier-post.php:135
 msgid "Save & Return"
 msgstr "Gem & Retur"
 
-#: admin/frontier-post-admin-general.php:156
+#: admin/frontier-post-admin-general.php:161
 #: forms/frontier_post_form_old.php:207 forms/frontier_post_form_page.php:126
 #: forms/frontier_post_form_standard.php:215
 msgid "Save & Preview"
 msgstr "Gem & Vis"
 
-#: admin/frontier-post-admin-general.php:157
+#: admin/frontier-post-admin-general.php:162
 #: forms/frontier_post_form_old.php:211 forms/frontier_post_form_page.php:130
 #: forms/frontier_post_form_standard.php:219 frontier-delete-post.php:35
 msgid "Cancel"
 msgstr "Annuller"
 
-#: admin/frontier-post-admin-general.php:161
+#: admin/frontier-post-admin-general.php:167
 msgid "Allowed Post Types"
 msgstr "Tilladte indlægs typer"
 
-#: admin/frontier-post-admin-general.php:163
+#: admin/frontier-post-admin-general.php:169
 msgid "Post Types"
 msgstr "Indlægs typer"
 
-#: admin/frontier-post-admin-general.php:168
+#: admin/frontier-post-admin-general.php:174
 msgid "Exclude categories"
 msgstr "Ekskluder kategrier"
 
@@ -458,8 +466,8 @@ msgid "Tags"
 msgstr "Tags"
 
 #: forms/frontier_post_form_old.php:100
-msgid "Select category, multible can be selected using ctrl key"
-msgstr "Vælg kategori, flere can vælges med ctrl"
+msgid "Select category, multiple can be selected using ctrl key"
+msgstr "Vælg kategori, flere can vælges med ctrl "
 
 #: forms/frontier_post_form_old.php:147 forms/frontier_post_form_old.php:148
 #: forms/frontier_post_form_old.php:149
@@ -536,23 +544,23 @@ msgstr "Du har ikke rettigheder til at rette dette indlæg, desværre"
 msgid "Post deleted"
 msgstr "Indlæg slettet"
 
-#: frontier-list-posts.php:44
+#: frontier-list-posts.php:51
 msgid "You do not have access to other users pending posts"
 msgstr "Du har ikke adgang til andre brugerers afventende indlæg "
 
-#: frontier-post-admin.php:148
+#: frontier-post-admin.php:171
 msgid "Convert options from previous format"
 msgstr "Konverter indstillinger fra tidligere format"
 
-#: frontier-post-admin.php:153
+#: frontier-post-admin.php:176
 msgid "Convert options"
 msgstr "Konverterings muligheder"
 
-#: frontier-post.php:114
+#: frontier-post.php:115
 msgid "frontier-post Shortcode only allowed in pages"
 msgstr "frontier-post shortcode er kun tillad i sider"
 
-#: frontier-post.php:212
+#: frontier-post.php:215
 msgid "not allowed in posts, only pages !"
 msgstr "Ikke tilladt i indlæg, kun i sider!"
 
@@ -584,24 +592,24 @@ msgstr "Intet Indhold"
 msgid "Content was empty"
 msgstr "Indhold var tomt"
 
-#: frontier-submit-form.php:154
+#: frontier-submit-form.php:163
 msgid "Post added"
 msgstr "Indlæg oprettet"
 
-#: frontier-submit-form.php:156
+#: frontier-submit-form.php:165
 msgid "Post updated"
 msgstr "Indlæg opdateret"
 
-#: frontier-submit-form.php:225 frontier-submit-form.php:226
+#: frontier-submit-form.php:234 frontier-submit-form.php:235
 msgid "Moderator has commented your pending post"
 msgstr "Moderator har kommenteret dit indlæg"
 
-#: frontier-submit-form.php:231 include/frontier_email_notify.php:24
+#: frontier-submit-form.php:240 include/frontier_email_notify.php:24
 #: include/frontier_email_notify.php:41
 msgid "Message delivery failed - Recipient: ("
 msgstr "Kunne ikke levere meddelelse - Modtager: ("
 
-#: frontier-submit-form.php:293
+#: frontier-submit-form.php:302
 msgid "Error - Unable to save post"
 msgstr "Fejl - Kan ikke gemme indlæg"
 
@@ -836,14 +844,14 @@ msgstr "Første bogstav stort"
 
 #: include/frontier_post_defaults.php:70
 msgid "Standard Form (with Taxonomies)"
-msgstr "Standard Form (md Taxonomies)"
+msgstr "Standard Form (med Taxonomies)"
 
 #: include/frontier_post_defaults.php:71
 msgid "Simpel Form (only title, status, content & submit)"
 msgstr "Simpel Form (kun titel, status, indhold & submit)"
 
 #: include/frontier_post_defaults.php:72
-msgid "Old Form (for backwards compatibility"
+msgid "Old Form (for backwards compatibility)"
 msgstr "Gammel form (for kompatibilitet)"
 
 #: include/frontier_post_defaults.php:77

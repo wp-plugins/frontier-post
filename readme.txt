@@ -3,8 +3,8 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish,
 Requires at least: 3.4.0
-Tested up to: 4.2
-Stable tag: 3.5.0
+Tested up to: 4.2.2
+Stable tag: 3.5.5
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
@@ -111,7 +111,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 3.5.2 =
+= 3.5.5 =
 * Remove single & double quotes from post type name in function fp_get_posttype_label_singular
 * Changed if ( !is_page(get_the_id()) ) To: if ( $post->post_type != 'page' ) 
 * Option in General Setting to hide Add New Post on the list
@@ -120,6 +120,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 * Allow users with the neccessary capbilities to edit & delete private posts (edit_private_posts & delete_private_posts), will be editors and admins
 * Force save to post_status=draft first, if published directly to align with Wordpress standard (and align to hook draft_to_publish)
 * Changed admin option name List Capabilities to Debug Info and added Post DB content breakdown
+* Fixed upgrade check for default settings
 
 
 = 3.5.0 =
