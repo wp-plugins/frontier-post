@@ -144,7 +144,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 		$editor_layout		 		= array('dfw' => false, 'tabfocus_elements' => 'sample-permalink,post-preview', 'editor_height' => 300 );
 		$frontier_media_button		= current_user_can( 'frontier_post_can_media' ) ? current_user_can( 'frontier_post_can_media' ) : false;
-		$frontier_editor_lines 		= fp_get_option_int('fps_editor_lines', 300);
+		
 		
 		// Call to wp_editor in done in entry form
 		
@@ -239,7 +239,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	if ($user_can_edit_this_post)
 		{
 		
-		$fp_form = fp_get_option("fps_default_form", "standard");
+		$fp_form = $frontier_edit_form;
 		
 		if ($thispost->post_type == 'page')
 			$fp_form = "page";

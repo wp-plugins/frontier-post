@@ -32,10 +32,17 @@ function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 	
 	//List all published posts
 	if ( $frontier_list_all_posts == "true" )
-		$args["post_status"] = "publish";
+		{
+		// limit list to status=publish to the list, if users do not have private posts (editors & admins)
+		if (!current_user_can( 'edit_private_posts' ))
+			{
+			$args["post_status"] = "publish";
+			}
+		}
 	else
+		{
 		$args["author"] = $current_user->ID;
-	
+		}
 	// List pending posts
 	if ( ($frontier_list_pending_posts == "true") )
 		{

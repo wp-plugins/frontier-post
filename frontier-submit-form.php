@@ -119,9 +119,18 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		
 		$tmp_post = apply_filters( 'frontier_post_pre_update', $tmp_post, $tmp_task_new, $_POST );
 		
-		
-		wp_update_post( $tmp_post );
-		
+		//force save with draft status first, if new post and status is set to published to align with wordpress standard
+		if ( ($tmp_task_new == true) && ($post_status == "publish") )
+			{
+			$tmp_post['post_status'] = "draft";
+			wp_update_post( $tmp_post );
+			$tmp_post = array('ID'	=> $postid, 'post_status' => $post_status);
+			wp_update_post( $tmp_post );
+			}
+		else
+			{
+			wp_update_post( $tmp_post );
+			}
 		
 		
 		//****************************************************************************************************

@@ -69,7 +69,7 @@ $fp_tag_transform_list = array(
 $frontier_post_forms = array(
 	'standard'	=> __("Standard Form (with Taxonomies)", "frontier-post"),
 	'simple'	=> __("Simpel Form (only title, status, content & submit)", "frontier-post"),
-	'old'		=> __("Old Form (for backwards compatibility", "frontier-post")
+	'old'		=> __("Old Form (for backwards compatibility)", "frontier-post")
 	);
 
 
@@ -124,6 +124,7 @@ $fp_role_option_list 	= array(
 		'fps_change_status',
 		'fps_custom_post_type_list',
 		'fps_use_icons',
+		'fps_hide_add_on_list'
 		
 		);
 		
@@ -204,6 +205,7 @@ $fp_role_option_list 	= array(
 		'fps_tags_transform'			=> "none",
 		'fps_use_moderation'			=> "false",
 		'fps_mod_default_email'			=> "false",
+		'fps_hide_add_on_list'			=> "false"
 		
 		);
 

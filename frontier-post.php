@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.5.0
+Version: 3.5.2
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.5.0"); 
+define('FRONTIER_POST_VERSION', "3.5.2"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -109,7 +109,8 @@ function frontier_user_posts($atts)
 		if( is_user_logged_in() )
 			{  
 			
-			if ( !is_page(get_the_id()) )
+			//if ( !is_page(get_the_id()) )
+			if ( $post->post_type != 'page' )
 				{
 				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post").'</h1></center>');
 				return;         
@@ -130,13 +131,15 @@ function frontier_user_posts($atts)
 				'frontier_list_pending_posts'	=> 'false',
 				'frontier_list_text_before'		=> '',
 				'frontier_edit_text_before'		=> '',
-				'frontier_myid'					=> get_the_id(),
+				'frontier_myid'					=> $post->ID,
 				'frontier_return_text'			=> __("Save & Return", "frontier-post"),
 				'frontier_add_link_text'		=> '',
 				'frontier_add_post_type'		=> 'post',
 				'frontier_list_post_types'		=> 'post',
 				'frontier_custom_tax'			=> '',
-				'frontier_custom_tax_layout'	=> ''
+				'frontier_custom_tax_layout'	=> '',
+				'frontier_edit_form'			=> fp_get_option("fps_default_form", "standard"),
+				'frontier_editor_height'		=> fp_get_option_int("fps_editor_lines", 300) 
 				), $atts );
 		
 			//error_log(print_r($frontier_post_shortcode_parms,true));

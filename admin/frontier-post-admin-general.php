@@ -148,6 +148,11 @@ function frontier_post_admin_page_general()
 				echo $tmptext;
 			
 			echo "</tr><tr>";
+				echo "<td>".__("Hide Add New Post link on list", "frontier-post")."</td>";
+				fps_html_field("fps_hide_add_on_list", 'checkbox', $fps_general_options, true, 1);
+				echo "<td>".__("Hide add new post on list form", "frontier-post")."</td>";
+			
+			echo "</tr><tr>";
 				echo "<td>".__("Show submit buttons on post edit form", "frontier-post")."</td>";
 				echo "<td></td>";
 				echo '<td>';
@@ -156,6 +161,7 @@ function frontier_post_admin_page_general()
 				echo '&nbsp;|&nbsp'.__("Save & Preview", "frontier-post").'&nbsp;'.fps_checkbox_field("fps_submit_preview", $fps_general_options['fps_submit_preview']);
 				echo '&nbsp;|&nbsp'.__("Cancel", "frontier-post").'&nbsp;'.fps_checkbox_field("fps_submit_cancel", $fps_general_options['fps_submit_cancel']);
 				echo "</td>";
+			
 			
 			echo "</tr><tr>";
 				echo "<td>".__("Allowed Post Types", "frontier-post")."</td>";

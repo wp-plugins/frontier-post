@@ -56,7 +56,7 @@ if ( strlen($frontier_edit_text_before) > 1 )
 		<legend><?php _e("Content", "frontier-post"); ?></legend>	
 		<div id="frontier_editor_field"> 
 		<?php
-		wp_editor($thispost->post_content, 'user_post_desc', frontier_post_wp_editor_args($editor_type, $frontier_media_button, $frontier_editor_lines, false));
+		wp_editor($thispost->post_content, 'user_post_desc', frontier_post_wp_editor_args($editor_type, $frontier_media_button, $frontier_editor_height, false));
 		printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
 		?>
 		</div>
