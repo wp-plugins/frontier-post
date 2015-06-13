@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.4.3
+Version: 3.5.5
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.4.3"); 
+define('FRONTIER_POST_VERSION', "3.5.5"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -21,6 +21,16 @@ define('FRONTIER_POST_DEBUG', false);
 
 define('FRONTIER_POST_SETTINGS_OPTION_NAME', "frontier_post_general_options");
 define('FRONTIER_POST_CAPABILITY_OPTION_NAME', "frontier_post_capabilities");
+
+define('FRONTIER_POST_CACHE_TIME', 15*60); // default cache time
+
+define('FRONTIER_POST_MODERATION_FLAG', "_fp_moderation_flag"); // field name to capture if moderation comments has been added
+define('FRONTIER_POST_MODERATION_STATUS', "_fp_moderation_status"); // field name to capture moderation status
+define('FRONTIER_POST_MODERATION_DATE', "_fp_moderation_date"); // field name to capture date of last moderation comments
+define('FRONTIER_POST_MODERATION_TEXT', "_fp_moderation_text"); // Field name of moderation comments 
+define('FRONTIER_POST_MODERATION_EMAIL', "_fp_moderation_email"); // Field name for send email on moderation.
+
+
 
 
 include("include/frontier_post_defaults.php");
@@ -59,7 +69,6 @@ add_action("init","frontier_get_user_role");
 
 if ( is_admin() )
 	{
-	
 	$fp_last_upgrade = fp_get_option('fps_options_migrated_version', get_option("frontier_post_version", '0.0.0'));
 
 	// Upgrade old versions, but dont run upgrade if fresh install
@@ -73,11 +82,27 @@ if ( is_admin() )
 	
 	// Normal version update to capture new settings etc
 	$fp_version = fp_get_option('fps_frontier_post_version', '0.0.0');
-
+	//error_log("Checking upgrade - Plugin version: ".FRONTIER_POST_VERSION." - Version in db: ".$fp_version);
+	
 	// Update defaults, but dont if fresh install - Must be the activation trigger
-	if ( ($fp_version != '0.0.0') && version_compare($fp_version, 'FRONTIER_POST_VERSION') < 0)
+	// Changed in v 3.5.2, always check for updates
+	if (  version_compare(FRONTIER_POST_VERSION, $fp_version, '>' ) )
 		{
-		fp_post_set_defaults();
+		//echo "Updating defaults from version".$fp_version." to: ".FRONTIER_POST_VERSION;
+		//error_log("Frontier Post - Updating defaults from version: ".$fp_version." to: ".FRONTIER_POST_VERSION);
+		
+		//include(FRONTIER_POST_DIR.'/include/frontier_post_defaults.php');	
+	
+		$fps_save_general_options 	= frontier_post_get_settings();
+		$tmp_option_list 			= array_keys($fps_general_defaults);
+		
+		foreach($tmp_option_list as $tmp_option_name)
+			{
+			if ( !key_exists($tmp_option_name, $fps_save_general_options) )
+				$fps_save_general_options[$tmp_option_name] = $fps_general_defaults[$tmp_option_name];			
+			}
+		$fps_save_general_options['fps_frontier_post_version'] 	= FRONTIER_POST_VERSION;				
+		update_option(FRONTIER_POST_SETTINGS_OPTION_NAME, $fps_save_general_options);
 		}
 	}
 //**********************************************************************************
@@ -99,7 +124,8 @@ function frontier_user_posts($atts)
 		if( is_user_logged_in() )
 			{  
 			
-			if ( !is_page(get_the_id()) )
+			//if ( !is_page(get_the_id()) )
+			if ( $post->post_type != 'page' )
 				{
 				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post").'</h1></center>');
 				return;         
@@ -117,14 +143,18 @@ function frontier_user_posts($atts)
 				'frontier_cat_id' 				=> 0,
 				'frontier_list_cat_id' 			=> 0,
 				'frontier_list_all_posts'		=> 'false',
+				'frontier_list_pending_posts'	=> 'false',
 				'frontier_list_text_before'		=> '',
 				'frontier_edit_text_before'		=> '',
-				'frontier_myid'					=> get_the_id(),
+				'frontier_myid'					=> $post->ID,
 				'frontier_return_text'			=> __("Save & Return", "frontier-post"),
+				'frontier_add_link_text'		=> '',
 				'frontier_add_post_type'		=> 'post',
 				'frontier_list_post_types'		=> 'post',
 				'frontier_custom_tax'			=> '',
-				'frontier_custom_tax_layout'	=> ''
+				'frontier_custom_tax_layout'	=> '',
+				'frontier_edit_form'			=> fp_get_option("fps_default_form", "standard"),
+				'frontier_editor_height'		=> fp_get_option_int("fps_editor_lines", 300) 
 				), $atts );
 		
 			//error_log(print_r($frontier_post_shortcode_parms,true));

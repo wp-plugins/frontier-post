@@ -61,7 +61,7 @@ function frontier_can_edit($tmp_post)
 		}
 	
 	// Check that the age of the post is below the Frontier Post setting
-	if ( frontier_post_age($tmp_post->post_date) > fp_get_option_int('fps_edit_max_age') )
+	if ( ($tmp_post->post_status == "publish")  && (frontier_post_age($tmp_post->post_date) > fp_get_option_int('fps_edit_max_age')) )
 		{
 		$tmp_can_do = false;
 		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit post older than: ", "frontier-post").fp_get_option_int('fps_edit_max_age')." ".__("days", "frontier-post")."<br>";
@@ -95,8 +95,8 @@ function frontier_can_edit($tmp_post)
 		$fps_access_check_msg = "";
 		}
 		
-	// Last check, PRIVATE posts can only be edited by the author
-	if( ($cur_user->ID != $tmp_post->post_author) && ($tmp_post->post_status == "private") )
+	// Last check, PRIVATE posts can only be edited by the author or Users with the capability edit_private_posts
+	if( ($cur_user->ID != $tmp_post->post_author) && ($tmp_post->post_status == "private") && !current_user_can( 'edit_private_posts' ) )
 		{
 		$tmp_can_do = false;
 		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to edit PRIVATE post from another user", "frontier-post")."<br>";
@@ -158,8 +158,8 @@ function frontier_can_delete($tmp_post)
 		$fps_access_check_msg = "";
 		}
 		
-	// Last check, PRIVATE posts can only be deleted by the author
-	if( ($cur_user->ID != $tmp_post->post_author) && ($tmp_post->post_status == "private") )
+	// Last check, PRIVATE posts can only be deleted by the author, or users with capability delete_private_posts (admins and editors)
+	if( ($cur_user->ID != $tmp_post->post_author) && ($tmp_post->post_status == "private") && !current_user_can( 'delete_private_posts' ))
 		{
 		$tmp_can_do = false;
 		$fps_access_check_msg = $fps_access_check_msg.__("You are not allowed to delete PRIVATE post from another user", "frontier-post")."<br>";

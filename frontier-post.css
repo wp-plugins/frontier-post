@@ -199,3 +199,8 @@ td.frontier_frontier_featured_image  {
 .frontier-post-list-icon {
     height: 12px !important;
 }
+
+#frontier_post_moderation_new_text {
+	height: 140px !important;
+	width: 98% !important;
+}

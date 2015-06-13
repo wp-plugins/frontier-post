@@ -65,7 +65,8 @@ function frontier_post_admin_page_general()
 	echo '<div class="wrap">';
 	echo '<div class="frontier-admin-menu">';
 	echo '<h2>'.__("Frontier Post Settings", "frontier-post").'</h2>';
-		
+	echo '<hr>'.__("Documentation", "frontier_post").': <a href="http://wpfrontier.com/frontier-post-settings/" target="_blank">General Settings</a>';
+	echo ' - <a href="http://wpfrontier.com/frontier-post-shortcodes/" target="_blank">Shortcodes</a><hr>';	
 	echo '<form name="frontier_post_settings" method="post" action="">';
 		echo '<input type="hidden" name="frontier_isupdated_general_hidden" value="Y">';
 		echo '<table border="1" cellspacing="0" cellpadding="0">';
@@ -94,6 +95,10 @@ function frontier_post_admin_page_general()
 			echo "</tr><tr>";
 				echo "<td>".__("Default status for new posts", "frontier-post")."</td>";
 				fps_html_field("fps_default_status", 'select', $fps_general_options, true, 1, $fps_post_status_list );
+				echo "<td>".__("Page for pending posts ", "frontier-post")."</td>";
+				echo "<td>";
+					wp_dropdown_pages(array('name' => 'fps_pending_page_id', 'id'=>'fps_pending_page_id', 'dept' => 1, 'hide_empty' => 0, 'selected' => $fps_general_options['fps_pending_page_id'], 'hierarchical' => true, 'show_option_none' => __('None'))); 
+				echo "</td>";
 				
 			
 			
@@ -143,6 +148,11 @@ function frontier_post_admin_page_general()
 				echo $tmptext;
 			
 			echo "</tr><tr>";
+				echo "<td>".__("Hide Add New Post link on list", "frontier-post")."</td>";
+				fps_html_field("fps_hide_add_on_list", 'checkbox', $fps_general_options, true, 1);
+				echo "<td>".__("Hide add new post on list form", "frontier-post")."</td>";
+			
+			echo "</tr><tr>";
 				echo "<td>".__("Show submit buttons on post edit form", "frontier-post")."</td>";
 				echo "<td></td>";
 				echo '<td>';
@@ -151,6 +161,7 @@ function frontier_post_admin_page_general()
 				echo '&nbsp;|&nbsp'.__("Save & Preview", "frontier-post").'&nbsp;'.fps_checkbox_field("fps_submit_preview", $fps_general_options['fps_submit_preview']);
 				echo '&nbsp;|&nbsp'.__("Cancel", "frontier-post").'&nbsp;'.fps_checkbox_field("fps_submit_cancel", $fps_general_options['fps_submit_cancel']);
 				echo "</td>";
+			
 			
 			echo "</tr><tr>";
 				echo "<td>".__("Allowed Post Types", "frontier-post")."</td>";

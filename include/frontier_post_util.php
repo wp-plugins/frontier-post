@@ -93,7 +93,7 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 		
 			case "multi":
 				echo frontier_post_tax_multi($tmp_tax_list , $tmp_selected, $tmp_input_field_name, $tmp_field_name, 10);
-				//echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+				//echo '</br><div class="frontier_helptext">'.__("Select category, multiple can be selected using ctrl key", "frontier-post").'</div>';
 				break;
 
 			case "checkbox":
@@ -586,5 +586,60 @@ function fp_list2array($tmp_list)
 	}
 
 
+//********************************************************************************
+// Transform tags lower/upper case, First letter, None
+//********************************************************************************
+
+function fp_tag_transform($tmp_tag)
+	{
+	$tmp_transform = fp_get_option('fps_tags_transform', 'none');
+	
+	switch ($tmp_transform)
+		{
+		case 'lower':
+			return strtolower(sanitize_text_field($tmp_tag));
+	
+		case 'upper':
+			return strtoupper(sanitize_text_field($tmp_tag));
+	
+		case 'ucwords':
+			return ucwords(sanitize_text_field($tmp_tag));
+	
+		default:
+			return sanitize_text_field($tmp_tag);
+		}
+	}
+
+//********************************************************************************
+// Delete users cache for my posts
+//********************************************************************************
+
+function fp_delete_my_posts_cache($tmp_user_id)
+	{
+	global $wpdb;
+	$tmp_user_id = intval($tmp_user_id);
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '%_fpuser_".$tmp_user_id."'");
+	//$tmp_transient_name = 'my_posts_widget-'.$tmp_user_id;
+	//error_log("Delete Transient: ".$tmp_transient_name);
+	//delete_transient($tmp_transient_name);
+	
+	//if ($tmp_user_id != 0)
+	//	$wpdb->query("DELETE * FROM $wpdb->options WHERE option_name = '_transient_frontier_my_posts_widget-".$tmp_user_id."'");
+	}
+
+//********************************************************************************
+// Delete users cache for my posts
+//********************************************************************************
+
+function fp_delete_widget_cache()
+	{
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_frontier_my_posts_widget%'");
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_frontier_my_posts_widget%'");
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_frontier_approvals_widget%'");
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_frontier_approvals_widget%'");
+	}
+
+//_transient_frontier_approvals_widget-3
+//_transient_frontier_my_posts_widget-22
 
 ?>

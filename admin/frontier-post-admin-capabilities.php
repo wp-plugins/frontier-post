@@ -109,6 +109,8 @@ function frontier_post_admin_page_capabilities()
 	echo '<div class="wrap">';
 	echo '<div class="frontier-admin-menu">';
 	echo '<h2>'.__("Frontier Post - Capabilities & Role based settings", "frontier-post").'</h2>';
+	echo '<hr>'.__("Documentation", "frontier_post").': <a href="http://wpfrontier.com/frontier-post-profiles-capabilities/" target="_blank">Profiles & Capabilities</a>';
+	echo ' - <a href="http://wpfrontier.com/frontier-post-role-based-settings/" target="_blank">Role based settings</a><hr>';	
 		
 	echo '<form name="frontier_post_settings" method="post" action="">';
 		echo '<input type="hidden" name="frontier_isupdated_capabilities_hidden" value="Y">';
@@ -171,13 +173,27 @@ function frontier_post_admin_page_capabilities()
 					else
 						$tmp_checked	= " "; 
 					
+					
+						
+						
 					echo '<td><center>';
-					echo '<input value="true" type="checkbox" name="'.$tmp_name.'" id="' .$tmp_name. '" '. $tmp_checked.' />';
+					//echo $key."<br>".$tmp_cap."<br>";
+					//Hide can_media for subscribers and contributors
+					if ($tmp_cap == "frontier_post_can_media" && ($key=="subscriber" || $key=="contributor")) 
+						{
+						echo 'N/A';
+						}
+					else
+						{
+						echo '<input value="true" type="checkbox" name="'.$tmp_name.'" id="' .$tmp_name. '" '. $tmp_checked.' />';  
+						}
+					
 					echo '</center></td>';
 					} // end cap
 					echo '</tr>';
 				} // end roles
 			echo '</table>';
+			echo '* '.__("Wordpress standard does not allow Contributors  and Subscribers to upload media", "frontier-post");
 			} // endfps_external_cap
 		//*****************************************************************************
 		// Start Role Based settings

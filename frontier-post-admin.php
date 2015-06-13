@@ -22,7 +22,7 @@ function frontier_post_admin_menu()
 	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - Capabilties & Rolebased settings', 'Frontier Post Capabilities', 'manage_options', 'frontier_post_admin_capabilities', 'frontier_post_admin_page_capabilities'); 
 	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - Advanced Settings', 'Frontier Post Advanced', 'manage_options', 'frontier_post_admin_advanced', 'frontier_post_admin_page_advanced'); 
 	//add_submenu_page( 'frontier_admin_menu', 'Frontier Post - Convert Settings', 'Frontier Post Convert', 'manage_options', 'frontier_post_admin_convert_settings', 'frontier_post_admin_convert'); 
-	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - List Capabilities', 'List Capabilities', 'manage_options', 'frontier_post_admin_list_capabilities', 'frontier_post_admin_list_cap'); 
+	add_submenu_page( 'frontier_admin_menu', 'Frontier Post - Debug Info', 'Debug Info', 'manage_options', 'frontier_post_admin_list_capabilities', 'frontier_post_admin_list_cap'); 
 	
 	/*
 	add_menu_page( 'Frontier Settings', 'Frontier Settings', 'manage_options', 'frontier_admin_menu');
@@ -80,6 +80,46 @@ function frontier_post_admin_list_cap()
 	
 	 
 	
+	
+	
+	global $wpdb;
+	
+	// Show content statistics
+	$fp_sql = "SELECT post_status, post_type, count(*) as post_count FROM $wpdb->posts GROUP BY post_type, post_status ORDER BY post_type, post_status;";
+	$fp_stat = $wpdb->get_results($fp_sql);
+	echo '<hr>';
+	echo '<h2>Post DB content breakdown</strong></h2>';
+	echo '<table border="1" cellpadding="2" cellspacing="4"><tr><th>Post Type</th><th>Post Status</th><th>record count</th></tr>';
+	foreach ($fp_stat as $stat)
+		{
+		echo '<tr>';
+		echo '<td>'.$stat->post_type.'</td>';
+		echo '<td>'.$stat->post_status.'</td>';
+		echo '<td align="right">'.$stat->post_count.'</td>';
+		echo '</tr>';
+		}
+	echo '</table>';
+	
+	
+	echo '<h2>Frontier Option values per role</strong></h2>';
+	echo '<hr>';
+	echo '<table border="1" cellpadding="2" cellspacing="4"><tr><th>key</th><th>Value</th></tr>';
+	
+	$fps_general_options		= frontier_post_get_settings();
+	
+	foreach($fps_general_options as $key => $value)
+		{
+		echo '<tr>';
+		echo '<td>'.$key.'</td>';
+		if (is_array($value))
+			echo '<td>'.print_r($value, true).'</td>';
+		else
+			echo '<td>'.$value.'</td>';
+		
+		echo '</tr>';
+		}
+	echo '</table>';
+	
 	echo '<h2>List capabilties per role</strong></h2>';
 	echo '<hr>';
 	
@@ -108,17 +148,20 @@ function frontier_post_admin_list_cap()
 	
 	echo '<hr>';
 	echo '<h2>List frontier options</strong></h2>';
-	global $wpdb;
 	
-	$fp_sql 	= "SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'frontier_post%';";
-	$fp_options = $wpdb->get_col($fp_sql);
+	
+	$fp_sql 	= "SELECT option_name  FROM $wpdb->options WHERE option_name LIKE 'frontier_post%';";
+	$fp_options = $wpdb->get_results($fp_sql);
 	
 	
 	foreach ($fp_options as $option)
 		{
-		echo $option.'<br>';
+		echo $option->option_name.'<br>';
 		}
 	echo '<hr>';
+	
+	
+	
 	
 	} // end function frontier_admin_page_main
 	
@@ -153,6 +196,8 @@ function frontier_post_admin_convert()
 	echo '<p class="submit"><input type="submit" name="Submit" class="button-primary" value="'.__('Convert options').'"></p>';
 	echo '</form>';
 	echo '<hr>';
+	
+	
 	
 	
 	} // end function frontier_admin_page_main
