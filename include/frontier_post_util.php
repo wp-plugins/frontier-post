@@ -88,7 +88,7 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 			{
 			
 			case "single":
-				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected, 'hierarchical' => true, 'show_count' => true, 'class' => 'frontier_post_dropdown')); 
+				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected[0], 'hierarchical' => true, 'show_count' => true, 'class' => 'frontier_post_dropdown')); 
 				break;
 		
 			case "multi":
@@ -273,7 +273,11 @@ function fp_get_posttype_label($tmp_pt_name)
 // Get singular name (label) of post type
 function fp_get_posttype_label_singular($tmp_pt_name)
 	{
+	$tmp_pt_name = trim($tmp_pt_name, '"');
+	$tmp_pt_name = trim($tmp_pt_name, "'");
 	$tmp_pt = get_post_type_object($tmp_pt_name);
+	//error_log("Post type label: ".$tmp_pt_name." -->");
+	//error_log(print_r($tmp_pt, true));
 	return $tmp_pt->labels->singular_name;
 	}
 

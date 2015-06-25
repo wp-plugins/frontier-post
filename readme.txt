@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish,
 Requires at least: 3.4.0
 Tested up to: 4.2.2
-Stable tag: 3.5.5
+Stable tag: 3.5.6
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
@@ -110,6 +110,9 @@ Let me know what you think, and if you have enhancement requests or problems let
 7. My Approvals Widget
 
 == Changelog ==
+
+= 3.5.6 =
+* Fixed single select for categories (wp_dropdown_categories(): selected input integer instead of array of integers)
 
 = 3.5.5 =
 * Remove single & double quotes from post type name in function fp_get_posttype_label_singular
