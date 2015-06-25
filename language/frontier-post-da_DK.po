@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Frontier Post 1.1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/frontier-post\n"
-"POT-Creation-Date: 2015-03-29 15:49:37+00:00\n"
-"PO-Revision-Date: 2015-03-29 17:56+0100\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/frontier-post\n"
+"POT-Creation-Date: 2015-06-13 12:00:08+00:00\n"
+"PO-Revision-Date: 2015-06-13 14:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: Frontier Post <LL@li.org>\n"
 "Language: da_DK\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: admin/frontier-post-admin-capabilities.php:14
 #: admin/frontier-post-admin-general.php:14 frontier-post-admin.php:49
 #: frontier-post-admin.php:67 frontier-post-admin.php:79
-#: frontier-post-admin.php:130
+#: frontier-post-admin.php:153
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Du har ikke tilstrækkelige rettigheder til at se denne side"
 
@@ -29,29 +29,35 @@ msgid ""
 "administrator"
 msgstr "Sikkerheds problem (Nonce check), kontakt din Wordpress administrator"
 
-#: admin/frontier-post-admin-advanced.php:62
+#: admin/frontier-post-admin-advanced.php:63
 #: admin/frontier-post-admin-capabilities.php:95
 #: admin/frontier-post-admin-general.php:51
 msgid "Settings saved."
 msgstr "Indstillinger gemt"
 
-#: admin/frontier-post-admin-advanced.php:82
+#: admin/frontier-post-admin-advanced.php:83
 msgid "Frontier Post Advanced Settings"
 msgstr "Frontier Post Avancerede indstillinger"
 
-#: admin/frontier-post-admin-advanced.php:93
+#: admin/frontier-post-admin-advanced.php:84
+#: admin/frontier-post-admin-capabilities.php:112
+#: admin/frontier-post-admin-general.php:68
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: admin/frontier-post-admin-advanced.php:95
 msgid "Add Frontier Author user role"
 msgstr "Tilføj Frontend Forfatter rolle"
 
-#: admin/frontier-post-admin-advanced.php:95
+#: admin/frontier-post-admin-advanced.php:97
 msgid "Adds a new role: Frontend Author to Wordpress"
 msgstr "Tilføjer rollen: Frontend Forfatter til Wordpress"
 
-#: admin/frontier-post-admin-advanced.php:98
+#: admin/frontier-post-admin-advanced.php:100
 msgid "Show ID in category list"
 msgstr "Vis ID i kategori liste"
 
-#: admin/frontier-post-admin-advanced.php:100
+#: admin/frontier-post-admin-advanced.php:102
 msgid ""
 "If checked ID column will be added to the standard category list in admin "
 "panel"
@@ -59,79 +65,91 @@ msgstr ""
 "Hvis markeret, ID kolonne vil blive tilføjet til den standard kategori "
 "listen i admin panel"
 
-#: admin/frontier-post-admin-advanced.php:103
+#: admin/frontier-post-admin-advanced.php:105
+msgid "Number of tags"
+msgstr "Antal tags"
+
+#: admin/frontier-post-admin-advanced.php:110
+msgid "number of tags to edit on the input form"
+msgstr " antal tags på input formen"
+
+#: admin/frontier-post-admin-advanced.php:113
+msgid "Tag transformation"
+msgstr "Omdan tags"
+
+#: admin/frontier-post-admin-advanced.php:118
 msgid "Hide post status"
 msgstr "Skjul indlægs status"
 
-#: admin/frontier-post-admin-advanced.php:105
+#: admin/frontier-post-admin-advanced.php:120
 msgid "Hide the post status on the entry form"
 msgstr "Skjul indlægs status på formen"
 
-#: admin/frontier-post-admin-advanced.php:109
+#: admin/frontier-post-admin-advanced.php:124
 msgid "Input form"
 msgstr "Input form"
 
-#: admin/frontier-post-admin-advanced.php:115
+#: admin/frontier-post-admin-advanced.php:130
 msgid "Height of editor"
 msgstr "Editor højde"
 
-#: admin/frontier-post-admin-advanced.php:120
+#: admin/frontier-post-admin-advanced.php:135
 msgid "Custom login text"
 msgstr "Brugerdefineret login tekst"
 
-#: admin/frontier-post-admin-advanced.php:124
+#: admin/frontier-post-admin-advanced.php:139
 msgid "This text (and link) is displayed when a user is required to login"
 msgstr ""
 "Denne tekst (og link) bliver vist når det kræves at en bruger logger ind"
 
-#: admin/frontier-post-admin-advanced.php:125
-#: include/frontier_post_defaults.php:36 include/frontier_post_util.php:550
+#: admin/frontier-post-admin-advanced.php:140
+#: include/frontier_post_defaults.php:38 include/frontier_post_util.php:550
 #: include/frontier_post_util.php:563
 msgid "Please log in !"
 msgstr "Log venligst ind !"
 
-#: admin/frontier-post-admin-advanced.php:125
+#: admin/frontier-post-admin-advanced.php:140
 msgid "Login Page"
 msgstr "Login side"
 
-#: admin/frontier-post-admin-advanced.php:130
+#: admin/frontier-post-admin-advanced.php:145
 msgid "Hide title on these pages"
 msgstr "Skjul title på disse sider"
 
-#: admin/frontier-post-admin-advanced.php:134
-#: admin/frontier-post-admin-general.php:167
+#: admin/frontier-post-admin-advanced.php:149
+#: admin/frontier-post-admin-general.php:178
 msgid "comma separated list of IDs"
 msgstr "Komma separeret liste af IDer"
 
-#: admin/frontier-post-admin-advanced.php:139
+#: admin/frontier-post-admin-advanced.php:154
 msgid "Allow Custom Taxonomies"
 msgstr "Tillad brugerdefinerede Taxonomies"
 
-#: admin/frontier-post-admin-advanced.php:141
+#: admin/frontier-post-admin-advanced.php:156
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: admin/frontier-post-admin-advanced.php:145
+#: admin/frontier-post-admin-advanced.php:160
 msgid "Default Taxonomy layout"
 msgstr "Standard Taxonomy layout"
 
-#: admin/frontier-post-admin-advanced.php:152
+#: admin/frontier-post-admin-advanced.php:167
 msgid "Send email to Admins on post to approve"
 msgstr "Send email til Admins nå indlæg skal godkendes"
 
-#: admin/frontier-post-admin-advanced.php:156
+#: admin/frontier-post-admin-advanced.php:171
 msgid "Approver email (ex: name1@domain.xx, name2@domain.xx)"
 msgstr "Godkender email (ex: name1@domain.xx, name2@domain.xx)"
 
-#: admin/frontier-post-admin-advanced.php:160
+#: admin/frontier-post-admin-advanced.php:175
 msgid "Send email to author when post is approved"
 msgstr "Send email til forfatter når indlæg er godkendt"
 
-#: admin/frontier-post-admin-advanced.php:164
+#: admin/frontier-post-admin-advanced.php:179
 msgid "Disable control of Admin Bar"
 msgstr "Deaktiver kontrol over værktøjslinie"
 
-#: admin/frontier-post-admin-advanced.php:166
+#: admin/frontier-post-admin-advanced.php:181
 msgid ""
 "If this is checked, frontier post will not enable/disable the admin bar "
 "(Check this if another plugin is enabling/disabling the admin bar to avoid "
@@ -141,36 +159,36 @@ msgstr ""
 "værktøjslinien (Marker denne hvis et andet plugin aktiverer/deaktiverer "
 "værktøjslinien for at undgå konflikt)"
 
-#: admin/frontier-post-admin-advanced.php:169
+#: admin/frontier-post-admin-advanced.php:184
 msgid "Keep Frontier Post settings on uninstall"
 msgstr "Behold Frontier Post indstillinger ved afinstallering"
 
-#: admin/frontier-post-admin-advanced.php:171
+#: admin/frontier-post-admin-advanced.php:186
 msgid ""
 "If this is checked, the Frontier Settings will not be deleted on uninstall"
 msgstr ""
 "Hvis denne er markeret, slettes Frontier Post indstillinger ikke ved "
 "afinstallering"
 
-#: admin/frontier-post-admin-advanced.php:174
+#: admin/frontier-post-admin-advanced.php:189
 msgid "Template directory"
 msgstr "Template katalog"
 
-#: admin/frontier-post-admin-advanced.php:180
-#: admin/frontier-post-admin-advanced.php:183
-#: admin/frontier-post-admin-advanced.php:186
-#: admin/frontier-post-admin-advanced.php:189
-#: admin/frontier-post-admin-advanced.php:192
 #: admin/frontier-post-admin-advanced.php:195
 #: admin/frontier-post-admin-advanced.php:198
+#: admin/frontier-post-admin-advanced.php:201
+#: admin/frontier-post-admin-advanced.php:204
+#: admin/frontier-post-admin-advanced.php:207
+#: admin/frontier-post-admin-advanced.php:210
+#: admin/frontier-post-admin-advanced.php:213
 msgid "exists in the template directory"
 msgstr "eksisterer i template kataloget"
 
-#: admin/frontier-post-admin-advanced.php:202
+#: admin/frontier-post-admin-advanced.php:217
 msgid "Set Capabilities externally"
 msgstr "Sæt rettigheder eksternt "
 
-#: admin/frontier-post-admin-advanced.php:204
+#: admin/frontier-post-admin-advanced.php:219
 msgid ""
 "If checked capabilities will be managed from external plugin ex.: User Role "
 "Editor"
@@ -178,17 +196,27 @@ msgstr ""
 "Hvis afkrydset, bliver rettigheder (se herunder) administreret fra eksternt "
 "plugin ex.: User Role Editor "
 
-#: admin/frontier-post-admin-advanced.php:208
+#: admin/frontier-post-admin-advanced.php:223
 msgid "Default Editor"
 msgstr "Standard editor"
 
-#: admin/frontier-post-admin-advanced.php:211
+#: admin/frontier-post-admin-advanced.php:226
 msgid "Default category select"
 msgstr "Standard kategory valg"
 
-#: admin/frontier-post-admin-advanced.php:219
-#: admin/frontier-post-admin-capabilities.php:288
-#: admin/frontier-post-admin-general.php:176
+#: admin/frontier-post-admin-advanced.php:235
+msgid "Activate post moderation"
+msgstr "Aktiver indlægs revision"
+
+#: admin/frontier-post-admin-advanced.php:237
+msgid "If this is checked, moderation comments can be edited on the post form"
+msgstr ""
+"Hvis denne er markeret, slettes Frontier Post indstillinger ikke ved "
+"afinstallering"
+
+#: admin/frontier-post-admin-advanced.php:242
+#: admin/frontier-post-admin-capabilities.php:304
+#: admin/frontier-post-admin-general.php:187
 msgid "Save Changes"
 msgstr "Gem Ændringer"
 
@@ -200,20 +228,26 @@ msgstr "Rettigheder opdateret"
 msgid "Frontier Post - Capabilities & Role based settings"
 msgstr "Frontier Post - Rettigheder og rollebaserede indstillinger"
 
-#: admin/frontier-post-admin-capabilities.php:122
+#: admin/frontier-post-admin-capabilities.php:124
 msgid "Capabilities managed externally"
 msgstr "Sæt rettigheder eksternt"
 
-#: admin/frontier-post-admin-capabilities.php:128
+#: admin/frontier-post-admin-capabilities.php:130
 msgid "Capabilities by user role"
 msgstr "Rettigheder pr. rolle"
 
-#: admin/frontier-post-admin-capabilities.php:130
-#: admin/frontier-post-admin-capabilities.php:191
+#: admin/frontier-post-admin-capabilities.php:132
+#: admin/frontier-post-admin-capabilities.php:207
 msgid "Role"
 msgstr "Rolle"
 
-#: admin/frontier-post-admin-capabilities.php:189
+#: admin/frontier-post-admin-capabilities.php:196
+msgid ""
+"Wordpress standard does not allow Contributors  and Subscribers to upload "
+"media"
+msgstr ""
+
+#: admin/frontier-post-admin-capabilities.php:205
 msgid "Role based settings"
 msgstr "Rolle baseret opsætning"
 
@@ -221,183 +255,197 @@ msgstr "Rolle baseret opsætning"
 msgid "Frontier Post Settings"
 msgstr "Frontier Post indstillinger"
 
-#: admin/frontier-post-admin-general.php:74
+#: admin/frontier-post-admin-general.php:75
 msgid "Allow edit of posts with comments"
 msgstr "Tillad at redigere indlæg med kommentarer"
 
-#: admin/frontier-post-admin-general.php:76
+#: admin/frontier-post-admin-general.php:77
 msgid "Max age in days to allow edit of post"
 msgstr "Maks alder i dage for at tillade at rette indlæg"
 
-#: admin/frontier-post-admin-general.php:80
+#: admin/frontier-post-admin-general.php:81
 msgid "Allow deletion of posts with comments"
 msgstr "Tillad sletning indlæg med kommentarer"
 
-#: admin/frontier-post-admin-general.php:82
+#: admin/frontier-post-admin-general.php:83
 msgid "Max age in days to allow delete of post"
 msgstr "Maks alder i dage for at tillade sletning indlæg"
 
-#: admin/frontier-post-admin-general.php:86
+#: admin/frontier-post-admin-general.php:87
 msgid "Number of post per page"
 msgstr "Antal indlæg pr. side"
 
-#: admin/frontier-post-admin-general.php:88
+#: admin/frontier-post-admin-general.php:89
 msgid "Page containing [frontier-post] shortcode"
 msgstr "Side der indeholder [frontier-post] shortcode"
 
-#: admin/frontier-post-admin-general.php:90 include/frontier_post_util.php:183
+#: admin/frontier-post-admin-general.php:91
+#: admin/frontier-post-admin-general.php:100
+#: include/frontier_post_util.php:183
 msgid "None"
 msgstr "Ingen"
 
-#: admin/frontier-post-admin-general.php:95
+#: admin/frontier-post-admin-general.php:96
 msgid "Default status for new posts"
 msgstr "Standard status for nye indlæg"
 
-#: admin/frontier-post-admin-general.php:113
+#: admin/frontier-post-admin-general.php:98
+msgid "Page for pending posts "
+msgstr "Side med afventende indlæg"
+
+#: admin/frontier-post-admin-general.php:118
 msgid "Additional options"
 msgstr "Yderlige valg"
 
-#: admin/frontier-post-admin-general.php:116
+#: admin/frontier-post-admin-general.php:121
 msgid "Allow users to change status from Published"
 msgstr "Tillad brugere at ændre status fra Udgivet"
 
-#: admin/frontier-post-admin-general.php:118
+#: admin/frontier-post-admin-general.php:123
 msgid "Once published users can change status back to draft/pending"
 msgstr "Når indlæg er udgivet kan brugeren ændre status til kladde/afventer"
 
-#: admin/frontier-post-admin-general.php:121
+#: admin/frontier-post-admin-general.php:126
 msgid "Use featured image"
 msgstr "Anvend fremhævet billede"
 
-#: admin/frontier-post-admin-general.php:123
+#: admin/frontier-post-admin-general.php:128
 msgid "Enables selection of featured image from frontend form "
 msgstr ""
 "Muliggør at brugeren kan vælge fremhævet billede fra front end (virker ikke "
 "perfekt)"
 
-#: admin/frontier-post-admin-general.php:126
+#: admin/frontier-post-admin-general.php:131
 msgid "Show link to login page"
 msgstr "Vis link til login side"
 
-#: admin/frontier-post-admin-general.php:128
+#: admin/frontier-post-admin-general.php:133
 msgid "Shows link to wp-login.php after text: Please login"
 msgstr "Vis link til wp-login.php efter tekst: Log venligst ind"
 
-#: admin/frontier-post-admin-general.php:131
+#: admin/frontier-post-admin-general.php:136
 msgid "Show add/update/delete messages"
 msgstr "Vis opret/opdater/slet beskeder:"
 
-#: admin/frontier-post-admin-general.php:133
+#: admin/frontier-post-admin-general.php:138
 msgid ""
 "Show message on the form confirming a post has been added/updated/deleted"
 msgstr "Vis meddelelser på formen når et indlæg oprettes/opdateres/slettes."
 
-#: admin/frontier-post-admin-general.php:136
+#: admin/frontier-post-admin-general.php:141
 msgid "Show edit/delete/view icons in list"
 msgstr "Vi rediger/slet/vis ikoner i listen"
 
-#: admin/frontier-post-admin-general.php:138
+#: admin/frontier-post-admin-general.php:143
 msgid "Show icons instead of text for edit/delete/view in list"
 msgstr "Vi ikoner i stedet for text for rediger/slet/vis i listen"
 
-#: admin/frontier-post-admin-general.php:146
+#: admin/frontier-post-admin-general.php:151
+msgid "Hide Add New Post link on list"
+msgstr "Skjul Opret Nyt Indlæg på listen"
+
+#: admin/frontier-post-admin-general.php:153
+msgid "Hide add new post on list form"
+msgstr "Skjul Opret Nyt Indlæg på list formen"
+
+#: admin/frontier-post-admin-general.php:156
 msgid "Show submit buttons on post edit form"
 msgstr "Vi submit knapper på indlægs form"
 
-#: admin/frontier-post-admin-general.php:149
+#: admin/frontier-post-admin-general.php:159
 #: forms/frontier_post_form_old.php:199 forms/frontier_post_form_page.php:118
-#: forms/frontier_post_form_standard.php:170
+#: forms/frontier_post_form_standard.php:207
 msgid "Save"
 msgstr "Gem"
 
-#: admin/frontier-post-admin-general.php:150 frontier-post.php:123
+#: admin/frontier-post-admin-general.php:160 frontier-post.php:135
 msgid "Save & Return"
 msgstr "Gem & Retur"
 
-#: admin/frontier-post-admin-general.php:151
+#: admin/frontier-post-admin-general.php:161
 #: forms/frontier_post_form_old.php:207 forms/frontier_post_form_page.php:126
-#: forms/frontier_post_form_standard.php:178
+#: forms/frontier_post_form_standard.php:215
 msgid "Save & Preview"
 msgstr "Gem & Vis"
 
-#: admin/frontier-post-admin-general.php:152
+#: admin/frontier-post-admin-general.php:162
 #: forms/frontier_post_form_old.php:211 forms/frontier_post_form_page.php:130
-#: forms/frontier_post_form_standard.php:182 frontier-delete-post.php:35
+#: forms/frontier_post_form_standard.php:219 frontier-delete-post.php:35
 msgid "Cancel"
 msgstr "Annuller"
 
-#: admin/frontier-post-admin-general.php:156
+#: admin/frontier-post-admin-general.php:167
 msgid "Allowed Post Types"
 msgstr "Tilladte indlægs typer"
 
-#: admin/frontier-post-admin-general.php:158
+#: admin/frontier-post-admin-general.php:169
 msgid "Post Types"
 msgstr "Indlægs typer"
 
-#: admin/frontier-post-admin-general.php:163
+#: admin/frontier-post-admin-general.php:174
 msgid "Exclude categories"
 msgstr "Ekskluder kategrier"
 
-#: forms/frontier_post_form_list.php:40
+#: forms/frontier_post_form_list.php:39
 msgid "Create New"
 msgstr "Opret Ny"
 
-#: forms/frontier_post_form_list.php:56
+#: forms/frontier_post_form_list.php:61
 msgid "Author"
 msgstr "Forfatter"
 
-#: forms/frontier_post_form_list.php:58 forms/frontier_post_form_old.php:80
+#: forms/frontier_post_form_list.php:63 forms/frontier_post_form_old.php:80
 msgid "Category"
 msgstr "Kategori"
 
-#: forms/frontier_post_form_list.php:65
+#: forms/frontier_post_form_list.php:70
 msgid "Date"
 msgstr "Dato"
 
-#: forms/frontier_post_form_list.php:66 forms/frontier_post_form_old.php:30
+#: forms/frontier_post_form_list.php:71 forms/frontier_post_form_old.php:30
 #: forms/frontier_post_form_page.php:29 forms/frontier_post_form_simple.php:29
 #: forms/frontier_post_form_standard.php:31
-#: include/frontier_approvals_widget.php:163
-#: include/frontier_my_posts_widget.php:278
+#: include/frontier_approvals_widget.php:195
+#: include/frontier_my_posts_widget.php:287
 #: include/frontier_new_category_post_widget.php:112
 msgid "Title"
 msgstr "Titel"
 
-#: forms/frontier_post_form_list.php:70 forms/frontier_post_form_old.php:41
+#: forms/frontier_post_form_list.php:75 forms/frontier_post_form_old.php:41
 #: forms/frontier_post_form_page.php:33 forms/frontier_post_form_simple.php:33
 #: forms/frontier_post_form_standard.php:35
 msgid "Status"
 msgstr "Status"
 
-#: forms/frontier_post_form_list.php:74
+#: forms/frontier_post_form_list.php:79
 msgid "Action"
 msgstr "Aktion"
 
-#: forms/frontier_post_form_list.php:137
+#: forms/frontier_post_form_list.php:150
 msgid "Edit"
 msgstr "Ret"
 
-#: forms/frontier_post_form_list.php:153 frontier-delete-post.php:34
+#: forms/frontier_post_form_list.php:166 frontier-delete-post.php:34
 msgid "Delete"
 msgstr "Slet"
 
-#: forms/frontier_post_form_list.php:171
+#: forms/frontier_post_form_list.php:184
 msgid "Preview"
 msgstr "Vis"
 
-#: forms/frontier_post_form_list.php:191
+#: forms/frontier_post_form_list.php:204
 msgid "&laquo;"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:192
+#: forms/frontier_post_form_list.php:205
 msgid "&raquo;"
 msgstr ""
 
-#: forms/frontier_post_form_list.php:204
+#: forms/frontier_post_form_list.php:217
 msgid "Number of posts already created by you: "
 msgstr "Antal indlæg du har oprettet: "
 
-#: forms/frontier_post_form_list.php:210
+#: forms/frontier_post_form_list.php:223
 msgid "Sorry, you do not have any posts (yet)"
 msgstr "Desværre, du har ingen indlæg (endnu)"
 
@@ -413,18 +461,16 @@ msgid "Word count: %s"
 msgstr "Antal ord: %s"
 
 #: forms/frontier_post_form_old.php:85
-#: forms/frontier_post_form_standard.php:119
+#: forms/frontier_post_form_standard.php:117
 msgid "Tags"
 msgstr "Tags"
 
 #: forms/frontier_post_form_old.php:100
-msgid "Select category, multible can be selected using ctrl key"
-msgstr "Vælg kategori, flere can vælges med ctrl"
+msgid "Select category, multiple can be selected using ctrl key"
+msgstr "Vælg kategori, flere can vælges med ctrl "
 
 #: forms/frontier_post_form_old.php:147 forms/frontier_post_form_old.php:148
 #: forms/frontier_post_form_old.php:149
-#: forms/frontier_post_form_standard.php:120
-#: forms/frontier_post_form_standard.php:121
 #: forms/frontier_post_form_standard.php:122
 msgid "Enter tag here"
 msgstr "Indsæt tag her"
@@ -462,7 +508,7 @@ msgstr "Opdateres ikke før indlægget gemmes"
 
 #: forms/frontier_post_form_page.php:113
 #: forms/frontier_post_form_simple.php:53
-#: forms/frontier_post_form_standard.php:165
+#: forms/frontier_post_form_standard.php:202
 msgid "Actions"
 msgstr "Actions"
 
@@ -478,7 +524,19 @@ msgstr "Retur"
 msgid "status"
 msgstr "Status"
 
-#: frontier-add-edit.php:270
+#: forms/frontier_post_form_standard.php:168
+msgid "Post Moderation"
+msgstr "Indlægs revision"
+
+#: forms/frontier_post_form_standard.php:171
+msgid "Email author with moderation comments ?"
+msgstr "Email forfatter med revisions kommentarer ?"
+
+#: forms/frontier_post_form_standard.php:175
+msgid "Previous comments"
+msgstr "Tidligere kommentarer"
+
+#: frontier-add-edit.php:281
 msgid "You are not allowed to edit this post, sorry "
 msgstr "Du har ikke rettigheder til at rette dette indlæg, desværre"
 
@@ -486,24 +544,27 @@ msgstr "Du har ikke rettigheder til at rette dette indlæg, desværre"
 msgid "Post deleted"
 msgstr "Indlæg slettet"
 
-#: frontier-post-admin.php:148
+#: frontier-list-posts.php:51
+msgid "You do not have access to other users pending posts"
+msgstr "Du har ikke adgang til andre brugerers afventende indlæg "
+
+#: frontier-post-admin.php:171
 msgid "Convert options from previous format"
 msgstr "Konverter indstillinger fra tidligere format"
 
-#: frontier-post-admin.php:153
+#: frontier-post-admin.php:176
 msgid "Convert options"
 msgstr "Konverterings muligheder"
 
-#: frontier-post.php:104
+#: frontier-post.php:115
 msgid "frontier-post Shortcode only allowed in pages"
 msgstr "frontier-post shortcode er kun tillad i sider"
 
-#: frontier-post.php:200
+#: frontier-post.php:215
 msgid "not allowed in posts, only pages !"
 msgstr "Ikke tilladt i indlæg, kun i sider!"
 
 #: frontier-set-defaults.php:170
-#, fuzzy
 msgid "My Posts"
 msgstr "Mine Indlæg"
 
@@ -520,9 +581,8 @@ msgid "Title was empty"
 msgstr "Titel var tom"
 
 #: frontier-submit-form.php:40 frontier-submit-form.php:49
-#, fuzzy
 msgid "Post status set to draft"
-msgstr "Datoformat for indlæg"
+msgstr "Indlægs status sat til kladde"
 
 #: frontier-submit-form.php:47
 msgid "No content"
@@ -532,15 +592,24 @@ msgstr "Intet Indhold"
 msgid "Content was empty"
 msgstr "Indhold var tomt"
 
-#: frontier-submit-form.php:147
+#: frontier-submit-form.php:163
 msgid "Post added"
 msgstr "Indlæg oprettet"
 
-#: frontier-submit-form.php:149
+#: frontier-submit-form.php:165
 msgid "Post updated"
 msgstr "Indlæg opdateret"
 
-#: frontier-submit-form.php:237
+#: frontier-submit-form.php:234 frontier-submit-form.php:235
+msgid "Moderator has commented your pending post"
+msgstr "Moderator har kommenteret dit indlæg"
+
+#: frontier-submit-form.php:240 include/frontier_email_notify.php:24
+#: include/frontier_email_notify.php:41
+msgid "Message delivery failed - Recipient: ("
+msgstr "Kunne ikke levere meddelelse - Modtager: ("
+
+#: frontier-submit-form.php:302
 msgid "Error - Unable to save post"
 msgstr "Fejl - Kan ikke gemme indlæg"
 
@@ -548,53 +617,54 @@ msgstr "Fejl - Kan ikke gemme indlæg"
 msgid "My approvals"
 msgstr "Mine godkendelser"
 
-#: include/frontier_approvals_widget.php:22
+#: include/frontier_approvals_widget.php:23
 msgid "You have no approvals pending"
 msgstr "Du har ingen godkendelser"
 
-#: include/frontier_approvals_widget.php:27
+#: include/frontier_approvals_widget.php:28
 msgid "List number of posts and comments for approval"
 msgstr "Vis antal indlæg og kommentarer til godkendelse"
 
-#: include/frontier_approvals_widget.php:48
+#: include/frontier_approvals_widget.php:56
 msgid "draft posts"
 msgstr "kladder"
 
-#: include/frontier_approvals_widget.php:59
+#: include/frontier_approvals_widget.php:67
 msgid "posts to be approved"
 msgstr "indlæg til godkendelse"
 
-#: include/frontier_approvals_widget.php:70
+#: include/frontier_approvals_widget.php:78
 msgid "comments to be approved"
 msgstr "kommentarer til godkendelse"
 
-#: include/frontier_approvals_widget.php:81
+#: include/frontier_approvals_widget.php:89
 msgid "spam comments"
 msgstr "spam kommentarer"
 
-#: include/frontier_approvals_widget.php:167
+#: include/frontier_approvals_widget.php:199
 msgid "Show posts pending approval ?"
 msgstr "Vis indlæg til godkendelse ?"
 
-#: include/frontier_approvals_widget.php:172
+#: include/frontier_approvals_widget.php:204
 msgid "Show number of draft posts ?"
 msgstr "Vis antal indlægs kladder ?"
 
-#: include/frontier_approvals_widget.php:177
+#: include/frontier_approvals_widget.php:209
 msgid "Show comments pending approval ?"
 msgstr "Vis kommentarer til godkendelse ?"
 
-#: include/frontier_approvals_widget.php:182
+#: include/frontier_approvals_widget.php:214
 msgid "Show comments marked as spam ?"
 msgstr "Vis kommentarer markeret som spam ?"
+
+#: include/frontier_approvals_widget.php:217
+#: include/frontier_my_posts_widget.php:345
+msgid "Cache time ?"
+msgstr "Cache tid ?"
 
 #: include/frontier_email_notify.php:16 include/frontier_email_notify.php:17
 msgid "Post for approval from"
 msgstr "Indlæg til godkendelse fra"
-
-#: include/frontier_email_notify.php:24 include/frontier_email_notify.php:41
-msgid "Message delivery failed - Recipient: ("
-msgstr "Kunne ikke levere meddelelse - Modtager: ("
 
 #: include/frontier_email_notify.php:34 include/frontier_email_notify.php:35
 msgid "Your post has been approved"
@@ -605,71 +675,71 @@ msgid "My posts"
 msgstr "Mine Indlæg"
 
 #: include/frontier_my_posts_widget.php:27
-#: include/frontier_my_posts_widget.php:332
+#: include/frontier_my_posts_widget.php:341
 msgid "You have no posts"
 msgstr "Du har ingen indlæg"
 
-#: include/frontier_my_posts_widget.php:40
+#: include/frontier_my_posts_widget.php:42
 msgid "Dont show date"
 msgstr "Vis ikke dato"
 
-#: include/frontier_my_posts_widget.php:44
+#: include/frontier_my_posts_widget.php:46
 msgid "Only posts"
 msgstr "Kun indlæg"
 
-#: include/frontier_my_posts_widget.php:45
+#: include/frontier_my_posts_widget.php:47
 msgid "Posts & comments "
 msgstr "Indlæg & kommentarer"
 
-#: include/frontier_my_posts_widget.php:46
+#: include/frontier_my_posts_widget.php:48
 msgid "Posts and comments excerpt"
 msgstr "Indlæg og kommentar uddrag"
 
-#: include/frontier_my_posts_widget.php:50
+#: include/frontier_my_posts_widget.php:52
 msgid "List posts of current user (author)"
 msgstr "Vis indlæg for nuværende bruger (forfatter)"
 
-#: include/frontier_my_posts_widget.php:227
+#: include/frontier_my_posts_widget.php:234
 msgid "Create New Post"
 msgstr "Opret Nyt Indlæg"
 
-#: include/frontier_my_posts_widget.php:234
+#: include/frontier_my_posts_widget.php:242
 msgid "Your have published: "
 msgstr "Du har udgivet:"
 
-#: include/frontier_my_posts_widget.php:234
+#: include/frontier_my_posts_widget.php:242
 msgid "posts"
 msgstr "indlæg"
 
-#: include/frontier_my_posts_widget.php:282
+#: include/frontier_my_posts_widget.php:291
 msgid "Post date format"
 msgstr "Datoformat for indlæg"
 
-#: include/frontier_my_posts_widget.php:292
+#: include/frontier_my_posts_widget.php:301
 msgid "Show comments"
 msgstr "Vis kommentarer"
 
-#: include/frontier_my_posts_widget.php:303
+#: include/frontier_my_posts_widget.php:312
 msgid "Comment date format"
 msgstr "Datoformat for kommentarer"
 
-#: include/frontier_my_posts_widget.php:313
+#: include/frontier_my_posts_widget.php:322
 msgid "Number of posts & comments"
 msgstr "Antal indlæg og kommentarer"
 
-#: include/frontier_my_posts_widget.php:317
+#: include/frontier_my_posts_widget.php:326
 msgid "Length of comment excerpt"
 msgstr "Længde af kommentar uddrag"
 
-#: include/frontier_my_posts_widget.php:321
+#: include/frontier_my_posts_widget.php:330
 msgid "Show Add Post link ?"
 msgstr "Vis Opret Indlæg link ?"
 
-#: include/frontier_my_posts_widget.php:326
+#: include/frontier_my_posts_widget.php:335
 msgid "Show Post Count ?"
 msgstr "Vis antal indlæg ?"
 
-#: include/frontier_my_posts_widget.php:331
+#: include/frontier_my_posts_widget.php:340
 msgid "No post text"
 msgstr "Ingen indlægs tekst"
 
@@ -693,123 +763,162 @@ msgstr "Opret nyt indlæg fra kategori"
 msgid "Link text"
 msgstr "Link tekst"
 
-#: include/frontier_post_defaults.php:16
+#: include/frontier_post_defaults.php:18
 msgid "Full Editor"
 msgstr "Fuld Editor"
 
-#: include/frontier_post_defaults.php:16
+#: include/frontier_post_defaults.php:18
 msgid "Minimal Visual"
 msgstr "Simpel Visuel"
 
-#: include/frontier_post_defaults.php:16
+#: include/frontier_post_defaults.php:18
 msgid "Minimal-Html"
 msgstr "Simpel-Html"
 
-#: include/frontier_post_defaults.php:16
+#: include/frontier_post_defaults.php:18
 msgid "Text Only"
 msgstr "Kun Tekst"
 
-#: include/frontier_post_defaults.php:17
+#: include/frontier_post_defaults.php:19
 msgid "Multi select"
 msgstr "Multi select"
 
-#: include/frontier_post_defaults.php:17
+#: include/frontier_post_defaults.php:19
 msgid "Radio Button"
 msgstr "Radio Button"
 
-#: include/frontier_post_defaults.php:17
+#: include/frontier_post_defaults.php:19
 msgid "Checkbox"
 msgstr "Checkboks"
 
-#: include/frontier_post_defaults.php:17
+#: include/frontier_post_defaults.php:19
 msgid "Single select"
 msgstr "Single select"
 
-#: include/frontier_post_defaults.php:17
+#: include/frontier_post_defaults.php:19
 msgid "Hide"
 msgstr "Skjul"
 
-#: include/frontier_post_defaults.php:17
+#: include/frontier_post_defaults.php:19
 msgid "Read only"
 msgstr "Read Only"
 
-#: include/frontier_post_defaults.php:41
-msgid "Standard Form (with Taxonomies)"
-msgstr "Standard Form (md Taxonomies)"
+#: include/frontier_post_defaults.php:44
+msgid "Caching Disabled"
+msgstr "Cashing slået fra"
 
-#: include/frontier_post_defaults.php:42
+#: include/frontier_post_defaults.php:45
+msgid "minute"
+msgstr "minut"
+
+#: include/frontier_post_defaults.php:46 include/frontier_post_defaults.php:47
+#: include/frontier_post_defaults.php:48 include/frontier_post_defaults.php:49
+#: include/frontier_post_defaults.php:50
+msgid "minutes"
+msgstr "minutter"
+
+#: include/frontier_post_defaults.php:51
+msgid "hour"
+msgstr "time"
+
+#: include/frontier_post_defaults.php:52 include/frontier_post_defaults.php:53
+#: include/frontier_post_defaults.php:54 include/frontier_post_defaults.php:55
+msgid "hours"
+msgstr "timer"
+
+#: include/frontier_post_defaults.php:62
+msgid "No transformation"
+msgstr "Ingen ændring"
+
+#: include/frontier_post_defaults.php:63
+msgid "lower case"
+msgstr "små bogstaver"
+
+#: include/frontier_post_defaults.php:64
+msgid "UPPER CASE"
+msgstr "STORE BOGSTAVER"
+
+#: include/frontier_post_defaults.php:65
+msgid "First Letter Capitalized"
+msgstr "Første bogstav stort"
+
+#: include/frontier_post_defaults.php:70
+msgid "Standard Form (with Taxonomies)"
+msgstr "Standard Form (med Taxonomies)"
+
+#: include/frontier_post_defaults.php:71
 msgid "Simpel Form (only title, status, content & submit)"
 msgstr "Simpel Form (kun titel, status, indhold & submit)"
 
-#: include/frontier_post_defaults.php:43
-msgid "Old Form (for backwards compatibility"
+#: include/frontier_post_defaults.php:72
+msgid "Old Form (for backwards compatibility)"
 msgstr "Gammel form (for kompatibilitet)"
 
-#: include/frontier_post_defaults.php:48
+#: include/frontier_post_defaults.php:77
 msgid "Can Add"
 msgstr "Kan oprette"
 
-#: include/frontier_post_defaults.php:49
+#: include/frontier_post_defaults.php:78
 msgid "Can Edit"
 msgstr "Kan Rette"
 
-#: include/frontier_post_defaults.php:50
+#: include/frontier_post_defaults.php:79
 msgid "Can Delete"
 msgstr "Kan Slette"
 
-#: include/frontier_post_defaults.php:51
+#: include/frontier_post_defaults.php:80
 msgid "Can Publish"
 msgstr "Kan Udgive"
 
-#: include/frontier_post_defaults.php:52
+#: include/frontier_post_defaults.php:81
 msgid "Can Drafts"
 msgstr "Tillad Kladde"
 
-#: include/frontier_post_defaults.php:53
+#: include/frontier_post_defaults.php:82
 msgid "Can Pending"
 msgstr "Kan Afventer"
 
-#: include/frontier_post_defaults.php:54
+#: include/frontier_post_defaults.php:83
 msgid "Private Posts"
 msgstr "Private Indlæg"
 
-#: include/frontier_post_defaults.php:55
+#: include/frontier_post_defaults.php:84
 msgid "Frontier Edit"
 msgstr "Ret med Frontier"
 
-#: include/frontier_post_defaults.php:56
+#: include/frontier_post_defaults.php:85
 msgid "Show admin bar"
 msgstr "Vis admin bar"
 
-#: include/frontier_post_defaults.php:57
+#: include/frontier_post_defaults.php:86
 msgid "Edit Excerpt"
 msgstr "Ret Uddrag"
 
-#: include/frontier_post_defaults.php:58
+#: include/frontier_post_defaults.php:87
 msgid "Edit Tags"
 msgstr "Ret Tags"
 
-#: include/frontier_post_defaults.php:59
+#: include/frontier_post_defaults.php:88
 msgid "Media Upload"
 msgstr "Media Upload"
 
-#: include/frontier_post_defaults.php:60
+#: include/frontier_post_defaults.php:89
 msgid "Can Pages"
 msgstr "Kan Sider"
 
-#: include/frontier_post_defaults.php:64
+#: include/frontier_post_defaults.php:93
 msgid "Editor Type"
 msgstr "Editor Type"
 
-#: include/frontier_post_defaults.php:65
+#: include/frontier_post_defaults.php:94
 msgid "Category Layout"
 msgstr "Kategori layout"
 
-#: include/frontier_post_defaults.php:66
+#: include/frontier_post_defaults.php:95
 msgid "Default Category"
 msgstr "Standard Kategori"
 
-#: include/frontier_post_defaults.php:67
+#: include/frontier_post_defaults.php:96
 msgid "Allowed Categories"
 msgstr "Tilladte kategorier"
 

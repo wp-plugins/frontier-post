@@ -56,7 +56,7 @@ if ( strlen($frontier_edit_text_before) > 1 )
 		<legend><?php _e("Content", "frontier-post"); ?></legend>	
 		<div id="frontier_editor_field"> 
 		<?php
-		wp_editor($thispost->post_content, 'user_post_desc', frontier_post_wp_editor_args($editor_type, $frontier_media_button, $frontier_editor_lines, false));
+		wp_editor($thispost->post_content, 'user_post_desc', frontier_post_wp_editor_args($editor_type, $frontier_media_button, $frontier_editor_height, false));
 		printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
 		?>
 		</div>
@@ -112,17 +112,17 @@ if ( strlen($frontier_edit_text_before) > 1 )
 		
 	
 		if ( current_user_can( 'frontier_post_tags_edit' ) )
-			{ ?>
-			<!--<td class="frontier-post-tags">-->
-			
-			<fieldset class="frontier_post_fieldset_tax">
-				<legend><?php _e("Tags", "frontier-post"); ?></legend>
-				<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[0]))echo $taglist[0];?>" name="user_post_tag1" id="user_post_tag" ><br>	
-				<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[1]))echo $taglist[1];?>" name="user_post_tag2" id="user_post_tag" ><br>	
-				<input placeholder="<?php _e("Enter tag here", "frontier-post"); ?>" type="text" value="<?php if(isset($taglist[2]))echo $taglist[2];?>" name="user_post_tag3" id="user_post_tag" >
-			</fieldset>
-			<!--</td>-->
-		<?php } 
+			{ 
+			echo '<fieldset class="frontier_post_fieldset_tax">';
+			echo '<legend>'.__("Tags", "frontier-post").'</legend>';
+			for ($i=0; $i<$fp_tag_count; $i++)
+				{
+				$tmp_tag = isset($taglist[$i]) ? fp_tag_transform($taglist[$i]) : "";
+				//$tmp_tag = array_key_exists($i, $taglist) ? fp_tag_transform($taglist[$i]) : "";
+				echo '<input placeholder="'.__("Enter tag here", "frontier-post").'" type="text" value="'.$tmp_tag.'" name="user_post_tag'.$i.'" id="user_post_tag"><br>';	
+				}
+			echo '</fieldset>';
+			} 
 	
 		if ( fp_get_option_bool("fps_show_feat_img") )
 			{
@@ -155,7 +155,44 @@ if ( strlen($frontier_edit_text_before) > 1 )
 			
 	<?php 	} 
 	
-		echo '</td></tr><tr><td class="frontier_no_border">';
+		echo '</td></tr>';
+		
+		//****************************************************************************************************
+		// post moderation
+		//****************************************************************************************************
+		
+		if ( fp_get_option_bool("fps_use_moderation") && (current_user_can("edit_others_posts") || $current_user->ID == $thispost->post_author))
+			{
+			echo '<tr><td class="frontier_no_border">';
+			echo '<fieldset class="frontier_post_fieldset_moderation">';
+			echo '<legend>'.__("Post Moderation", "frontier-post").'</legend>';
+			//Allow email to be send to author on comment update
+			if (current_user_can("edit_others_posts"))
+				echo __("Email author with moderation comments ?", "frontier-post").' '.'<input name="frontier_post_moderation_send_email" id="frontier_post_moderation_send_email" value="true"  type="checkbox"><br>';
+			
+			echo '<textarea name="frontier_post_moderation_new_text" id="frontier_post_moderation_new_text" >';
+			echo '</textarea>';
+			echo __("Previous comments", "frontier-post").':<br>';
+			echo '<hr>';
+			echo $fp_moderation_comments;
+			
+			echo '</fieldset>';
+	
+	
+			echo '</td></tr>';
+		
+			}	
+		//****************************************************************************************************
+		// Action fires just before the submit buttons
+		// Do action 		frontier_post_form_standard
+		// $thispost 		Post object for the post  
+		// $tmp_task_new  	Equals true if the user is adding a post
+		//****************************************************************************************************
+		
+		do_action('frontier_post_form_standard', $thispost, $tmp_task_new);
+		
+		
+		echo '<tr><td class="frontier_no_border">';
 	
 	?>
 	
@@ -179,7 +216,7 @@ if ( strlen($frontier_edit_text_before) > 1 )
 		<?php } 
 		if ( fp_get_option_bool("fps_submit_cancel") )
 		{ ?>
-		<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
+		<input type="reset" value="<?php _e("Cancel", "frontier-post"); ?>"  name="cancel" id="frontier-post-cancel" onclick="location.href='<?php the_permalink();?>'">
 		<?php } ?>
 	</fieldset>
 	

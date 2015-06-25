@@ -88,12 +88,12 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 			{
 			
 			case "single":
-				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected, 'hierarchical' => true, 'show_count' => true, 'class' => 'frontier_post_dropdown')); 
+				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected[0], 'hierarchical' => true, 'show_count' => true, 'class' => 'frontier_post_dropdown')); 
 				break;
 		
 			case "multi":
 				echo frontier_post_tax_multi($tmp_tax_list , $tmp_selected, $tmp_input_field_name, $tmp_field_name, 10);
-				//echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+				//echo '</br><div class="frontier_helptext">'.__("Select category, multiple can be selected using ctrl key", "frontier-post").'</div>';
 				break;
 
 			case "checkbox":
@@ -273,7 +273,11 @@ function fp_get_posttype_label($tmp_pt_name)
 // Get singular name (label) of post type
 function fp_get_posttype_label_singular($tmp_pt_name)
 	{
+	$tmp_pt_name = trim($tmp_pt_name, '"');
+	$tmp_pt_name = trim($tmp_pt_name, "'");
 	$tmp_pt = get_post_type_object($tmp_pt_name);
+	//error_log("Post type label: ".$tmp_pt_name." -->");
+	//error_log(print_r($tmp_pt, true));
 	return $tmp_pt->labels->singular_name;
 	}
 
@@ -586,5 +590,60 @@ function fp_list2array($tmp_list)
 	}
 
 
+//********************************************************************************
+// Transform tags lower/upper case, First letter, None
+//********************************************************************************
+
+function fp_tag_transform($tmp_tag)
+	{
+	$tmp_transform = fp_get_option('fps_tags_transform', 'none');
+	
+	switch ($tmp_transform)
+		{
+		case 'lower':
+			return strtolower(sanitize_text_field($tmp_tag));
+	
+		case 'upper':
+			return strtoupper(sanitize_text_field($tmp_tag));
+	
+		case 'ucwords':
+			return ucwords(sanitize_text_field($tmp_tag));
+	
+		default:
+			return sanitize_text_field($tmp_tag);
+		}
+	}
+
+//********************************************************************************
+// Delete users cache for my posts
+//********************************************************************************
+
+function fp_delete_my_posts_cache($tmp_user_id)
+	{
+	global $wpdb;
+	$tmp_user_id = intval($tmp_user_id);
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '%_fpuser_".$tmp_user_id."'");
+	//$tmp_transient_name = 'my_posts_widget-'.$tmp_user_id;
+	//error_log("Delete Transient: ".$tmp_transient_name);
+	//delete_transient($tmp_transient_name);
+	
+	//if ($tmp_user_id != 0)
+	//	$wpdb->query("DELETE * FROM $wpdb->options WHERE option_name = '_transient_frontier_my_posts_widget-".$tmp_user_id."'");
+	}
+
+//********************************************************************************
+// Delete users cache for my posts
+//********************************************************************************
+
+function fp_delete_widget_cache()
+	{
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_frontier_my_posts_widget%'");
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_frontier_my_posts_widget%'");
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_frontier_approvals_widget%'");
+	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_frontier_approvals_widget%'");
+	}
+
+//_transient_frontier_approvals_widget-3
+//_transient_frontier_my_posts_widget-22
 
 ?>

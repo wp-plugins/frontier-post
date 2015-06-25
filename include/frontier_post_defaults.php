@@ -11,6 +11,8 @@ Default values for Frontier Post plugin
 $default_post_edit_max_age		= 7;
 $default_post_delete_max_age	= 3;
 
+
+
 $frontier_option_list 	= array('can_add', 'can_edit', 'can_publish', 'can_private', 'can_draft', 'can_delete',  'redir_edit', 'show_admin_bar', 'exerpt_edit', 'tags_edit',  'can_media', 'can_page', 'editor', 'category', 'default_category');
 $frontier_cap_list 		= array('frontier_post_can_add', 'frontier_post_can_edit', 'frontier_post_can_publish', 'frontier_post_can_private', 'frontier_post_can_draft', 'frontier_post_can_delete', 'frontier_post_redir_edit', 'frontier_post_show_admin_bar', 'frontier_post_exerpt_edit', 'frontier_post_tags_edit', 'frontier_post_can_media', 'frontier_post_can_page');
 $editor_types 			= array(__('Full Editor', 'frontier-post') => 'full', __('Minimal Visual', 'frontier-post') => 'minimal-visual', __('Minimal-Html', 'frontier-post') => 'minimal-html', __('Text Only', 'frontier-post') => 'text');
@@ -34,13 +36,40 @@ $frontier_default_submit = array('save' => 'true', 'savereturn' => 'true', 'prev
 
 //$frontier_default_login_txt = __("Please log in !", "frontier-post").'&nbsp;<a href="'.wp_login_url().'">'.__("Login Page", "frontier-post").'</a>';
 $frontier_default_login_txt = '<a href="'.wp_login_url().'">'.__("Please log in !", "frontier-post").'</a>';
+
+// Cache time selection
+
 	
+$fp_cache_time_list = array(
+	-1			=> __('Caching Disabled', 'frontier-post'),
+	60			=> '01 '.__('minute', 'frontier-post'),
+	3*60		=> '03 '.__('minutes', 'frontier-post'),
+	5*60		=> '05 '.__('minutes', 'frontier-post'),
+	10*60		=> '10 '.__('minutes', 'frontier-post'),
+	15*60		=> '15 '.__('minutes', 'frontier-post'),
+	30*60		=> '30 '.__('minutes', 'frontier-post'),
+	1*60*60		=> '01 '.__('hour', 'frontier-post'),
+	2*60*60		=> '02 '.__('hours', 'frontier-post'),
+	6*60*60		=> '06 '.__('hours', 'frontier-post'),
+	12*60*60	=> '12 '.__('hours', 'frontier-post'),
+	24*60*60	=> '24 '.__('hours', 'frontier-post'),
 	
+);
+
+
+	
+$fp_tag_transform_list = array(
+	'none'					=> __('No transformation', 'frontier-post'),
+	'lower'					=> __('lower case', 'frontier-post'),
+	'upper'					=> __('UPPER CASE', 'frontier-post'),
+	'ucwords'				=> __('First Letter Capitalized', 'frontier-post'),
+
+);
 
 $frontier_post_forms = array(
 	'standard'	=> __("Standard Form (with Taxonomies)", "frontier-post"),
 	'simple'	=> __("Simpel Form (only title, status, content & submit)", "frontier-post"),
-	'old'		=> __("Old Form (for backwards compatibility", "frontier-post")
+	'old'		=> __("Old Form (for backwards compatibility)", "frontier-post")
 	);
 
 
@@ -80,6 +109,7 @@ $fp_role_option_list 	= array(
 		'fps_delete_max_age', 
 		'fps_ppp', 
 		'fps_page_id', 
+		'fps_pending_page_id', 
 		'fps_del_w_comments', 
 		'fps_edit_w_comments', 
 		'fps_excl_cats', 
@@ -94,6 +124,7 @@ $fp_role_option_list 	= array(
 		'fps_change_status',
 		'fps_custom_post_type_list',
 		'fps_use_icons',
+		'fps_hide_add_on_list'
 		
 		);
 		
@@ -121,6 +152,10 @@ $fp_role_option_list 	= array(
 		'fps_use_custom_login_txt', 
 		'fps_custom_login_txt',
 		'fps_disable_abar_ctrl',
+		'fps_tag_count',
+		'fps_tags_transform',
+		'fps_use_moderation',
+		'fps_mod_default_email',
 		);
 		
 	
@@ -130,6 +165,7 @@ $fp_role_option_list 	= array(
 		'fps_delete_max_age' 			=> 3,
 		'fps_ppp'						=> 25, 
 		'fps_page_id'					=> 0,
+		'fps_pending_page_id'			=> 0,
 		'fps_del_w_comments'			=> "false", 
 		'fps_edit_w_comments'			=> "false", 
 		'fps_author_role'				=> "false", 
@@ -165,6 +201,11 @@ $fp_role_option_list 	= array(
 		'fps_use_custom_login_txt' 		=> "false",
 		'fps_disable_abar_ctrl'			=> "false",
 		'fps_use_icons'					=> "false",
+		'fps_tag_count'					=> 3,
+		'fps_tags_transform'			=> "none",
+		'fps_use_moderation'			=> "false",
+		'fps_mod_default_email'			=> "false",
+		'fps_hide_add_on_list'			=> "false"
 		
 		);
 

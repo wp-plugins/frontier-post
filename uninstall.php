@@ -125,6 +125,8 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 		}
 	
 	// ** End Clean up old options
+	
+	// need to delete transient data TO BE CONTINUED
 
 
 ?>

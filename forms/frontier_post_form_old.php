@@ -66,7 +66,7 @@ frontier_post_output_msg();
 	</tr><tr>
 		<td><div id="frontier_editor_field"> 
 			<?php
-			wp_editor($thispost->post_content, 'user_post_desc', frontier_post_wp_editor_args($editor_type, $frontier_media_button, $frontier_editor_lines, false));
+			wp_editor($thispost->post_content, 'user_post_desc', frontier_post_wp_editor_args($editor_type, $frontier_media_button, $frontier_editor_height, false));
 			printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );
 			?>
 		</div></td>
@@ -97,7 +97,7 @@ frontier_post_output_msg();
 				default:
 					echo '<td class="frontier_border" width="50%"><div class="frontier-tax-box">';
 					frontier_tax_input($thispost->ID, 'category', $category_type, $cats_selected,  $frontier_post_shortcode_parms);
-					echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+					echo '</br><div class="frontier_helptext">'.__("Select category, multiple can be selected using ctrl key", "frontier-post").'</div>';
 					echo '</td>';
 					break;
 				
@@ -116,7 +116,7 @@ frontier_post_output_msg();
 				case "multi":
 					echo '<td class="frontier_border" width="50%">';
 					echo frontier_post_tax_multi($catlist, $cats_selected, "categorymulti[]", "frontier_categorymulti", 8);
-					echo '</br><div class="frontier_helptext">'.__("Select category, multible can be selected using ctrl key", "frontier-post").'</div>';
+					echo '</br><div class="frontier_helptext">'.__("Select category, multiple can be selected using ctrl key", "frontier-post").'</div>';
 					echo '</td>';
 					break;
     
@@ -208,7 +208,7 @@ frontier_post_output_msg();
 			<?php } 
 			if ( $frontier_submit_buttons['cancel'] == "true" )
 			{ ?>
-			<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
+			<input type="reset" value="<?php _e("Cancel", "frontier-post"); ?>"  name="cancel" id="frontier-post-cancel" onclick="location.href='<?php the_permalink();?>'">
 			<?php } ?>
 		</td>
 	</tr>

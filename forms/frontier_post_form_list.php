@@ -31,13 +31,18 @@ echo "post_type: ".$frontier_add_post_type."<br>";
 echo "Label: ".fp_get_posttype_label_singular($frontier_add_post_type);
 */
 
-if (frontier_can_add() )
+if (frontier_can_add() && !fp_get_option_bool("fps_hide_add_on_list"))
 	{
+	if (strlen(trim($frontier_add_link_text))>0)
+		$tmp_add_text = $frontier_add_link_text;
+	else
+		$tmp_add_text = __("Create New", "frontier-post")." ".fp_get_posttype_label_singular($frontier_add_post_type);
+		
 ?>
 	<table class="frontier-menu" >
 		<tr class="frontier-menu">
 			<th class="frontier-menu" >&nbsp;</th>
-			<th class="frontier-menu" ><a id="frontier-post-add-new-link" href='<?php echo frontier_post_add_link($tmp_p_id) ?>'><?php echo __("Create New", "frontier-post")." ".fp_get_posttype_label_singular($frontier_add_post_type); ?></a></th>
+			<th class="frontier-menu" ><a id="frontier-post-add-new-link" href='<?php echo frontier_post_add_link($tmp_p_id) ?>'><?php echo $tmp_add_text; ?></a></th>
 			<th class="frontier-menu" >&nbsp;</th>
 		</tr>
 	</table>
@@ -52,7 +57,7 @@ if( $user_posts->found_posts > 0 )
 	$tmp_status_list = get_post_statuses( );
 
 	// If post for all users is viewed, show author instead of category
-	if ($frontier_list_all_posts == "true" )
+	if ($frontier_list_all_posts == "true" || $frontier_list_pending_posts == "true")
 		$cat_author_heading = __("Author", "frontier-post");
 	else	
 		$cat_author_heading = __("Category", "frontier-post");
@@ -66,7 +71,7 @@ if( $user_posts->found_posts > 0 )
 			<th class="frontier-list-posts" id="frontier-list-posts-title"><?php _e("Title", "frontier-post"); ?></th>	
 			<?php
 			// do not show Status if list all posts, as all are published
-			if ( $frontier_list_all_posts != "true" )
+			if ( $frontier_list_all_posts != "true" || current_user_can( 'edit_private_posts' ) )
 				echo '<th class="frontier-list-posts" id="frontier-list-posts-status">'.__("Status", "frontier-post").'</th>';
 			?>
 			<th class="frontier-list-posts" id="frontier-list-posts-category"><?php echo $cat_author_heading ?></th>
@@ -95,12 +100,20 @@ if( $user_posts->found_posts > 0 )
 						
 				</td>
 				<?php
-				if ( $frontier_list_all_posts != "true" )
-					echo '<td class="frontier-list-posts" id="" >'.( isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status ).'</td>';
+				if ( $frontier_list_all_posts != "true" || current_user_can( 'edit_private_posts' ) )
+					echo '<td class="frontier-list-posts" id="" >'.( isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status );
+					// check if moderation comments
+					if ($post->post_status == "draft" || $post->post_status == "pending")
+						{
+						$tmp_flag = get_post_meta( $post->ID, 'FRONTIER_POST_MODERATION_FLAG', true );
+						if (isset($tmp_flag) && $tmp_flag == "true")
+							echo " ".frontier_get_icon('moderation');
+						}
+					echo '</td>';
 				?>
 				<?php  
 					// If post for all users is viewed, show author instead of category
-					if ($frontier_list_all_posts == "true" )
+					if ($frontier_list_all_posts == "true" || $frontier_list_pending_posts == "true")
 						{
 						echo '<td class="frontier-list-posts" id="frontier-list-posts-author">';
 						echo get_the_author_meta( 'display_name', $post	->author);
