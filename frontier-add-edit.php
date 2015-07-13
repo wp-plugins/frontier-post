@@ -4,8 +4,13 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	{
 	require_once(ABSPATH . '/wp-admin/includes/post.php');
 	global $current_user;
-	
+	global $wpdb;
 	//add_thickbox();
+	
+	//set start of output debug query
+	$qlog 		= $wpdb->queries;
+	$qlog_start = count($qlog);
+	
 	
 	$fps_access_check_msg 		= "";
 	$user_can_edit_this_post 	= false;
@@ -71,6 +76,9 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	
 		//get users role:
 		$users_role 		= frontier_get_user_role();
+		
+		// get list of taxonomies
+		$tax_form_lists		= frontier_get_tax_lists($frontier_page_id, intval($frontier_parent_cat_id), intval($fps_cache_time_tax_lists) );
 		
 		//******************************************************************************************
 		// Set defaults, so post can be saved without errors
@@ -177,27 +185,34 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 				$cats_selected	= $thispost->post_category;
 				}
 	
-			// if no category selected (from post), insert default category
+			// if no category selected (from post), insert default category.
+			// removed in version 3.5.7, as default category is set on save
+			/*
 			if (empty($cats_selected[0]))
 				$cats_selected[0] = $default_category;
-			
+			*/
 			
 			
 			// Build list of categories (3 levels)
+			// removed in version 3.5.7
+			/*
 			if ( ($category_type == "multi") || ($category_type == "checkbox") )
 				{
 				$catlist 		= array();
 				$catlist 		= frontier_tax_list("category", fp_get_option("fps_excl_cats", ''), $frontier_parent_cat_id );
 				}
+			*/
+			
 			}	
 		else
 			{
 			$cats_selected = array();
 			} // end exclude categories for pages
 		
-			// Set variable for hidden field, if category field is removed from the form
-			$cats_selected_txt = implode(',', $cats_selected);
-		
+			
+		// Set variable for hidden field, if category field is removed from the form
+		$cats_selected_txt = implode(',', $cats_selected);
+		//echo "Cats selected: ".$cats_selected_txt."<hr>";
 		
 		//***************************************************************************************
 		//* Set tags
@@ -270,6 +285,25 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 			
 			
 			}
+		//output debug query
+		if ( 1 === 2)
+			{
+			error_log('---------------- SQL LOG START ('.$qlog_start.')---------------');
+			global $wpdb;
+			$q_log = $wpdb->queries;
+			error_log("Queries");
+			error_log(print_r($q_log, true));
+			$l = 0;
+			echo "<hr>Queries<hr>";
+			foreach ($q_log as $tmp_sql)
+				{
+				if ($l >= $qlog_start)
+					//error_log('('.zeroise($l,3).') '.$tmp_sql[1].' '.$tmp_sql[0]);
+					echo ('('.zeroise($l,3).') '.$tmp_sql[1].' '.$tmp_sql[0])."<hr>";
+				$l++;
+				}
+			error_log('---------------- SQL LOG END---------------');
+			}		
 		
 		}
 		
@@ -287,7 +321,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 		}
 
-		
+	
 	} // end function
 
 

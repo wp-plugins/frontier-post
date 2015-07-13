@@ -73,44 +73,33 @@ if ( strlen($frontier_edit_text_before) > 1 )
 	//$tax_list = array("category", "group", "article-type");
 	$tax_list 			= $frontier_custom_tax;
 	$tax_layout_list 	= fp_get_tax_layout($frontier_custom_tax, $frontier_custom_tax_layout);
-	/*
-	error_log("Tax list ---->");
-	error_log(print_r($tax_list ,true));
 	
-	error_log("tax layout list---->");
-	error_log(print_r($tax_layout_list,true));
 	
-	*/
 	echo '<tr><td class="frontier_no_border">';
 	
-	//echo '<table class="frontier-post-taxonomies"><tbody><tr>';
+	
 	foreach ( $tax_layout_list as $tmp_tax_name => $tmp_tax_layout) 
 		{
 		if ($tmp_tax_layout != "hide")
 			{
-			// Cats_selected is set from skript, but only for category
-			if ($tmp_tax_name != 'category')
-				$cats_selected = wp_get_post_terms($thispost->ID, $tmp_tax_name, array("fields" => "ids"));;
+			// Cats_selected is set from script, but only for category
 			
-			//echo '<td class="frontier-post-tax">';
 			echo '<fieldset class="frontier_post_fieldset_tax">';
 			echo '<legend class="frontier_post_legend_tax" >'.fp_get_tax_label($tmp_tax_name).'</legend>';
-			//echo '<div class="frontier-tax-box">';
-			frontier_tax_input($thispost->ID, $tmp_tax_name, $tmp_tax_layout, $cats_selected, $frontier_post_shortcode_parms);
-			//echo '</div>';
-			//echo '</td>';
+			frontier_tax_input($thispost->ID, $tmp_tax_name, $tmp_tax_layout, $cats_selected, $frontier_post_shortcode_parms, $tax_form_lists[$tmp_tax_name]);
 			echo '</fieldset>';
 			echo PHP_EOL;
 			}
 		}
-	//echo '</tr></tbody></table>';
 	
 	
 	if ( current_user_can( 'frontier_post_tags_edit' ) || fp_get_option_bool("fps_show_feat_img") )
 		{
-		//echo '<table class="frontier-post-taxonomies"><tbody><tr>';
 		
-	
+		//****************************************************************************************************
+		// tags
+		//****************************************************************************************************
+		
 		if ( current_user_can( 'frontier_post_tags_edit' ) )
 			{ 
 			echo '<fieldset class="frontier_post_fieldset_tax">';
@@ -123,16 +112,36 @@ if ( strlen($frontier_edit_text_before) > 1 )
 				}
 			echo '</fieldset>';
 			} 
+		
+		//****************************************************************************************************
+		// Featured image
+		//****************************************************************************************************
+		
 	
 		if ( fp_get_option_bool("fps_show_feat_img") )
 			{
+			
+			//set iframe size for image upload
+			if ( wp_is_mobile() )
+				{
+				$i_size 	= "&width=240&height=320";
+				$i_TBsize 	= "&TB_width=240&TB_height=320";
+				}
+			else
+				{
+				$i_size 	= "&width=640&height=400";
+				$i_TBsize 	= "&TB_width=640&TB_height=400";
+				}
+			
 			?>
 			<!--<td class="frontier_featured_image">-->
 			
 			<fieldset class="frontier_post_fieldset_tax">
 			<legend><?php _e("Featured image", "frontier-post"); ?></legend>
 			<?php
-			$FeatImgLinkHTML = '<a title="Select featured Image" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.'" id="set-post-thumbnail" class="thickbox">';
+			//$FeatImgLinkHTML = '<a title="Select featured Image" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.$i_size.'" id="set-post-thumbnail" class="thickbox">';
+			$FeatImgLinkHTML = '<a title="Select featured Image" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.$i_size.'" id="set-post-thumbnail" class="thickbox">';
+			
 			if (has_post_thumbnail($post_id))
 				$FeatImgLinkHTML = $FeatImgLinkHTML.get_the_post_thumbnail($post_id, 'thumbnail').'<br>';
 		

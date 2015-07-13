@@ -236,6 +236,12 @@ function frontier_post_admin_page_advanced()
 				fps_html_field("fps_use_moderation", 'checkbox', $fps_general_options, true, 1);
 				echo "<td>".__("If this is checked, moderation comments can be edited on the post form", "frontier-post")."</td>";
 		
+		echo "</tr><tr>";
+				echo "<td>".__("Cache time for taxonomy lists", "frontier-post")."</td>";
+				echo "<td></td>";
+				fps_html_field("fps_cache_time_tax_lists", 'select', $fps_general_options, true, 1, $fp_cache_time_list );
+		
+		
 		
 		echo '</tr></table>';
 	

@@ -37,7 +37,7 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 			{
 			$tmp_title = __("No Title", "frontier-post");
 			$post_status = 'draft';
-			frontier_post_set_msg(__("Warning", "frontier-post").": ".__("Title was empty", "frontier-post")." - ".__("Post status set to draft", "frontier-post"));
+			frontier_post_set_msg('<div id="frontier-post-alert">'.__("Warning", "frontier-post").': '.__("Title was empty", "frontier-post").' - '.__("Post status set to draft", "frontier-post").'</div>');
 			}
 		$tmp_title = trim( strip_tags( $tmp_title ));
 	
@@ -46,7 +46,7 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 			{
 			$tmp_content = __("No content", "frontier-post");
 			$post_status = 'draft';
-			frontier_post_set_msg(__("Warning", "frontier-post").": ".__("Content was empty", "frontier-post")." - ".__("Post status set to draft", "frontier-post"));
+			frontier_post_set_msg('<div id="frontier-post-alert">'.__("Warning", "frontier-post").': '.__("Content was empty", "frontier-post").' - '.__("Post status set to draft", "frontier-post").'</div>');
 			}
 			
 		$tmp_excerpt = isset( $_POST['user_post_excerpt']) ? trim($_POST['user_post_excerpt'] ) : null;
@@ -67,25 +67,21 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 			if ( ($category_type != "hide") && ($category_type != "readonly") )
 				$tmp_categorymulti = ( isset($_POST[$tmp_field_name]) ? $_POST[$tmp_field_name] : array() );
 		
-			/*
-			if ($category_type == "single")
-				{
-				if(isset($_POST['cat']))
-					{
-					$tmp_category = $_POST['cat'];
-					$tmp_categorymulti = array($tmp_category);
-					}
-				}
-			*/
+		
+			
+			//frontier_post_set_msg("Default Category: ".$default_category);
+			//frontier_post_set_msg("Post Categories: ".( isset($_POST['post_categories']) ? $_POST['post_categories'] : "NONE"));
+			
 		
 			// if no category returned from entry form, check for hidden field, if this is empty set default category 
-			if ((!isset($tmp_categorymulti)) || (count($tmp_categorymulti)==0))
+			if ((!isset($tmp_categorymulti)) || (count($tmp_categorymulti)==0) )
 				{
 				$tmp_categorymulti = ( isset($_POST['post_categories']) ? explode(',', $_POST['post_categories']) : array());
 				// Do not use default category if post type = page 
 				if ( $tmp_post_type != 'page' )
-					$tmp_categorymulti = ((count($tmp_categorymulti) > 0) ? $tmp_categorymulti : array($default_category));
+					$tmp_categorymulti = ((count($tmp_categorymulti) > 0 && isset($tmp_categorymulti[0]) && $tmp_categorymulti[0] > 0) ? $tmp_categorymulti : array($default_category));
 				}
+			//frontier_post_set_msg("Category from POST: ".print_r($tmp_categorymulti,true));
 			} // do not manage categories for pages
 		
 		//****************************************************************************************************

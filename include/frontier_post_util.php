@@ -3,9 +3,102 @@
 Utilities for Frontier Post plugin
 */
 
+//*********************************************************************************
+// Cache expiration 
+//*********************************************************************************
+
+function frontier_post_cache_expiration($tmp_type = "NONE")
+	{
+	return fp_get_option_int("fps_cache_time_tax_lists", 0);
+	
+	//tmp fixed to 15 minutes
+	//return (15*60);
+	
+	}
+
+function frontier_get_tax_lists($tmp_page_id = 0, $tmp_parent_tax = 0, $fp_cache_time = 0)
+	{
+	$fp_cache_name		= "frontier_post_tax_cache_".$tmp_page_id;
+	//$fp_cache_time		= frontier_post_cache_expiration();
+	
+			
+	if (  (($fp_cache_time <= 0) || (false === ($form_lists = get_transient($fp_cache_name)))) )
+		{
+		
+		$form_lists			= array();
+		$level_sep			= "- ";
+		
+		$fp_tax_list 		= get_taxonomies(array('public'   => true));
+		// remove post formats
+		unset($fp_tax_list ['post_format']); 
+		/*
+		error_log("Tax list 66 -->");
+		error_log(print_r($fp_tax_list, true));
+	
+		echo "Tax list: <br>";
+		echo print_r($fp_tax_list, true);
+		echo "<hr>";
+		*/
+		
+		foreach ($fp_tax_list as $tax_id => $tmp_tax_name)
+			{
+			$tmp_tax_list = array();
+			
+			if ($tmp_tax_name == 'category')
+				{
+				$exclude_list	= fp_get_option("fps_excl_cats", '');
+				$parent_tax 	= intval($tmp_parent_tax);
+				}
+			else
+				{
+				$parent_tax 	= 0;
+				$exclude_list 	= "";
+				}
+				
+			foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $parent_tax, 'exclude' => $exclude_list, 'show_count' => true)) as $tax1) :
+				$tmp_tax_list[$tax1->cat_ID] = $tax1->cat_name;
+				foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax1->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax2) :
+					$tmp_tax_list[$tax2->cat_ID] = $level_sep.$tax2->cat_name;
+					foreach ( get_categories(array('taxonomy' => $tmp_tax_name, 'hide_empty' => 0, 'hierarchical' => 1, 'parent' => $tax2->cat_ID, 'exclude' => $exclude_list, 'show_count' => true)) as $tax3) :
+						$tmp_tax_list[$tax3->cat_ID] = $level_sep.$level_sep.$tax3->cat_name;
+					endforeach; // Level 3
+				endforeach; // Level 2
+			endforeach; //Level 1
+
+			$form_lists[$tmp_tax_name] = $tmp_tax_list;
+			//echo "List for: ".$tmp_tax_name."<br>";
+			//echo print_r($tmp_tax_list, true);
+			//echo "<hr>";
+			set_transient($fp_cache_name, $form_lists, $fp_cache_time);
+			}
+		//error_log("Form lists cache updated-->");
+		//error_log(print_r($form_lists, true));
+		//echo "<hr>Form Lists - cache UPDATED<br>";
+		//echo print_r($form_lists, true)."<hr>";
+		
+		}
+	else
+		{
+		//error_log("Form lists cache loaded-->");
+		//error_log(print_r($form_lists, true));
+		//echo "<hr>Form Lists - cache loaded<br>";
+		//echo print_r($form_lists, true)."<hr>";
+		
+		}
+	return $form_lists;
+	}
+	
+//*************************************************************
+// Old List function
+//*************************************************************
+
+
+
+
 
 	
 // Build a 3 level deep hieracical list of taxonomies for use in form fields
+/*
 function frontier_tax_list($tmp_tax_name = "category", $exclude_list = array(), $parent_tax = 0, $force_simple = false	)
 	{
 	$tmp_tax_list 		= array();
@@ -56,26 +149,32 @@ function frontier_tax_list($tmp_tax_name = "category", $exclude_list = array(), 
 	return $tmp_tax_list;
 	}
 
+*/
+
 //********************************************************************************
 // Output taxonomy html
 //********************************************************************************
 
-function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox', $tmp_selected = array(), $tmp_shortcode_parms)
+function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox', $tmp_selected = array(), $tmp_shortcode_parms, $tmp_tax_list)
 	{
 	if ( !empty($tmp_tax_name) )
 		{
+		/*
 		if ( $input_type == "readonly" )
 			$force_simple = true;
 		else
 			$force_simple = false;
+		*/
+		
 		
 		if ($tmp_tax_name == 'category')
 			{
-			$tmp_tax_list 	= frontier_tax_list($tmp_tax_name, fp_get_option("fps_excl_cats", ''), intval($tmp_shortcode_parms['frontier_parent_cat_id']), $force_simple);
-			}
-		else
-			{
-			$tmp_tax_list 	= frontier_tax_list($tmp_tax_name, "", 0, $force_simple);
+			// need to handle include as this is user role dependendt
+			$fp_capabilities 			 = frontier_post_get_capabilities();
+			$cat_incl = fp_array_remove_zero(fp_list2array($fp_capabilities[frontier_get_user_role()]['fps_role_allowed_categories']));
+			//Remove all array entries that is not included
+			if (count($cat_incl)>0)
+				$tmp_tax_list = array_intersect_key($tmp_tax_list, $cat_incl);
 			}
 		
 		//$tmp_selected 			= wp_get_post_terms( $tmp_post_id, $tmp_tax_name, array("fields" => "ids"));		
@@ -122,7 +221,7 @@ Function frontier_post_tax_multi($tmp_cat_list, $tmp_selected, $tmp_name, $tmp_i
 	$tmp_html = '<select class="frontier_post_dropdown" name="'.$tmp_name.'" id="'.$tmp_id.'" multiple="multiple" size="'.$tmp_size.'">';
 	
 	foreach ( $tmp_cat_list as $taxid => $taxname) :
-		$tmp_html = $tmp_html.'<option value="'.$taxid.'"'; 
+		$tmp_html = $tmp_html.'<option class="fp_multi" value="'.$taxid.'"'; 
 		if ( $tmp_selected && in_array( $taxid, $tmp_selected ) ) 
 			{ 
 			$tmp_html = $tmp_html.' selected="selected"'; 
@@ -139,7 +238,7 @@ Function frontier_post_tax_checkbox($tmp_cat_list, $tmp_selected, $tmp_name, $tm
 	
 	$tmp_html = '';
 	foreach ( $tmp_cat_list as $taxid => $taxname) :
-		$tmp_html = $tmp_html.'<input type="checkbox" ';
+		$tmp_html = $tmp_html.'<input class="fp_checkbox" type="checkbox" ';
 		//$tmp_html = $tmp_html.' id="'.$tmp_id.'"'; 
 		$tmp_html = $tmp_html.' name="'.$tmp_name.'"';
 		
@@ -148,7 +247,7 @@ Function frontier_post_tax_checkbox($tmp_cat_list, $tmp_selected, $tmp_name, $tm
 			{ 
 			$tmp_html = $tmp_html.' checked="checked"'; 
 			}
-		$tmp_html = $tmp_html.'>'.$taxname.'<br>'.PHP_EOL;
+		$tmp_html = $tmp_html.'>'.$taxname.'<br />'.PHP_EOL;
 		endforeach;
 	return $tmp_html;	
 	}		
@@ -159,7 +258,7 @@ Function frontier_post_tax_radio($tmp_cat_list, $tmp_selected, $tmp_name, $tmp_i
 	{
 	$tmp_html = '';
 	foreach ( $tmp_cat_list as $taxid => $taxname) :
-		$tmp_html = $tmp_html.'<input type="radio" ';
+		$tmp_html = $tmp_html.'<input class="fp_radio" type="radio" ';
 		//$tmp_html = $tmp_html.' id="'.$tmp_id.'"'; 
 		$tmp_html = $tmp_html.' name="'.$tmp_name.'"';
 		
@@ -177,15 +276,15 @@ Function frontier_post_tax_radio($tmp_cat_list, $tmp_selected, $tmp_name, $tmp_i
 Function frontier_post_tax_readonly($tmp_cat_list, $tmp_selected, $tmp_name, $tmp_id)
 	{
 	
-	$tmp_html = '<ul>';
+	$tmp_html = '<ul class="fp_readonly_list" >';
 	if ( count($tmp_selected) == 0 )
 		{
-		$tmp_html = $tmp_html."<li>".__("None", "frontier-post")."</li>";
+		$tmp_html = $tmp_html.'<li class="fp_readonly_list">'.__("None", "frontier-post")."</li>";
 		}
 	else
 		{
 		foreach ( $tmp_selected as $taxid ) :
-			$tmp_html = $tmp_html."<li>".$tmp_cat_list[$taxid]."</li>";
+			$tmp_html = $tmp_html.'<li class="fp_readonly_list">'.$tmp_cat_list[$taxid].'</li>';
 		endforeach; 
 		}
 	$tmp_html = $tmp_html."</ul>";
@@ -572,7 +671,38 @@ function fp_login_text()
 	
 	}
 
+//*********************************************************************************
+// Remove zero from arrays
+//*********************************************************************************
 
+function fp_array_remove_zero($tmp_array)
+	{
+	foreach ($tmp_array as $key => $value) 
+		{
+    	if (intval($value) == 0 )  
+        	unset($tmp_array[$key]);
+    	}
+    return $tmp_array;
+	}
+	
+//*********************************************************************************
+// Remove blanks from arrays
+//*********************************************************************************
+
+function fp_array_remove_blanks($tmp_array)
+	{
+	foreach ($tmp_array as $key => $value) 
+		{
+    	if (strlen(trim($value)) == 0 || $value == "0" )  
+        	unset($tmp_array[$key]);
+    	}
+    return $tmp_array;
+	}
+
+//*********************************************************************************
+// Converts comma separated list to array
+//*********************************************************************************
+		
 function fp_list2array($tmp_list)
 	{
 	if (is_array($tmp_list))

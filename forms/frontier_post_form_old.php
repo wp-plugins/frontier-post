@@ -96,7 +96,7 @@ frontier_post_output_msg();
 			
 				default:
 					echo '<td class="frontier_border" width="50%"><div class="frontier-tax-box">';
-					frontier_tax_input($thispost->ID, 'category', $category_type, $cats_selected,  $frontier_post_shortcode_parms);
+					frontier_tax_input($thispost->ID, 'category', $category_type, $cats_selected,  $frontier_post_shortcode_parms, $tax_form_lists['category']);
 					echo '</br><div class="frontier_helptext">'.__("Select category, multiple can be selected using ctrl key", "frontier-post").'</div>';
 					echo '</td>';
 					break;

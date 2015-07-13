@@ -72,6 +72,12 @@ $frontier_post_forms = array(
 	'old'		=> __("Old Form (for backwards compatibility)", "frontier-post")
 	);
 
+$frontier_list_forms = array(
+	'list'			=> __("List", "frontier-post"),
+	'excerpt'		=> __("Excerpt", "frontier-post"),
+	'full_post'		=> __("Full Post", "frontier-post")
+	);
+
 
 $fp_capability_list 	= array(
 	'frontier_post_can_add' 		=> __("Can Add", "frontier-post"), 	
@@ -124,7 +130,8 @@ $fp_role_option_list 	= array(
 		'fps_change_status',
 		'fps_custom_post_type_list',
 		'fps_use_icons',
-		'fps_hide_add_on_list'
+		'fps_hide_add_on_list',
+		'fps_default_list'
 		
 		);
 		
@@ -156,6 +163,7 @@ $fp_role_option_list 	= array(
 		'fps_tags_transform',
 		'fps_use_moderation',
 		'fps_mod_default_email',
+		'fps_cache_time_tax_lists'
 		);
 		
 	
@@ -205,8 +213,9 @@ $fp_role_option_list 	= array(
 		'fps_tags_transform'			=> "none",
 		'fps_use_moderation'			=> "false",
 		'fps_mod_default_email'			=> "false",
-		'fps_hide_add_on_list'			=> "false"
-		
+		'fps_hide_add_on_list'			=> "false",
+		'fps_default_list'				=> "list",
+		'fps_cache_time_tax_lists'		=> (30*60)
 		);
 
 

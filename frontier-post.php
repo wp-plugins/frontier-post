@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.5.7
+Version: 3.5.8.1
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.5.7"); 
+define('FRONTIER_POST_VERSION', "3.5.8.1"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -147,6 +147,7 @@ function frontier_user_posts($atts)
 				'frontier_list_text_before'		=> '',
 				'frontier_edit_text_before'		=> '',
 				'frontier_myid'					=> $post->ID,
+				'frontier_page_id'				=> $post->ID,
 				'frontier_return_text'			=> __("Save & Return", "frontier-post"),
 				'frontier_add_link_text'		=> '',
 				'frontier_add_post_type'		=> 'post',
@@ -154,7 +155,9 @@ function frontier_user_posts($atts)
 				'frontier_custom_tax'			=> '',
 				'frontier_custom_tax_layout'	=> '',
 				'frontier_edit_form'			=> fp_get_option("fps_default_form", "standard"),
-				'frontier_editor_height'		=> fp_get_option_int("fps_editor_lines", 300) 
+				'frontier_editor_height'		=> fp_get_option_int("fps_editor_lines", 300),
+				'frontier_list_form'			=> fp_get_option("fps_default_list", "list"),
+				'fps_cache_time_tax_lists'		=> fp_get_option_int("fps_cache_time_tax_lists", 30*60)
 				), $atts );
 		
 			//error_log(print_r($frontier_post_shortcode_parms,true));

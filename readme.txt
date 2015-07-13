@@ -111,6 +111,12 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
+= 3.5.8 =
+* Fixed spelling error in my posts widget 
+* Added cashing of lists in add/edit form
+* New list layout: List (as before) / Exerpt / Full Post
+* Warning message for empty title & content made more visible.
+
 = 3.5.6 =
 * Fixed single select for categories (wp_dropdown_categories(): selected input integer instead of array of integers)
 

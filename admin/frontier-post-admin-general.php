@@ -169,7 +169,12 @@ function frontier_post_admin_page_general()
 				echo "<td><strong>".__("Post Types", "frontier-post").":</strong><br>";
 				echo fps_checkbox_select_field("fps_custom_post_type_list[]", $fps_general_options["fps_custom_post_type_list"], fp_get_post_type_list())."</td>";
 		
-			
+			echo "</tr><tr>";
+				echo "<td>".__("List Layout", "frontier-post")."</td>";
+				echo "<td></td>";
+				fps_html_field("fps_default_list", 'select', $fps_general_options, true, 1, $frontier_list_forms );
+		
+		
 			echo "</tr><tr>";
 				echo "<td>".__("Exclude categories", "frontier-post")."</td>";
 				echo "<td></td>";

@@ -239,7 +239,7 @@ class frontier_my_posts_widget extends WP_Widget
 			{ 
 			//$tmp_post_cnt	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
 			$tmp_post_cnt	= $fp_wdata['tmp_post_cnt'];
-			echo '<p><center><a href="'.get_permalink(fp_get_option('fps_page_id')).'">'.__("Your have published: ", "frontier-post").$tmp_post_cnt.'&nbsp;'.__("posts", "frontier-post").'</a></center></p>';
+			echo '<p><center><a href="'.get_permalink(fp_get_option('fps_page_id')).'">'.__("You have published: ", "frontier-post").$tmp_post_cnt.'&nbsp;'.__("posts", "frontier-post").'</a></center></p>';
 			}		
 		
 		

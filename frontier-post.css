@@ -83,12 +83,89 @@ table.frontier-list {
 	text-align: center;
 	border: 0;
 }
+
 table.frontier-menu {
 	width: 90%;
 }
+
 th.frontier-menu {
 	width: 33%;
 }
+
+
+/* Styling for new list layout from version 3.6.0 */
+
+fieldset.frontier-new-menu {
+	margin:10px;
+	padding:0 10px 10px;
+	border:1px solid #666;
+	border-radius:8px;
+	box-shadow:0 0 10px #666;
+	padding-top:10px;
+	float: none;
+	text-align: center;
+	font-size: 1.4em;
+ }  
+
+fieldset.frontier-new-list {
+	margin:10px;
+	padding:0 10px 10px;
+	border:1px solid #666;
+	border-radius:8px;
+	box-shadow:0 0 10px #666;
+	padding-top:10px;
+	float: none;
+	text-align: left;
+	width: 95%;
+ }  
+
+#frontier-post-new-list-thumbnail {
+	width: 50px;
+}
+
+legend.frontier-new-list {
+	padding:2px 4px;
+	background:#fff; /* For better legibility against the box-shadow */
+    }
+
+table.frontier-new-list {
+	width: 100%;
+	border: 0 !important;
+}
+
+td.frontier-new-list {
+	border: 0 !important;
+}
+
+#frontier-post-new-list-status {
+	/*color: red !important;*/
+	border: 1px solid red !important;
+	font-size: 1.2em !important;
+	font-weight: bold !important;
+	text-align: center !important;
+}
+
+
+	
+#frontier-post-new-list-info {
+	font-size: 0.75em;
+	vertical-align: bottom;
+	margin-bottom: 0px;
+}
+
+
+#frontier-post-new-list-title {
+	vertical-align: bottom;
+	margin-bottom: 0px;
+}
+
+#frontier-post-new-list-excerpt {
+	border-bottom: 1px solid #c2c2c2 !important;
+	
+}	
+
+/* End styling new list layout */
+
 .frontier-tax-box {
 	border:1px solid #ccc;
 	height: 200px; 
