@@ -46,7 +46,6 @@ if( $user_posts->found_posts > 0 )
 		
 		
 		?>
-		<div <?php post_class(); ?> id="post-<?php the_ID(); ?>">
 			<fieldset class="frontier-new-list">
 			
 			<table class="frontier-new-list">
@@ -82,7 +81,7 @@ if( $user_posts->found_posts > 0 )
 			 			$tmp_content = $post->post_excerpt;
 						if (strlen(trim($tmp_content)) == 0)
 							$tmp_content = wp_trim_words($post->post_content);
-						echo "Excerpt<br>";
+						//echo "Excerpt<br>";
 			 			}
 					?>
 				</td>
@@ -140,7 +139,7 @@ if( $user_posts->found_posts > 0 )
 				</tr>
 			</table>	
 			</fieldset>
-		</div>
+		
 		
 		<?php
 		//echo '<hr>';
