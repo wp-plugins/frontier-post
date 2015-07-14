@@ -14,6 +14,9 @@ $tmp_info_separator = " | ";
 if ( strlen($frontier_list_text_before) > 1 )
 	echo '<div id="frontier_list_text_before">'.$frontier_list_text_before.'</div>';
 
+// Dummy translation of ago for human readable time
+$crap = __("ago", "frontier-post");
+
 
 //Display message
 frontier_post_output_msg();
