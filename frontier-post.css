@@ -2,95 +2,6 @@
  styling for Frontier Post
    ------------------   */
 
-/* Styling for new list layout from version 3.6.0 */
-
-fieldset.frontier-new-menu {
-	margin:10px;
-	padding:0 10px 10px;
-	border:1px solid #666;
-	border-radius:8px;
-	box-shadow:0 0 10px #666;
-	padding-top:10px;
-	float: none;
-	text-align: center !important;
-	font-size: 1.4em;
-	width: 100% !important;
-	box-sizing: unset;
- }  
-
-fieldset.frontier-new-list {
-	margin:10px;
-	padding:0 10px 10px;
-	border:1px solid #666;
-	border-radius:8px;
-	box-shadow:0 0 10px #666;
-	padding-top:10px;
-	float: none;
-	text-align: left;
-	width: 100% !important;
-	box-sizing: unset;
- }  
-
-#frontier-post-new-list-thumbnail {
-	width: 50px;
-}
-
-legend.frontier-new-list {
-	padding:2px 4px;
-	background:#fff; /* For better legibility against the box-shadow */
-    }
-
-table.frontier-new-list {
-	width: 100%;
-	border: 0 !important;
-}
-
-td.frontier-new-list {
-	border: 0 !important;
-}
-
-#frontier-post-new-list-status {
-	/*color: red !important;*/
-	border: 1px solid red !important;
-	font-size: 1.2em !important;
-	font-weight: bold !important;
-	text-align: center !important;
-	background-color: lightgray;
-}
-
-
-	
-#frontier-post-new-list-info {
-	font-size: 0.75em;
-	vertical-align: bottom;
-	margin-bottom: 0px;
-}
-
-
-#frontier-post-new-list-title {
-	vertical-align: bottom;
-	margin-bottom: 0px;
-}
-
-#frontier-post-new-list-excerpt {
-	border-bottom: 1px solid #c2c2c2 !important;
-	
-}	
-
-#frontier-post-cache-updated {
-	color: darkred !important;
-	font-size: 0.7em !important;
-	position: absolute;
-	bottom: 0;
-}
-
-#frontier-post-cache-read {
-	color: darkgreen !important;
-	font-size: 0.7em !important;
-	position: absolute;
-	bottom: 0;
-}
-/* End styling new list layout */
 
 
 #user_post_title {
@@ -301,3 +212,93 @@ td.frontier_frontier_featured_image  {
 	height: 140px !important;
 	width: 98% !important;
 }
+
+/* Styling for new list layout from version 3.6.0 */
+
+fieldset.frontier-new-menu {
+	margin:10px;
+	padding:0 10px 10px;
+	border:1px solid #666;
+	border-radius:8px;
+	box-shadow:0 0 10px #666;
+	padding-top:10px;
+	float: none;
+	text-align: center !important;
+	font-size: 1.4em;
+	width: 100% !important;
+	box-sizing: unset;
+ }  
+
+fieldset.frontier-new-list {
+	margin:10px;
+	padding:0 10px 10px;
+	border:1px solid #666;
+	border-radius:8px;
+	box-shadow:0 0 10px #666;
+	padding-top:10px;
+	float: none;
+	text-align: left;
+	width: 100% !important;
+	box-sizing: unset;
+ }  
+
+#frontier-post-new-list-thumbnail {
+	width: 50px;
+}
+
+legend.frontier-new-list {
+	padding:2px 4px;
+	background:#fff; /* For better legibility against the box-shadow */
+    }
+
+table.frontier-new-list {
+	width: 100%;
+	border: 0 !important;
+}
+
+td.frontier-new-list {
+	border: 0 !important;
+}
+
+#frontier-post-new-list-status {
+	/*color: red !important;*/
+	border: 1px solid red !important;
+	font-size: 1.2em !important;
+	font-weight: bold !important;
+	text-align: center !important;
+	background-color: lightgray;
+}
+
+
+	
+#frontier-post-new-list-info {
+	font-size: 0.75em;
+	vertical-align: bottom;
+	margin-bottom: 0px;
+}
+
+
+#frontier-post-new-list-title {
+	vertical-align: bottom;
+	margin-bottom: 0px;
+}
+
+#frontier-post-new-list-excerpt {
+	border-bottom: 1px solid #c2c2c2 !important;
+	
+}	
+
+#frontier-post-cache-updated {
+	color: darkred !important;
+	font-size: 0.7em !important;
+	position: absolute;
+	bottom: 0;
+}
+
+#frontier-post-cache-read {
+	color: darkgreen !important;
+	font-size: 0.7em !important;
+	position: absolute;
+	bottom: 0;
+}
+/* End styling new list layout */
