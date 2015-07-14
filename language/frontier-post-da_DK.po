@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frontier Post 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/frontier-post\n"
-"POT-Creation-Date: 2015-07-14 10:01:42+00:00\n"
-"PO-Revision-Date: 2015-07-14 12:08+0100\n"
+"POT-Creation-Date: 2015-07-14 10:17:13+00:00\n"
+"PO-Revision-Date: 2015-07-14 12:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Frontier Post <LL@li.org>\n"
 "Language: da_DK\n"
@@ -396,12 +396,12 @@ msgid "Exclude categories"
 msgstr "Ekskluder kategrier"
 
 #: forms/frontier_post_form_list.php:39
-#: forms/frontier_post_form_list_detail.php:27
+#: forms/frontier_post_form_list_detail.php:30
 msgid "Create New"
 msgstr "Opret Ny"
 
 #: forms/frontier_post_form_list.php:61
-#: forms/frontier_post_form_list_detail.php:132
+#: forms/frontier_post_form_list_detail.php:135
 msgid "Author"
 msgstr "Forfatter"
 
@@ -423,8 +423,8 @@ msgid "Title"
 msgstr "Titel"
 
 #: forms/frontier_post_form_list.php:75
-#: forms/frontier_post_form_list_detail.php:57
-#: forms/frontier_post_form_list_detail.php:130
+#: forms/frontier_post_form_list_detail.php:60
+#: forms/frontier_post_form_list_detail.php:133
 #: forms/frontier_post_form_old.php:41 forms/frontier_post_form_page.php:33
 #: forms/frontier_post_form_simple.php:33
 #: forms/frontier_post_form_standard.php:35
@@ -436,46 +436,50 @@ msgid "Action"
 msgstr "Aktion"
 
 #: forms/frontier_post_form_list.php:150
-#: forms/frontier_post_form_list_detail.php:101
+#: forms/frontier_post_form_list_detail.php:104
 msgid "Edit"
 msgstr "Ret"
 
 #: forms/frontier_post_form_list.php:166
-#: forms/frontier_post_form_list_detail.php:113 frontier-delete-post.php:34
+#: forms/frontier_post_form_list_detail.php:116 frontier-delete-post.php:34
 msgid "Delete"
 msgstr "Slet"
 
 #: forms/frontier_post_form_list.php:184
-#: forms/frontier_post_form_list_detail.php:125
+#: forms/frontier_post_form_list_detail.php:128
 msgid "Preview"
 msgstr "Vis"
 
 #: forms/frontier_post_form_list.php:204
-#: forms/frontier_post_form_list_detail.php:153
+#: forms/frontier_post_form_list_detail.php:156
 msgid "&laquo;"
 msgstr ""
 
 #: forms/frontier_post_form_list.php:205
-#: forms/frontier_post_form_list_detail.php:154
+#: forms/frontier_post_form_list_detail.php:157
 msgid "&raquo;"
 msgstr ""
 
 #: forms/frontier_post_form_list.php:217
-#: forms/frontier_post_form_list_detail.php:166
+#: forms/frontier_post_form_list_detail.php:169
 msgid "Number of posts already created by you: "
 msgstr "Antal indlæg du har oprettet: "
 
 #: forms/frontier_post_form_list.php:223
-#: forms/frontier_post_form_list_detail.php:171
+#: forms/frontier_post_form_list_detail.php:174
 msgid "Sorry, you do not have any posts (yet)"
 msgstr "Desværre, du har ingen indlæg (endnu)"
 
-#: forms/frontier_post_form_list_detail.php:134
+#: forms/frontier_post_form_list_detail.php:18
+msgid "ago"
+msgstr "siden"
+
+#: forms/frontier_post_form_list_detail.php:137
 msgctxt "%s = human-readable time difference"
 msgid "%s ago"
-msgstr ""
+msgstr "%s siden"
 
-#: forms/frontier_post_form_list_detail.php:138
+#: forms/frontier_post_form_list_detail.php:141
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -735,7 +739,6 @@ msgid "Create New Post"
 msgstr "Opret Nyt Indlæg"
 
 #: include/frontier_my_posts_widget.php:242
-#, fuzzy
 msgid "You have published: "
 msgstr "Du har udgivet:"
 
