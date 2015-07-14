@@ -60,7 +60,7 @@ function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 
 	$fp_show_icons 	= fp_get_option_bool('fps_use_icons');
 	
-	if (fp_get_option("fps_default_list", "list") == "list")
+	if (fp_get_option("fps_default_list", "list") == "simple")
 		include_once(frontier_load_form("frontier_post_form_list.php"));
 	else
 		include_once(frontier_load_form("frontier_post_form_list_detail.php"));

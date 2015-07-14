@@ -21,7 +21,8 @@ function frontier_get_tax_lists($tmp_page_id = 0, $tmp_parent_tax = 0, $fp_cache
 	$fp_cache_name		= "frontier_post_tax_cache_".$tmp_page_id;
 	//$fp_cache_time		= frontier_post_cache_expiration();
 	
-			
+	//echo '<div id="frontier-post-cache-time">Cache time: '.$fp_cache_time.'</div>';
+	
 	if (  (($fp_cache_time <= 0) || (false === ($form_lists = get_transient($fp_cache_name)))) )
 		{
 		
@@ -31,14 +32,7 @@ function frontier_get_tax_lists($tmp_page_id = 0, $tmp_parent_tax = 0, $fp_cache
 		$fp_tax_list 		= get_taxonomies(array('public'   => true));
 		// remove post formats
 		unset($fp_tax_list ['post_format']); 
-		/*
-		error_log("Tax list 66 -->");
-		error_log(print_r($fp_tax_list, true));
-	
-		echo "Tax list: <br>";
-		echo print_r($fp_tax_list, true);
-		echo "<hr>";
-		*/
+		
 		
 		foreach ($fp_tax_list as $tax_id => $tmp_tax_name)
 			{
@@ -66,24 +60,21 @@ function frontier_get_tax_lists($tmp_page_id = 0, $tmp_parent_tax = 0, $fp_cache
 			endforeach; //Level 1
 
 			$form_lists[$tmp_tax_name] = $tmp_tax_list;
-			//echo "List for: ".$tmp_tax_name."<br>";
-			//echo print_r($tmp_tax_list, true);
-			//echo "<hr>";
-			set_transient($fp_cache_name, $form_lists, $fp_cache_time);
+			
+			
+			
 			}
-		//error_log("Form lists cache updated-->");
-		//error_log(print_r($form_lists, true));
-		//echo "<hr>Form Lists - cache UPDATED<br>";
-		//echo print_r($form_lists, true)."<hr>";
+		// only save cache if cache is enabled
+		if ($fp_cache_time > 0)
+			{
+			set_transient($fp_cache_name, $form_lists, $fp_cache_time);
+			echo '<div id="frontier-post-cache-updated">cache updated</div>';
+			}
 		
 		}
 	else
 		{
-		//error_log("Form lists cache loaded-->");
-		//error_log(print_r($form_lists, true));
-		//echo "<hr>Form Lists - cache loaded<br>";
-		//echo print_r($form_lists, true)."<hr>";
-		
+		echo '<div id="frontier-post-cache-read">cache read</div>';
 		}
 	return $form_lists;
 	}

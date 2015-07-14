@@ -13,64 +13,43 @@ Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts fro
 
 WordPress Frontier Post Plugin enables simple full featured management of standard posts from frontend for all user roles.
 
-Related plugins: [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/) |  [Frontier Set Featured plugin ](http://wordpress.org/plugins/frontier-set-featured/) 
-
 Intention of the Frontier Post plugin is to enable front end posting and editing on your blog. Allowing your users to create content easy, with no need to go into the back-end.
 Editors and Administrators can use Frontier to edit posts from the frontend (Can be enabled/disabled in settings), and at the same time go to the backend for more advanced options.
 
 Frontier Post is intentionally made simple - But it is highly configuable if you want to extend it :)
 
 = Main Features =
-* Create posts with media directly from frontend
-* Users can delete their own posts (Optional) 
-* Users can edit their own posts (Optional)
-* Post can be edited in frontend directly - Using standard edit link (Optional)
+* Add/Edit/Delete Posts and Pages with media directly from frontend
 * My Posts Widget 
 * My Approvals Widget
 * Capabilities are aligned with Wordpress standard.
-* Excerpts editable (Optional)
-* Edit Categories (dropdown, multiselect, checkbox or radio button)
+* Edit Categories / Tags / Taxonomies (dropdown, multiselect, checkbox or radio button)
 * Default category per role
 * Allowed categories per role
 * Widget to enable post creation link on category archive pages
-* Tags (Optional)
 * Supports Wordpress Post Status Transitions (draft, pending, private & publish)
-* Customizable editor layout using: [Frontier Buttons plugin](http://wordpress.org/plugins/frontier-buttons/)
+ * Moderation comments (will not be displayed on blog, only on edit.
 * Disable Admin bar per role (Optional)
 * User defined templates for forms
 * Users must be logged in to post
 * Multiple pages with frontier-post shortcode can be used.
 * Supports external management of capabilities (tested with User Role Editor)
-* Title can be hidden on certain pages by adding comma separated list of page IDs
-* Add ID column to list of categories (optional)
-* Hide post status (optional)
 * frontier-post.css can be placed in template (child theme dir - [See here](http://wpfrontier.com/frontier-post-templates-css/) ), allowing for customm css rules.
-* New in version 3.3.x
- * Support for taxonomies
- * Custom Post Types
- * New Form Layout
- * Edit Pages
- * Documentation: [www.wpfrontier.com](http://wpfrontier.com/)
-
-
-= My Posts Widget =
-* Show logged-in users posts (Author)
- * My Posts
- * Comments to users posts
- * Excerpts of comments
-* Link: Create New Post 
-
-= My Approvals Widget =
-* Shows pending approval actions including link to approval (will only show for administrators)
- * Number of post approvals pending
- * Number of drafts (optional)
- * Number of comment approvals pending
- * Number of comments marked as spam
-
+* Custom Post Types
+* Documentation: [www.wpfrontier.com](http://wpfrontier.com/)
 
 = Usage = 
 * Short-code [frontier-post] in a page content after install and activation of the plugin - Then review settings and capabilities
 * Short code parameters  [http://wpfrontier.com/frontier-post-shortcodes/](http://wpfrontier.com/frontier-post-shortcodes/)
+
+= Related plugins =
+* [Frontier Buttons](http://wordpress.org/plugins/frontier-buttons/)
+* [Frontier Set Featured ](http://wordpress.org/plugins/frontier-set-featured/) 
+* [Frontier Restrict Media ](http://wordpress.org/plugins/frontier-restrict-media/) 
+* [Frontier Restrict Backend ](http://wordpress.org/plugins/frontier-restrict-backend/) 
+
+
+
 
 
 = Translations =
@@ -116,6 +95,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 * Added cashing of lists in add/edit form
 * New list layout: List (as before) / Exerpt / Full Post
 * Warning message for empty title & content made more visible.
+* Default category is not prefilled, but set on save if no category has been selected.
 
 = 3.5.6 =
 * Fixed single select for categories (wp_dropdown_categories(): selected input integer instead of array of integers)

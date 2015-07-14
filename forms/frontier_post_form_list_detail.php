@@ -66,26 +66,27 @@ if( $user_posts->found_posts > 0 )
 				</td>
 				
 				</tr>
-				<tr>
-					
-				<td class="frontier-new-list" id="frontier-post-new-list-excerpt" colspan=2>
-					<?php
-					if ($frontier_list_form == "full_post")
-						{
-						$tmp_content = apply_filters( 'the_content', $post->post_content );
-						$tmp_content = str_replace( ']]>', ']]&gt;', $tmp_content );
-						echo $tmp_content;
-						}
-					else
-			 			{
-			 			$tmp_content = $post->post_excerpt;
-						if (strlen(trim($tmp_content)) == 0)
-							$tmp_content = wp_trim_words($post->post_content);
-						echo $tmp_content;
-			 			}
-					?>
-				</td>
-				</tr>
+				
+				<?php
+				if ($frontier_list_form == "full_post")
+					{
+					$tmp_content = apply_filters( 'the_content', $post->post_content );
+					$tmp_content = str_replace( ']]>', ']]&gt;', $tmp_content );
+					echo '<tr><td class="frontier-new-list" id="frontier-post-new-list-excerpt" colspan=2>';
+					echo $tmp_content;
+					echo '</td></tr>';
+					}
+				if ($frontier_list_form == "excerpt")
+					{
+					$tmp_content = $post->post_excerpt;
+					if (strlen(trim($tmp_content)) == 0)
+						$tmp_content = wp_trim_words($post->post_content);
+					echo '<tr><td class="frontier-new-list" id="frontier-post-new-list-excerpt" colspan=2>';
+					echo $tmp_content;
+					echo '</td></tr>';
+					}
+				?>
+				
 				<tr>
 				<td class="frontier-new-list" id="frontier-post-new-list-info" colspan=2 >
 					<?php
