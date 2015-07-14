@@ -81,7 +81,7 @@ if( $user_posts->found_posts > 0 )
 			 			$tmp_content = $post->post_excerpt;
 						if (strlen(trim($tmp_content)) == 0)
 							$tmp_content = wp_trim_words($post->post_content);
-						//echo "Excerpt<br>";
+						echo $tmp_content;
 			 			}
 					?>
 				</td>
