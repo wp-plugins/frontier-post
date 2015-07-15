@@ -4,8 +4,29 @@ function frontier_prepare_delete_post($frontier_post_shortcode_parms = array())
 	{
 	extract($frontier_post_shortcode_parms);
 	
-	$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
-	$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";		
+	$frontier_permalink = get_permalink();
+	$concat				= get_option("permalink_structure")?"?":"&";
+	
+	//$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
+	//$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";		
+    
+    if (isset($_POST['task']))
+				{
+				$post_task 	= $_POST['task'];
+				}
+			else
+				{
+				if (isset($_GET['task']))
+					{
+					$post_task 	= $_GET['task'];
+					}
+				else 
+					{
+					$post_task 	="notaskset";
+					}
+				}
+		
+	$post_action 	= isset($_POST['action']) ? $_POST['action'] : "Unknown";
     
 	if($post_task == "delete" )
 		{
@@ -19,18 +40,21 @@ function frontier_prepare_delete_post($frontier_post_shortcode_parms = array())
 			if ( frontier_can_delete($thispost) == true )
 				{
 				
+				echo '<div id="frontier-post-alert">'.__("Delete", "frontier-post").':&nbsp;'.fp_get_posttype_label_singular($thispost->post_type).'</div>';
+				echo '<br><br>';
 				?>
 					<div class="frontier_post_delete_form"> 
 					<table>
 					
-					<form action="" method="post" name="frontier_delete_post" id="frontier_delete_post" enctype="multipart/form-data" >
+					<form action="<?php echo $frontier_permalink; ?>" method="post" name="frontier_delete_post" id="frontier_delete_post" enctype="multipart/form-data" >
 						<input type="hidden" name="action" value="wpfrtp_delete_post"> 
 						<input type="hidden" name="task" value="delete">
 						<input type="hidden" name="postid" id="postid" value="<?php if(isset($thispost->ID)) echo $thispost->ID; ?>">
 						<?php wp_nonce_field( 'frontier_delete_post', 'frontier_delete_post_'.$thispost->ID ); ?>
 		
-						<tr><td>
-						<center>
+						<tr>
+						</tr><tr>
+						<td><center>
 						<button class="button" type="submit" name="submit_delete" 		id="submit_delete" 	value="deletego"><?php _e("Delete", "frontier-post"); ?></button>
 						<input type="reset" value=<?php _e("Cancel", "frontier-post"); ?>  name="cancel" id="cancel" onclick="location.href='<?php the_permalink();?>'">
 						</center>
@@ -76,10 +100,28 @@ function frontier_execute_delete_post($frontier_post_shortcode_parms = array())
 	{
 	extract($frontier_post_shortcode_parms);
 	
-	$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
-	$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";
+	//$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
+	//$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";
+	if (isset($_POST['task']))
+				{
+				$post_task 	= $_POST['task'];
+				}
+			else
+				{
+				if (isset($_GET['task']))
+					{
+					$post_task 	= $_GET['task'];
+					}
+				else 
+					{
+					$post_task 	="notaskset";
+					}
+				}
+		
+	$post_action 	= isset($_POST['action']) ? $_POST['action'] : "Unknown";
+    
 	$submit_delete 	= isset($_POST['submit_delete']) ? $_POST['submit_delete'] : "Unknown";
-	$postid			= isset($_REQUEST['postid']) ? $_REQUEST['postid'] : 0;
+	$postid			= isset($_POST['postid']) ? $_POST['postid'] : 0;
 	
     if( ($post_action == "wpfrtp_delete_post") && ($postid !=0) )
 		{

@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.5.8.5
+Version: 3.5.9
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.5.8.5"); 
+define('FRONTIER_POST_VERSION', "3.5.9"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -133,9 +133,36 @@ function frontier_user_posts($atts)
 			
 			//error_log("Custom tax from settings ----->");
 			//error_log(print_r(fp_get_option_array("fps_custom_tax_list"), true));
-		
-			$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
-			$post_action 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : "Unknown";
+			
+			/*
+			error_log("Get var---->");
+			error_log(print_r($_GET, true));
+			*/
+			
+			if (isset($_POST['task']))
+				{
+				$post_task 	= $_POST['task'];
+				}
+			else
+				{
+				if (isset($_GET['task']))
+					{
+					$post_task 	= $_GET['task'];
+					}
+				else 
+					{
+					$post_task 	="notaskset";
+					}
+				}
+				
+			//$post_task 		= isset($_GET['task']) ? $_GET['task'] : "notaskset";	
+			$post_action 	= isset($_POST['action']) ? $_POST['action'] : "Unknown";
+			/*
+			error_log("Post task---->".$post_task);
+			
+			error_log("Post action---->".$post_action);
+			error_log(print_r($_POST, true));
+			*/
 		
 			$frontier_post_shortcode_parms = shortcode_atts( array (
 				'frontier_mode' 				=> 'none',

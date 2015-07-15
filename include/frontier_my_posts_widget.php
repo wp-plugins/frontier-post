@@ -97,10 +97,8 @@ class frontier_my_posts_widget extends WP_Widget
 			{
 			$fp_wdata 			= array();
 
-			if (isset($instance['show_post_count']) && $instance['show_post_count'] == 1 )
-				{ 
-				$fp_wdata['tmp_post_cnt']	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
-				}		
+			$fp_wdata['tmp_post_cnt']	= $wpdb->get_var("SELECT count(ID) AS tmp_post_cnt FROM $wpdb->posts WHERE post_author = ".$author." AND post_status = 'publish' AND post_type = 'post'" );
+						
 		
 			// Build sql statement	
 			if ($show_comments)
@@ -121,7 +119,7 @@ class frontier_my_posts_widget extends WP_Widget
 								 AND $wpdb->posts.post_type 	= 'post'  
 								 AND $wpdb->posts.post_author 	= ".$author."
 								 ORDER BY $wpdb->posts.post_date DESC, $wpdb->comments.comment_date_gmt DESC 
-								 LIMIT ".$rec_limit;
+								 LIMIT ".$rec_limit*5;
 				}
 			else
 				{
@@ -273,7 +271,16 @@ class frontier_my_posts_widget extends WP_Widget
 				
 				}
 			}
+    	global $current_user;
+		
+		// Delete cache
+    	//$author				= (int) $current_user->ID;
+		// cache name must contain author id as results are specific to authors
+		//$fp_cache_name		= $args['widget_id']."_fpuser_".$author;
+    	//delete_transient($args[$fp_cache_name]);
+    	
     	return $new_instance;
+    	
 		}
 
     /** @see WP_Widget::form */

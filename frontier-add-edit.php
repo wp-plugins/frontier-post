@@ -7,6 +7,8 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 	global $wpdb;
 	//add_thickbox();
 	
+	$frontier_permalink = get_permalink();
+	$concat				= get_option("permalink_structure")?"?":"&";
 	//set start of output debug query
 	$qlog 		= $wpdb->queries;
 	$qlog_start = count($qlog);
@@ -72,7 +74,7 @@ function frontier_post_add_edit($frontier_post_shortcode_parms = array())
 		
 		$post_id = $thispost->ID;
 		
-		$concat= get_option("permalink_structure")?"?":"&";
+		
 	
 		//get users role:
 		$users_role 		= frontier_get_user_role();

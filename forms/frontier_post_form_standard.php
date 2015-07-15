@@ -17,7 +17,7 @@ if ( strlen($frontier_edit_text_before) > 1 )
 
 
 	echo '<div class="frontier_post_form"> ';
-	echo '<form action="" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >';
+	echo '<form action="'.$frontier_permalink.'" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >';
 	
 	// do not remove this include, as it holds the hidden fields necessary for the logic to work
 	include(FRONTIER_POST_DIR."/forms/frontier_post_form_header.php");	
@@ -140,12 +140,12 @@ if ( strlen($frontier_edit_text_before) > 1 )
 			<legend><?php _e("Featured image", "frontier-post"); ?></legend>
 			<?php
 			//$FeatImgLinkHTML = '<a title="Select featured Image" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.$i_size.'" id="set-post-thumbnail" class="thickbox">';
-			$FeatImgLinkHTML = '<a title="Select featured Image" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.'&amp;type=image&amp;TB_iframe=1'.$i_size.'" id="set-post-thumbnail" class="thickbox">';
+			$FeatImgLinkHTML = '<a title="Select featured Image" href="'.site_url('/wp-admin/media-upload.php').'?post_id='.$post_id.$i_TBsize.'&amp;type=image&amp;TB_iframe=1'.$i_size.'" id="set-post-thumbnail" class="thickbox">';
 			
 			if (has_post_thumbnail($post_id))
 				$FeatImgLinkHTML = $FeatImgLinkHTML.get_the_post_thumbnail($post_id, 'thumbnail').'<br>';
 		
-			$FeatImgLinkHTML = $FeatImgLinkHTML.__("Select featured image", "frontier-post").'</a>';
+			$FeatImgLinkHTML = $FeatImgLinkHTML.'<br>'.__("Select featured image", "frontier-post").'</a>';
 	
 			echo $FeatImgLinkHTML."<br>";
 			echo '<div id="frontier_post_featured_image_txt">'.__("Not updated until post is saved", "frontier-post").'</div>';

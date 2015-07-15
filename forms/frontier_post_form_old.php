@@ -12,8 +12,9 @@ frontier_post_output_msg();
 ?>	
 	<div class="frontier_post_form"> 
 	
-	<form action="" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >
 	<?php
+	echo '<form action="'.$frontier_permalink.'" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >';
+	
 	// do not remove this include, as it holds the hidden fields necessary for the logic to work
 	include(FRONTIER_POST_DIR."/forms/frontier_post_form_header.php");	
 	

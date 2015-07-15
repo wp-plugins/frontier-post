@@ -14,8 +14,8 @@ if ( strlen($frontier_edit_text_before) > 1 )
 
 
 echo '<div class="frontier_post_form"> ';
-echo '<form action="" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >';
-
+echo '<form action="'.$frontier_permalink.'" method="post" name="frontier_post" id="frontier_post" enctype="multipart/form-data" >';
+	
 	// do not remove this include, as it holds the hidden fields necessary for the logic to work
 	include(FRONTIER_POST_DIR."/forms/frontier_post_form_header.php");	
 

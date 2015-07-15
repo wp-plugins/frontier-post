@@ -68,13 +68,13 @@ function frontier_get_tax_lists($tmp_page_id = 0, $tmp_parent_tax = 0, $fp_cache
 		if ($fp_cache_time > 0)
 			{
 			set_transient($fp_cache_name, $form_lists, $fp_cache_time);
-			echo '<div id="frontier-post-cache-updated">cache updated</div>';
+			//echo '<div id="frontier-post-info_text_bottom">cache updated</div>';
 			}
 		
 		}
 	else
 		{
-		echo '<div id="frontier-post-cache-read">cache read</div>';
+		//echo '<div id="frontier-post-info_text_bottom">cache read</div>';
 		}
 	return $form_lists;
 	}
@@ -178,7 +178,9 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 			{
 			
 			case "single":
-				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected[0], 'hierarchical' => true, 'show_count' => true, 'class' => 'frontier_post_dropdown')); 
+				if (count($tmp_selected) == 0)
+					$tmp_selected[0] = '';
+				wp_dropdown_categories(array('taxonomy' => $tmp_tax_name, 'id'=>$tmp_field_name, 'hide_empty' => 0, 'name' => $tmp_input_field_name, 'orderby' => 'name', 'selected' => $tmp_selected[0], 'hierarchical' => true, 'show_count' => true, 'show_option_none' => __("None", "frontier-post"), 'option_none_value' => '0','class' => 'frontier_post_dropdown')); 
 				break;
 		
 			case "multi":

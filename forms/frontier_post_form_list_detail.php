@@ -65,7 +65,7 @@ if( $user_posts->found_posts > 0 )
 				</td>
 				
 				<td class="frontier-new-list" id="frontier-post-new-list-title">
-					<h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
+					<h2 class="frontier-new-list"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 				</td>
 				
 				</tr>
@@ -139,6 +139,8 @@ if( $user_posts->found_posts > 0 )
 					<?php echo frontier_get_icon('comments2').'&nbsp;'.intval($post->comment_count);?>
 					<?php echo $tmp_info_separator; ?>
 					<?php _e("Categories", "frontier-post") ?>:&nbsp;  <?php the_category(', '); ?>
+					<?php echo $tmp_info_separator; ?>
+					<?php _e("Tags", "frontier-post") ?>:&nbsp;  <?php the_tags(', '); ?>
 				</td>
 				</tr>
 			</table>	
@@ -149,9 +151,12 @@ if( $user_posts->found_posts > 0 )
 		//echo '<hr>';
 		} 
 	
+	
+	
+	
 	$pagination = paginate_links( 
 			array(
-				'base' => add_query_arg( 'pagenum', '%#%' ),
+				'base' => add_query_arg( 'pagenum', '%#%'),
 				'format' => '',
 				'prev_text' => __( '&laquo;', 'frontier-post' ),
 				'next_text' => __( '&raquo;', 'frontier-post' ),

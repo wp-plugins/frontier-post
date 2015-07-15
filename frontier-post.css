@@ -295,8 +295,8 @@ td.frontier-new-list {
 	bottom: 0;
 }
 
-#frontier-post-cache-read {
-	color: darkgreen !important;
+#frontier-post-info_text_bottom {
+	color: darkgrey !important;
 	font-size: 0.7em !important;
 	position: absolute;
 	bottom: 0;

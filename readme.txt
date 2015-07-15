@@ -90,12 +90,14 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 3.5.8 =
+= 3.5.9 =
 * Fixed spelling error in my posts widget 
 * Added cashing of lists in add/edit form
 * New list layout: List (as before) / Exerpt / Full Post
 * Warning message for empty title & content made more visible.
 * Default category is not prefilled, but set on save if no category has been selected.
+* Added versioning to frontier-post.css to ensure updates.
+* Updated transition logic to avoid discrepancy in pagination links.
 
 = 3.5.6 =
 * Fixed single select for categories (wp_dropdown_categories(): selected input integer instead of array of integers)
