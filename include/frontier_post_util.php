@@ -285,6 +285,8 @@ Function frontier_post_tax_readonly($tmp_cat_list, $tmp_selected, $tmp_name, $tm
 	}		
 
 
+
+
 //********************************************************************************
 // Out messages
 //********************************************************************************
@@ -384,14 +386,15 @@ function fp_get_tax_list()
 	}
 
 
-//Default list of allowed post types for a user
+//Default list of allowed taxonomies for a user
 function fp_default_tax_list()
 	{
 	return fp_get_option_array('fps_custom_tax_list');	
 	}
 
 
-// return allowed post types of $tmp_tax_array
+
+// return allowed taxonomies of $tmp_tax_array
 function fp_validate_tax_list($tmp_tax_array)
 	{
 	return array_intersect($tmp_tax_array, fp_default_tax_list() );	
@@ -467,6 +470,24 @@ function fp_get_tax_label_singular($tmp_tax_name)
 	return $tmp_tax->labels->singular_name;
 	}
 
+// Get all taxonomy values for a post
+function fp_get_tax_values($postid)
+	{
+	$tax_list 	= array_merge( array("category", "post_tag"), fp_default_tax_list() );
+	$tmp_output = "";
+	foreach ($tax_list as $tmp_tax)
+		{
+		$tax_values = wp_get_post_terms($postid, $tmp_tax, array("fields" => "names"));
+		if (count($tax_values)>0)
+			//$tmp_output .= '<div class="frontier-post-tax-label" id="frontier-post-tax-label-'.$tmp_tax.'">';
+			//$tmp_output .= '<div class="frontier-post-tax-list" id="frontier-post-tax-list-'.$tmp_tax.'">';
+			$tmp_output .= fp_get_tax_label($tmp_tax).": ";
+			$tmp_output .= implode(", ", $tax_values)." | ";
+		}
+		//echo $tmp_tax." ---> ".print_r($tax_values, true)."<br>";
+	return $tmp_output;
+	}
+
 //********************************************************************************
 // get icon img url
 // 1: Look in the frontier post template folder
@@ -530,6 +551,69 @@ function frontier_get_comment_icon()
 			}
 		}	
 	return $comment_icon_html;
+	}
+
+//********************************************************************************
+// Display edit Icon or Link
+//********************************************************************************
+
+function frontier_post_edit_link($fp_post_id, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-edit", $fp_class = "frontier-post-list-icon")
+	{
+	$fp_return = '';
+	if (frontier_can_edit($post) == true)
+		{
+		$concat= get_option("permalink_structure")?"?":"&";    
+		if ($fp_show_icons)
+			{
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink().$concat.'task=edit&postid='.$fp_post_id.'">'.frontier_get_icon('edit').'</a>';	
+			}
+		else
+			{
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink().$concat.'task=edit&postid='.$fp_post_id.'">'.__("Edit", "frontier-post").'&nbsp;&nbsp;</a>';
+			}
+		}
+	return $fp_return;
+	}
+
+//********************************************************************************
+// Display DELETE Icon or Link
+//********************************************************************************
+
+function frontier_post_delete_link($fp_post_id, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-delete", $fp_class = "frontier-post-list-icon")
+	{
+	$fp_return = '';
+	if (frontier_can_delete($post) == true)
+		{
+		$concat= get_option("permalink_structure")?"?":"&";    
+		if ($fp_show_icons)
+			{
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink().$concat.'task=delete&postid='.$fp_post_id.'">'.frontier_get_icon('delete').'</a>';	
+			}
+		else
+			{
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink().$concat.'task=delete&postid='.$fp_post_id.'">'.__("Delete", "frontier-post").'&nbsp;&nbsp;</a>';
+			}
+		}
+	return $fp_return;
+	}
+
+//********************************************************************************
+// Display Preview Icon or Link
+//********************************************************************************
+
+function frontier_post_preview_link($fp_post_id, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-preview", $fp_class = "frontier-post-list-icon")
+	{
+	$fp_return = '';
+	$concat= get_option("permalink_structure")?"?":"&";    
+	if ($fp_show_icons)
+		{
+		$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.site_url().'/?p='.$fp_post_id.'&preview=true">'.frontier_get_icon('view').'</a>';	
+		}
+	else
+		{
+		$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.site_url().'/?p='.$fp_post_id.'&preview=true">'.__("Preview", "frontier-post").'&nbsp;&nbsp;</a>';
+		}
+return $fp_return;
 	}
 
 //********************************************************************************

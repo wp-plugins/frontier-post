@@ -59,11 +59,28 @@ function  frontier_user_post_list($frontier_post_shortcode_parms = array())
 	$user_posts 	= new WP_Query( $args );
 
 	$fp_show_icons 	= fp_get_option_bool('fps_use_icons');
+	$fp_list_form 	= fp_get_option("fps_default_list", "list");
 	
+	switch ($fp_list_form)
+		{
+		case 'simple':
+			include_once(frontier_load_form("frontier_post_form_list.php"));
+			break;
+		
+		case 'theme':
+			include_once(frontier_load_form("frontier_post_form_list_theme.php"));
+			break;
+			
+		default:
+			include_once(frontier_load_form("frontier_post_form_list_detail.php"));
+			break;
+		}
+	
+	/*
 	if (fp_get_option("fps_default_list", "list") == "simple")
 		include_once(frontier_load_form("frontier_post_form_list.php"));
 	else
 		include_once(frontier_load_form("frontier_post_form_list_detail.php"));
-		
+	*/	
 	}  
 ?>

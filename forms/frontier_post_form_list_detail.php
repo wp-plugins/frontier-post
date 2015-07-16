@@ -42,6 +42,7 @@ if (frontier_can_add() && !fp_get_option_bool("fps_hide_add_on_list"))
 
 if( $user_posts->found_posts > 0 )
 	{
+	echo '<div id="frontier-post-list_form">';
 	while ($user_posts->have_posts()) 
 		{
 		$user_posts->the_post();
@@ -92,55 +93,35 @@ if( $user_posts->found_posts > 0 )
 				
 				<tr>
 				<td class="frontier-new-list" id="frontier-post-new-list-info" colspan=2 >
-					<?php
-					if (frontier_can_edit($post) == true)
-						{
-						if ($fp_show_icons)
-							{
-							?><a class="frontier-list-posts" id="frontier-new-list-posts-edit-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>"><?php echo frontier_get_icon('edit') ?></a>&nbsp;&nbsp;<?php	
-							}
-						else
-							{
-							?><a class="frontier-list-posts" id="frontier-new-list-posts-edit-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=edit&postid=<?php echo $post->ID;?>"><?php _e("Edit", "frontier-post") ?></a>&nbsp;&nbsp;<?php
-							}
-						}
-											
-					if (frontier_can_delete($post) == true)
-						{
-						if ($fp_show_icons)
-							{
-							?><a class="frontier-list-posts" id="frontier-new-list-posts-delete-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>" ><?php echo frontier_get_icon('delete'); ?></a>&nbsp;&nbsp;<?php
-							}
-						else
-							{
-							?><a class="frontier-list-posts" id="frontier-new-list-posts-delete-link" href="<?php echo $frontier_permalink; ?><?php echo $concat;?>task=delete&postid=<?php echo $post->ID;?>" ><?php _e("Delete", "frontier-post") ?></a>&nbsp;&nbsp;<?php
-							}
-						} 
-						
-					$tmp_post_link = site_url();
-					$tmp_post_link = $tmp_post_link."/?p=".$post->ID."&preview=true";
-						if ($fp_show_icons)
-							{
-							?><a class="frontier-list-posts" id="frontier-new-list-posts-preview-link" href="<?php echo $tmp_post_link;?>" target="_blank"><?php echo frontier_get_icon('view'); ?></a>	<?php
-							}
-						else
-							{
-							?><a class="frontier-list-posts" id="frontier-new-list-posts-preview-link" href="<?php echo $tmp_post_link;?>" target="_blank"><?php _e("Preview","frontier-post") ?></a><?php
-							}	
 					
-						?>
-					&nbsp;
-					<?php _e("Status", "frontier-post") ?>: <?php echo ( isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status ); ?>
-					<?php echo $tmp_info_separator; ?>
-					<?php _e("Author", "frontier-post") ?>: <?php the_author() ?>
-					<?php echo $tmp_info_separator; ?>
-					<?php printf( _x( '%s ago', '%s = human-readable time difference', 'frontier-post' ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) ); ?>
-					<?php echo $tmp_info_separator; ?>
-					<?php echo frontier_get_icon('comments2').'&nbsp;'.intval($post->comment_count);?>
-					<?php echo $tmp_info_separator; ?>
-					<?php _e("Categories", "frontier-post") ?>:&nbsp;  <?php the_category(', '); ?>
-					<?php echo $tmp_info_separator; ?>
-					<?php _e("Tags", "frontier-post") ?>:&nbsp;  <?php the_tags(', '); ?>
+					<?php
+					echo frontier_post_edit_link($post->ID, $fp_show_icons);
+					echo frontier_post_delete_link($post->ID, $fp_show_icons);
+					echo frontier_post_preview_link($post->ID, $fp_show_icons);
+					
+					
+					
+					echo __("Status", "frontier-post").': '.( isset($tmp_status_list[$post->post_status]) ? $tmp_status_list[$post->post_status] : $post->post_status );
+					echo $tmp_info_separator;
+					echo __("Author", "frontier-post").': ';
+					the_author();
+					echo $tmp_info_separator; 
+					printf( _x( '%s ago', '%s = human-readable time difference', 'frontier-post' ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) ); 
+					echo $tmp_info_separator; 
+					echo frontier_get_icon('comments2').'&nbsp;'.intval($post->comment_count);
+					echo $tmp_info_separator; 
+					echo __("Categories", "frontier-post").': ';
+					the_category(', '); 
+					echo $tmp_info_separator; 
+					echo __("Tags", "frontier-post").': ';
+					the_tags(', '); 
+					/*
+					echo '<br>';
+					echo fp_get_tax_values($post->ID); 
+					*/
+					?>
+					
+					
 				</td>
 				</tr>
 			</table>	
@@ -149,7 +130,8 @@ if( $user_posts->found_posts > 0 )
 		
 		<?php
 		//echo '<hr>';
-		} 
+		
+		} // end while have posts 
 	
 	
 	
@@ -172,7 +154,9 @@ if( $user_posts->found_posts > 0 )
 		}
 	if ( $frontier_list_all_posts != "true" )
 		echo "</br>".__("Number of posts already created by you: ", "frontier-post").$user_posts->found_posts."</br>";
-	}
+	
+	echo '</div>';
+	} // end if have posts
 else
 	{
 		echo "</br><center>";

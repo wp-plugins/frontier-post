@@ -80,7 +80,10 @@ table.frontier-list {
 .frontier-post-list-icon {
     height: 12px !important;
     display: unset !important;
+    margin-right: 3px !important;
 }
+
+
 
 .frontier-menu {
 	text-align: center;
@@ -200,13 +203,6 @@ td.frontier_frontier_featured_image  {
 	width: 98% !important;
 }
 
-#frontier-post-list-icon-comments {
-    height: 24px !important;
-}
-
-.frontier-post-list-icon {
-    height: 12px !important;
-}
 
 #frontier_post_moderation_new_text {
 	height: 140px !important;
@@ -214,6 +210,10 @@ td.frontier_frontier_featured_image  {
 }
 
 /* Styling for new list layout from version 3.6.0 */
+
+#frontier-post-list_form {
+	box-sizing: unset !important;
+}
 
 fieldset.frontier-new-menu {
 	margin:10px;
@@ -226,7 +226,7 @@ fieldset.frontier-new-menu {
 	text-align: center !important;
 	font-size: 1.4em;
 	width: 100% !important;
-	box-sizing: unset;
+	/* box-sizing: unset;*/
  }  
 
 fieldset.frontier-new-list {
@@ -239,7 +239,7 @@ fieldset.frontier-new-list {
 	float: none;
 	text-align: left;
 	width: 100% !important;
-	box-sizing: unset;
+	/*box-sizing: unset;*/
  }  
 
 #frontier-post-new-list-thumbnail {
