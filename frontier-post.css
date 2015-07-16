@@ -252,6 +252,7 @@ fieldset.frontier-new-list {
 #frontier-post-new-list-title-link {
 	font-size: 1.8em !important;
 	font-weight: bold !important;
+	border-bottom: 0px none !important;
 }
 
 #frontier-post-new-list-thumbnail {
