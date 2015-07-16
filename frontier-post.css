@@ -81,6 +81,7 @@ table.frontier-list {
     height: 12px !important;
     display: unset !important;
     margin-right: 3px !important;
+    border-bottom: 0 !important;
 }
 
 
@@ -242,8 +243,24 @@ fieldset.frontier-new-list {
 	/*box-sizing: unset;*/
  }  
 
+#frontier-post-new-list-title {
+	/*vertical-align: unset;*/
+	margin-bottom: 0px;
+	width: 100% !important;
+}
+
+#frontier-post-new-list-title-link {
+	font-size: 1.5em important;
+}
+
 #frontier-post-new-list-thumbnail {
 	width: 50px;
+	display: unset !important;
+}
+
+img.frontier-post-list-thumbnail {
+    margin-right: 10px;
+    margin-left: 5px;
 }
 
 legend.frontier-new-list {
@@ -278,10 +295,7 @@ td.frontier-new-list {
 }
 
 
-#frontier-post-new-list-title {
-	vertical-align: bottom;
-	margin-bottom: 0px;
-}
+
 
 #frontier-post-new-list-excerpt {
 	border-bottom: 1px solid #c2c2c2 !important;

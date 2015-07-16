@@ -557,19 +557,19 @@ function frontier_get_comment_icon()
 // Display edit Icon or Link
 //********************************************************************************
 
-function frontier_post_edit_link($fp_post_id, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-edit", $fp_class = "frontier-post-list-icon")
+function frontier_post_edit_link($fp_post, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-edit", $fp_class = "frontier-post-list-icon")
 	{
 	$fp_return = '';
-	if (frontier_can_edit($post) == true)
+	if (frontier_can_edit($fp_post) == true)
 		{
 		$concat= get_option("permalink_structure")?"?":"&";    
 		if ($fp_show_icons)
 			{
-			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink().$concat.'task=edit&postid='.$fp_post_id.'">'.frontier_get_icon('edit').'</a>';	
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink($fp_post).$concat.'task=edit&postid='.$fp_post->ID.'">'.frontier_get_icon('edit').'</a>';	
 			}
 		else
 			{
-			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink().$concat.'task=edit&postid='.$fp_post_id.'">'.__("Edit", "frontier-post").'&nbsp;&nbsp;</a>';
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink($fp_post).$concat.'task=edit&postid='.$fp_post->ID.'">'.__("Edit", "frontier-post").'&nbsp;&nbsp;</a>';
 			}
 		}
 	return $fp_return;
@@ -579,19 +579,19 @@ function frontier_post_edit_link($fp_post_id, $fp_show_icons = true, $fp_div_id 
 // Display DELETE Icon or Link
 //********************************************************************************
 
-function frontier_post_delete_link($fp_post_id, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-delete", $fp_class = "frontier-post-list-icon")
+function frontier_post_delete_link($fp_post, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-delete", $fp_class = "frontier-post-list-icon")
 	{
 	$fp_return = '';
-	if (frontier_can_delete($post) == true)
+	if (frontier_can_delete($fp_post) == true)
 		{
 		$concat= get_option("permalink_structure")?"?":"&";    
 		if ($fp_show_icons)
 			{
-			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink().$concat.'task=delete&postid='.$fp_post_id.'">'.frontier_get_icon('delete').'</a>';	
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink($fp_post).$concat.'task=delete&postid='.$fp_post->ID.'">'.frontier_get_icon('delete').'</a>';	
 			}
 		else
 			{
-			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink().$concat.'task=delete&postid='.$fp_post_id.'">'.__("Delete", "frontier-post").'&nbsp;&nbsp;</a>';
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink($fp_post).$concat.'task=delete&postid='.$fp_post->ID.'">'.__("Delete", "frontier-post").'&nbsp;&nbsp;</a>';
 			}
 		}
 	return $fp_return;
@@ -601,17 +601,17 @@ function frontier_post_delete_link($fp_post_id, $fp_show_icons = true, $fp_div_i
 // Display Preview Icon or Link
 //********************************************************************************
 
-function frontier_post_preview_link($fp_post_id, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-preview", $fp_class = "frontier-post-list-icon")
+function frontier_post_preview_link($fp_post, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-preview", $fp_class = "frontier-post-list-icon")
 	{
 	$fp_return = '';
 	$concat= get_option("permalink_structure")?"?":"&";    
 	if ($fp_show_icons)
 		{
-		$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.site_url().'/?p='.$fp_post_id.'&preview=true">'.frontier_get_icon('view').'</a>';	
+		$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.site_url().'/?p='.$fp_post->ID.'&preview=true">'.frontier_get_icon('view').'</a>';	
 		}
 	else
 		{
-		$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.site_url().'/?p='.$fp_post_id.'&preview=true">'.__("Preview", "frontier-post").'&nbsp;&nbsp;</a>';
+		$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.site_url().'/?p='.$fp_post->ID.'&preview=true">'.__("Preview", "frontier-post").'&nbsp;&nbsp;</a>';
 		}
 return $fp_return;
 	}

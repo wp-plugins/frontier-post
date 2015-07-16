@@ -53,22 +53,21 @@ if( $user_posts->found_posts > 0 )
 			<fieldset class="frontier-new-list">
 			
 			<table class="frontier-new-list">
-				<tr>
+				
 				
 				<?php
 				// show status if pending or draft
 				if ($post->post_status == "pending" || $post->post_status == "draft")
-					echo '<td class="frontier-new-list" id="frontier-post-new-list-status" colspan=2>'.__("Status", "frontier-post").': '.$post->post_status.'</td></tr><tr>';
+					echo '<tr><td class="frontier-new-list" id="frontier-post-new-list-status" colspan=2>'.__("Status", "frontier-post").': '.$post->post_status.'</td></tr>';
 				?>
 				
-				<td class="frontier-new-list" id="frontier-post-new-list-thumbnail">
-					<?php the_post_thumbnail( array(50,50) ); ?> 
-				</td>
 				
+				
+				<tr>
 				<td class="frontier-new-list" id="frontier-post-new-list-title">
-					<h2 class="frontier-new-list"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<?php the_post_thumbnail( array(50,50), array('class' => 'frontier-post-list-thumbnail') ); ?>
+					<a id="frontier-post-new-list-title-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 				</td>
-				
 				</tr>
 				
 				<?php
@@ -95,9 +94,9 @@ if( $user_posts->found_posts > 0 )
 				<td class="frontier-new-list" id="frontier-post-new-list-info" colspan=2 >
 					
 					<?php
-					echo frontier_post_edit_link($post->ID, $fp_show_icons);
-					echo frontier_post_delete_link($post->ID, $fp_show_icons);
-					echo frontier_post_preview_link($post->ID, $fp_show_icons);
+					echo frontier_post_edit_link($post, $fp_show_icons);
+					echo frontier_post_delete_link($post, $fp_show_icons);
+					echo frontier_post_preview_link($post, $fp_show_icons);
 					
 					
 					
