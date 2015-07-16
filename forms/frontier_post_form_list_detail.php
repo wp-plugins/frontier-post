@@ -94,9 +94,9 @@ if( $user_posts->found_posts > 0 )
 				<td class="frontier-new-list" id="frontier-post-new-list-info" colspan=2 >
 					
 					<?php
-					echo frontier_post_edit_link($post, $fp_show_icons);
-					echo frontier_post_delete_link($post, $fp_show_icons);
-					echo frontier_post_preview_link($post, $fp_show_icons);
+					echo frontier_post_edit_link($post, $fp_show_icons, $frontier_permalink);
+					echo frontier_post_delete_link($post, $fp_show_icons, $frontier_permalink);
+					echo frontier_post_preview_link($post, $fp_show_icons, $frontier_permalink);
 					
 					
 					

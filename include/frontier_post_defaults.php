@@ -76,8 +76,7 @@ $frontier_list_forms = array(
 	'simple'		=> __("Simple List (one line per record)", "frontier-post"),
 	'list'			=> __("List", "frontier-post"),
 	'excerpt'		=> __("Excerpt", "frontier-post"),
-	'full_post'		=> __("Full Post", "frontier-post"),
-	//'theme'			=> __("Theme", "frontier-post")
+	'full_post'		=> __("Full Post", "frontier-post")
 	);
 
 

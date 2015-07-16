@@ -196,6 +196,7 @@ function frontier_posting_form_submit($frontier_post_shortcode_parms = array())
 		
 		// Delete users cache for My Posts widget
 		fp_delete_my_posts_cache($current_user->ID);
+		//fp_delete_my_approvals_cache($current_user->ID);
 		
 		//***************************************************************************************
 		//* Save post moderation fields

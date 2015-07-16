@@ -217,29 +217,29 @@ td.frontier_frontier_featured_image  {
 }
 
 fieldset.frontier-new-menu {
-	margin:10px;
-	padding:0 10px 10px;
+	margin: 3px 3px 8px 3px;
+	padding:0 3px 3px;
 	border:1px solid #666;
 	border-radius:8px;
 	box-shadow:0 0 10px #666;
-	padding-top:10px;
+	/*padding-top:10px;*/
 	float: none;
 	text-align: center !important;
 	font-size: 1.4em;
-	width: 100% !important;
+	width: 98% !important;
 	/* box-sizing: unset;*/
  }  
 
 fieldset.frontier-new-list {
-	margin:10px;
-	padding:0 10px 10px;
-	border:1px solid #666;
+	margin: 3px;
+	padding: 4px;
+	border: 1px solid #666;
 	border-radius:8px;
 	box-shadow:0 0 10px #666;
-	padding-top:10px;
+	/*padding-top: 10px;/*
 	float: none;
 	text-align: left;
-	width: 100% !important;
+	width: 98% !important;
 	/*box-sizing: unset;*/
  }  
 
@@ -250,7 +250,8 @@ fieldset.frontier-new-list {
 }
 
 #frontier-post-new-list-title-link {
-	font-size: 1.5em important;
+	font-size: 1.8em !important;
+	font-weight: bold !important;
 }
 
 #frontier-post-new-list-thumbnail {
@@ -279,11 +280,12 @@ td.frontier-new-list {
 
 #frontier-post-new-list-status {
 	/*color: red !important;*/
-	border: 1px solid red !important;
+	/*border: 1px solid red !important;*/
 	font-size: 1.2em !important;
 	font-weight: bold !important;
 	text-align: center !important;
 	background-color: lightgray;
+	border-radius:8px;
 }
 
 

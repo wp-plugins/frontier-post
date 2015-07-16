@@ -557,7 +557,7 @@ function frontier_get_comment_icon()
 // Display edit Icon or Link
 //********************************************************************************
 
-function frontier_post_edit_link($fp_post, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-edit", $fp_class = "frontier-post-list-icon")
+function frontier_post_edit_link($fp_post, $fp_show_icons = true, $tmp_plink, $fp_div_id = "frontier-post-list-icon-edit", $fp_class = "frontier-post-list-icon")
 	{
 	$fp_return = '';
 	if (frontier_can_edit($fp_post) == true)
@@ -565,11 +565,11 @@ function frontier_post_edit_link($fp_post, $fp_show_icons = true, $fp_div_id = "
 		$concat= get_option("permalink_structure")?"?":"&";    
 		if ($fp_show_icons)
 			{
-			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink($fp_post).$concat.'task=edit&postid='.$fp_post->ID.'">'.frontier_get_icon('edit').'</a>';	
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.$tmp_plink.$concat.'task=edit&postid='.$fp_post->ID.'">'.frontier_get_icon('edit').'</a>';	
 			}
 		else
 			{
-			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink($fp_post).$concat.'task=edit&postid='.$fp_post->ID.'">'.__("Edit", "frontier-post").'&nbsp;&nbsp;</a>';
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.$tmp_plink.$concat.'task=edit&postid='.$fp_post->ID.'">'.__("Edit", "frontier-post").'&nbsp;&nbsp;</a>';
 			}
 		}
 	return $fp_return;
@@ -579,7 +579,7 @@ function frontier_post_edit_link($fp_post, $fp_show_icons = true, $fp_div_id = "
 // Display DELETE Icon or Link
 //********************************************************************************
 
-function frontier_post_delete_link($fp_post, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-delete", $fp_class = "frontier-post-list-icon")
+function frontier_post_delete_link($fp_post, $fp_show_icons = true, $fp_div_id = "frontier-post-list-icon-delete", $fp_class = "frontier-post-list-icon")
 	{
 	$fp_return = '';
 	if (frontier_can_delete($fp_post) == true)
@@ -587,11 +587,11 @@ function frontier_post_delete_link($fp_post, $fp_show_icons = true, $fp_div_id =
 		$concat= get_option("permalink_structure")?"?":"&";    
 		if ($fp_show_icons)
 			{
-			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink($fp_post).$concat.'task=delete&postid='.$fp_post->ID.'">'.frontier_get_icon('delete').'</a>';	
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.$tmp_plink.$concat.'task=delete&postid='.$fp_post->ID.'">'.frontier_get_icon('delete').'</a>';	
 			}
 		else
 			{
-			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.get_permalink($fp_post).$concat.'task=delete&postid='.$fp_post->ID.'">'.__("Delete", "frontier-post").'&nbsp;&nbsp;</a>';
+			$fp_return = '<a class="'.$fp_class.'" id="'.$fp_div_id.'" href="'.$tmp_plink.$concat.'task=delete&postid='.$fp_post->ID.'">'.__("Delete", "frontier-post").'&nbsp;&nbsp;</a>';
 			}
 		}
 	return $fp_return;
@@ -601,7 +601,7 @@ function frontier_post_delete_link($fp_post, $fp_show_icons = true, $fp_div_id =
 // Display Preview Icon or Link
 //********************************************************************************
 
-function frontier_post_preview_link($fp_post, $fp_show_icons = true, $fp_div_id = "rontier-post-list-icon-preview", $fp_class = "frontier-post-list-icon")
+function frontier_post_preview_link($fp_post, $fp_show_icons = true, $fp_div_id = "frontier-post-list-icon-preview", $fp_class = "frontier-post-list-icon")
 	{
 	$fp_return = '';
 	$concat= get_option("permalink_structure")?"?":"&";    
@@ -844,12 +844,31 @@ function fp_delete_my_posts_cache($tmp_user_id)
 
 function fp_delete_widget_cache()
 	{
+	
 	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_frontier_my_posts_widget%'");
 	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_frontier_my_posts_widget%'");
 	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_frontier_approvals_widget%'");
 	$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_frontier_approvals_widget%'");
+	
 	}
 
+
+function fp_delete_my_approvals_cache($tmp_user_id)
+	{
+	global $wpdb;
+	$tmp_sql 	= "SELECT option_name FROM $wpdb->options WHERE option_name LIKE '%_fpuser_".$tmp_user_id."%'";
+	$tmp_cache 	= $wpdb->get_results($tmp_sql);
+	echo "<hr>SQL: ".$tmp_sql."<br>";
+	echo print_r($tmp_cache, true)."<hr>";
+	if ($tmp_cache )
+		{
+		foreach ($tmp_cache as $tmp_option)
+			{
+			echo $tmp_option->option_name."<br>";
+			}
+		}
+	echo "<hr>";
+	}
 //_transient_frontier_approvals_widget-3
 //_transient_frontier_my_posts_widget-22
 
