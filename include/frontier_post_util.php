@@ -579,7 +579,7 @@ function frontier_post_edit_link($fp_post, $fp_show_icons = true, $tmp_plink, $f
 // Display DELETE Icon or Link
 //********************************************************************************
 
-function frontier_post_delete_link($fp_post, $fp_show_icons = true, $fp_div_id = "frontier-post-list-icon-delete", $fp_class = "frontier-post-list-icon")
+function frontier_post_delete_link($fp_post, $fp_show_icons = true, $tmp_plink, $fp_div_id = "frontier-post-list-icon-delete", $fp_class = "frontier-post-list-icon")
 	{
 	$fp_return = '';
 	if (frontier_can_delete($fp_post) == true)
