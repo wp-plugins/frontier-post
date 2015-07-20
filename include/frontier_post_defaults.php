@@ -216,7 +216,7 @@ $fp_role_option_list 	= array(
 		'fps_mod_default_email'			=> "false",
 		'fps_hide_add_on_list'			=> "false",
 		'fps_default_list'				=> "list",
-		'fps_cache_time_tax_lists'		=> (30*60)
+		'fps_cache_time_tax_lists'		=> -1
 		);
 
 

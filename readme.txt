@@ -4,7 +4,7 @@ Donate link:
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish,
 Requires at least: 3.4.0
 Tested up to: 4.2.2
-Stable tag: 3.6.0
+Stable tag: 3.6.1
 License: GPL v3 or later
  
 Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - Full featured frontend management of posts.
@@ -89,6 +89,10 @@ Let me know what you think, and if you have enhancement requests or problems let
 7. My Approvals Widget
 
 == Changelog ==
+
+= 3.6.1 =
+* Fixed allowed categories. 
+* Changed default setting from caching: 30 mins to disabled.
 
 = 3.6.0 =
 * Fixed spelling error in my posts widget 

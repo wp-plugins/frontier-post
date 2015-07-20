@@ -165,7 +165,7 @@ function frontier_tax_input($tmp_post_id, $tmp_tax_name, $input_type = 'checkbox
 			$cat_incl = fp_array_remove_zero(fp_list2array($fp_capabilities[frontier_get_user_role()]['fps_role_allowed_categories']));
 			//Remove all array entries that is not included
 			if (count($cat_incl)>0)
-				$tmp_tax_list = array_intersect_key($tmp_tax_list, $cat_incl);
+				$tmp_tax_list = array_intersect_key($tmp_tax_list, array_flip($cat_incl));
 			}
 		
 		//$tmp_selected 			= wp_get_post_terms( $tmp_post_id, $tmp_tax_name, array("fields" => "ids"));		
