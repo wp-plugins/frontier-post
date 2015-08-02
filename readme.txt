@@ -91,7 +91,7 @@ Let me know what you think, and if you have enhancement requests or problems let
 
 == Changelog ==
 
-= 3.6.4 =
+= 3.6.5 =
 * Updated widgets to support PHP 5 constructor (WP 4.3 requirement)
 * Added support for PressThis - Link: Edit in standard editor redirects to Frontier Post
 

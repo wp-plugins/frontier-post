@@ -51,7 +51,7 @@ class frontier_my_posts_widget extends WP_Widget
 		
 		
     	$widget_ops = array('description' => __( "List posts of current user (author)", 'frontier-post') );
-        parent::WP_Widget(false, $name = 'Frontier My Posts', $widget_ops);	
+        parent::__construct('frontier-my-posts', 'Frontier My Posts', $widget_ops);
 		}
 
     /** @see WP_Widget::widget */
