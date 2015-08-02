@@ -249,6 +249,7 @@ fieldset.frontier-new-list {
 	width: 100% !important;
 }
 
+
 #frontier-post-new-list-title-link {
 	font-size: 1.8em !important;
 	font-weight: bold !important;
@@ -257,12 +258,13 @@ fieldset.frontier-new-list {
 
 #frontier-post-new-list-thumbnail {
 	width: 50px;
-	display: unset !important;
+	/*display: unset !important;*/
 }
 
 img.frontier-post-list-thumbnail {
     margin-right: 10px;
     margin-left: 5px;
+    display: unset !important;
 }
 
 legend.frontier-new-list {

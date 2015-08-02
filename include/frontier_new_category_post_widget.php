@@ -8,8 +8,7 @@ class frontier_new_category_posts_widget extends WP_Widget
 	
 	var $defaults;
 	
-    /** constructor */
-    function frontier_new_category_posts_widget() 
+    public function __construct()
 		{
 	
 		$this->defaults = array(
@@ -24,11 +23,15 @@ class frontier_new_category_posts_widget extends WP_Widget
 		
 		
     	$widget_ops = array('description' => __( "Add new post from category", 'frontier-post') );
-        parent::WP_Widget(false, $name = 'Add category post', $widget_ops);	
+        //parent::WP_Widget(false, $name = 'Add category post', $widget_ops);	
+		//parent::__construct('frontier-my-posts', 'Frontier My Posts', $widget_ops);
+		parent::__construct('frontier-new-category-posts', 'Frontier Add Category Post', $widget_ops);
+		
 		}
 
+
     /** @see WP_Widget::widget */
-    function widget($args, $instance) 
+    public function widget($args, $instance) 
 	{
 	
 	if(is_user_logged_in())
@@ -84,7 +87,7 @@ class frontier_new_category_posts_widget extends WP_Widget
     }
 
     /** @see WP_Widget::update */
-    function update($new_instance, $old_instance) 
+    public function update($new_instance, $old_instance) 
 		{
 		$tmp_boolean_fields = array('show_add_post', 'show_post_count');
     	foreach($this->defaults as $key => $value)
@@ -103,7 +106,7 @@ class frontier_new_category_posts_widget extends WP_Widget
 		}
 
     /** @see WP_Widget::form */
-    function form($instance) 
+    public function form($instance) 
 	{
     	$instance = array_merge($this->defaults, $instance);
     	

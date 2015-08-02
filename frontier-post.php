@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.6.1
+Version: 3.6.4
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.6.1"); 
+define('FRONTIER_POST_VERSION', "3.6.4"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -119,15 +119,15 @@ function frontier_user_posts($atts)
 	
 	
 
-	if ( has_shortcode( $post->post_content, 'frontier-post') && ($post->post_type == 'page') )
+	if ( has_shortcode( $post->post_content, 'frontier-post') && ($post->post_type === 'page') )
 		{
 		if( is_user_logged_in() )
 			{  
 			
 			//if ( !is_page(get_the_id()) )
-			if ( $post->post_type != 'page' )
+			if ( $post->post_type !== 'page' )
 				{
-				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post").'</h1></center>');
+				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post")." (".$post->post_type.")</h1></center>");
 				return;         
 				}
 			
@@ -253,11 +253,11 @@ function frontier_user_posts($atts)
 		}
 		else
 		{
-			//Shortcode called from post, not allowed
-			if ( is_singular() )
+			//Shortcode called from enything else than page, not allowed
+			if ( $post->post_type !== 'page' && is_singular() )
 				{
 				// Only show warning if single post
-				echo '<br><div id="frontier-post-alert">frontier-post shortcode '.__("not allowed in posts, only pages !", "frontier-post").'</div><br>';
+				echo '<br><div id="frontier-post-alert">frontier-post shortcode '.__("not allowed in posts, only pages !", "frontier-post").' ('.$post->post_type.')</div><br>';
 				return;
 				}
 		} // has_shortcode
@@ -377,25 +377,23 @@ add_action("init","frontier_admin_bar");
 function frontier_edit_post_link( $url, $post_id ) 
 	{
 	
-	
 	// Redirect to frontier post unless is called from admin panel or it is a post type not allowed in frontier post
-	if ( is_admin() || !fp_check_post_type(get_post_type($post_id)) )
-		{
-			return $url;
-		}
-	else
-		{
-			if ( current_user_can( 'frontier_post_redir_edit' )	)
-				{
-					$frontier_edit_page = (int) fp_get_option('fps_page_id');
-					$url = '';
-					$concat= get_option("permalink_structure")?"?":"&";    
-					//set the permalink for the page itself
-					$frontier_permalink = get_permalink($frontier_edit_page);
-					$url = $frontier_permalink.$concat."task=edit&postid=".$post_id;
-				}
-        }
+	if ( is_admin() && strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/press-this.php' ) === false)
 		return $url;
+	
+	if (!fp_check_post_type(get_post_type($post_id)))
+		return $url;
+		
+	if ( current_user_can( 'frontier_post_redir_edit' )	)
+		{
+		$frontier_edit_page = (int) fp_get_option('fps_page_id');
+		$url = '';
+		$concat= get_option("permalink_structure")?"?":"&";    
+		//set the permalink for the page itself
+		$frontier_permalink = get_permalink($frontier_edit_page);
+		$url = $frontier_permalink.$concat."task=edit&postid=".$post_id;
+		}
+	return $url;
     }
 
 add_filter( 'get_edit_post_link', 'frontier_edit_post_link', 10, 2 );

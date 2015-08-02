@@ -9,7 +9,8 @@ class frontier_my_posts_widget extends WP_Widget
 	var $defaults;
 	
     /** constructor */
-    function frontier_my_posts_widget() 
+    //function frontier_my_posts_widget() 
+	public function __construct()
 		{
 	
 		$this->defaults = array(

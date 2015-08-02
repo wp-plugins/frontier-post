@@ -8,9 +8,8 @@ class frontier_approvals_widget extends WP_Widget
 	
 	var $defaults;
 	
-    /** constructor */
-    function frontier_approvals_widget() 
-		{
+    public function __construct() 
+   	{
 	
 		$this->defaults = array(
     		'title' 			=> __('My approvals','frontier-post'),
@@ -26,7 +25,10 @@ class frontier_approvals_widget extends WP_Widget
 		
 		
     	$widget_ops = array('description' => __( "List number of posts and comments for approval", 'frontier-post') );
-        parent::WP_Widget(false, $name = 'Frontier My Approvals', $widget_ops);	
+        //parent::WP_Widget(false, $name = 'Frontier My Approvals', $widget_ops);	
+		//parent::__construct('frontier-my-posts', 'Frontier My Posts', $widget_ops);
+		parent::__construct('frontier-my-approvals', 'Frontier My Approvals', $widget_ops);
+		
 		}
 
     /** @see WP_Widget::widget */

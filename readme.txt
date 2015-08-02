@@ -3,7 +3,7 @@ Contributors: finnj
 Donate link: 
 Tags: frontend, frontend post, frontend edit, frontier, post, widget, posts, taxonomy, Danish,
 Requires at least: 3.4.0
-Tested up to: 4.2.2
+Tested up to: 4.3
 Stable tag: 3.6.1
 License: GPL v3 or later
  
@@ -20,6 +20,7 @@ Frontier Post is intentionally made simple - But it is highly configuable if you
 
 = Main Features =
 * Add/Edit/Delete Posts and Pages with media directly from frontend
+* Create posts using PressThis, and edit them in Frontier Post
 * My Posts Widget 
 * My Approvals Widget
 * Capabilities are aligned with Wordpress standard.
@@ -89,6 +90,10 @@ Let me know what you think, and if you have enhancement requests or problems let
 7. My Approvals Widget
 
 == Changelog ==
+
+= 3.6.4 =
+* Updated widgets to support PHP 5 constructor (WP 4.3 requirement)
+* Added support for PressThis - Link: Edit in standard editor redirects to Frontier Post
 
 = 3.6.1 =
 * Fixed allowed categories. 
