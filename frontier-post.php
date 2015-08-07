@@ -4,12 +4,12 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.6.5
+Version: 3.6.6
 Author URI: http://wpfrontier.com
 */
 
 // define constants
-define('FRONTIER_POST_VERSION', "3.6.5"); 
+define('FRONTIER_POST_VERSION', "3.6.6"); 
 
 define('FRONTIER_POST_DIR', dirname( __FILE__ )); //an absolute path to this directory
 define('FRONTIER_POST_URL', plugin_dir_url( __FILE__ )); //url path to this directory
@@ -119,13 +119,15 @@ function frontier_user_posts($atts)
 	
 	
 
-	if ( has_shortcode( $post->post_content, 'frontier-post') && ($post->post_type === 'page') )
+	//if ( has_shortcode( $post->post_content, 'frontier-post') && ($post->post_type === 'page') )
+	//new in version 3.6.6, admin can choose wich post types are aloowed
+	if ( has_shortcode( $post->post_content, 'frontier-post') && ( in_array($post->post_type, fp_get_option_array('fps_sc_allowed_in')) ) )
 		{
 		if( is_user_logged_in() )
 			{  
 			
 			//if ( !is_page(get_the_id()) )
-			if ( $post->post_type !== 'page' )
+			if ( !in_array($post->post_type, fp_get_option_array('fps_sc_allowed_in')) )
 				{
 				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post")." (".$post->post_type.")</h1></center>");
 				return;         
@@ -246,7 +248,7 @@ function frontier_user_posts($atts)
 			ob_end_clean();
 			return $fp_content;
 			}
-			else
+		else
 			{
 			echo fp_login_text();
 			} // user_logged_in
@@ -257,7 +259,8 @@ function frontier_user_posts($atts)
 			if ( $post->post_type !== 'page' && is_singular() )
 				{
 				// Only show warning if single post
-				echo '<br><div id="frontier-post-alert">frontier-post shortcode '.__("not allowed in posts, only pages !", "frontier-post").' ('.$post->post_type.')</div><br>';
+				$sing = is_singular() ? "S" : "M";
+				echo '<br><div id="frontier-post-alert">frontier-post shortcode '.__("not only allowed in: ", "frontier-post").' '.implode(", ",fp_get_option_array('fps_sc_allowed_in')).' - This post type: ('.$post->post_type.') - ('.$post->ID.'/'.$sing.')</div><br>';
 				return;
 				}
 		} // has_shortcode

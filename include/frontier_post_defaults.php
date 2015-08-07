@@ -164,7 +164,8 @@ $fp_role_option_list 	= array(
 		'fps_tags_transform',
 		'fps_use_moderation',
 		'fps_mod_default_email',
-		'fps_cache_time_tax_lists'
+		'fps_cache_time_tax_lists',
+		'fps_sc_allowed_in'
 		);
 		
 	
@@ -216,7 +217,8 @@ $fp_role_option_list 	= array(
 		'fps_mod_default_email'			=> "false",
 		'fps_hide_add_on_list'			=> "false",
 		'fps_default_list'				=> "list",
-		'fps_cache_time_tax_lists'		=> -1
+		'fps_cache_time_tax_lists'		=> -1,
+		'fps_sc_allowed_in'				=> "page",
 		);
 
 

@@ -155,13 +155,19 @@ function frontier_post_admin_page_advanced()
 				echo "<td></td>";
 					echo "<td><strong>".__("Taxonomies", "frontier-post").":</strong><br>";
 					echo fps_checkbox_select_field("fps_custom_tax_list[]", $fps_general_options["fps_custom_tax_list"], fp_get_tax_list())."</td>";
-				
+					
 		echo "</tr><tr>";
 				echo "<td>".__("Default Taxonomy layout", "frontier-post")."</td>";
 				echo "<td></td>";
 				fps_html_field("fps_default_tax_select", 'select', $fps_general_options, true, 1, array_flip($category_types) );
 				
-		
+		echo "</tr><tr>";
+				echo "<td>".__("Allow shortcode in Post Types", "frontier-post")."</td>";
+				echo "<td></td>";
+				echo "<td><strong>".__("Post Types", "frontier-post").":</strong><br>";
+				echo fps_checkbox_select_field("fps_sc_allowed_in[]", $fps_general_options["fps_sc_allowed_in"], fp_get_post_type_list());
+				echo "<br><strong>".__("It only recommended to allow shortcode in pages, allowing in posts can enable authors to display information they might not have access to !!", "frontier-post")."</strong></td>";
+				
 		
 		echo "</tr><tr>";
 				echo "<td>".__("Send email to Admins on post to approve", "frontier-post")."</td>";
