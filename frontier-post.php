@@ -4,7 +4,7 @@ Plugin Name: Frontier Post
 Plugin URI: http://wordpress.org/extend/plugins/frontier-post/
 Description: Simple, Fast & Secure frontend management of posts - Add, Edit, Delete posts from frontend - My Posts Widget.
 Author: finnj
-Version: 3.6.6
+Version: 3.7.0
 Author URI: http://wpfrontier.com
 */
 
@@ -116,18 +116,18 @@ function frontier_user_posts($atts)
 	global $wp_roles;
 	global $current_user;
 	global $post;
-	
+	$sc_allowed_post_types = fp_get_option_array('fps_sc_allowed_in', array("page"));
 	
 
 	//if ( has_shortcode( $post->post_content, 'frontier-post') && ($post->post_type === 'page') )
 	//new in version 3.6.6, admin can choose wich post types are aloowed
-	if ( has_shortcode( $post->post_content, 'frontier-post') && ( in_array($post->post_type, fp_get_option_array('fps_sc_allowed_in')) ) )
+	if ( has_shortcode( $post->post_content, 'frontier-post') && ( in_array($post->post_type, $sc_allowed_post_types) ) )
 		{
 		if( is_user_logged_in() )
 			{  
 			
 			//if ( !is_page(get_the_id()) )
-			if ( !in_array($post->post_type, fp_get_option_array('fps_sc_allowed_in')) )
+			if ( !in_array($post->post_type, $sc_allowed_post_types) )
 				{
 				die('<center><h1>ERROR: '.__("frontier-post Shortcode only allowed in pages", "frontier-post")." (".$post->post_type.")</h1></center>");
 				return;         
@@ -256,11 +256,11 @@ function frontier_user_posts($atts)
 		else
 		{
 			//Shortcode called from enything else than page, not allowed
-			if ( $post->post_type !== 'page' && is_singular() )
+			if ( !in_array($post->post_type, $sc_allowed_post_types) && is_singular() )
 				{
 				// Only show warning if single post
 				$sing = is_singular() ? "S" : "M";
-				echo '<br><div id="frontier-post-alert">frontier-post shortcode '.__("not only allowed in: ", "frontier-post").' '.implode(", ",fp_get_option_array('fps_sc_allowed_in')).' - This post type: ('.$post->post_type.') - ('.$post->ID.'/'.$sing.')</div><br>';
+				echo '<br><div id="frontier-post-alert">frontier-post shortcode '.__("not only allowed in: ", "frontier-post").' '.implode(", ",$sc_allowed_post_types).' - This post type: ('.$post->post_type.') - ('.$post->ID.'/'.$sing.')</div><br>';
 				return;
 				}
 		} // has_shortcode
